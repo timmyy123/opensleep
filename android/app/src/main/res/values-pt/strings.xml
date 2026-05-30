@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Iniciar sono</string>
+    <string name="stop_sleep">Parar sono</string>
+    <string name="tracking_active">Rastreando o seu sono…</string>
+    <string name="tracking_idle">Pronto para rastrear o seu sono</string>
+    <string name="time_asleep">tempo dormindo</string>
+    <string name="live_stages">Fases ao vivo</string>
+    <string name="history_title">Histórico de sono</string>
+    <string name="no_sessions">Nenhuma sessão de sono ainda.\nToque em Iniciar sono para começar.</string>
+    <string name="ai_chat_title">Coach de sono</string>
+    <string name="no_model_loaded">Nenhum modelo carregado</string>
+    <string name="choose_model">Escolha o seu modelo de IA</string>
+    <string name="load_model">Usar</string>
+    <string name="download_model">Baixar</string>
+    <string name="chat_placeholder">Pergunte sobre o seu sono…</string>
+    <string name="notification_channel_name">Rastreamento de sono</string>
+    <string name="notification_channel_desc">Ativo enquanto o OpenSleep rastreia o seu sono</string>
+    <string name="notification_tracking_title">Rastreando o sono</string>
+    <string name="notification_tracking_text">O OpenSleep está monitorando seus padrões de sono</string>
+    <string name="menu_sleep">Sono</string>
+    <string name="menu_history">Histórico</string>
+    <string name="menu_chat">Chat IA</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="section_language">Idioma</string>
+    <string name="section_models">Modelos de IA</string>
+    <string name="chat_thinking">Pensando…</string>
+    <string name="no_models_downloaded">Nenhum modelo de IA baixado. Vá para as Configurações para escolher e baixar um modelo Gemma 4.</string>
+    <string name="configure_in_settings">Configurar em Configurações</string>
+    <string name="manage_models_in_settings">Gerenciar modelos em Configurações</string>
+    <string name="loading_model">Carregando o modelo na memória…</string>
+    <string name="chat_loading">Carregando…</string>
+    <string name="setting_context_size">Tamanho da Janela de Contexto</string>
+    <string name="active_model">Ativo</string>
+    <string name="ready_to_use">Pronto para usar</string>
+    </resources>

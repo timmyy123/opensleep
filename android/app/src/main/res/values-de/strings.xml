@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Schlaf starten</string>
+    <string name="stop_sleep">Schlaf stoppen</string>
+    <string name="tracking_active">Dein Schlaf wird aufgezeichnet…</string>
+    <string name="tracking_idle">Bereit zur Schlafaufzeichnung</string>
+    <string name="time_asleep">Schlafzeit</string>
+    <string name="live_stages">Live-Phasen</string>
+    <string name="history_title">Schlafverlauf</string>
+    <string name="no_sessions">Noch keine Schlafsitzungen.\nTippe auf Schlaf starten.</string>
+    <string name="ai_chat_title">Schlaf-Coach</string>
+    <string name="no_model_loaded">Kein Modell geladen</string>
+    <string name="choose_model">KI-Modell auswählen</string>
+    <string name="load_model">Verwenden</string>
+    <string name="download_model">Herunterladen</string>
+    <string name="chat_placeholder">Frage zu deinem Schlaf…</string>
+    <string name="notification_channel_name">Schlafaufzeichnung</string>
+    <string name="notification_channel_desc">Aktiv während OpenSleep deinen Schlaf aufzeichnet</string>
+    <string name="notification_tracking_title">Schlaf wird aufgezeichnet</string>
+    <string name="notification_tracking_text">OpenSleep überwacht deine Schlafmuster</string>
+    <string name="menu_sleep">Schlaf</string>
+    <string name="menu_history">Verlauf</string>
+    <string name="menu_chat">KI-Chat</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="section_language">Sprache</string>
+    <string name="section_models">KI-Modelle</string>
+    <string name="chat_thinking">Nachdenken…</string>
+    <string name="no_models_downloaded">Noch keine KI-Modelle heruntergeladen. Gehe zu den Einstellungen, um ein Gemma 4 Modell auszuwählen und herunterzuladen.</string>
+    <string name="configure_in_settings">In Einstellungen konfigurieren</string>
+    <string name="manage_models_in_settings">Modelle in Einstellungen verwalten</string>
+    <string name="loading_model">Modell in den Speicher laden…</string>
+    <string name="setting_context_size">Größe des Kontextfensters</string>
+    <string name="chat_loading">Laden…</string>
+    <string name="active_model">Aktiv</string>
+    <string name="ready_to_use">Einsatzbereit</string>
+    </resources>

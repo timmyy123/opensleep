@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Start Sleep</string>
+    <string name="stop_sleep">Stop Sleep</string>
+    <string name="tracking_active">Tracking your sleep…</string>
+    <string name="tracking_idle">Ready to track your sleep</string>
+    <string name="time_asleep">time asleep</string>
+    <string name="live_stages">Live stages</string>
+    <string name="history_title">Sleep History</string>
+    <string name="no_sessions">No sleep sessions yet.\nTap Start Sleep to begin.</string>
+    <string name="ai_chat_title">Sleep Coach</string>
+    <string name="no_model_loaded">No model loaded</string>
+    <string name="choose_model">Choose your AI model</string>
+    <string name="load_model">Use</string>
+    <string name="download_model">Download</string>
+    <string name="chat_placeholder">Ask about your sleep…</string>
+    <string name="notification_channel_name">Sleep Tracking</string>
+    <string name="notification_channel_desc">Active while OpenSleep tracks your sleep</string>
+    <string name="notification_tracking_title">Tracking sleep</string>
+    <string name="notification_tracking_text">OpenSleep is monitoring your sleep patterns</string>
+    <string name="menu_sleep">Sleep</string>
+    <string name="menu_history">History</string>
+    <string name="menu_chat">AI Chat</string>
+    <string name="menu_settings">Settings</string>
+    <string name="section_language">Language</string>
+    <string name="section_models">AI Models</string>
+    <string name="chat_thinking">Thinking…</string>
+    <string name="no_models_downloaded">No AI models downloaded yet. Go to Settings to choose and download a Gemma 4 model.</string>
+    <string name="configure_in_settings">Configure in Settings</string>
+    <string name="manage_models_in_settings">Manage Models in Settings</string>
+    <string name="loading_model">Loading model into memory…</string>
+    <string name="chat_loading">Loading…</string>
+    <string name="setting_context_size">Context Window Size</string>
+    <string name="active_model">Active</string>
+    <string name="ready_to_use">Ready to Use</string>
+    </resources>

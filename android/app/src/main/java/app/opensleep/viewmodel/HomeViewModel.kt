@@ -1,0 +1,83 @@
+package app.opensleep.viewmodel
+
+import android.content.Context
+import android.content.Intent
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.opensleep.data.local.SleepSession
+import app.opensleep.data.repository.SleepRepository
+import app.opensleep.domain.HealthSyncManager
+import app.opensleep.service.SleepTrackerService
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+class HomeViewModel(
+    private val repository: SleepRepository,
+    private val healthSync: HealthSyncManager
+) : ViewModel() {
+
+    private val _activeSession = MutableStateFlow<SleepSession?>(null)
+    val activeSession: StateFlow<SleepSession?> = _activeSession.asStateFlow()
+
+    private val _isSleeping = MutableStateFlow(false)
+    val isSleeping: StateFlow<Boolean> = _isSleeping.asStateFlow()
+
+    private val _elapsedSeconds = MutableStateFlow(0L)
+    val elapsedSeconds: StateFlow<Long> = _elapsedSeconds.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            repository.getActiveSession().collectLatest { session ->
+                _activeSession.value = session
+                _isSleeping.value = session != null
+                if (session != null) {
+                    _elapsedSeconds.value = (System.currentTimeMillis() - session.startTimeMs) / 1000
+                }
+            }
+        }
+
+        // Tick elapsed time
+        viewModelScope.launch {
+            while (true) {
+                kotlinx.coroutines.delay(1000)
+                val session = _activeSession.value
+                if (session != null) {
+                    _elapsedSeconds.value = (System.currentTimeMillis() - session.startTimeMs) / 1000
+                }
+            }
+        }
+    }
+
+    fun startSleep(context: Context) {
+        viewModelScope.launch {
+            val session = repository.startSession()
+            val intent = Intent(context, SleepTrackerService::class.java).apply {
+                action = SleepTrackerService.ACTION_START
+                putExtra(SleepTrackerService.EXTRA_SESSION_ID, session.id)
+            }
+            context.startForegroundService(intent)
+        }
+    }
+
+    fun stopSleep(context: Context) {
+        val intent = Intent(context, SleepTrackerService::class.java).apply {
+            action = SleepTrackerService.ACTION_STOP
+        }
+        context.startService(intent)
+
+        // Sync to Health Connect in background
+        viewModelScope.launch {
+            kotlinx.coroutines.delay(3000) // Wait for service to finalize
+            val session = _activeSession.value ?: return@launch
+            if (healthSync.isAvailable() && healthSync.hasPermissions()) {
+                val updatedSession = repository.getSessionById(session.id) ?: return@launch
+                if (healthSync.writeSleepSession(updatedSession)) {
+                    repository.markSynced(session.id)
+                }
+            }
+        }
+    }
+}

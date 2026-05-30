@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Commencer le sommeil</string>
+    <string name="stop_sleep">Arrêter le sommeil</string>
+    <string name="tracking_active">Suivi de votre sommeil…</string>
+    <string name="tracking_idle">Prêt à suivre votre sommeil</string>
+    <string name="time_asleep">temps de sommeil</string>
+    <string name="live_stages">Phases en direct</string>
+    <string name="history_title">Historique du sommeil</string>
+    <string name="no_sessions">Aucune session de sommeil.\nAppuyez sur Commencer pour débuter.</string>
+    <string name="ai_chat_title">Coach du sommeil</string>
+    <string name="no_model_loaded">Aucun modèle chargé</string>
+    <string name="choose_model">Choisissez votre modèle IA</string>
+    <string name="load_model">Utiliser</string>
+    <string name="download_model">Télécharger</string>
+    <string name="chat_placeholder">Posez une question sur votre sommeil…</string>
+    <string name="notification_channel_name">Suivi du sommeil</string>
+    <string name="notification_channel_desc">Actif pendant que OpenSleep suit votre sommeil</string>
+    <string name="notification_tracking_title">Suivi du sommeil</string>
+    <string name="notification_tracking_text">OpenSleep surveille vos habitudes de sommeil</string>
+    <string name="menu_sleep">Sommeil</string>
+    <string name="menu_history">Historique</string>
+    <string name="menu_chat">Chat IA</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="section_language">Langue</string>
+    <string name="section_models">Modèles d\'IA</string>
+    <string name="chat_thinking">Réflexion…</string>
+    <string name="no_models_downloaded">Aucun modèle IA téléchargé. Allez dans les Paramètres pour choisir et télécharger un modèle Gemma 4.</string>
+    <string name="configure_in_settings">Configurer dans les Paramètres</string>
+    <string name="manage_models_in_settings">Gérer les modèles dans les Paramètres</string>
+    <string name="loading_model">Chargement du modèle en mémoire…</string>
+    <string name="setting_context_size">Taille de la fenêtre de contexte</string>
+    <string name="chat_loading">Chargement…</string>
+    <string name="active_model">Actif</string>
+    <string name="ready_to_use">Prêt à l\'emploi</string>
+    </resources>

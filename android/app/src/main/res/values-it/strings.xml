@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Inizia il sonno</string>
+    <string name="stop_sleep">Ferma il sonno</string>
+    <string name="tracking_active">Monitoraggio del sonno in corso…</string>
+    <string name="tracking_idle">Pronto per monitorare il tuo sonno</string>
+    <string name="time_asleep">tempo di sonno</string>
+    <string name="live_stages">Fasi in diretta</string>
+    <string name="history_title">Storico del sonno</string>
+    <string name="no_sessions">Nessuna sessione di sonno.\nTocca Inizia il sonno per cominciare.</string>
+    <string name="ai_chat_title">Coach del sonno</string>
+    <string name="no_model_loaded">Nessun modello caricato</string>
+    <string name="choose_model">Scegli il tuo modello IA</string>
+    <string name="load_model">Usa</string>
+    <string name="download_model">Scarica</string>
+    <string name="chat_placeholder">Chiedi del tuo sonno…</string>
+    <string name="notification_channel_name">Monitoraggio sonno</string>
+    <string name="notification_channel_desc">Attivo mentre OpenSleep monitora il tuo sonno</string>
+    <string name="notification_tracking_title">Monitoraggio del sonno</string>
+    <string name="notification_tracking_text">OpenSleep sta monitorando i tuoi pattern di sonno</string>
+    <string name="menu_sleep">Sonno</string>
+    <string name="menu_history">Cronologia</string>
+    <string name="menu_chat">Chat IA</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="section_language">Lingua</string>
+    <string name="section_models">Modelli di IA</string>
+    <string name="chat_thinking">Riflessione…</string>
+    <string name="no_models_downloaded">Nessun modello IA scaricato. Vai nelle Impostazioni per scegliere e scaricare un modello Gemma 4.</string>
+    <string name="configure_in_settings">Configura nelle Impostazioni</string>
+    <string name="manage_models_in_settings">Gestisci i modelli nelle Impostazioni</string>
+    <string name="loading_model">Caricamento del modello in memoria…</string>
+    <string name="setting_context_size">Dimensione della finestra di contesto</string>
+    <string name="chat_loading">Caricamento…</string>
+    <string name="active_model">Attivo</string>
+    <string name="ready_to_use">Pronto all\'uso</string>
+    </resources>

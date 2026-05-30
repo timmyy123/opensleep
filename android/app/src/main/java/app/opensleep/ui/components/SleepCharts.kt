@@ -1,0 +1,167 @@
+package app.opensleep.ui.components
+
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import app.opensleep.data.local.SleepStageType
+import app.opensleep.ui.theme.*
+import java.util.concurrent.TimeUnit
+
+fun stageColor(type: SleepStageType): Color = when (type) {
+    SleepStageType.AWAKE -> ColorAwake
+    SleepStageType.LIGHT -> ColorLight
+    SleepStageType.DEEP -> ColorDeep
+    SleepStageType.REM -> ColorREM
+}
+
+/**
+ * Donut chart showing proportion of each sleep stage.
+ */
+@Composable
+fun SleepRingChart(
+    stageDurations: Map<SleepStageType, Long>,
+    modifier: Modifier = Modifier
+) {
+    val totalMs = stageDurations.values.sum().takeIf { it > 0 } ?: return
+    val nonZero = stageDurations.filter { it.value > 0 }
+    val angles = nonZero.map { (type, ms) ->
+        type to (ms.toFloat() / totalMs * 360f)
+    }
+
+    val strokeWidth = 28.dp
+
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val diameter = minOf(size.width, size.height)
+            val strokePx = strokeWidth.toPx()
+            val topLeft = Offset(
+                (size.width - diameter) / 2 + strokePx / 2,
+                (size.height - diameter) / 2 + strokePx / 2
+            )
+            val arcSize = Size(diameter - strokePx, diameter - strokePx)
+
+            var startAngle = -90f
+            angles.forEach { (type, sweep) ->
+                drawArc(
+                    color = stageColor(type),
+                    startAngle = startAngle,
+                    sweepAngle = sweep - 1f, // 1dp gap
+                    useCenter = false,
+                    topLeft = topLeft,
+                    size = arcSize,
+                    style = Stroke(width = strokePx, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+                )
+                startAngle += sweep
+            }
+        }
+
+        // Center text — total sleep hours
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            val hours = TimeUnit.MILLISECONDS.toHours(totalMs)
+            val minutes = TimeUnit.MILLISECONDS.toMinutes(totalMs) % 60
+            Text(
+                text = "${hours}h ${minutes}m",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = TextPrimary
+                )
+            )
+            Text(
+                text = "total",
+                style = MaterialTheme.typography.labelSmall.copy(color = TextSecondary)
+            )
+        }
+    }
+}
+
+/**
+ * Horizontal hypnogram — time-series strip chart showing sleep stages over the night.
+ */
+@Composable
+fun SleepHypnogram(
+    stages: List<app.opensleep.data.local.SleepStage>,
+    totalDurationMs: Long,
+    modifier: Modifier = Modifier
+) {
+    if (stages.isEmpty() || totalDurationMs <= 0) return
+
+    val stageOrder = listOf(
+        SleepStageType.AWAKE to 0f,
+        SleepStageType.REM to 0.33f,
+        SleepStageType.LIGHT to 0.66f,
+        SleepStageType.DEEP to 1f
+    )
+
+    Canvas(modifier = modifier.height(80.dp).fillMaxWidth()) {
+        val totalWidth = size.width
+        val height = size.height
+        val trackHeight = height / stageOrder.size
+        val startMs = stages.firstOrNull()?.startMs ?: return@Canvas
+
+        stages.forEach { stage ->
+            val x = ((stage.startMs - startMs).toFloat() / totalDurationMs) * totalWidth
+            val w = ((stage.endMs - stage.startMs).toFloat() / totalDurationMs) * totalWidth
+            val yIdx = stageOrder.indexOfFirst { it.first == stage.type }
+            val y = yIdx * trackHeight
+
+            drawRect(
+                color = stageColor(stage.type).copy(alpha = 0.85f),
+                topLeft = Offset(x, y),
+                size = Size(w.coerceAtLeast(2f), trackHeight - 2f)
+            )
+        }
+    }
+}
+
+/**
+ * Legend row for sleep stages.
+ */
+@Composable
+fun SleepStageLegend(
+    stageDurations: Map<SleepStageType, Long>,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        SleepStageType.entries.forEach { type ->
+            val ms = stageDurations[type] ?: 0L
+            val minutes = TimeUnit.MILLISECONDS.toMinutes(ms)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Box(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .padding(bottom = 2.dp)
+                ) {
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+                        drawCircle(color = stageColor(type))
+                    }
+                }
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = type.name.lowercase().replaceFirstChar { it.uppercaseChar() },
+                    style = MaterialTheme.typography.labelSmall,
+                    color = stageColor(type)
+                )
+                Text(
+                    text = "${minutes}m",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TextSecondary
+                )
+            }
+        }
+    }
+}
