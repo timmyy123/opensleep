@@ -10,7 +10,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "app.opensleep"
+        applicationId = "tech.opensleep"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -44,6 +44,12 @@ android {
         }
         jniLibs {
             useLegacyPackaging = true
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
         }
     }
 }

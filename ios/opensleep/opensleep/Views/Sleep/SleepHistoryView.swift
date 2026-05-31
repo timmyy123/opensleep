@@ -42,19 +42,27 @@ struct SleepHistoryView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.navyDeep.ignoresSafeArea()
-
+            Group {
                 if sessions.filter(\.isCompleted).isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "moon.zzz.fill")
-                            .font(.system(size: 60))
-                            .foregroundStyle(Color.indigoAccent.opacity(0.4))
-                        Text("no_sessions")
-                            .font(AppTextStyle.bodyLarge)
-                            .foregroundStyle(Color.textTertiary)
-                            .multilineTextAlignment(.center)
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            Spacer()
+                                .frame(height: 120)
+                            
+                            Image(systemName: "moon.zzz.fill")
+                                .font(.system(size: 60))
+                                .foregroundStyle(Color.indigoAccent.opacity(0.4))
+                            
+                            Text("no_sessions")
+                                .font(AppTextStyle.bodyLarge)
+                                .foregroundStyle(Color.textTertiary)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 24)
                     }
+                    .scrollDisabled(true)
+                    .background(Color.navyDeep.ignoresSafeArea())
                 } else {
                     ZStack {
                         List {
@@ -111,6 +119,7 @@ struct SleepHistoryView: View {
                             multiSelectActionBar()
                         }
                     }
+                    .background(Color.navyDeep.ignoresSafeArea())
                 }
             }
             .navigationTitle("history_title")

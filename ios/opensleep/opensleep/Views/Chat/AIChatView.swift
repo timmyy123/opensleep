@@ -27,6 +27,11 @@ struct AIChatView: View {
     var body: some View {
         ZStack {
             Color.navyDeep.ignoresSafeArea()
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+            
             VStack(spacing: 0) {
                 // Header
                 chatHeader
