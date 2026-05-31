@@ -153,7 +153,10 @@ struct SleepButton: View {
                               ? Color(red: 0.12, green: 0.11, blue: 0.29)
                               : Color.indigoAccent)
                         .frame(width: 160, height: 160)
-                        .shadow(color: Color.indigoAccent.opacity(0.5), radius: isSleeping ? 20 : 8)
+                        .shadow(
+                            color: isSleeping ? Color.indigoAccent.opacity(0.5) : .clear,
+                            radius: isSleeping ? 20 : 0
+                        )
 
                     VStack(spacing: 8) {
                         Image(systemName: isSleeping ? "stop.fill" : "moon.fill")

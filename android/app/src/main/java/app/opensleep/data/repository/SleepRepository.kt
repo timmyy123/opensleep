@@ -49,5 +49,10 @@ class SleepRepository(private val dao: SleepSessionDao) {
 
     suspend fun getRecentSessions(): List<SleepSession> = dao.getRecentSessions()
 
+    suspend fun getSessionInTimeRange(fromTime: Long, toTime: Long): SleepSession? =
+        dao.getSessionInTimeRange(fromTime, toTime)
+
+    suspend fun insertSession(session: SleepSession) = dao.insert(session)
+
     suspend fun deleteSession(id: String) = dao.deleteById(id)
 }

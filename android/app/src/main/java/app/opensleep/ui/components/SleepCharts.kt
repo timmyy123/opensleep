@@ -65,11 +65,11 @@ fun SleepRingChart(
                 drawArc(
                     color = stageColor(type),
                     startAngle = startAngle,
-                    sweepAngle = sweep - 1f, // 1dp gap
+                    sweepAngle = sweep,
                     useCenter = false,
                     topLeft = topLeft,
                     size = arcSize,
-                    style = Stroke(width = strokePx, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+                    style = Stroke(width = strokePx, cap = androidx.compose.ui.graphics.StrokeCap.Butt)
                 )
                 startAngle += sweep
             }

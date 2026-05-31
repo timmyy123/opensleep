@@ -39,46 +39,49 @@ struct AIChatView: View {
                 // Removed model picker
 
                 // Messages
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        LazyVStack(spacing: 8) {
-                            ForEach(messages) { msg in
-                                ChatBubbleView(message: msg)
-                                    .id(msg.id)
-                            }
-                            if !streamingText.isEmpty {
-                                ChatBubbleView(isUser: false, text: streamingText, isStreaming: true)
-                                    .id("streaming")
-                            }
-                            if isGenerating && streamingText.isEmpty {
-                                HStack(spacing: 8) {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
-                                        .tint(Color.indigoAccent)
-                                        .scaleEffect(0.7)
-                                    Text(liteRt.state == .loading ? LocalizedStringKey("chat_loading") : LocalizedStringKey("chat_thinking"))
-                                        .font(AppTextStyle.bodyMedium)
-                                        .foregroundStyle(Color.textSecondary)
-                                    Spacer()
+                GeometryReader { geometry in
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            LazyVStack(spacing: 8) {
+                                ForEach(messages) { msg in
+                                    ChatBubbleView(message: msg)
+                                        .id(msg.id)
                                 }
-                                .padding(.horizontal, 16)
-                                .id("thinking")
+                                if !streamingText.isEmpty {
+                                    ChatBubbleView(isUser: false, text: streamingText, isStreaming: true)
+                                        .id("streaming")
+                                }
+                                if isGenerating && streamingText.isEmpty {
+                                    HStack(spacing: 8) {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                            .tint(Color.indigoAccent)
+                                            .scaleEffect(0.7)
+                                        Text(liteRt.state == .loading ? LocalizedStringKey("chat_loading") : LocalizedStringKey("chat_thinking"))
+                                            .font(AppTextStyle.bodyMedium)
+                                            .foregroundStyle(Color.textSecondary)
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, 16)
+                                    .id("thinking")
+                                }
+                                Color.clear.frame(height: 8).id("bottom")
                             }
-                            Color.clear.frame(height: 8).id("bottom")
+                            .padding(.horizontal, 12)
+                            .padding(.top, 8)
+                            .frame(minHeight: geometry.size.height, alignment: .top)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.top, 8)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        .scrollDismissesKeyboard(.interactively)
+                        .onChange(of: messages.count) { _, _ in
+                            withAnimation { proxy.scrollTo("bottom") }
                         }
-                    }
-                    .scrollDismissesKeyboard(.interactively)
-                    .onChange(of: messages.count) { _, _ in
-                        withAnimation { proxy.scrollTo("bottom") }
-                    }
-                    .onChange(of: streamingText) { _, _ in
-                        proxy.scrollTo("streaming", anchor: .bottom)
+                        .onChange(of: streamingText) { _, _ in
+                            proxy.scrollTo("streaming", anchor: .bottom)
+                        }
                     }
                 }
 

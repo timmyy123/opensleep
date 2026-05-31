@@ -21,6 +21,9 @@ interface SleepSessionDao {
     @Query("SELECT * FROM sleep_sessions ORDER BY startTimeMs DESC LIMIT :limit")
     suspend fun getRecentSessions(limit: Int = 7): List<SleepSession>
 
+    @Query("SELECT * FROM sleep_sessions WHERE startTimeMs >= :fromTime AND startTimeMs <= :toTime LIMIT 1")
+    suspend fun getSessionInTimeRange(fromTime: Long, toTime: Long): SleepSession?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(session: SleepSession)
 

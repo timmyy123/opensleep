@@ -9,6 +9,9 @@ import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import app.opensleep.data.local.SleepSession
 import app.opensleep.data.local.SleepStageType
+import app.opensleep.data.local.SleepStage
+import app.opensleep.data.local.encodeToString
+import app.opensleep.data.repository.SleepRepository
 import java.time.Instant
 import java.time.ZoneId
 
@@ -98,5 +101,81 @@ class HealthSyncManager(private val context: Context) {
         SleepStageType.LIGHT -> SleepSessionRecord.STAGE_TYPE_LIGHT
         SleepStageType.DEEP -> SleepSessionRecord.STAGE_TYPE_DEEP
         SleepStageType.REM -> SleepSessionRecord.STAGE_TYPE_REM
+    }
+
+    private val prefs = context.getSharedPreferences("opensleep_sync_prefs", Context.MODE_PRIVATE)
+
+    fun markSessionAsDeleted(startTimeMs: Long) {
+        val deletedTimes = getDeletedSessionStartTimes().toMutableSet()
+        deletedTimes.add(startTimeMs.toString())
+        
+        // Keep only the most recent 100 deleted sessions
+        val sortedList = deletedTimes.mapNotNull { it.toLongOrNull() }.sortedDescending()
+        val keptList = sortedList.take(100)
+        
+        prefs.edit().putStringSet("deleted_sessions", keptList.map { it.toString() }.toSet()).apply()
+    }
+
+    fun isSessionDeleted(startTimeMs: Long): Boolean {
+        val deletedTimes = getDeletedSessionStartTimes().mapNotNull { it.toLongOrNull() }
+        return deletedTimes.any { java.lang.Math.abs(it - startTimeMs) <= 3600 * 1000 }
+    }
+
+    private fun getDeletedSessionStartTimes(): Set<String> {
+        return prefs.getStringSet("deleted_sessions", emptySet()) ?: emptySet()
+    }
+
+    suspend fun syncSleepDataFromHealthConnect(repository: SleepRepository): Int {
+        val c = client ?: return 0
+        if (!hasPermissions()) return 0
+        
+        val endTime = Instant.now()
+        val startTime = endTime.minus(java.time.Duration.ofDays(730))
+        
+        return runCatching {
+            val response = c.readRecords(
+                ReadRecordsRequest(
+                    recordType = SleepSessionRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                )
+            )
+            
+            var importCount = 0
+            for (record in response.records) {
+                val recordStartMs = record.startTime.toEpochMilli()
+                val recordEndMs = record.endTime.toEpochMilli()
+                
+                val existing = repository.getSessionInTimeRange(recordStartMs - 3600 * 1000, recordStartMs + 3600 * 1000)
+                val isDeleted = isSessionDeleted(recordStartMs)
+                if (existing == null && !isDeleted) {
+                    val stages = record.stages.map { stageRecord ->
+                        val stageType = when (stageRecord.stage) {
+                            SleepSessionRecord.STAGE_TYPE_AWAKE -> SleepStageType.AWAKE
+                            SleepSessionRecord.STAGE_TYPE_DEEP -> SleepStageType.DEEP
+                            SleepSessionRecord.STAGE_TYPE_REM -> SleepStageType.REM
+                            else -> SleepStageType.LIGHT
+                        }
+                        SleepStage(
+                            type = stageType,
+                            startMs = stageRecord.startTime.toEpochMilli(),
+                            endMs = stageRecord.endTime.toEpochMilli()
+                        )
+                    }
+                    
+                    val id = java.util.UUID.randomUUID().toString()
+                    val newSession = SleepSession(
+                        id = id,
+                        startTimeMs = recordStartMs,
+                        endTimeMs = recordEndMs,
+                        stagesJson = stages.encodeToString(),
+                        syncedToHealthConnect = true
+                    )
+                    
+                    repository.insertSession(newSession)
+                    importCount++
+                }
+            }
+            importCount
+        }.getOrDefault(0)
     }
 }

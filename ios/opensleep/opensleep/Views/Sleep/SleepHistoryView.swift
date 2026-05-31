@@ -100,7 +100,7 @@ struct SleepHistoryView: View {
                                             sessionsToDelete = [session]
                                             showDeleteAlert = true
                                         } label: {
-                                            Label("Delete", systemImage: "trash")
+                                            Label("delete_confirm", systemImage: "trash")
                                         }
                                     }
                                 }
@@ -154,6 +154,7 @@ struct SleepHistoryView: View {
                     let targets = sessionsToDelete
                     Task {
                         for session in targets {
+                            healthKit.markSessionAsDeleted(startDate: session.startDate)
                             let _ = await healthKit.deleteSleepSession(session)
                             modelContext.delete(session)
                         }
@@ -172,6 +173,13 @@ struct SleepHistoryView: View {
                 Text(sessionsToDelete.count > 1 
                      ? "This will permanently delete the \(sessionsToDelete.count) selected sleep sessions and their synced health data."
                      : "delete_session_message")
+            }
+            .task {
+                let _ = await healthKit.requestAuthorization()
+                let imported = await healthKit.syncSleepDataFromHealthKit(modelContext: modelContext)
+                if imported > 0 {
+                    print("Imported \(imported) sleep sessions from HealthKit.")
+                }
             }
         }
     }

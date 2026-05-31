@@ -4,6 +4,19 @@ import SwiftUI
 
 struct SleepRingChart: View {
     let stageDurations: [SleepStageType: TimeInterval]
+    @AppStorage("app_language") private var selectedLanguage = "en"
+
+    private var languageBundle: Bundle {
+        if let path = Bundle.main.path(forResource: selectedLanguage, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            return bundle
+        }
+        return Bundle.main
+    }
+
+    private func localizedString(_ key: String) -> String {
+        return languageBundle.localizedString(forKey: key, value: nil, table: nil)
+    }
 
     private var total: TimeInterval {
         stageDurations.values.reduce(0, +)
@@ -28,7 +41,7 @@ struct SleepRingChart: View {
                 var startAngle = Angle.degrees(-90)
                 for (type, duration) in nonZero {
                     let fraction = duration / total
-                    let sweep = Angle.degrees(fraction * 360 - 1)
+                    let sweep = Angle.degrees(fraction * 360)
                     var path = Path()
                     path.addArc(center: CGPoint(x: size.width / 2, y: size.height / 2),
                                radius: (diameter - lineWidth) / 2,
@@ -36,9 +49,9 @@ struct SleepRingChart: View {
                                endAngle: startAngle + sweep,
                                clockwise: false)
                     ctx.stroke(path,
-                              with: .color(Color.forStage(type)),
-                              style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                    startAngle += Angle.degrees(fraction * 360)
+                               with: .color(Color.forStage(type)),
+                               style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt))
+                    startAngle += sweep
                 }
             }
 
@@ -49,7 +62,7 @@ struct SleepRingChart: View {
                 Text("\(h)h \(m)m")
                     .font(.system(size: 18, weight: .bold, design: .rounded))
                     .foregroundStyle(Color.textPrimary)
-                Text("total")
+                Text(localizedString("total"))
                     .font(AppTextStyle.labelSmall)
                     .foregroundStyle(Color.textSecondary)
             }
