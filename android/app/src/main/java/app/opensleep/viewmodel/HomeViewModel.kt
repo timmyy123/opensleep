@@ -67,17 +67,5 @@ class HomeViewModel(
             action = SleepTrackerService.ACTION_STOP
         }
         context.startService(intent)
-
-        // Sync to Health Connect in background
-        viewModelScope.launch {
-            kotlinx.coroutines.delay(3000) // Wait for service to finalize
-            val session = _activeSession.value ?: return@launch
-            if (healthSync.isAvailable() && healthSync.hasPermissions()) {
-                val updatedSession = repository.getSessionById(session.id) ?: return@launch
-                if (healthSync.writeSleepSession(updatedSession)) {
-                    repository.markSynced(session.id)
-                }
-            }
-        }
     }
 }

@@ -82,17 +82,56 @@ class SleepTrackerService : Service(), SensorEventListener {
 
     private fun stopTracking() {
         sensorManager.unregisterListener(this)
+        
+        // Show user-noticeable background data sync status in the foreground notification
+        updateNotificationToSyncing()
+
         serviceScope.launch {
             val sid = sessionId ?: repository.getActiveSessionOneShot()?.id
             if (sid != null) {
-                val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
-                val stages = analyzer.computeStages(startTime)
-                repository.endSession(sid, stages)
+                val session = repository.getSessionById(sid)
+                if (session != null) {
+                    val startTime = session.startTimeMs
+                    val stages = analyzer.computeStages(startTime)
+                    repository.endSession(sid, stages)
+                    
+                    // Perform background health synchronization inside the foreground service
+                    val healthSync = app.opensleep.domain.HealthSyncManager(applicationContext)
+                    if (healthSync.isAvailable() && healthSync.hasPermissions()) {
+                        val updatedSession = repository.getSessionById(sid)
+                        if (updatedSession != null) {
+                            if (healthSync.writeSleepSession(updatedSession)) {
+                                repository.markSynced(sid)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Clean up and stop the foreground service safely after complete data sync!
+            withContext(Dispatchers.Main) {
+                if (wakeLock.isHeld) wakeLock.release()
+                stopForeground(STOP_FOREGROUND_REMOVE)
+                stopSelf()
             }
         }
-        if (wakeLock.isHeld) wakeLock.release()
-        stopForeground(STOP_FOREGROUND_REMOVE)
-        stopSelf()
+    }
+
+    private fun updateNotificationToSyncing() {
+        val tapIntent = Intent(this, MainActivity::class.java)
+        val tapPending = PendingIntent.getActivity(
+            this, 0, tapIntent, PendingIntent.FLAG_IMMUTABLE
+        )
+        val notification = Notification.Builder(this, CHANNEL_ID)
+            .setContentTitle(getString(R.string.notification_syncing_title))
+            .setContentText(getString(R.string.notification_syncing_text))
+            .setSmallIcon(android.R.drawable.stat_notify_sync)
+            .setContentIntent(tapPending)
+            .setOngoing(true)
+            .build()
+        
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
     override fun onSensorChanged(event: SensorEvent) {

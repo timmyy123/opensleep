@@ -19,6 +19,8 @@
     <string name="notification_channel_desc">Active while OpenSleep tracks your sleep</string>
     <string name="notification_tracking_title">Tracking sleep</string>
     <string name="notification_tracking_text">OpenSleep is monitoring your sleep patterns</string>
+    <string name="notification_syncing_title">Syncing sleep data</string>
+    <string name="notification_syncing_text">OpenSleep is saving and syncing your data…</string>
     <string name="menu_sleep">Sleep</string>
     <string name="menu_history">History</string>
     <string name="menu_chat">AI Chat</string>
