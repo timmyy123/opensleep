@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var downloadManager: ModelDownloadManager
     @AppStorage("app_language") private var selectedLanguage = "en"
+    @State private var showPrivacySheet = false
 
     let languages = [
         ("en", "English"),
@@ -56,9 +57,54 @@ struct SettingsView: View {
                         }
                     }
 
+                    // About & Resources Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("section_about")
+                            .font(AppTextStyle.titleLarge)
+                            .foregroundStyle(Color.indigoLight)
+
+                        GlassCard(padding: 16) {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Button {
+                                    showPrivacySheet = true
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "hand.raised.fill")
+                                            .foregroundStyle(Color.indigoLight)
+                                        Text("privacy_tos")
+                                            .font(AppTextStyle.bodyMedium)
+                                            .foregroundStyle(Color.textPrimary)
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .foregroundStyle(Color.textTertiary)
+                                    }
+                                }
+                                
+                                Divider()
+                                    .background(Color.indigoLight.opacity(0.3))
+                                
+                                Link(destination: URL(string: "https://github.com/timmyy123/opensleep")!) {
+                                    HStack {
+                                        Image(systemName: "safari.fill")
+                                            .foregroundStyle(Color.indigoLight)
+                                        Text("github_repo")
+                                            .font(AppTextStyle.bodyMedium)
+                                            .foregroundStyle(Color.textPrimary)
+                                        Spacer()
+                                        Image(systemName: "link")
+                                            .foregroundStyle(Color.textTertiary)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     Spacer().frame(height: 32)
                 }
                 .padding(.horizontal, 20)
+            }
+            .sheet(isPresented: $showPrivacySheet) {
+                PrivacySheetView()
             }
         }
     }
@@ -277,6 +323,54 @@ struct ModelDownloadCard: View {
             return String(format: "%.1f MB", mb)
         } else {
             return String(format: "%.1f KB", kb)
+        }
+    }
+}
+
+struct PrivacySheetView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ZStack {
+            Color.navyDeep.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Handle bar
+                Capsule()
+                    .fill(Color.textTertiary.opacity(0.5))
+                    .frame(width: 36, height: 5)
+                    .padding(.top, 12)
+                    .padding(.bottom, 20)
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("privacy_title")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundStyle(Color.indigoLight)
+                        
+                        Text("privacy_body")
+                            .font(AppTextStyle.bodyMedium)
+                            .foregroundStyle(Color.textPrimary)
+                            .lineSpacing(6)
+                        
+                        Spacer(minLength: 24)
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("cancel") // cancel is localized to "Cancelar"/"Done" which fits close button perfectly
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.indigoAccent)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 32)
+                }
+            }
         }
     }
 }

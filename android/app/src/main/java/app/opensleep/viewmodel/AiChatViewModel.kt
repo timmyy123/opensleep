@@ -44,6 +44,12 @@ class AiChatViewModel(
 
     fun downloadModel(variant: ModelVariant) = downloadManager.downloadModel(variant)
 
+    fun clearChat() {
+        viewModelScope.launch {
+            chatRepository.clearSession(chatSessionId)
+        }
+    }
+
     fun sendMessage(text: String) {
         if (text.isBlank() || _isGenerating.value) return
         val variant = selectedVariant.value ?: ModelVariant.entries.firstOrNull { downloadManager.isModelDownloaded(it) } ?: return
@@ -69,13 +75,46 @@ class AiChatViewModel(
             // Build system prompt with sleep context
             val systemPrompt = buildSystemPrompt()
 
-            // Build conversation history for context
-            val history = messages.value.takeLast(20).map { msg ->
+            // Build conversation history for context respecting selected context size & response headroom
+            val contextSize = downloadManager.contextWindowSizes.value[variant] ?: 4096
+            val headroom = maxOf(512, contextSize / 4)
+            val maxInputTokens = contextSize - headroom
+
+            fun estimateTokens(t: String): Int = t.length / 4
+
+            val systemPromptTokens = estimateTokens(systemPrompt)
+            val newMsgTokens = estimateTokens(text)
+            var availableHistoryTokens = maxInputTokens - systemPromptTokens - newMsgTokens
+            if (availableHistoryTokens < 0) {
+                availableHistoryTokens = 256
+            }
+
+            val prunedHistory = mutableListOf<Pair<String, String>>()
+            var accumulatedTokens = 0
+
+            val allRaw = messages.value.map { msg ->
                 Pair(if (msg.role == ChatRole.USER) "user" else "assistant", msg.content)
+            }
+            val rawHistory = if (allRaw.isNotEmpty() && allRaw.last().second == text) {
+                allRaw.dropLast(1)
+            } else {
+                allRaw
+            }
+
+            // Iterate backwards (newest to oldest)
+            for (i in rawHistory.indices.reversed()) {
+                val item = rawHistory[i]
+                val itemTokens = estimateTokens(item.second)
+                if (accumulatedTokens + itemTokens <= availableHistoryTokens) {
+                    prunedHistory.add(0, item) // Prepend to keep chronological order
+                    accumulatedTokens += itemTokens
+                } else {
+                    break
+                }
             }
 
             val sb = StringBuilder()
-            liteRtManager.sendMessage(history, text, systemPrompt)
+            liteRtManager.sendMessage(prunedHistory, text, systemPrompt)
                 .catch { e -> _streamingText.value = "[Error: ${e.message}]" }
                 .collect { chunk ->
                     sb.append(chunk)

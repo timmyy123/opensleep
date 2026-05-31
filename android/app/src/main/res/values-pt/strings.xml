@@ -49,4 +49,22 @@
     <string name="stage_light">Leve</string>
     <string name="stage_deep">Profundo</string>
     <string name="stage_rem">REM</string>
+    <string name="chart_day">Dia</string>
+    <string name="chart_week">Semana</string>
+    <string name="chart_month">Mês</string>
+    <string name="chart_year">Ano</string>
+    <string name="select_all">Selecionar tudo</string>
+    <string name="select">Selecionar</string>
+    <string name="delete_selected">Excluir selecionados</string>
+    <string name="section_about">Sobre e Privacidade</string>
+    <string name="privacy_tos">Política de privacidade e termos</string>
+    <string name="privacy_title">Política de Privacidade</string>
+    <string name="privacy_body">O OpenSleep é 100% comprometido com sua privacidade.
+
+• Processamento 100% no dispositivo: Todos os sensores de monitoramento (acelerômetro, giroscópio, microfone) são analisados localmente. Nenhum dado sai do seu dispositivo.
+• Modelo de IA local: O assistente de sono executa um Gemma 4 LLM localmente no dispositivo (zero servidores, sem APIs externas).
+• Código Aberto: O OpenSleep é um projeto transparente e de código aberto. Você pode inspecionar o código-fonte a qualquer momento.
+• Sincronização de saúde: As sessões de sono são salvas localmente e sincronizadas com o Google Health Connect.
+• Suporte: Se você tiver alguma dúvida ou comentário, entre em contato em timmy@opensleep.tech.</string>
+    <string name="github_repo">Repositório GitHub</string>
 </resources>

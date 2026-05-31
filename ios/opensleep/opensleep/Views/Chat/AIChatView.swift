@@ -111,6 +111,15 @@ struct AIChatView: View {
                 .font(AppTextStyle.labelSmall)
             }
             Spacer()
+            if !messages.isEmpty {
+                Button {
+                    clearChat()
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.system(size: 18))
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -172,11 +181,42 @@ struct AIChatView: View {
             }
 
             let systemPrompt = buildSystemPrompt()
-            let history = messages.dropLast().map { (role: $0.role, content: $0.content) }
+
+            // Build conversation history respecting selected context size & response headroom
+            let contextSize = downloadManager.contextWindowSizes[variant] ?? 4096
+            let headroom = max(512, contextSize / 4)
+            let maxInputTokens = contextSize - headroom
+
+            func estimateTokens(_ t: String) -> Int {
+                return t.count / 4
+            }
+
+            let systemPromptTokens = estimateTokens(systemPrompt)
+            let newMsgTokens = estimateTokens(text)
+            var availableHistoryTokens = maxInputTokens - systemPromptTokens - newMsgTokens
+            if availableHistoryTokens < 0 {
+                availableHistoryTokens = 256
+            }
+
+            var prunedHistory: [(role: ChatRole, content: String)] = []
+            var accumulatedTokens = 0
+
+            let allRaw = messages.map { (role: $0.role, content: $0.content) }
+            let rawHistory = (allRaw.last?.content == text) ? allRaw.dropLast(1) : allRaw
+
+            for item in rawHistory.reversed() {
+                let itemTokens = estimateTokens(item.content)
+                if accumulatedTokens + itemTokens <= availableHistoryTokens {
+                    prunedHistory.insert(item, at: 0)
+                    accumulatedTokens += itemTokens
+                } else {
+                    break
+                }
+            }
 
             var response = ""
             let stream = liteRt.sendMessage(
-                history: history,
+                history: prunedHistory,
                 newMessage: text,
                 systemPrompt: systemPrompt
             )
@@ -226,9 +266,99 @@ Keep responses concise and practical. Today: \(dateStr)
 \(sleepContext)
 """
     }
+
+    private func clearChat() {
+        let targets = messages
+        for msg in targets {
+            modelContext.delete(msg)
+        }
+        try? modelContext.save()
+    }
 }
 
 // MARK: - Chat Bubble
+
+enum MessageSegment: Identifiable {
+    var id: UUID { UUID() }
+    case text(AttributedString)
+    case table(headers: [String], rows: [[String]])
+}
+
+func parseMessageContent(_ content: String) -> [MessageSegment] {
+    let lines = content.components(separatedBy: "\n")
+    var segments: [MessageSegment] = []
+    
+    var currentTextLines: [String] = []
+    var currentTableLines: [String] = []
+    var isInsideTable = false
+    
+    func flushText() {
+        guard !currentTextLines.isEmpty else { return }
+        let text = currentTextLines.joined(separator: "\n")
+        do {
+            let attributed = try AttributedString(markdown: text, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))
+            segments.append(.text(attributed))
+        } catch {
+            segments.append(.text(AttributedString(text)))
+        }
+        currentTextLines.removeAll()
+    }
+    
+    func flushTable() {
+        guard !currentTableLines.isEmpty else { return }
+        var headers: [String] = []
+        var rows: [[String]] = []
+        
+        for line in currentTableLines {
+            let rawParts = line.components(separatedBy: "|").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            let parts = if rawParts.first?.isEmpty == true && rawParts.last?.isEmpty == true && rawParts.count > 2 {
+                Array(rawParts[1..<(rawParts.count - 1)])
+            } else {
+                rawParts.filter { !$0.isEmpty }
+            }
+            if parts.isEmpty { continue }
+            if line.contains("---") { continue }
+            
+            if headers.isEmpty {
+                headers = parts
+            } else {
+                rows.append(parts)
+            }
+        }
+        
+        if !headers.isEmpty {
+            segments.append(.table(headers: headers, rows: rows))
+        } else {
+            let fallbackText = currentTableLines.joined(separator: "\n")
+            segments.append(.text(AttributedString(fallbackText)))
+        }
+        currentTableLines.removeAll()
+    }
+    
+    for line in lines {
+        let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        let isTableLine = trimmed.hasPrefix("|") && trimmed.contains("|")
+        
+        if isTableLine {
+            if !isInsideTable {
+                flushText()
+                isInsideTable = true
+            }
+            currentTableLines.append(line)
+        } else {
+            if isInsideTable {
+                flushTable()
+                isInsideTable = false
+            }
+            currentTextLines.append(line)
+        }
+    }
+    
+    flushText()
+    flushTable()
+    
+    return segments
+}
 
 struct ChatBubbleView: View {
     var message: ChatMessage? = nil
@@ -251,14 +381,70 @@ struct ChatBubbleView: View {
                     .background(Color.indigoAccent.opacity(0.85))
                     .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             } else {
-                Text(isStreaming ? "\(content)▌" : content)
-                    .font(AppTextStyle.bodyLarge)
-                    .foregroundStyle(Color.textPrimary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, 8)
-                    .lineSpacing(4)
+                VStack(alignment: .leading, spacing: 12) {
+                    let segments = parseMessageContent(isStreaming ? "\(content)▌" : content)
+                    ForEach(segments) { segment in
+                        switch segment {
+                        case .text(let attrStr):
+                            Text(attrStr)
+                                .font(AppTextStyle.bodyLarge)
+                                .foregroundStyle(Color.textPrimary)
+                                .lineSpacing(4)
+                        case .table(let headers, let rows):
+                            renderTable(headers: headers, rows: rows)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 8)
             }
         }
+    }
+
+    @ViewBuilder
+    private func renderTable(headers: [String], rows: [[String]]) -> some View {
+        VStack(spacing: 0) {
+            Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 8) {
+                // Header row
+                GridRow {
+                    ForEach(headers, id: \.self) { header in
+                        Text(header)
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundStyle(Color.indigoLight)
+                            .padding(.vertical, 6)
+                    }
+                }
+                .background(Color.indigoAccent.opacity(0.15))
+                
+                Divider()
+                    .background(Color.white.opacity(0.15))
+                
+                // Data rows
+                ForEach(0..<rows.count, id: \.self) { rowIndex in
+                    let row = rows[rowIndex]
+                    GridRow {
+                        ForEach(0..<row.count, id: \.self) { colIndex in
+                            Text(row[colIndex])
+                                .font(.system(size: 13))
+                                .foregroundStyle(Color.textPrimary)
+                                .padding(.vertical, 4)
+                        }
+                    }
+                    if rowIndex < rows.count - 1 {
+                        Divider()
+                            .background(Color.white.opacity(0.08))
+                    }
+                }
+            }
+            .padding(8)
+        }
+        .background(Color.surfaceVariant.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+        )
+        .padding(.vertical, 6)
     }
 }
 

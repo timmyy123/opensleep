@@ -144,6 +144,91 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         }
 
         Spacer(Modifier.height(48.dp))
+
+        // About & Privacy Section
+        Text(
+            text = stringResource(R.string.section_about),
+            style = MaterialTheme.typography.titleMedium,
+            color = IndigoLight,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        var showPrivacyDialog by remember { mutableStateOf(false) }
+        val context = androidx.compose.ui.platform.LocalContext.current
+
+        GlassCard(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.fillMaxWidth().padding(4.dp)) {
+                // Privacy Dialog Trigger
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { showPrivacyDialog = true }
+                        .padding(vertical = 12.dp, horizontal = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Info, contentDescription = null, tint = IndigoLight)
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            text = stringResource(R.string.privacy_tos),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = TextPrimary
+                        )
+                    }
+                    Icon(Icons.Default.KeyboardArrowRight, contentDescription = null, tint = TextTertiary)
+                }
+
+                Divider(color = IndigoLight.copy(alpha = 0.2f), modifier = Modifier.padding(vertical = 4.dp))
+
+                // GitHub Link
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/timmyy123/opensleep"))
+                            context.startActivity(intent)
+                        }
+                        .padding(vertical = 12.dp, horizontal = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Star, contentDescription = null, tint = IndigoLight)
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            text = stringResource(R.string.github_repo),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = TextPrimary
+                        )
+                    }
+                    Icon(Icons.Default.KeyboardArrowRight, contentDescription = null, tint = TextTertiary)
+                }
+            }
+        }
+
+        if (showPrivacyDialog) {
+            AlertDialog(
+                onDismissRequest = { showPrivacyDialog = false },
+                title = { Text(stringResource(R.string.privacy_title), fontWeight = FontWeight.Bold) },
+                text = {
+                    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                        Text(
+                            text = stringResource(R.string.privacy_body),
+                            style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
+                            color = TextPrimary
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { showPrivacyDialog = false }) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                }
+            )
+        }
+
+        Spacer(Modifier.height(48.dp))
     }
 }
 
