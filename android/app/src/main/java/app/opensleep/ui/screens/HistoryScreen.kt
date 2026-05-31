@@ -35,6 +35,7 @@ fun HistoryScreen(
     onSessionClick: (String) -> Unit
 ) {
     val sessions by viewModel.sessions.collectAsState()
+    var sessionToDelete by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -66,14 +67,37 @@ fun HistoryScreen(
                     SleepSessionCard(
                         session = session,
                         onClick = { onSessionClick(session.id) },
-                        onDelete = { viewModel.deleteSession(session.id) }
+                        onDelete = { sessionToDelete = session.id }
                     )
                 }
                 item { Spacer(Modifier.height(80.dp)) }
             }
         }
     }
+
+    // Delete confirmation dialog
+    sessionToDelete?.let { id ->
+        AlertDialog(
+            onDismissRequest = { sessionToDelete = null },
+            title = { Text(stringResource(R.string.delete_session_title)) },
+            text = { Text(stringResource(R.string.delete_session_message)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.deleteSession(id)
+                    sessionToDelete = null
+                }) {
+                    Text(stringResource(R.string.delete_confirm), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { sessionToDelete = null }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
 }
+
 
 @Composable
 fun SleepSessionCard(

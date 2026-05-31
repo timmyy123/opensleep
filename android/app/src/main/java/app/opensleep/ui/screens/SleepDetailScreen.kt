@@ -10,8 +10,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.opensleep.R
 import app.opensleep.data.local.SleepSession
 import app.opensleep.ui.components.GlassCard
 import app.opensleep.ui.components.SleepHypnogram
@@ -65,9 +67,9 @@ fun SleepDetailScreen(session: SleepSession, onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                StatChip("Bedtime", timeFmt.format(Date(session.startTimeMs)))
-                StatChip("Wake up", timeFmt.format(Date(session.endTimeMs ?: 0L)))
-                StatChip("Duration", "${hours}h ${minutes}m")
+                StatChip(stringResource(R.string.bedtime), timeFmt.format(Date(session.startTimeMs)))
+                StatChip(stringResource(R.string.wake_up), timeFmt.format(Date(session.endTimeMs ?: 0L)))
+                StatChip(stringResource(R.string.duration), "${hours}h ${minutes}m")
             }
         }
 
@@ -78,7 +80,7 @@ fun SleepDetailScreen(session: SleepSession, onBack: () -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Sleep Stages", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+                Text(stringResource(R.string.sleep_stages), style = MaterialTheme.typography.titleLarge, color = TextPrimary)
                 Spacer(Modifier.height(16.dp))
                 SleepRingChart(
                     stageDurations = stages,
@@ -98,10 +100,10 @@ fun SleepDetailScreen(session: SleepSession, onBack: () -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)) {
             Column {
-                Text("Sleep Pattern", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+                Text(stringResource(R.string.sleep_pattern), style = MaterialTheme.typography.titleLarge, color = TextPrimary)
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    "Awake · REM · Light · Deep  (top → bottom)",
+                    stringResource(R.string.sleep_pattern_legend),
                     style = MaterialTheme.typography.labelSmall,
                     color = TextTertiary
                 )

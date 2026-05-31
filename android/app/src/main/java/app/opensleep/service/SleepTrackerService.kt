@@ -56,7 +56,7 @@ class SleepTrackerService : Service(), SensorEventListener {
             }
             ACTION_STOP -> stopTracking()
         }
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     private fun startTracking() {
@@ -83,10 +83,12 @@ class SleepTrackerService : Service(), SensorEventListener {
     private fun stopTracking() {
         sensorManager.unregisterListener(this)
         serviceScope.launch {
-            val sid = sessionId ?: return@launch
-            val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
-            val stages = analyzer.computeStages(startTime)
-            repository.endSession(sid, stages)
+            val sid = sessionId ?: repository.getActiveSessionOneShot()?.id
+            if (sid != null) {
+                val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
+                val stages = analyzer.computeStages(startTime)
+                repository.endSession(sid, stages)
+            }
         }
         if (wakeLock.isHeld) wakeLock.release()
         stopForeground(STOP_FOREGROUND_REMOVE)

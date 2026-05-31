@@ -10,12 +10,12 @@ enum ModelVariant: String, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .e2b: return "Gemma 4 E2B (~1.35 GB)"
-        case .e4b: return "Gemma 4 E4B (~2.61 GB)"
+        case .e2b: return "Gemma 4 E2B (~2.41 GB)"
+        case .e4b: return "Gemma 4 E4B (~3.41 GB)"
         }
     }
 
-    var sizeGB: Double { self == .e2b ? 1.35 : 2.61 }
+    var sizeGB: Double { self == .e2b ? 2.41 : 3.41 }
 
     var downloadURL: URL {
         switch self {

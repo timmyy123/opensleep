@@ -66,6 +66,33 @@ class HealthSyncManager(private val context: Context) {
         }.getOrDefault(false)
     }
 
+    suspend fun deleteSleepSession(session: SleepSession): Boolean {
+        val c = client ?: return false
+        if (!hasPermissions()) return false
+        val endTimeMs = session.endTimeMs ?: return false
+
+        val startInstant = Instant.ofEpochMilli(session.startTimeMs)
+        val endInstant = Instant.ofEpochMilli(endTimeMs)
+
+        return runCatching {
+            val response = c.readRecords(
+                ReadRecordsRequest(
+                    recordType = SleepSessionRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(startInstant, endInstant)
+                )
+            )
+            val recordIds = response.records.map { it.metadata.id }
+            if (recordIds.isNotEmpty()) {
+                c.deleteRecords(
+                    recordType = SleepSessionRecord::class,
+                    recordIdsList = recordIds,
+                    clientRecordIdsList = emptyList()
+                )
+            }
+            true
+        }.getOrDefault(false)
+    }
+
     private fun SleepStageType.toHealthConnectStage(): Int = when (this) {
         SleepStageType.AWAKE -> SleepSessionRecord.STAGE_TYPE_AWAKE
         SleepStageType.LIGHT -> SleepSessionRecord.STAGE_TYPE_LIGHT

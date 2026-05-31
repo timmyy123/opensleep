@@ -12,6 +12,9 @@ interface SleepSessionDao {
     @Query("SELECT * FROM sleep_sessions WHERE endTimeMs IS NULL LIMIT 1")
     fun getActiveSession(): Flow<SleepSession?>
 
+    @Query("SELECT * FROM sleep_sessions WHERE endTimeMs IS NULL LIMIT 1")
+    suspend fun getActiveSessionOneShot(): SleepSession?
+
     @Query("SELECT * FROM sleep_sessions WHERE id = :id")
     suspend fun getSessionById(id: String): SleepSession?
 

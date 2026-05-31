@@ -34,4 +34,19 @@
     <string name="setting_context_size">Context Window Size</string>
     <string name="active_model">Active</string>
     <string name="ready_to_use">Ready to Use</string>
-    </resources>
+    <string name="delete_session_title">Delete Session?</string>
+    <string name="delete_session_message">This sleep session and its health data will be permanently deleted.</string>
+    <string name="delete_confirm">Delete</string>
+    <string name="cancel">Cancel</string>
+        <string name="bedtime">Bedtime</string>
+    <string name="wake_up">Wake up</string>
+    <string name="duration">Duration</string>
+    <string name="sleep_stages">Sleep Stages</string>
+    <string name="sleep_pattern">Sleep Pattern</string>
+    <string name="sleep_pattern_legend">Awake · REM · Light · Deep  (top → bottom)</string>
+    <string name="total_sleep">total</string>
+    <string name="stage_awake">Awake</string>
+    <string name="stage_light">Light</string>
+    <string name="stage_deep">Deep</string>
+    <string name="stage_rem">REM</string>
+</resources>

@@ -13,6 +13,8 @@ class SleepRepository(private val dao: SleepSessionDao) {
 
     fun getActiveSession(): Flow<SleepSession?> = dao.getActiveSession()
 
+    suspend fun getActiveSessionOneShot(): SleepSession? = dao.getActiveSessionOneShot()
+
     suspend fun startSession(): SleepSession {
         val session = SleepSession(
             id = UUID.randomUUID().toString(),

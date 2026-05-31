@@ -14,9 +14,18 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import app.opensleep.R
 import app.opensleep.data.local.SleepStageType
 import app.opensleep.ui.theme.*
 import java.util.concurrent.TimeUnit
+
+fun stageNameRes(type: SleepStageType): Int = when (type) {
+    SleepStageType.AWAKE -> R.string.stage_awake
+    SleepStageType.LIGHT -> R.string.stage_light
+    SleepStageType.DEEP -> R.string.stage_deep
+    SleepStageType.REM -> R.string.stage_rem
+}
 
 fun stageColor(type: SleepStageType): Color = when (type) {
     SleepStageType.AWAKE -> ColorAwake
@@ -79,7 +88,7 @@ fun SleepRingChart(
                 )
             )
             Text(
-                text = "total",
+                text = stringResource(R.string.total_sleep),
                 style = MaterialTheme.typography.labelSmall.copy(color = TextSecondary)
             )
         }
@@ -152,7 +161,7 @@ fun SleepStageLegend(
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = type.name.lowercase().replaceFirstChar { it.uppercaseChar() },
+                    text = stringResource(stageNameRes(type)),
                     style = MaterialTheme.typography.labelSmall,
                     color = stageColor(type)
                 )

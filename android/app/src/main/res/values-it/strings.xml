@@ -34,4 +34,19 @@
     <string name="chat_loading">Caricamento…</string>
     <string name="active_model">Attivo</string>
     <string name="ready_to_use">Pronto all\'uso</string>
-    </resources>
+    <string name="delete_session_title">Eliminare la sessione?</string>
+    <string name="delete_session_message">Questa sessione di sonno e i suoi dati sanitari verranno eliminati definitivamente.</string>
+    <string name="delete_confirm">Elimina</string>
+    <string name="cancel">Annulla</string>
+        <string name="bedtime">Ora di coricarsi</string>
+    <string name="wake_up">Sveglia</string>
+    <string name="duration">Durata</string>
+    <string name="sleep_stages">Fasi del sonno</string>
+    <string name="sleep_pattern">Andamento del sonno</string>
+    <string name="sleep_pattern_legend">Veglia · REM · Leggero · Profondo (alto → basso)</string>
+    <string name="total_sleep">totale</string>
+    <string name="stage_awake">Veglia</string>
+    <string name="stage_light">Leggero</string>
+    <string name="stage_deep">Profondo</string>
+    <string name="stage_rem">REM</string>
+</resources>

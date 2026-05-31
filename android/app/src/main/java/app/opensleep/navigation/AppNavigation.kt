@@ -47,7 +47,7 @@ fun AppNavigation() {
     val downloadMgr = remember { ModelDownloadManager(context) }
 
     val homeVm = remember { HomeViewModel(sleepRepo, healthSync) }
-    val historyVm = remember { HistoryViewModel(sleepRepo) }
+    val historyVm = remember { HistoryViewModel(sleepRepo, healthSync) }
     val chatVm = remember { AiChatViewModel(chatRepo, sleepRepo, liteRt, downloadMgr) }
     val settingsVm = remember { SettingsViewModel(context.applicationContext as android.app.Application, downloadMgr) }
 

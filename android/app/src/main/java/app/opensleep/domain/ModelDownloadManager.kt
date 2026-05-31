@@ -16,15 +16,15 @@ enum class ModelVariant(
     val downloadUrl: String
 ) {
     E2B(
-        displayName = "Gemma 4 E2B (~1.35 GB)",
+        displayName = "Gemma 4 E2B (~2.41 GB)",
         fileName = "gemma-4-E2B-it.litertlm",
-        sizeGB = 1.35f,
+        sizeGB = 2.41f,
         downloadUrl = "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/a4a831c060880f3733135ad22f10e0e9f758f45d/gemma-4-E2B-it.litertlm"
     ),
     E4B(
-        displayName = "Gemma 4 E4B (~2.61 GB)",
+        displayName = "Gemma 4 E4B (~3.41 GB)",
         fileName = "gemma-4-E4B-it.litertlm",
-        sizeGB = 2.61f,
+        sizeGB = 3.41f,
         downloadUrl = "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/65ce5ba80d8790d66ef11d82d7d079a06f3fef97/gemma-4-E4B-it.litertlm"
     )
 }

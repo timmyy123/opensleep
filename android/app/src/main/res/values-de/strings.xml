@@ -34,4 +34,19 @@
     <string name="chat_loading">Laden…</string>
     <string name="active_model">Aktiv</string>
     <string name="ready_to_use">Einsatzbereit</string>
-    </resources>
+    <string name="delete_session_title">Sitzung löschen?</string>
+    <string name="delete_session_message">Diese Schlafsitzung und alle zugehörigen Gesundheitsdaten werden dauerhaft gelöscht.</string>
+    <string name="delete_confirm">Löschen</string>
+    <string name="cancel">Abbrechen</string>
+        <string name="bedtime">Schlafenszeit</string>
+    <string name="wake_up">Aufwachen</string>
+    <string name="duration">Dauer</string>
+    <string name="sleep_stages">Schlafphasen</string>
+    <string name="sleep_pattern">Schlafmuster</string>
+    <string name="sleep_pattern_legend">Wach · REM · Leicht · Tief (oben → unten)</string>
+    <string name="total_sleep">gesamt</string>
+    <string name="stage_awake">Wach</string>
+    <string name="stage_light">Leicht</string>
+    <string name="stage_deep">Tief</string>
+    <string name="stage_rem">REM</string>
+</resources>

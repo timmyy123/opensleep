@@ -34,4 +34,19 @@
     <string name="setting_context_size">Tamanho da Janela de Contexto</string>
     <string name="active_model">Ativo</string>
     <string name="ready_to_use">Pronto para usar</string>
-    </resources>
+    <string name="delete_session_title">Excluir sessão?</string>
+    <string name="delete_session_message">Esta sessão de sono e seus dados de saúde serão excluídos permanentemente.</string>
+    <string name="delete_confirm">Excluir</string>
+    <string name="cancel">Cancelar</string>
+        <string name="bedtime">Hora de deitar</string>
+    <string name="wake_up">Despertar</string>
+    <string name="duration">Duração</string>
+    <string name="sleep_stages">Fases do sono</string>
+    <string name="sleep_pattern">Padrão de sono</string>
+    <string name="sleep_pattern_legend">Acordado · REM · Leve · Profundo (cima → baixo)</string>
+    <string name="total_sleep">total</string>
+    <string name="stage_awake">Acordado</string>
+    <string name="stage_light">Leve</string>
+    <string name="stage_deep">Profundo</string>
+    <string name="stage_rem">REM</string>
+</resources>

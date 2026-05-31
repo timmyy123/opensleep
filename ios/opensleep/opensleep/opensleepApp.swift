@@ -28,6 +28,10 @@ struct opensleepApp: App {
                 .preferredColorScheme(.dark)
                 .onAppear {
                     tracker.configure(modelContext: container.mainContext)
+                    tracker.requestPermissions()
+                    Task {
+                        await healthKit.requestAuthorization()
+                    }
                 }
         }
     }

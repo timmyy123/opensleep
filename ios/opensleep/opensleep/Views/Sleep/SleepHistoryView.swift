@@ -4,7 +4,9 @@ import SwiftData
 struct SleepHistoryView: View {
     @Query(sort: \SleepSession.startDate, order: .reverse) var sessions: [SleepSession]
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var healthKit: HealthKitManager
     @State private var selectedSession: SleepSession?
+    @State private var sessionToDelete: SleepSession?
 
     var body: some View {
         NavigationStack {
@@ -25,16 +27,10 @@ struct SleepHistoryView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(sessions.filter(\.isCompleted)) { session in
-                                SessionCard(session: session)
-                                    .onTapGesture { selectedSession = session }
-                                    .contextMenu {
-                                        Button(role: .destructive) {
-                                            modelContext.delete(session)
-                                            try? modelContext.save()
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                    }
+                                SessionCard(session: session) {
+                                    sessionToDelete = session
+                                }
+                                .onTapGesture { selectedSession = session }
                             }
                             Spacer(minLength: 80)
                         }
@@ -49,12 +45,34 @@ struct SleepHistoryView: View {
             .sheet(item: $selectedSession) { session in
                 SleepDetailView(session: session)
             }
+            .alert(Text("delete_session_title"), isPresented: Binding(
+                get: { sessionToDelete != nil },
+                set: { if !$0 { sessionToDelete = nil } }
+            )) {
+                Button("delete_confirm", role: .destructive) {
+                    if let session = sessionToDelete {
+                        Task {
+                            let _ = await healthKit.deleteSleepSession(session)
+                            modelContext.delete(session)
+                            try? modelContext.save()
+                        }
+                    }
+                    sessionToDelete = nil
+                }
+                Button("cancel", role: .cancel) {
+                    sessionToDelete = nil
+                }
+            } message: {
+                Text("delete_session_message")
+            }
         }
     }
 }
 
+
 struct SessionCard: View {
     let session: SleepSession
+    let onDelete: () -> Void
 
     private var durationText: String {
         let h = Int(session.durationSeconds / 3600)
@@ -75,8 +93,17 @@ struct SessionCard: View {
                             .foregroundStyle(Color.textPrimary)
                     }
                     Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(Color.textTertiary)
+                    
+                    HStack(spacing: 16) {
+                        Button(action: onDelete) {
+                            Image(systemName: "trash")
+                                .font(.system(size: 18))
+                                .foregroundStyle(Color.red.opacity(0.8))
+                        }
+                        
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color.textTertiary)
+                    }
                 }
 
                 // Mini hypnogram

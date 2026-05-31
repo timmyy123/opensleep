@@ -65,6 +65,35 @@ class HealthKitManager: ObservableObject {
             return false
         }
     }
+
+    func deleteSleepSession(_ session: SleepSession) async -> Bool {
+        guard isAvailable else { return false }
+        guard let endDate = session.endDate else { return false }
+
+        let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
+        let predicate = HKQuery.predicateForSamples(withStart: session.startDate, end: endDate, options: [])
+
+        do {
+            let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+                let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, results, error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: results ?? [])
+                    }
+                }
+                store.execute(query)
+            }
+
+            if !samples.isEmpty {
+                try await store.delete(samples)
+            }
+            return true
+        } catch {
+            print("Failed to delete HealthKit sleep samples: \(error)")
+            return false
+        }
+    }
 }
 
 extension SleepStageType {

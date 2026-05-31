@@ -3,6 +3,7 @@ import Combine
 import CoreMotion
 import BackgroundTasks
 import SwiftData
+import AVFoundation
 
 /// Manages sleep tracking: starts/stops CMMotionManager, runs stage analysis,
 /// persists results to SwiftData via MainActor. Uses BGProcessingTask to
@@ -27,10 +28,34 @@ class SleepTrackerService: ObservableObject {
         self.modelContext = modelContext
     }
 
+    /// Explicitly request required microphone and motion permissions for tracking
+    func requestPermissions() {
+        // Request Microphone permission
+        AVAudioApplication.requestRecordPermission { granted in
+            print("Microphone permission granted: \(granted)")
+        }
+
+        // Request Motion permission by querying CMMotionActivityManager
+        let activityManager = CMMotionActivityManager()
+        let today = Date()
+        activityManager.queryActivityStarting(from: today, to: today, to: .main) { _, _ in
+            // Triggers the system "Motion & Fitness" dialog
+        }
+    }
+
     @MainActor
     func startTracking() {
         guard !isTracking else { return }
         guard motionManager.isAccelerometerAvailable else { return }
+
+        // Start AVAudioSession to keep app alive in background
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .defaultToSpeaker])
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to configure background audio session: \(error)")
+        }
 
         let session = SleepSession(startDate: Date())
         modelContext?.insert(session)
@@ -64,6 +89,9 @@ class SleepTrackerService: ObservableObject {
         stageFlushTimer?.invalidate()
         stageFlushTimer = nil
         isTracking = false
+
+        // Deactivate background audio session
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 
         guard let session = activeSession else { return }
         session.endDate = Date()
