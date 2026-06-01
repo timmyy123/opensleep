@@ -59,10 +59,10 @@
     <string name="section_about">À propos et confidentialité</string>
     <string name="privacy_tos">Politique de confidentialité &amp; conditions</string>
     <string name="privacy_title">Politique de confidentialité</string>
-    <string name="privacy_body">OpenSleep s\'engage à 100% pour votre vie privée.
+    <string name="privacy_body" formatted="false">OpenSleep s\'engage à 100% pour votre vie privée.
 
-• Traitement 100% local : Tous les capteurs de suivi (accéléromètre, gyroscope, microphone) sont analysés entièrement localement. Aucune donnée personnelle ou de télémétrie ne quitte votre appareil.
-• Modèle d\'IA local : L\'assistant de sommeil exécute un Gemma 4 LLM local sur votre appareil (zéro serveur, pas d\'API externe).
+• Traitement 100% sur votre appareil : Les capteurs de mouvement du téléphone et les fonctionnalités de niveau sonore issues du micro sont analysés entièrement en local. Aucun audio brut n\'est stocké et aucune télémétrie personnelle ne quitte votre appareil.
+• Modèle d\'IA local : L\'assistant de sommeil exécute un Gemma 4 LLM entièrement local sur l\'appareil (zéro serveur, aucune API externe).
 • Open Source : OpenSleep est un projet entièrement open source et transparent. Vous pouvez inspecter le code source à tout moment.
 • Sincronisation Santé : Les sessions de sommeil sont stockées localement et synchronisées directement avec Google Health Connect.
 • Support : Si vous avez des questions ou des commentaires, contactez-nous à timmy@opensleep.tech.</string>
@@ -71,4 +71,7 @@
     <string name="notification_syncing_text">OpenSleep enregistre et synchronise vos données…</string>
     <string name="notifications_disabled_title">Notifications désactivées</string>
     <string name="notifications_disabled_desc">OpenSleep nécessite l\'autorisation de notification pour suivre le sommeil en arrière-plan. Appuyez ici pour l\'activer dans les Paramètres.</string>
+    <string name="health_connect_permissions_title">Activer Health Connect</string>
+    <string name="health_connect_permissions_desc">Autorisez l\'accès en lecture/écriture du sommeil afin qu’OpenSleep puisse synchroniser les sessions terminées et importer les enregistrements existants.</string>
+    <string name="enable">Activer</string>
 </resources>

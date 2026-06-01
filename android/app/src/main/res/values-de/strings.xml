@@ -59,16 +59,19 @@
     <string name="section_about">Über &amp; Datenschutz</string>
     <string name="privacy_tos">Datenschutzerklärung &amp; Bedingungen</string>
     <string name="privacy_title">Datenschutzerklärung</string>
-    <string name="privacy_body">OpenSleep setzt sich zu 100 % für Ihre Privatsphäre ein.
+    <string name="privacy_body" formatted="false">OpenSleep setzt sich zu 100 % für deine Privatsphäre ein.
 
-• 100 % auf dem Gerät: Alle Sensoren (Beschleunigungsmesser, Gyroskop, Mikrofon) werden vollständig lokal analysiert. Es verlassen keine persönlichen Daten Ihr Gerät.
-• Lokales KI-Modell: Der Schlafassistent führt ein lokales Gemma 4 LLM direkt auf dem Gerät aus (keine Server, keine externen APIs).
-• Open Source: OpenSleep ist ein transparentes Open-Source-Projekt. Sie können den Quellcode jederzeit einsehen.
+• 100 % auf dem Gerät: Smartphone-Bewegungssensoren und aus dem Mikrofon abgeleitete Schallpegelmerkmale werden vollständig lokal analysiert. Roh-Audio wird nicht gespeichert und keine persönlichen Telemetriedaten verlassen dein Gerät.
+• Lokales KI-Modell: Der Schlafassistent führt ein vollständig lokales Gemma 4 LLM direkt auf dem Gerät aus (keine Server, keine externen APIs).
+• Open Source: OpenSleep ist ein transparentes Open-Source-Projekt. Du kannst den Quellcode jederzeit einsehen.
 • Health Sync: Schlafsitzungen werden lokal gespeichert und direkt mit Google Health Connect synchronisiert.
-• Support: Wenn Sie Fragen oder Feedback haben, kontaktieren Sie uns unter timmy@opensleep.tech.</string>
+• Support: Wenn du Fragen oder Feedback hast, kontaktiere uns unter timmy@opensleep.tech.</string>
     <string name="github_repo">GitHub-Repository</string>
     <string name="notification_syncing_title">Schlafdaten synchronisieren</string>
     <string name="notification_syncing_text">OpenSleep speichert und synchronisiert deine Daten…</string>
     <string name="notifications_disabled_title">Benachrichtigungen deaktiviert</string>
     <string name="notifications_disabled_desc">OpenSleep benötigt eine Benachrichtigungsberechtigung, um die Schlafaufzeichnung im Hintergrund auszuführen. Tippe hier, um sie in den Einstellungen zu aktivieren.</string>
+    <string name="health_connect_permissions_title">Health Connect aktivieren</string>
+    <string name="health_connect_permissions_desc">Erlaube Lese-/Schreibzugriff auf Schlafdaten, damit OpenSleep abgeschlossene Sitzungen synchronisieren und vorhandene Schlafdaten importieren kann.</string>
+    <string name="enable">Aktivieren</string>
 </resources>

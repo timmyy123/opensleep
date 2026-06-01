@@ -59,10 +59,10 @@
     <string name="section_about">Sobre e Privacidade</string>
     <string name="privacy_tos">Política de privacidade e termos</string>
     <string name="privacy_title">Política de Privacidade</string>
-    <string name="privacy_body">O OpenSleep é 100% comprometido com sua privacidade.
+    <string name="privacy_body" formatted="false">O OpenSleep é 100% comprometido com sua privacidade.
 
-• Processamento 100% no dispositivo: Todos os sensores de monitoramento (acelerômetro, giroscópio, microfone) são analisados localmente. Nenhum dado sai do seu dispositivo.
-• Modelo de IA local: O assistente de sono executa um Gemma 4 LLM localmente no dispositivo (zero servidores, sem APIs externas).
+• Processamento 100% no dispositivo: Sensores de movimento do telefone e recursos de nível de som derivados do microfone são analisados totalmente de forma local. O áudio bruto não é armazenado, e nenhuma telemetria pessoal sai do seu dispositivo.
+• Modelo de IA local: O assistente de sono executa um Gemma 4 LLM totalmente local no dispositivo (zero servidores, nenhuma API externa).
 • Código Aberto: O OpenSleep é um projeto transparente e de código aberto. Você pode inspecionar o código-fonte a qualquer momento.
 • Sincronização de saúde: As sessões de sono são salvas localmente e sincronizadas com o Google Health Connect.
 • Suporte: Se você tiver alguma dúvida ou comentário, entre em contato em timmy@opensleep.tech.</string>
@@ -71,4 +71,7 @@
     <string name="notification_syncing_text">O OpenSleep está salvando e sincronizando seus dados…</string>
     <string name="notifications_disabled_title">Notificações desativadas</string>
     <string name="notifications_disabled_desc">O OpenSleep requer permissão de notificação para rastrear o sono em segundo plano. Toque aqui para habilitar nas Configurações.</string>
+    <string name="health_connect_permissions_title">Ativar Health Connect</string>
+    <string name="health_connect_permissions_desc">Permita acesso de leitura e gravação do sono para que o OpenSleep possa sincronizar sessões concluídas e importar registros de sono existentes.</string>
+    <string name="enable">Ativar</string>
 </resources>

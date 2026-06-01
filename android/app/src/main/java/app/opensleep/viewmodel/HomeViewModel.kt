@@ -28,7 +28,15 @@ class HomeViewModel(
     private val _elapsedSeconds = MutableStateFlow(0L)
     val elapsedSeconds: StateFlow<Long> = _elapsedSeconds.asStateFlow()
 
+    private val _isHealthConnectAvailable = MutableStateFlow(false)
+    val isHealthConnectAvailable: StateFlow<Boolean> = _isHealthConnectAvailable.asStateFlow()
+
+    private val _hasHealthPermissions = MutableStateFlow(false)
+    val hasHealthPermissions: StateFlow<Boolean> = _hasHealthPermissions.asStateFlow()
+
     init {
+        refreshHealthPermissions()
+
         viewModelScope.launch {
             repository.getActiveSession().collectLatest { session ->
                 _activeSession.value = session
@@ -48,6 +56,14 @@ class HomeViewModel(
                     _elapsedSeconds.value = (System.currentTimeMillis() - session.startTimeMs) / 1000
                 }
             }
+        }
+    }
+
+    fun refreshHealthPermissions() {
+        viewModelScope.launch {
+            val available = healthSync.isAvailable()
+            _isHealthConnectAvailable.value = available
+            _hasHealthPermissions.value = available && healthSync.hasPermissions()
         }
     }
 

@@ -18,10 +18,16 @@ class SleepTrackerService: ObservableObject {
     private let motionManager = CMMotionManager()
     private let analyzer = SleepStageAnalyzer()
     private var modelContext: ModelContext?
+    private var audioRecorder: AVAudioRecorder?
+    private var audioMeterTimer: Timer?
 
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
     private var stageFlushTimer: Timer?
+
+    init() {
+        registerBackgroundTask()
+    }
 
     @MainActor
     func configure(modelContext: ModelContext) {
@@ -76,6 +82,22 @@ class SleepTrackerService: ObservableObject {
             )
         }
 
+        if motionManager.isGyroAvailable {
+            motionManager.gyroUpdateInterval = sampleInterval
+            motionManager.startGyroUpdates(to: .main) { [weak self] data, _ in
+                guard let self, let data else { return }
+                self.analyzer.addGyroSample(
+                    timestamp: Date(),
+                    x: data.rotationRate.x,
+                    y: data.rotationRate.y,
+                    z: data.rotationRate.z
+                )
+            }
+        }
+
+        startAudioMetering()
+        scheduleBackgroundTask()
+
         // Flush stages every 5 minutes
         stageFlushTimer = Timer.scheduledTimer(withTimeInterval: 5 * 60, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.flushStages() }
@@ -86,8 +108,10 @@ class SleepTrackerService: ObservableObject {
     func stopTracking() {
         guard isTracking else { return }
         motionManager.stopAccelerometerUpdates()
+        motionManager.stopGyroUpdates()
         stageFlushTimer?.invalidate()
         stageFlushTimer = nil
+        stopAudioMetering()
         isTracking = false
 
         // Deactivate background audio session
@@ -106,5 +130,74 @@ class SleepTrackerService: ObservableObject {
         guard let session = activeSession else { return }
         session.stages = analyzer.computeStages(sleepStart: session.startDate)
         try? modelContext?.save()
+        if isTracking {
+            scheduleBackgroundTask()
+        }
+    }
+
+    private func startAudioMetering() {
+        let settings: [String: Any] = [
+            AVFormatIDKey: Int(kAudioFormatAppleLossless),
+            AVSampleRateKey: 8_000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
+        ]
+
+        do {
+            let recorder = try AVAudioRecorder(url: URL(fileURLWithPath: "/dev/null"), settings: settings)
+            recorder.isMeteringEnabled = true
+            recorder.record()
+            audioRecorder = recorder
+
+            audioMeterTimer?.invalidate()
+            audioMeterTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] _ in
+                guard let self, let recorder = self.audioRecorder else { return }
+                recorder.updateMeters()
+                let averagePower = Double(recorder.averagePower(forChannel: 0))
+                let peakPower = Double(recorder.peakPower(forChannel: 0))
+                self.analyzer.addAudioLevel(
+                    timestamp: Date(),
+                    levelDbfs: averagePower,
+                    clipped: peakPower > -1
+                )
+            }
+        } catch {
+            print("Failed to start audio metering: \(error)")
+        }
+    }
+
+    private func stopAudioMetering() {
+        audioMeterTimer?.invalidate()
+        audioMeterTimer = nil
+        audioRecorder?.stop()
+        audioRecorder = nil
+    }
+
+    private func registerBackgroundTask() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.bgTaskId, using: nil) { [weak self] task in
+            self?.handleBackgroundTask(task)
+        }
+    }
+
+    private func scheduleBackgroundTask() {
+        let request = BGProcessingTaskRequest(identifier: Self.bgTaskId)
+        request.requiresNetworkConnectivity = false
+        request.requiresExternalPower = false
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)
+        try? BGTaskScheduler.shared.submit(request)
+    }
+
+    private func handleBackgroundTask(_ task: BGTask) {
+        scheduleBackgroundTask()
+        task.expirationHandler = { [weak self] in
+            Task { @MainActor in
+                self?.flushStages()
+                task.setTaskCompleted(success: true)
+            }
+        }
+        Task { @MainActor in
+            self.flushStages()
+            task.setTaskCompleted(success: true)
+        }
     }
 }

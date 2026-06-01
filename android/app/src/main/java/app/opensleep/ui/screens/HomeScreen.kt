@@ -9,10 +9,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bedtime
+import androidx.compose.material.icons.filled.HealthAndSafety
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.health.connect.client.PermissionController
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -25,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opensleep.R
 import app.opensleep.data.local.SleepStageType
+import app.opensleep.domain.HealthSyncManager
 import app.opensleep.ui.components.GlassCard
 import app.opensleep.ui.components.SleepRingChart
 import app.opensleep.ui.components.SleepStageLegend
@@ -38,9 +42,17 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val isSleeping by viewModel.isSleeping.collectAsState()
     val activeSession by viewModel.activeSession.collectAsState()
     val elapsedSeconds by viewModel.elapsedSeconds.collectAsState()
+    val healthConnectAvailable by viewModel.isHealthConnectAvailable.collectAsState()
+    val hasHealthPermissions by viewModel.hasHealthPermissions.collectAsState()
  
     var areNotificationsEnabled by remember {
         mutableStateOf(androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled())
+    }
+
+    val healthPermissionLauncher = rememberLauncherForActivityResult(
+        PermissionController.createRequestPermissionResultContract()
+    ) {
+        viewModel.refreshHealthPermissions()
     }
 
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
@@ -48,6 +60,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
         val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
             if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
                 areNotificationsEnabled = androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()
+                viewModel.refreshHealthPermissions()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -140,6 +153,42 @@ fun HomeScreen(viewModel: HomeViewModel) {
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextSecondary
                         )
+                    }
+                }
+            }
+        }
+
+        if (healthConnectAvailable && !hasHealthPermissions) {
+            Spacer(Modifier.height(16.dp))
+            GlassCard(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.HealthAndSafety,
+                        contentDescription = null,
+                        tint = IndigoAccent,
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Spacer(Modifier.width(16.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.health_connect_permissions_title),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            color = TextPrimary
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.health_connect_permissions_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextSecondary
+                        )
+                    }
+                    TextButton(
+                        onClick = { healthPermissionLauncher.launch(HealthSyncManager.PERMISSIONS) }
+                    ) {
+                        Text(stringResource(R.string.enable))
                     }
                 }
             }

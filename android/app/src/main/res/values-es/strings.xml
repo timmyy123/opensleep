@@ -59,10 +59,10 @@
     <string name="section_about">Acerca de y Privacidad</string>
     <string name="privacy_tos">Política de privacidad y condiciones</string>
     <string name="privacy_title">Política de privacidad</string>
-    <string name="privacy_body">OpenSleep está 100% comprometido con tu privacidad.
+    <string name="privacy_body" formatted="false">OpenSleep está 100% comprometido con tu privacidad.
 
-• Procesamiento 100% en el dispositivo: Todos los sensores de seguimiento (acelerómetro, giroscopio, micrófono) se analizan completamente a nivel local. Ningún dato personal o de telemetría sale de tu dispositivo.
-• Modelo de IA local: El asistente de sueño ejecuta un modelo Gemma 4 LLM de forma local en tu dispositivo (sin servidores ni APIs externas).
+• Procesamiento 100% en el dispositivo: Los sensores de movimiento del teléfono y las funciones de nivel de sonido derivadas del micrófono se analizan completamente de forma local. No se almacena audio sin procesar y ninguna telemetría personal sale de tu dispositivo.
+• Modelo de IA local: El asistente de sueño ejecuta un Gemma 4 LLM totalmente local en el dispositivo (cero servidores, sin APIs externas).
 • Código abierto: OpenSleep es un proyecto de código abierto totalmente transparente. Puedes inspeccionar el código fuente en cualquier momento.
 • Sincronización de salud: Las sesiones de sueño se guardan localmente y se sincronizan directamente con Google Health Connect.
 • Soporte: Si tienes alguna pregunta o sugerencia, contáctanos en timmy@opensleep.tech.</string>
@@ -71,4 +71,7 @@
     <string name="notification_syncing_text">OpenSleep está guardando y sincronizando tus datos…</string>
     <string name="notifications_disabled_title">Notificaciones desactivadas</string>
     <string name="notifications_disabled_desc">OpenSleep requiere permiso de notificación para rastrear el sueño en segundo plano. Toca aquí para activarlo en Ajustes.</string>
+    <string name="health_connect_permissions_title">Habilitar Health Connect</string>
+    <string name="health_connect_permissions_desc">Permite acceso de lectura y escritura del sueño para que OpenSleep pueda sincronizar sesiones completadas e importar registros de sueño existentes.</string>
+    <string name="enable">Habilitar</string>
 </resources>

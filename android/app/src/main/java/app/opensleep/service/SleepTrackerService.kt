@@ -5,8 +5,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.AudioFormat
+import android.media.AudioRecord
+import android.media.MediaRecorder
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -14,12 +19,15 @@ import android.hardware.SensorManager
 import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import app.opensleep.MainActivity
 import app.opensleep.R
 import app.opensleep.data.local.SleepDatabase
 import app.opensleep.data.repository.SleepRepository
 import app.opensleep.domain.SleepStageAnalyzer
 import kotlinx.coroutines.*
+import kotlin.math.log10
+import kotlin.math.sqrt
 
 class SleepTrackerService : Service(), SensorEventListener {
 
@@ -32,6 +40,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         private const val CHANNEL_ID = "sleep_tracking"
         // Sample at 4 Hz (250 ms delay)
         private const val SENSOR_DELAY_US = 250_000
+        private const val AUDIO_SAMPLE_RATE = 8_000
     }
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -40,6 +49,9 @@ class SleepTrackerService : Service(), SensorEventListener {
     private val analyzer = SleepStageAnalyzer()
     private var sessionId: String? = null
     private lateinit var repository: SleepRepository
+    private var flushJob: Job? = null
+    private var audioJob: Job? = null
+    private var audioRecord: AudioRecord? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -64,21 +76,32 @@ class SleepTrackerService : Service(), SensorEventListener {
                 stopTracking()
             }
         }
-        return START_NOT_STICKY
+        return START_REDELIVER_INTENT
     }
 
     private fun startTracking() {
         Log.d(TAG, "startTracking() entering.")
+        analyzer.clear()
         if (!wakeLock.isHeld) {
             wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
             Log.d(TAG, "WakeLock acquired.")
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val foregroundTypes =
+                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC or
+                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH or
+                if (
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
+                } else {
+                    0
+                }
             startForeground(
                 NOTIFICATION_ID,
                 buildNotification(),
-                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC or
-                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH
+                foregroundTypes
             )
         } else {
             startForeground(NOTIFICATION_ID, buildNotification())
@@ -89,11 +112,13 @@ class SleepTrackerService : Service(), SensorEventListener {
         accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
         gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
         Log.d(TAG, "Sensor listeners registered.")
+        startAudioMonitoring()
 
         // Periodically flush stages to DB every 5 minutes
-        serviceScope.launch {
+        flushJob?.cancel()
+        flushJob = serviceScope.launch {
             val sid = sessionId ?: return@launch
-            val startTime = System.currentTimeMillis()
+            val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
             while (isActive) {
                 delay(5 * 60 * 1000L)
                 Log.d(TAG, "Performing periodic 5-minute database flush...")
@@ -107,6 +132,8 @@ class SleepTrackerService : Service(), SensorEventListener {
     private fun stopTracking() {
         Log.d(TAG, "stopTracking() called. Unregistering sensor listener...")
         sensorManager.unregisterListener(this)
+        flushJob?.cancel()
+        stopAudioMonitoring()
         
         Log.d(TAG, "Showing user-noticeable syncing notification...")
         updateNotificationToSyncing()
@@ -193,11 +220,19 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            analyzer.addSample(
-                System.currentTimeMillis(),
-                event.values[0], event.values[1], event.values[2]
-            )
+        when (event.sensor.type) {
+            Sensor.TYPE_ACCELEROMETER -> {
+                analyzer.addSample(
+                    System.currentTimeMillis(),
+                    event.values[0], event.values[1], event.values[2]
+                )
+            }
+            Sensor.TYPE_GYROSCOPE -> {
+                analyzer.addGyroSample(
+                    System.currentTimeMillis(),
+                    event.values[0], event.values[1], event.values[2]
+                )
+            }
         }
     }
 
@@ -205,6 +240,7 @@ class SleepTrackerService : Service(), SensorEventListener {
 
     override fun onDestroy() {
         sensorManager.unregisterListener(this)
+        stopAudioMonitoring()
         serviceScope.cancel()
         if (wakeLock.isHeld) wakeLock.release()
         super.onDestroy()
@@ -250,5 +286,88 @@ class SleepTrackerService : Service(), SensorEventListener {
                 ).build()
             )
             .build()
+    }
+
+    @Suppress("MissingPermission")
+    private fun startAudioMonitoring() {
+        if (
+            ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Audio monitoring skipped; RECORD_AUDIO permission is missing.")
+            return
+        }
+
+        val minBuffer = AudioRecord.getMinBufferSize(
+            AUDIO_SAMPLE_RATE,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT
+        )
+        if (minBuffer <= 0) {
+            Log.w(TAG, "Audio monitoring skipped; invalid minimum buffer size: $minBuffer")
+            return
+        }
+
+        val bufferSize = minBuffer * 2
+        val recorder = AudioRecord(
+            MediaRecorder.AudioSource.UNPROCESSED,
+            AUDIO_SAMPLE_RATE,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT,
+            bufferSize
+        ).takeIf { it.state == AudioRecord.STATE_INITIALIZED } ?: AudioRecord(
+            MediaRecorder.AudioSource.MIC,
+            AUDIO_SAMPLE_RATE,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT,
+            bufferSize
+        )
+
+        if (recorder.state != AudioRecord.STATE_INITIALIZED) {
+            recorder.release()
+            Log.w(TAG, "Audio monitoring skipped; AudioRecord failed to initialize.")
+            return
+        }
+
+        audioRecord = recorder
+        audioJob?.cancel()
+        audioJob = serviceScope.launch {
+            val buffer = ShortArray(bufferSize / 2)
+            try {
+                recorder.startRecording()
+                while (isActive) {
+                    val read = recorder.read(buffer, 0, buffer.size)
+                    if (read > 0) {
+                        var sumSquares = 0.0
+                        var clipped = false
+                        for (i in 0 until read) {
+                            val sample = buffer[i].toDouble()
+                            sumSquares += sample * sample
+                            clipped = clipped || kotlin.math.abs(buffer[i].toInt()) > 32_000
+                        }
+                        val rms = sqrt(sumSquares / read) / Short.MAX_VALUE.toDouble()
+                        val dbfs = (20.0 * log10(rms.coerceAtLeast(0.000_001))).toFloat()
+                        analyzer.addAudioLevel(System.currentTimeMillis(), dbfs, clipped)
+                    }
+                    delay(4_000L)
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "Audio monitoring stopped: ${e.message}")
+            } finally {
+                runCatching { recorder.stop() }
+                recorder.release()
+                audioRecord = null
+            }
+        }
+    }
+
+    private fun stopAudioMonitoring() {
+        audioJob?.cancel()
+        audioJob = null
+        audioRecord?.let {
+            runCatching { it.stop() }
+            it.release()
+        }
+        audioRecord = null
     }
 }
