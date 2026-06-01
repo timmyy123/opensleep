@@ -67,4 +67,8 @@
 • Health Sync: Schlafsitzungen werden lokal gespeichert und direkt mit Google Health Connect synchronisiert.
 • Support: Wenn Sie Fragen oder Feedback haben, kontaktieren Sie uns unter timmy@opensleep.tech.</string>
     <string name="github_repo">GitHub-Repository</string>
+    <string name="notification_syncing_title">Schlafdaten synchronisieren</string>
+    <string name="notification_syncing_text">OpenSleep speichert und synchronisiert deine Daten…</string>
+    <string name="notifications_disabled_title">Benachrichtigungen deaktiviert</string>
+    <string name="notifications_disabled_desc">OpenSleep benötigt eine Benachrichtigungsberechtigung, um die Schlafaufzeichnung im Hintergrund auszuführen. Tippe hier, um sie in den Einstellungen zu aktivieren.</string>
 </resources>

@@ -69,4 +69,6 @@
 • Health Sync: Sleep sessions are stored locally and synced directly with Google Health Connect.
 • Support: If you have any questions or feedback, contact us at timmy@opensleep.tech.</string>
     <string name="github_repo">GitHub Repository</string>
+    <string name="notifications_disabled_title">Notifications Disabled</string>
+    <string name="notifications_disabled_desc">OpenSleep requires notification permission to run sleep tracking in the background. Tap here to enable in Settings.</string>
 </resources>

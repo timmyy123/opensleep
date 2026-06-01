@@ -67,4 +67,8 @@
 • Sincronización de salud: Las sesiones de sueño se guardan localmente y se sincronizan directamente con Google Health Connect.
 • Soporte: Si tienes alguna pregunta o sugerencia, contáctanos en timmy@opensleep.tech.</string>
     <string name="github_repo">Repositorio de GitHub</string>
+    <string name="notification_syncing_title">Sincronizando datos de sueño</string>
+    <string name="notification_syncing_text">OpenSleep está guardando y sincronizando tus datos…</string>
+    <string name="notifications_disabled_title">Notificaciones desactivadas</string>
+    <string name="notifications_disabled_desc">OpenSleep requiere permiso de notificación para rastrear el sueño en segundo plano. Toca aquí para activarlo en Ajustes.</string>
 </resources>

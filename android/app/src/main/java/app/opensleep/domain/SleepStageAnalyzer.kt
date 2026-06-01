@@ -80,7 +80,7 @@ class SleepStageAnalyzer {
 
             // Merge consecutive same-type segments
             if (stages.isNotEmpty() && stages.last().type == stageType) {
-                val last = stages.removeLast()
+                val last = stages.removeAt(stages.lastIndex)
                 stages.add(last.copy(endMs = windowEndMs))
             } else {
                 stages.add(SleepStage(stageType, currentWindowStart, windowEndMs))

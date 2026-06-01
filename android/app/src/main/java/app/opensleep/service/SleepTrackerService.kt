@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.IBinder
 import android.os.PowerManager
+import android.util.Log
 import app.opensleep.MainActivity
 import app.opensleep.R
 import app.opensleep.data.local.SleepDatabase
@@ -23,6 +24,7 @@ import kotlinx.coroutines.*
 class SleepTrackerService : Service(), SensorEventListener {
 
     companion object {
+        private const val TAG = "SleepTrackerService"
         const val ACTION_START = "app.opensleep.START_TRACKING"
         const val ACTION_STOP = "app.opensleep.STOP_TRACKING"
         const val EXTRA_SESSION_ID = "session_id"
@@ -41,6 +43,7 @@ class SleepTrackerService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d(TAG, "onCreate() called.")
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "opensleep::tracking")
@@ -49,24 +52,43 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d(TAG, "onStartCommand() intent Action: ${intent?.action}")
         when (intent?.action) {
             ACTION_START -> {
                 sessionId = intent.getStringExtra(EXTRA_SESSION_ID)
+                Log.d(TAG, "Starting tracking for session: $sessionId")
                 startTracking()
             }
-            ACTION_STOP -> stopTracking()
+            ACTION_STOP -> {
+                Log.d(TAG, "Stopping tracking command received.")
+                stopTracking()
+            }
         }
         return START_NOT_STICKY
     }
 
     private fun startTracking() {
-        if (!wakeLock.isHeld) wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
-        startForeground(NOTIFICATION_ID, buildNotification())
+        Log.d(TAG, "startTracking() entering.")
+        if (!wakeLock.isHeld) {
+            wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
+            Log.d(TAG, "WakeLock acquired.")
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(
+                NOTIFICATION_ID,
+                buildNotification(),
+                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC or
+                android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH
+            )
+        } else {
+            startForeground(NOTIFICATION_ID, buildNotification())
+        }
 
         val accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
         gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
+        Log.d(TAG, "Sensor listeners registered.")
 
         // Periodically flush stages to DB every 5 minutes
         serviceScope.launch {
@@ -74,50 +96,85 @@ class SleepTrackerService : Service(), SensorEventListener {
             val startTime = System.currentTimeMillis()
             while (isActive) {
                 delay(5 * 60 * 1000L)
+                Log.d(TAG, "Performing periodic 5-minute database flush...")
                 val stages = analyzer.computeStages(startTime)
                 repository.updateStages(sid, stages)
+                Log.d(TAG, "Periodic database flush complete.")
             }
         }
     }
 
     private fun stopTracking() {
+        Log.d(TAG, "stopTracking() called. Unregistering sensor listener...")
         sensorManager.unregisterListener(this)
         
-        // Show user-noticeable background data sync status in the foreground notification
+        Log.d(TAG, "Showing user-noticeable syncing notification...")
         updateNotificationToSyncing()
 
         serviceScope.launch {
-            val sid = sessionId ?: repository.getActiveSessionOneShot()?.id
-            if (sid != null) {
-                val session = repository.getSessionById(sid)
-                if (session != null) {
-                    val startTime = session.startTimeMs
-                    val stages = analyzer.computeStages(startTime)
-                    repository.endSession(sid, stages)
-                    
-                    // Perform background health synchronization inside the foreground service
-                    val healthSync = app.opensleep.domain.HealthSyncManager(applicationContext)
-                    if (healthSync.isAvailable() && healthSync.hasPermissions()) {
-                        val updatedSession = repository.getSessionById(sid)
-                        if (updatedSession != null) {
-                            if (healthSync.writeSleepSession(updatedSession)) {
-                                repository.markSynced(sid)
+            try {
+                Log.d(TAG, "Coroutine started. Resolving session ID...")
+                val sid = sessionId ?: repository.getActiveSessionOneShot()?.id
+                Log.d(TAG, "Resolved session ID: $sid")
+                if (sid != null) {
+                    val session = repository.getSessionById(sid)
+                    Log.d(TAG, "Retrieved session from database: $session")
+                    if (session != null) {
+                        val startTime = session.startTimeMs
+                        Log.d(TAG, "Computing stages for session starting at $startTime...")
+                        val stages = analyzer.computeStages(startTime)
+                        Log.d(TAG, "Computed stages: ${stages.size} stages found.")
+                        
+                        Log.d(TAG, "Ending session in repository...")
+                        repository.endSession(sid, stages)
+                        Log.d(TAG, "Session ended in repository.")
+                        
+                        Log.d(TAG, "Initializing HealthSyncManager for sync...")
+                        val healthSync = app.opensleep.domain.HealthSyncManager(applicationContext)
+                        val isAvailable = healthSync.isAvailable()
+                        val hasPermissions = healthSync.hasPermissions()
+                        Log.d(TAG, "HealthSyncManager availability: $isAvailable, permissions: $hasPermissions")
+                        
+                        if (isAvailable && hasPermissions) {
+                            val updatedSession = repository.getSessionById(sid)
+                            Log.d(TAG, "Retrieved updated session for Health Connect: $updatedSession")
+                            if (updatedSession != null) {
+                                Log.d(TAG, "Writing sleep session to Health Connect...")
+                                val success = healthSync.writeSleepSession(updatedSession)
+                                Log.d(TAG, "Health Connect write result: $success")
+                                if (success) {
+                                    repository.markSynced(sid)
+                                    Log.d(TAG, "Session marked as synced in repository.")
+                                }
                             }
+                        } else {
+                            Log.d(TAG, "Skipping Health Connect sync because Health Connect is not available or permissions are missing.")
                         }
+                    } else {
+                        Log.w(TAG, "No session found in database for session ID: $sid")
                     }
+                } else {
+                    Log.w(TAG, "Could not resolve active session ID to stop.")
                 }
-            }
-            
-            // Clean up and stop the foreground service safely after complete data sync!
-            withContext(Dispatchers.Main) {
-                if (wakeLock.isHeld) wakeLock.release()
-                stopForeground(STOP_FOREGROUND_REMOVE)
-                stopSelf()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error during sleep session finalization & sync: ${e.message}", e)
+            } finally {
+                // Add a small artificial delay of 1.5 seconds so the user can visually witness the "Syncing..." status
+                Log.d(TAG, "Finalizing service stop tracking...")
+                delay(1500L)
+                withContext(Dispatchers.Main) {
+                    Log.d(TAG, "Terminating foreground service...")
+                    if (wakeLock.isHeld) wakeLock.release()
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                    Log.d(TAG, "Service stopped.")
+                }
             }
         }
     }
 
     private fun updateNotificationToSyncing() {
+        Log.d(TAG, "updateNotificationToSyncing() executing.")
         val tapIntent = Intent(this, MainActivity::class.java)
         val tapPending = PendingIntent.getActivity(
             this, 0, tapIntent, PendingIntent.FLAG_IMMUTABLE
@@ -132,6 +189,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(NOTIFICATION_ID, notification)
+        Log.d(TAG, "updateNotificationToSyncing() finished and posted notification.")
     }
 
     override fun onSensorChanged(event: SensorEvent) {
