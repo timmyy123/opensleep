@@ -449,6 +449,7 @@ struct SessionCard: View {
                 // Mini hypnogram
                 SleepHypnogram(
                     stages: session.stages,
+                    sessionStartDate: session.startDate,
                     totalDuration: session.durationSeconds
                 )
 

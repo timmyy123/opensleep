@@ -78,6 +78,7 @@ struct SleepDetailView: View {
 
                             SleepHypnogram(
                                 stages: session.stages,
+                                sessionStartDate: session.startDate,
                                 totalDuration: session.durationSeconds
                             )
                         }

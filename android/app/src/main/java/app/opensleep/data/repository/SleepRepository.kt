@@ -35,9 +35,34 @@ class SleepRepository(private val dao: SleepSessionDao) {
         )
     }
 
-    suspend fun updateStages(sessionId: String, stages: List<SleepStage>) {
+    suspend fun updateStages(sessionId: String, newStages: List<SleepStage>) {
         val session = dao.getSessionById(sessionId) ?: return
-        dao.update(session.copy(stagesJson = stages.encodeToString()))
+        if (newStages.isEmpty()) return
+        
+        val existingStages = session.stages()
+        val mergedStages = if (existingStages.isEmpty()) {
+            newStages
+        } else {
+            val firstNewStart = newStages.first().startMs
+            // Keep existing stages that end before or at the start of new stages
+            val keepStages = existingStages.filter { it.endMs <= firstNewStart }.toMutableList()
+            
+            if (keepStages.isEmpty()) {
+                newStages
+            } else {
+                val lastKeep = keepStages.last()
+                val firstNew = newStages.first()
+                if (lastKeep.type == firstNew.type && lastKeep.endMs >= firstNew.startMs) {
+                    // Merge adjacent stages of same type at boundary
+                    keepStages[keepStages.lastIndex] = lastKeep.copy(endMs = firstNew.endMs)
+                    keepStages.addAll(newStages.drop(1))
+                } else {
+                    keepStages.addAll(newStages)
+                }
+                keepStages
+            }
+        }
+        dao.update(session.copy(stagesJson = mergedStages.encodeToString()))
     }
 
     suspend fun markSynced(sessionId: String) {

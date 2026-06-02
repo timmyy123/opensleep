@@ -105,9 +105,27 @@ class SleepStageAnalyzer {
         audioSamples.clear()
     }
 
-    private fun buildFeatures(startMs: Long, endMs: Long, sleepStartMs: Long): WindowFeatures? {
         val accelWindow = samples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
-        if (accelWindow.size < 2) return null
+        val audioWindow = audioSamples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
+        val audioMeanDb = audioWindow.map { it.levelDbfs }.averageOrDefault(-65f)
+        val audioEvents = audioWindow.count { it.levelDbfs > -38f || it.clipped }
+            .toFloat() / max(1, audioWindow.size)
+        val audioMean = normalizeLinear(audioMeanDb, -62f, -30f)
+
+        if (accelWindow.size < 2) {
+            // Synthesize a still feature window if motion updates were suspended/throttled by the OS (Doze mode)
+            return WindowFeatures(
+                startMs = startMs,
+                endMs = endMs,
+                movement = 0.0f,
+                stillness = 1.0f,
+                rotation = 0.0f,
+                audioMean = audioMean,
+                audioEvents = audioEvents,
+                artifact = false, // Background throttling is normal sleep behavior, not a movement artifact
+                elapsedMs = startMs - sleepStartMs
+            )
+        }
 
         val magnitudes = accelWindow.map { it.accelMagnitude }
         val deltas = magnitudes.zipWithNext { a, b -> abs(b - a) }
@@ -119,11 +137,6 @@ class SleepStageAnalyzer {
         val gyroWindow = gyroSamples.filter { it.first >= startMs && it.first < endMs }.map { it.second }
         val rotationMean = gyroWindow.averageOrZero()
 
-        val audioWindow = audioSamples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
-        val audioMeanDb = audioWindow.map { it.levelDbfs }.averageOrDefault(-65f)
-        val audioEvents = audioWindow.count { it.levelDbfs > -38f || it.clipped }
-            .toFloat() / max(1, audioWindow.size)
-
         val movement = weightedIndex(
             normalizeLog(variance, 0.00002f, 0.08f) * 0.45f,
             normalizeLog(jerk.toFloat(), 0.001f, 0.06f) * 0.30f,
@@ -131,7 +144,6 @@ class SleepStageAnalyzer {
             (1f - stillRatio) * 0.10f
         )
         val rotation = normalizeLinear(rotationMean.toFloat(), 0.01f, 0.85f)
-        val audioMean = normalizeLinear(audioMeanDb, -62f, -30f)
         val artifact = accelWindow.size < MIN_ACCEL_SAMPLES_PER_WINDOW ||
             range > 3.5f ||
             movement > 0.96f ||

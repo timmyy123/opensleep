@@ -41,9 +41,16 @@ class SleepTrackerService : Service(), SensorEventListener {
         // Sample at 4 Hz (250 ms delay)
         private const val SENSOR_DELAY_US = 250_000
         private const val AUDIO_SAMPLE_RATE = 8_000
+
+        @Volatile
+        var isRunning = false
+            private set
     }
 
-    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e(TAG, "Uncaught exception in SleepTrackerService coroutine: ${throwable.message}", throwable)
+    }
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO + exceptionHandler)
     private lateinit var sensorManager: SensorManager
     private lateinit var wakeLock: PowerManager.WakeLock
     private val analyzer = SleepStageAnalyzer()
@@ -56,6 +63,7 @@ class SleepTrackerService : Service(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate() called.")
+        isRunning = true
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "opensleep::tracking")
@@ -63,13 +71,16 @@ class SleepTrackerService : Service(), SensorEventListener {
         createNotificationChannel()
     }
 
+    private var isTracking = false
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand() intent Action: ${intent?.action}")
+        val isSystemRestart = (flags and START_FLAG_REDELIVERY) != 0
+        Log.d(TAG, "onStartCommand() intent Action: ${intent?.action}, flags: $flags, isSystemRestart: $isSystemRestart")
         when (intent?.action) {
             ACTION_START -> {
                 sessionId = intent.getStringExtra(EXTRA_SESSION_ID)
                 Log.d(TAG, "Starting tracking for session: $sessionId")
-                startTracking()
+                startTracking(isSystemRestart)
             }
             ACTION_STOP -> {
                 Log.d(TAG, "Stopping tracking command received.")
@@ -79,9 +90,12 @@ class SleepTrackerService : Service(), SensorEventListener {
         return START_REDELIVER_INTENT
     }
 
-    private fun startTracking() {
-        Log.d(TAG, "startTracking() entering.")
-        analyzer.clear()
+    private fun startTracking(isSystemRestart: Boolean) {
+        Log.d(TAG, "startTracking() entering. isTracking: $isTracking, isSystemRestart: $isSystemRestart")
+        if (!isTracking) {
+            analyzer.clear()
+            isTracking = true
+        }
         if (!wakeLock.isHeld) {
             wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
             Log.d(TAG, "WakeLock acquired.")
@@ -130,7 +144,12 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     private fun stopTracking() {
-        Log.d(TAG, "stopTracking() called. Unregistering sensor listener...")
+        Log.d(TAG, "stopTracking() called. isTracking: $isTracking. Unregistering sensor listener...")
+        if (!isTracking) {
+            Log.d(TAG, "Service was not actively tracking. Skipping redundant stop.")
+            return
+        }
+        isTracking = false
         sensorManager.unregisterListener(this)
         flushJob?.cancel()
         stopAudioMonitoring()
@@ -239,6 +258,8 @@ class SleepTrackerService : Service(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onDestroy() {
+        Log.d(TAG, "onDestroy() called. Setting isRunning to false.")
+        isRunning = false
         sensorManager.unregisterListener(this)
         stopAudioMonitoring()
         serviceScope.cancel()

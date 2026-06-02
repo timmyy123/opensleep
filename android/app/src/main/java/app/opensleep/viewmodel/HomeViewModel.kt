@@ -39,6 +39,12 @@ class HomeViewModel(
 
         viewModelScope.launch {
             repository.getActiveSession().collectLatest { session ->
+                if (session != null && !SleepTrackerService.isRunning) {
+                    android.util.Log.d("HomeViewModel", "Orphaned active session found (Service is not running). Auto-closing session: ${session.id}")
+                    repository.endSession(session.id, session.stages())
+                    return@collectLatest
+                }
+                
                 _activeSession.value = session
                 _isSleeping.value = session != null
                 if (session != null) {

@@ -74,6 +74,7 @@ struct SleepRingChart: View {
 
 struct SleepHypnogram: View {
     let stages: [SleepStage]
+    var sessionStartDate: Date? = nil
     let totalDuration: TimeInterval
 
     private let stageOrder: [SleepStageType] = [.awake, .rem, .light, .deep]
@@ -82,7 +83,7 @@ struct SleepHypnogram: View {
         Canvas { ctx, size in
             guard !stages.isEmpty, totalDuration > 0 else { return }
             let trackH = size.height / CGFloat(stageOrder.count)
-            let startTime = stages.first?.startDate.timeIntervalSinceReferenceDate ?? 0
+            let startTime = sessionStartDate?.timeIntervalSinceReferenceDate ?? stages.first?.startDate.timeIntervalSinceReferenceDate ?? 0
 
             for stage in stages {
                 let x = CGFloat((stage.startDate.timeIntervalSinceReferenceDate - startTime) / totalDuration) * size.width

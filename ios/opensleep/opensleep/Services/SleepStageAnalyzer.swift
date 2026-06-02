@@ -101,7 +101,26 @@ class SleepStageAnalyzer {
 
     private func buildFeatures(start: Date, end: Date, sleepStart: Date) -> WindowFeatures? {
         let accelWindow = samples.filter { $0.timestamp >= start && $0.timestamp < end }
-        guard accelWindow.count >= 2 else { return nil }
+        let audioWindow = audioSamples.filter { $0.timestamp >= start && $0.timestamp < end }
+        let audioMeanDb = audioWindow.isEmpty ? -65 : average(audioWindow.map(\.levelDbfs))
+        let audioEvents = Double(audioWindow.filter { $0.levelDbfs > -38 || $0.clipped }.count) /
+            Double(max(1, audioWindow.count))
+        let audioMean = normalizeLinear(audioMeanDb, low: -62, high: -30)
+
+        if accelWindow.count < 2 {
+            // Synthesize a still feature window if motion updates were suspended/throttled by the OS
+            return WindowFeatures(
+                start: start,
+                end: end,
+                movement: 0.0,
+                stillness: 1.0,
+                rotation: 0.0,
+                audioMean: audioMean,
+                audioEvents: audioEvents,
+                artifact: false, // Throttling is background sleep behavior, not user movement
+                elapsed: start.timeIntervalSince(sleepStart)
+            )
+        }
 
         let magnitudes = accelWindow.map(\.accelMagnitude)
         let deltas = zip(magnitudes.dropFirst(), magnitudes).map { abs($0 - $1) }
@@ -115,11 +134,6 @@ class SleepStageAnalyzer {
             .map(\.magnitude)
         let rotationMean = average(gyroWindow)
 
-        let audioWindow = audioSamples.filter { $0.timestamp >= start && $0.timestamp < end }
-        let audioMeanDb = audioWindow.isEmpty ? -65 : average(audioWindow.map(\.levelDbfs))
-        let audioEvents = Double(audioWindow.filter { $0.levelDbfs > -38 || $0.clipped }.count) /
-            Double(max(1, audioWindow.count))
-
         let movement = weightedIndex([
             normalizeLog(variance, low: 0.00002, high: 0.08) * 0.45,
             normalizeLog(jerk, low: 0.001, high: 0.06) * 0.30,
@@ -127,7 +141,6 @@ class SleepStageAnalyzer {
             (1 - stillRatio) * 0.10
         ])
         let rotation = normalizeLinear(rotationMean, low: 0.01, high: 0.85)
-        let audioMean = normalizeLinear(audioMeanDb, low: -62, high: -30)
         let artifact = accelWindow.count < minAccelSamplesPerWindow ||
             range > 3.5 ||
             movement > 0.96 ||

@@ -199,17 +199,39 @@ class HealthKitManager: ObservableObject {
                     
                     // Map stages
                     var stages: [SleepStage] = []
+                    
+                    // Check if specific sleep stages (awake, core, deep, rem) are present
+                    let hasSpecificStages = sessionSamples.contains { sample in
+                        let val = sample.value
+                        return val == HKCategoryValueSleepAnalysis.asleepCore.rawValue ||
+                               val == HKCategoryValueSleepAnalysis.asleepDeep.rawValue ||
+                               val == HKCategoryValueSleepAnalysis.asleepREM.rawValue ||
+                               val == HKCategoryValueSleepAnalysis.awake.rawValue
+                    }
+                    
                     for sample in sessionSamples {
+                        guard let analysisValue = HKCategoryValueSleepAnalysis(rawValue: sample.value) else { continue }
+                        
+                        // Always exclude inBed from stages since it represents overall bed duration, not a stage
+                        if analysisValue == .inBed {
+                            continue
+                        }
+                        
+                        // If specific stages are present, exclude generic asleep samples to avoid double-counting
+                        if hasSpecificStages && analysisValue == .asleep {
+                            continue
+                        }
+                        
                         let type: SleepStageType
-                        switch HKCategoryValueSleepAnalysis(rawValue: sample.value) {
-                        case .awake?:
+                        switch analysisValue {
+                        case .awake:
                             type = .awake
-                        case .asleepDeep?:
+                        case .asleepDeep:
                             type = .deep
-                        case .asleepREM?:
+                        case .asleepREM:
                             type = .rem
                         default:
-                            type = .light // asleepCore, asleepUnspecified, etc.
+                            type = .light // asleepCore, asleep, etc.
                         }
                         stages.append(SleepStage(type: type, startDate: sample.startDate, endDate: sample.endDate))
                     }
