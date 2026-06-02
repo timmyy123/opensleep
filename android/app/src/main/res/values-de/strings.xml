@@ -74,4 +74,7 @@
     <string name="health_connect_permissions_title">Health Connect aktivieren</string>
     <string name="health_connect_permissions_desc">Erlaube Lese-/Schreibzugriff auf Schlafdaten, damit OpenSleep abgeschlossene Sitzungen synchronisieren und vorhandene Schlafdaten importieren kann.</string>
     <string name="enable">Aktivieren</string>
+    <string name="section_ai_settings">KI-Chat-Einstellungen</string>
+    <string name="setting_use_gpu">GPU-Beschleunigung verwenden</string>
+    <string name="setting_use_gpu_desc">Verwenden Sie die GPU des Telefons für schnellere KI-Antworten. Deaktivieren Sie dies, um die CPU zu verwenden.</string>
 </resources>

@@ -28,7 +28,7 @@ class LiteRtManager(private val context: Context) {
     private var currentModelPath: String? = null
 
     @OptIn(ExperimentalApi::class)
-    suspend fun loadModel(modelPath: String, contextWindowSize: Int): LiteRtState = withContext(Dispatchers.IO) {
+    suspend fun loadModel(modelPath: String, contextWindowSize: Int, useGpu: Boolean): LiteRtState = withContext(Dispatchers.IO) {
         if (currentModelPath == modelPath && engine != null) return@withContext LiteRtState.Ready
 
         runCatching { engine?.close() }
@@ -36,9 +36,12 @@ class LiteRtManager(private val context: Context) {
 
         try {
             ExperimentalFlags.enableSpeculativeDecoding = true
+            val selectedBackend = if (useGpu) Backend.GPU() else Backend.CPU()
             val config = EngineConfig(
                 modelPath = modelPath,
-                backend = Backend.GPU(),
+                backend = selectedBackend,
+                visionBackend = null,
+                audioBackend = null,
                 cacheDir = context.cacheDir.absolutePath,
                 maxNumTokens = contextWindowSize
             )

@@ -65,7 +65,8 @@ class AiChatViewModel(
                 _modelState.value = LiteRtState.Loading
                 val modelPath = downloadManager.getModelPath(variant)
                 val contextWindowSize = downloadManager.contextWindowSizes.value[variant] ?: 4096
-                _modelState.value = liteRtManager.loadModel(modelPath, contextWindowSize)
+                val useGpu = downloadManager.useGpu.value
+                _modelState.value = liteRtManager.loadModel(modelPath, contextWindowSize, useGpu)
                 if (_modelState.value is LiteRtState.Error) {
                     _isGenerating.value = false
                     return@launch

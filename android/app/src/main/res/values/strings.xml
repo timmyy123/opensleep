@@ -74,4 +74,7 @@
     <string name="health_connect_permissions_title">Enable Health Connect</string>
     <string name="health_connect_permissions_desc">Allow sleep read/write access so OpenSleep can sync completed sessions and import existing sleep records.</string>
     <string name="enable">Enable</string>
+    <string name="section_ai_settings">AI Chat Settings</string>
+    <string name="setting_use_gpu">Use GPU Acceleration</string>
+    <string name="setting_use_gpu_desc">Use phone\'s GPU for faster AI responses. Disable to use CPU.</string>
 </resources>

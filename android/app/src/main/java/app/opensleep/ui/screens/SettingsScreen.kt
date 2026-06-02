@@ -112,6 +112,50 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 
         Spacer(Modifier.height(32.dp))
 
+        // AI Settings Section
+        Text(
+            text = stringResource(R.string.section_ai_settings),
+            style = MaterialTheme.typography.titleMedium,
+            color = IndigoLight,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        val useGpu by viewModel.useGpu.collectAsState()
+
+        GlassCard(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp, horizontal = 12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.setting_use_gpu),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = TextPrimary
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.setting_use_gpu_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextSecondary
+                    )
+                }
+                Switch(
+                    checked = useGpu,
+                    onCheckedChange = { viewModel.setUseGpu(it) },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.White,
+                        checkedTrackColor = IndigoAccent,
+                        uncheckedThumbColor = TextSecondary,
+                        uncheckedTrackColor = SurfaceVariant
+                    )
+                )
+            }
+        }
+
         Spacer(Modifier.height(32.dp))
 
         // Downloads Section

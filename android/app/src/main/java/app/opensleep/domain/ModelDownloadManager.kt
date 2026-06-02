@@ -62,6 +62,16 @@ class ModelDownloadManager(private val context: Context) {
         _activeVariant.value = variant
     }
 
+    private val _useGpu = MutableStateFlow(
+        sharedPrefs.getBoolean("use_gpu_in_chat", true)
+    )
+    val useGpu = _useGpu.asStateFlow()
+
+    fun setUseGpu(value: Boolean) {
+        sharedPrefs.edit().putBoolean("use_gpu_in_chat", value).apply()
+        _useGpu.value = value
+    }
+
     private val _contextWindowSizes = MutableStateFlow<Map<ModelVariant, Int>>(
         ModelVariant.entries.associateWith { variant ->
             sharedPrefs.getInt("context_window_size_${variant.name}", 4096)

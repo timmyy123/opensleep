@@ -29,7 +29,16 @@ class LiteRtManager: ObservableObject {
         engine = nil
 
         do {
-            let config = try EngineConfig(modelPath: path, maxNumTokens: contextSize)
+            ExperimentalFlags.optIntoExperimentalAPIs()
+            ExperimentalFlags.enableSpeculativeDecoding = true
+
+            let config = try EngineConfig(
+                modelPath: path,
+                backend: .gpu,
+                visionBackend: nil,
+                audioBackend: nil,
+                maxNumTokens: contextSize
+            )
             let e = Engine(engineConfig: config)
             try await e.initialize()
             engine = e

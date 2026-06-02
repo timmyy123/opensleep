@@ -74,4 +74,7 @@
     <string name="health_connect_permissions_title">Ativar Health Connect</string>
     <string name="health_connect_permissions_desc">Permita acesso de leitura e gravação do sono para que o OpenSleep possa sincronizar sessões concluídas e importar registros de sono existentes.</string>
     <string name="enable">Ativar</string>
+    <string name="section_ai_settings">Configurações de chat de IA</string>
+    <string name="setting_use_gpu">Usar aceleração de GPU</string>
+    <string name="setting_use_gpu_desc">Use a GPU do celular para obter respostas de IA mais rápidas. Desative para usar a CPU.</string>
 </resources>

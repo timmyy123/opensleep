@@ -23,6 +23,7 @@ class SettingsViewModel(
     val downloadStatus = downloadManager.downloadStatus
     val activeVariant = downloadManager.activeVariant
     val contextWindowSizes = downloadManager.contextWindowSizes
+    val useGpu = downloadManager.useGpu
 
     private val sharedPrefs = application.getSharedPreferences("opensleep_settings", Context.MODE_PRIVATE)
 
@@ -61,6 +62,10 @@ class SettingsViewModel(
 
     fun setContextWindowSize(variant: ModelVariant, size: Int) {
         downloadManager.setContextWindowSize(variant, size)
+    }
+
+    fun setUseGpu(value: Boolean) {
+        downloadManager.setUseGpu(value)
     }
 
     fun setLanguage(languageTag: String) {
