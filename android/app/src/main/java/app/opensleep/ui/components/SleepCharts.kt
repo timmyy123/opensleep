@@ -101,6 +101,7 @@ fun SleepRingChart(
 @Composable
 fun SleepHypnogram(
     stages: List<app.opensleep.data.local.SleepStage>,
+    sessionStartMs: Long? = null,
     totalDurationMs: Long,
     modifier: Modifier = Modifier
 ) {
@@ -113,22 +114,67 @@ fun SleepHypnogram(
         SleepStageType.DEEP to 1f
     )
 
-    Canvas(modifier = modifier.height(80.dp).fillMaxWidth()) {
-        val totalWidth = size.width
-        val height = size.height
-        val trackHeight = height / stageOrder.size
-        val startMs = stages.firstOrNull()?.startMs ?: return@Canvas
+    val finalStartMs = sessionStartMs ?: stages.firstOrNull()?.startMs ?: System.currentTimeMillis()
+    val finalEndMs = finalStartMs + totalDurationMs
 
-        stages.forEach { stage ->
-            val x = ((stage.startMs - startMs).toFloat() / totalDurationMs) * totalWidth
-            val w = ((stage.endMs - stage.startMs).toFloat() / totalDurationMs) * totalWidth
-            val yIdx = stageOrder.indexOfFirst { it.first == stage.type }
-            val y = yIdx * trackHeight
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Canvas(modifier = Modifier.height(80.dp).fillMaxWidth()) {
+            val totalWidth = size.width
+            val height = size.height
+            val trackHeight = height / stageOrder.size
 
-            drawRect(
-                color = stageColor(stage.type).copy(alpha = 0.85f),
-                topLeft = Offset(x, y),
-                size = Size(w.coerceAtLeast(2f), trackHeight - 2f)
+            // Draw background dotted vertical grid lines (25%, 50%, 75% marks)
+            val gridLines = 3
+            for (i in 1..gridLines) {
+                val fraction = i.toFloat() / (gridLines + 1)
+                val gx = fraction * totalWidth
+                drawLine(
+                    color = TextTertiary.copy(alpha = 0.15f),
+                    start = Offset(gx, 0f),
+                    end = Offset(gx, height),
+                    strokeWidth = 1.dp.toPx(),
+                    pathEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(5f, 10f), 0f)
+                )
+            }
+
+            stages.forEach { stage ->
+                val x = ((stage.startMs - finalStartMs).toFloat() / totalDurationMs) * totalWidth
+                val w = ((stage.endMs - stage.startMs).toFloat() / totalDurationMs) * totalWidth
+                val yIdx = stageOrder.indexOfFirst { it.first == stage.type }
+                val y = yIdx * trackHeight
+
+                drawRect(
+                    color = stageColor(stage.type).copy(alpha = 0.85f),
+                    topLeft = Offset(x, y),
+                    size = Size(w.coerceAtLeast(2f), trackHeight - 2f)
+                )
+            }
+        }
+
+        // Time axis labels
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            val sdf = java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault())
+            val startTimeStr = sdf.format(java.util.Date(finalStartMs)).lowercase()
+            val midTimeStr = sdf.format(java.util.Date(finalStartMs + totalDurationMs / 2)).lowercase()
+            val endTimeStr = sdf.format(java.util.Date(finalEndMs)).lowercase()
+
+            Text(
+                text = startTimeStr,
+                style = MaterialTheme.typography.labelSmall,
+                color = TextSecondary
+            )
+            Text(
+                text = midTimeStr,
+                style = MaterialTheme.typography.labelSmall,
+                color = TextTertiary
+            )
+            Text(
+                text = endTimeStr,
+                style = MaterialTheme.typography.labelSmall,
+                color = TextSecondary
             )
         }
     }

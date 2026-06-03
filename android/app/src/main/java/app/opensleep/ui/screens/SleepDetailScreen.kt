@@ -110,6 +110,7 @@ fun SleepDetailScreen(session: SleepSession, onBack: () -> Unit) {
                 Spacer(Modifier.height(12.dp))
                 SleepHypnogram(
                     stages = stageList,
+                    sessionStartMs = session.startTimeMs,
                     totalDurationMs = session.durationMs(),
                     modifier = Modifier.fillMaxWidth()
                 )

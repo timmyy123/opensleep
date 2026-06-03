@@ -32,12 +32,6 @@ struct SleepRingChart: View {
             Canvas { ctx, size in
                 let diameter = min(size.width, size.height)
                 let lineWidth: CGFloat = 24
-                let rect = CGRect(
-                    x: (size.width - diameter) / 2 + lineWidth / 2,
-                    y: (size.height - diameter) / 2 + lineWidth / 2,
-                    width: diameter - lineWidth,
-                    height: diameter - lineWidth
-                )
                 var startAngle = Angle.degrees(-90)
                 for (type, duration) in nonZero {
                     let fraction = duration / total
@@ -79,24 +73,66 @@ struct SleepHypnogram: View {
 
     private let stageOrder: [SleepStageType] = [.awake, .rem, .light, .deep]
 
+    private var startDateTime: Date {
+        sessionStartDate ?? stages.first?.startDate ?? Date()
+    }
+    
+    private var endDateTime: Date {
+        startDateTime.addingTimeInterval(totalDuration)
+    }
+
     var body: some View {
-        Canvas { ctx, size in
-            guard !stages.isEmpty, totalDuration > 0 else { return }
-            let trackH = size.height / CGFloat(stageOrder.count)
-            let startTime = sessionStartDate?.timeIntervalSinceReferenceDate ?? stages.first?.startDate.timeIntervalSinceReferenceDate ?? 0
+        VStack(spacing: 8) {
+            Canvas { ctx, size in
+                guard !stages.isEmpty, totalDuration > 0 else { return }
+                let trackH = size.height / CGFloat(stageOrder.count)
+                let startTime = startDateTime.timeIntervalSinceReferenceDate
 
-            for stage in stages {
-                let x = CGFloat((stage.startDate.timeIntervalSinceReferenceDate - startTime) / totalDuration) * size.width
-                let w = max(CGFloat(stage.durationSeconds / totalDuration) * size.width, 2)
-                let yIdx = stageOrder.firstIndex(of: stage.type) ?? 0
-                let y = CGFloat(yIdx) * trackH
+                // Draw background grid lines (25%, 50%, 75% marks)
+                let gridLines = 3
+                for i in 1...gridLines {
+                    let fraction = CGFloat(i) / CGFloat(gridLines + 1)
+                    let gx = fraction * size.width
+                    var path = Path()
+                    path.move(to: CGPoint(x: gx, y: 0))
+                    path.addLine(to: CGPoint(x: gx, y: size.height))
+                    ctx.stroke(path, with: .color(Color.textTertiary.opacity(0.15)), style: StrokeStyle(lineWidth: 1, dash: [2, 4]))
+                }
 
-                let rect = CGRect(x: x, y: y, width: w, height: trackH - 2)
-                ctx.fill(Path(roundedRect: rect, cornerRadius: 2),
-                        with: .color(Color.forStage(stage.type).opacity(0.85)))
+                for stage in stages {
+                    let x = CGFloat((stage.startDate.timeIntervalSinceReferenceDate - startTime) / totalDuration) * size.width
+                    let w = max(CGFloat(stage.durationSeconds / totalDuration) * size.width, 2)
+                    let yIdx = stageOrder.firstIndex(of: stage.type) ?? 0
+                    let y = CGFloat(yIdx) * trackH
+
+                    let rect = CGRect(x: x, y: y, width: w, height: trackH - 2)
+                    ctx.fill(Path(roundedRect: rect, cornerRadius: 2),
+                            with: .color(Color.forStage(stage.type).opacity(0.85)))
+                }
             }
+            .frame(height: 80)
+
+            // Time Axis Labels
+            HStack {
+                Text(startDateTime.formatted(date: .omitted, time: .shortened))
+                    .font(AppTextStyle.labelSmall)
+                    .foregroundStyle(Color.textSecondary)
+                
+                Spacer()
+                
+                let midDate = startDateTime.addingTimeInterval(totalDuration / 2)
+                Text(midDate.formatted(date: .omitted, time: .shortened))
+                    .font(AppTextStyle.labelSmall)
+                    .foregroundStyle(Color.textTertiary)
+                
+                Spacer()
+                
+                Text(endDateTime.formatted(date: .omitted, time: .shortened))
+                    .font(AppTextStyle.labelSmall)
+                    .foregroundStyle(Color.textSecondary)
+            }
+            .padding(.horizontal, 4)
         }
-        .frame(height: 80)
     }
 }
 

@@ -10,7 +10,8 @@ struct ChartStagePoint: Identifiable {
     let id = UUID()
     let label: String
     let stage: String // Localized display name
-    let hours: Double
+    let yStart: Double // Hours since 6 PM of reference evening
+    let yEnd: Double   // Hours since 6 PM of reference evening
     let type: SleepStageType
 }
 
@@ -192,114 +193,98 @@ struct SleepHistoryView: View {
         }
     }
 
-    // MARK: - Stacked Sleep Stage Aggregations
+    // MARK: - Apple Health Timeline Helpers
+
+    private func getReferenceEvening(for startDate: Date) -> Date {
+        let calendar = Calendar.current
+        let comps = calendar.dateComponents([.year, .month, .day, .hour], from: startDate)
+        
+        // If user went to sleep between midnight and noon, use the previous calendar day
+        let isAfterMidnight = (comps.hour ?? 0) < 12
+        let referenceDay = isAfterMidnight ? calendar.date(byAdding: .day, value: -1, to: startDate)! : startDate
+        
+        var refComps = calendar.dateComponents([.year, .month, .day], from: referenceDay)
+        refComps.hour = 18 // 6:00 PM
+        refComps.minute = 0
+        refComps.second = 0
+        
+        return calendar.date(from: refComps) ?? referenceDay
+    }
+
+    private func getHoursSinceReference(for date: Date, reference: Date) -> Double {
+        let diff = date.timeIntervalSince(reference)
+        return max(0.0, min(24.0, diff / 3600.0))
+    }
+
+    private func formatYAxisLabel(_ hours: Double) -> String {
+        let calendar = Calendar.current
+        var comps = DateComponents()
+        comps.hour = 18 // 6:00 PM
+        comps.minute = 0
+        let baseDate = calendar.date(from: comps) ?? Date()
+        let date = baseDate.addingTimeInterval(hours * 3600)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h a"
+        return formatter.string(from: date).lowercased()
+    }
+
+    // MARK: - Sleep Timeline Aggregations
 
     private var chartData: [ChartStagePoint] {
         let completed = sessions.filter(\.isCompleted).sorted(by: { $0.startDate < $1.startDate })
         guard !completed.isEmpty else { return [] }
         
+        let df = DateFormatter()
+        
         switch selectedTab {
         case .day:
-            let last7 = completed.suffix(7)
-            let df = DateFormatter()
+            let last7 = Array(completed.suffix(7))
             df.dateFormat = "E d"
-            var points: [ChartStagePoint] = []
-            for session in last7 {
-                let label = df.string(from: session.startDate)
-                let stageDurations = session.stageDurations
-                for type in SleepStageType.allCases {
-                    let seconds = stageDurations[type] ?? 0.0
-                    points.append(ChartStagePoint(
-                        label: label,
-                        stage: localizedString("stage_\(type.rawValue)"),
-                        hours: seconds / 3600.0,
-                        type: type
-                    ))
-                }
-            }
-            return points
+            return makePoints(for: last7, formatter: df)
             
         case .week:
-            let calendar = Calendar.current
-            let grouped = Dictionary(grouping: completed) { session -> Date in
-                let comps = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: session.startDate)
-                return calendar.date(from: comps) ?? session.startDate
-            }
-            let sortedWeeks = grouped.keys.sorted().suffix(4)
-            let df = DateFormatter()
-            df.dateFormat = "'W'w"
-            var points: [ChartStagePoint] = []
-            for weekDate in sortedWeeks {
-                let sessionsInWeek = grouped[weekDate] ?? []
-                let label = df.string(from: weekDate)
-                
-                for type in SleepStageType.allCases {
-                    let totalSeconds = sessionsInWeek.reduce(0.0) { $0 + ($1.stageDurations[type] ?? 0.0) }
-                    let avgHours = (totalSeconds / Double(sessionsInWeek.count)) / 3600.0
-                    points.append(ChartStagePoint(
-                        label: label,
-                        stage: localizedString("stage_\(type.rawValue)"),
-                        hours: avgHours,
-                        type: type
-                    ))
-                }
-            }
-            return points
+            let last14 = Array(completed.suffix(14))
+            df.dateFormat = "E d"
+            return makePoints(for: last14, formatter: df)
             
         case .month:
-            let calendar = Calendar.current
-            let grouped = Dictionary(grouping: completed) { session -> Date in
-                let comps = calendar.dateComponents([.year, .month], from: session.startDate)
-                return calendar.date(from: comps) ?? session.startDate
-            }
-            let sortedMonths = grouped.keys.sorted().suffix(6)
-            let df = DateFormatter()
-            df.dateFormat = "MMM"
-            var points: [ChartStagePoint] = []
-            for monthDate in sortedMonths {
-                let sessionsInMonth = grouped[monthDate] ?? []
-                let label = df.string(from: monthDate)
-                
-                for type in SleepStageType.allCases {
-                    let totalSeconds = sessionsInMonth.reduce(0.0) { $0 + ($1.stageDurations[type] ?? 0.0) }
-                    let avgHours = (totalSeconds / Double(sessionsInMonth.count)) / 3600.0
-                    points.append(ChartStagePoint(
-                        label: label,
-                        stage: localizedString("stage_\(type.rawValue)"),
-                        hours: avgHours,
-                        type: type
-                    ))
-                }
-            }
-            return points
+            let last30 = Array(completed.suffix(30))
+            df.dateFormat = "d" // Just the day number
+            return makePoints(for: last30, formatter: df)
             
         case .year:
-            let calendar = Calendar.current
-            let grouped = Dictionary(grouping: completed) { session -> Date in
-                let comps = calendar.dateComponents([.year], from: session.startDate)
-                return calendar.date(from: comps) ?? session.startDate
-            }
-            let sortedYears = grouped.keys.sorted().suffix(3)
-            let df = DateFormatter()
-            df.dateFormat = "yyyy"
-            var points: [ChartStagePoint] = []
-            for yearDate in sortedYears {
-                let sessionsInYear = grouped[yearDate] ?? []
-                let label = df.string(from: yearDate)
+            let last90 = Array(completed.suffix(90))
+            df.dateFormat = "MMM" // Month name
+            return makePoints(for: last90, formatter: df)
+        }
+    }
+
+    private func makePoints(for selectedSessions: [SleepSession], formatter: DateFormatter) -> [ChartStagePoint] {
+        var points: [ChartStagePoint] = []
+        for session in selectedSessions {
+            let label = formatter.string(from: session.startDate)
+            let refEvening = getReferenceEvening(for: session.startDate)
+            
+            // Map stages
+            let stages = session.stages
+            for stage in stages {
+                let yStart = getHoursSinceReference(for: stage.startDate, reference: refEvening)
+                let yEnd = getHoursSinceReference(for: stage.endDate, reference: refEvening)
                 
-                for type in SleepStageType.allCases {
-                    let totalSeconds = sessionsInYear.reduce(0.0) { $0 + ($1.stageDurations[type] ?? 0.0) }
-                    let avgHours = (totalSeconds / Double(sessionsInYear.count)) / 3600.0
+                // If it is within our 24h window
+                if yEnd > yStart {
                     points.append(ChartStagePoint(
                         label: label,
-                        stage: localizedString("stage_\(type.rawValue)"),
-                        hours: avgHours,
-                        type: type
+                        stage: localizedString("stage_\(stage.type.rawValue)"),
+                        yStart: yStart,
+                        yEnd: yEnd,
+                        type: stage.type
                     ))
                 }
             }
-            return points
         }
+        return points
     }
 
     @ViewBuilder
@@ -328,12 +313,15 @@ struct SleepHistoryView: View {
                     Chart(data) { point in
                         BarMark(
                             x: .value("Period", point.label),
-                            y: .value("Hours", point.hours)
+                            yStart: .value("Start Time", point.yStart),
+                            yEnd: .value("End Time", point.yEnd),
+                            width: .automatic
                         )
                         .foregroundStyle(by: .value("Stage", point.stage))
                         .cornerRadius(4)
                     }
-                    .frame(height: 180)
+                    .frame(height: 200)
+                    .chartYScale(domain: 0...24)
                     .chartForegroundStyleScale([
                         localizedString("stage_awake"): Color.stageAwake,
                         localizedString("stage_light"): Color.stageLight,
@@ -347,12 +335,12 @@ struct SleepHistoryView: View {
                         }
                     }
                     .chartYAxis {
-                        AxisMarks(values: .automatic) { value in
+                        AxisMarks(values: [0.0, 4.0, 8.0, 12.0, 16.0, 20.0, 24.0]) { value in
                             AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2, 4]))
                                 .foregroundStyle(Color.textTertiary.opacity(0.3))
                             AxisValueLabel {
                                 if let val = value.as(Double.self) {
-                                    Text(String(format: "%.1fh", val))
+                                    Text(formatYAxisLabel(val))
                                 }
                             }
                             .foregroundStyle(Color.textSecondary)

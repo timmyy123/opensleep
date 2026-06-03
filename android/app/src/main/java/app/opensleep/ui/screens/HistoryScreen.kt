@@ -32,9 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opensleep.R
 import app.opensleep.data.local.SleepSession
+import app.opensleep.data.local.SleepStageType
 import app.opensleep.ui.components.GlassCard
 import app.opensleep.ui.components.SleepHypnogram
 import app.opensleep.ui.components.SleepStageLegend
+import app.opensleep.ui.components.stageColor
 import app.opensleep.ui.theme.*
 import app.opensleep.viewmodel.HistoryViewModel
 import java.text.SimpleDateFormat
@@ -43,13 +45,11 @@ import java.util.concurrent.TimeUnit
 
 enum class ChartTab { DAY, WEEK, MONTH, YEAR }
 
-data class ChartDataPoint(
+data class AndroidChartStagePoint(
     val label: String,
-    val awakeHours: Float,
-    val remHours: Float,
-    val lightHours: Float,
-    val deepHours: Float,
-    val totalHours: Float
+    val yStart: Float, // Hours since 6 PM of reference evening
+    val yEnd: Float,   // Hours since 6 PM of reference evening
+    val type: SleepStageType
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -304,6 +304,41 @@ fun HistoryScreen(
     }
 }
 
+fun getReferenceEvening(startTimeMs: Long): Long {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = startTimeMs
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    
+    // If user went to sleep between midnight and noon, use the previous calendar day
+    if (hour < 12) {
+        calendar.add(Calendar.DAY_OF_YEAR, -1)
+    }
+    
+    calendar.set(Calendar.HOUR_OF_DAY, 18) // 6:00 PM
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+    calendar.set(Calendar.MILLISECOND, 0)
+    return calendar.timeInMillis
+}
+
+fun getHoursSinceReference(timeMs: Long, refEveningMs: Long): Float {
+    val diffMs = timeMs - refEveningMs
+    val hours = diffMs.toFloat() / (1000f * 60f * 60f)
+    return hours.coerceIn(0f, 24f)
+}
+
+fun formatYAxisLabel(hours: Float): String {
+    val calendar = Calendar.getInstance()
+    calendar.set(Calendar.HOUR_OF_DAY, 18) // 6:00 PM
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+    calendar.set(Calendar.MILLISECOND, 0)
+    calendar.add(Calendar.MINUTE, (hours * 60).toInt())
+    
+    val sdf = SimpleDateFormat("h a", Locale.getDefault())
+    return sdf.format(calendar.time).lowercase()
+}
+
 @Composable
 fun SleepBreakdownChart(
     sessions: List<SleepSession>,
@@ -313,128 +348,42 @@ fun SleepBreakdownChart(
     
     val chartData = remember(sessions, selectedTab) {
         val sorted = sessions.sortedBy { it.startTimeMs }
-        if (sorted.isEmpty()) return@remember emptyList<ChartDataPoint>()
+        if (sorted.isEmpty()) return@remember emptyList<AndroidChartStagePoint>()
         
-        when (selectedTab) {
-            ChartTab.DAY -> {
-                val last7 = sorted.takeLast(7)
-                val df = SimpleDateFormat("E d", Locale.getDefault())
-                last7.map { session ->
-                    val stageDurations = session.stageDurations()
-                    val awake = (stageDurations[app.opensleep.data.local.SleepStageType.AWAKE] ?: 0L) / (1000f * 60f * 60f)
-                    val rem = (stageDurations[app.opensleep.data.local.SleepStageType.REM] ?: 0L) / (1000f * 60f * 60f)
-                    val light = (stageDurations[app.opensleep.data.local.SleepStageType.LIGHT] ?: 0L) / (1000f * 60f * 60f)
-                    val deep = (stageDurations[app.opensleep.data.local.SleepStageType.DEEP] ?: 0L) / (1000f * 60f * 60f)
-                    ChartDataPoint(
-                        label = df.format(Date(session.startTimeMs)),
-                        awakeHours = awake,
-                        remHours = rem,
-                        lightHours = light,
-                        deepHours = deep,
-                        totalHours = awake + rem + light + deep
-                    )
-                }
-            }
-            ChartTab.WEEK -> {
-                val calendar = Calendar.getInstance()
-                val grouped = sorted.groupBy { session ->
-                    calendar.timeInMillis = session.startTimeMs
-                    calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
-                    calendar.timeInMillis
-                }
-                val sortedWeeks = grouped.keys.sorted().takeLast(4)
-                val df = SimpleDateFormat("dd/MM", Locale.getDefault())
-                sortedWeeks.map { weekMs ->
-                    val list = grouped[weekMs] ?: emptyList()
-                    var awakeSum = 0f
-                    var remSum = 0f
-                    var lightSum = 0f
-                    var deepSum = 0f
-                    list.forEach { session ->
-                        val sd = session.stageDurations()
-                        awakeSum += (sd[app.opensleep.data.local.SleepStageType.AWAKE] ?: 0L) / (1000f * 60f * 60f)
-                        remSum += (sd[app.opensleep.data.local.SleepStageType.REM] ?: 0L) / (1000f * 60f * 60f)
-                        lightSum += (sd[app.opensleep.data.local.SleepStageType.LIGHT] ?: 0L) / (1000f * 60f * 60f)
-                        deepSum += (sd[app.opensleep.data.local.SleepStageType.DEEP] ?: 0L) / (1000f * 60f * 60f)
-                    }
-                    val count = list.size.coerceAtLeast(1)
-                    ChartDataPoint(
-                        label = df.format(Date(weekMs)),
-                        awakeHours = awakeSum / count,
-                        remHours = remSum / count,
-                        lightHours = lightSum / count,
-                        deepHours = deepSum / count,
-                        totalHours = (awakeSum + remSum + lightSum + deepSum) / count
-                    )
-                }
-            }
-            ChartTab.MONTH -> {
-                val calendar = Calendar.getInstance()
-                val grouped = sorted.groupBy { session ->
-                    calendar.timeInMillis = session.startTimeMs
-                    calendar.set(Calendar.DAY_OF_MONTH, 1)
-                    calendar.timeInMillis
-                }
-                val sortedMonths = grouped.keys.sorted().takeLast(6)
-                val df = SimpleDateFormat("MMM", Locale.getDefault())
-                sortedMonths.map { monthMs ->
-                    val list = grouped[monthMs] ?: emptyList()
-                    var awakeSum = 0f
-                    var remSum = 0f
-                    var lightSum = 0f
-                    var deepSum = 0f
-                    list.forEach { session ->
-                        val sd = session.stageDurations()
-                        awakeSum += (sd[app.opensleep.data.local.SleepStageType.AWAKE] ?: 0L) / (1000f * 60f * 60f)
-                        remSum += (sd[app.opensleep.data.local.SleepStageType.REM] ?: 0L) / (1000f * 60f * 60f)
-                        lightSum += (sd[app.opensleep.data.local.SleepStageType.LIGHT] ?: 0L) / (1000f * 60f * 60f)
-                        deepSum += (sd[app.opensleep.data.local.SleepStageType.DEEP] ?: 0L) / (1000f * 60f * 60f)
-                    }
-                    val count = list.size.coerceAtLeast(1)
-                    ChartDataPoint(
-                        label = df.format(Date(monthMs)),
-                        awakeHours = awakeSum / count,
-                        remHours = remSum / count,
-                        lightHours = lightSum / count,
-                        deepHours = deepSum / count,
-                        totalHours = (awakeSum + remSum + lightSum + deepSum) / count
-                    )
-                }
-            }
-            ChartTab.YEAR -> {
-                val calendar = Calendar.getInstance()
-                val grouped = sorted.groupBy { session ->
-                    calendar.timeInMillis = session.startTimeMs
-                    calendar.set(Calendar.DAY_OF_YEAR, 1)
-                    calendar.timeInMillis
-                }
-                val sortedYears = grouped.keys.sorted().takeLast(3)
-                val df = SimpleDateFormat("yyyy", Locale.getDefault())
-                sortedYears.map { yearMs ->
-                    val list = grouped[yearMs] ?: emptyList()
-                    var awakeSum = 0f
-                    var remSum = 0f
-                    var lightSum = 0f
-                    var deepSum = 0f
-                    list.forEach { session ->
-                        val sd = session.stageDurations()
-                        awakeSum += (sd[app.opensleep.data.local.SleepStageType.AWAKE] ?: 0L) / (1000f * 60f * 60f)
-                        remSum += (sd[app.opensleep.data.local.SleepStageType.REM] ?: 0L) / (1000f * 60f * 60f)
-                        lightSum += (sd[app.opensleep.data.local.SleepStageType.LIGHT] ?: 0L) / (1000f * 60f * 60f)
-                        deepSum += (sd[app.opensleep.data.local.SleepStageType.DEEP] ?: 0L) / (1000f * 60f * 60f)
-                    }
-                    val count = list.size.coerceAtLeast(1)
-                    ChartDataPoint(
-                        label = df.format(Date(yearMs)),
-                        awakeHours = awakeSum / count,
-                        remHours = remSum / count,
-                        lightHours = lightSum / count,
-                        deepHours = deepSum / count,
-                        totalHours = (awakeSum + remSum + lightSum + deepSum) / count
+        val selectedSessions = when (selectedTab) {
+            ChartTab.DAY -> sorted.takeLast(7)
+            ChartTab.WEEK -> sorted.takeLast(14)
+            ChartTab.MONTH -> sorted.takeLast(30)
+            ChartTab.YEAR -> sorted.takeLast(90)
+        }
+        
+        val points = mutableListOf<AndroidChartStagePoint>()
+        val df = when (selectedTab) {
+            ChartTab.DAY, ChartTab.WEEK -> SimpleDateFormat("E d", Locale.getDefault())
+            ChartTab.MONTH -> SimpleDateFormat("d", Locale.getDefault())
+            ChartTab.YEAR -> SimpleDateFormat("MMM", Locale.getDefault())
+        }
+        
+        selectedSessions.forEach { session ->
+            val label = df.format(Date(session.startTimeMs))
+            val refEvening = getReferenceEvening(session.startTimeMs)
+            
+            session.stages().forEach { stage ->
+                val yStart = getHoursSinceReference(stage.startMs, refEvening)
+                val yEnd = getHoursSinceReference(stage.endMs, refEvening)
+                if (yEnd > yStart) {
+                    points.add(
+                        AndroidChartStagePoint(
+                            label = label,
+                            yStart = yStart,
+                            yEnd = yEnd,
+                            type = stage.type
+                        )
                     )
                 }
             }
         }
+        points
     }
 
     GlassCard(modifier = modifier.fillMaxWidth()) {
@@ -481,29 +430,29 @@ fun SleepBreakdownChart(
             // Canvas Bar Chart
             if (chartData.isEmpty()) {
                 Box(
-                    modifier = Modifier.fillMaxWidth().height(180.dp),
+                    modifier = Modifier.fillMaxWidth().height(200.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(stringResource(R.string.no_sessions), color = TextSecondary)
                 }
             } else {
                 val textMeasurer = rememberTextMeasurer()
-                val maxValue = chartData.maxOfOrNull { it.totalHours }?.coerceAtLeast(8f) ?: 8f
+                val uniqueLabels = remember(chartData) { chartData.map { it.label }.distinct() }
                 
                 Canvas(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(180.dp)
+                        .height(200.dp)
                 ) {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
                     val bottomPadding = 30.dp.toPx()
                     val chartHeight = canvasHeight - bottomPadding
                     
-                    // Draw horizontal dashed grid lines (at 25%, 50%, 75%, 100% of max value)
-                    val gridLines = 4
-                    for (i in 1..gridLines) {
-                        val y = chartHeight * (1f - (i.toFloat() / gridLines))
+                    // Draw horizontal dashed grid lines (every 4 hours from 0 to 24)
+                    val ticks = listOf(0f, 4f, 8f, 12f, 16f, 20f, 24f)
+                    ticks.forEach { tick ->
+                        val y = chartHeight * (tick / 24f)
                         drawLine(
                             color = TextTertiary.copy(alpha = 0.2f),
                             start = Offset(0f, y),
@@ -513,10 +462,9 @@ fun SleepBreakdownChart(
                         )
                         
                         // Draw grid numbers
-                        val gridVal = (maxValue * (i.toFloat() / gridLines)).toInt()
                         drawText(
                             textMeasurer = textMeasurer,
-                            text = "${gridVal}h",
+                            text = formatYAxisLabel(tick),
                             style = androidx.compose.ui.text.TextStyle(
                                 color = TextSecondary,
                                 fontSize = 9.sp
@@ -525,69 +473,35 @@ fun SleepBreakdownChart(
                         )
                     }
                     
-                    // Draw stacked bars
-                    val barCount = chartData.size
+                    // Draw floating bars for each label
+                    val barCount = uniqueLabels.size
                     val spacing = 16.dp.toPx()
                     val totalSpacing = spacing * (barCount + 1)
-                    val barWidth = (canvasWidth - totalSpacing) / barCount
+                    val barWidth = (canvasWidth - totalSpacing) / maxOf(1f, barCount.toFloat())
                     
-                    chartData.forEachIndexed { idx, point ->
+                    uniqueLabels.forEachIndexed { idx, label ->
                         val x = spacing + idx * (barWidth + spacing)
                         
-                        // Stack order (bottom to top): Deep -> Light -> REM -> Awake
-                        val deepH = chartHeight * (point.deepHours / maxValue)
-                        val lightH = chartHeight * (point.lightHours / maxValue)
-                        val remH = chartHeight * (point.remHours / maxValue)
-                        val awakeH = chartHeight * (point.awakeHours / maxValue)
-                        
-                        var currentY = chartHeight
-                        
-                        // 1. Deep
-                        if (deepH > 0f) {
-                            drawRoundRect(
-                                color = ColorDeep,
-                                topLeft = Offset(x, currentY - deepH),
-                                size = Size(barWidth, deepH),
-                                cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
-                            )
-                            currentY -= deepH
-                        }
-                        
-                        // 2. Light
-                        if (lightH > 0f) {
-                            drawRoundRect(
-                                color = ColorLight,
-                                topLeft = Offset(x, currentY - lightH),
-                                size = Size(barWidth, lightH),
-                                cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
-                            )
-                            currentY -= lightH
-                        }
-                        
-                        // 3. REM
-                        if (remH > 0f) {
-                            drawRoundRect(
-                                color = ColorREM,
-                                topLeft = Offset(x, currentY - remH),
-                                size = Size(barWidth, remH),
-                                cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
-                            )
-                            currentY -= remH
-                        }
-                        
-                        // 4. Awake
-                        if (awakeH > 0f) {
-                            drawRoundRect(
-                                color = ColorAwake,
-                                topLeft = Offset(x, currentY - awakeH),
-                                size = Size(barWidth, awakeH),
-                                cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
-                            )
+                        // Draw stages for this label
+                        val stagesForLabel = chartData.filter { it.label == label }
+                        stagesForLabel.forEach { stage ->
+                            val yStartPx = chartHeight * (stage.yStart / 24f)
+                            val yEndPx = chartHeight * (stage.yEnd / 24f)
+                            val barHeight = yEndPx - yStartPx
+                            
+                            if (barHeight > 0f) {
+                                drawRoundRect(
+                                    color = stageColor(stage.type).copy(alpha = 0.85f),
+                                    topLeft = Offset(x, yStartPx),
+                                    size = Size(barWidth, barHeight),
+                                    cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
+                                )
+                            }
                         }
                         
                         // Draw x-axis label centered
                         val layoutResult = textMeasurer.measure(
-                            text = point.label,
+                            text = label,
                             style = androidx.compose.ui.text.TextStyle(
                                 color = TextSecondary,
                                 fontSize = 10.sp,
@@ -651,6 +565,7 @@ fun SleepSessionCard(
             // Mini hypnogram
             SleepHypnogram(
                 stages = session.stages(),
+                sessionStartMs = session.startTimeMs,
                 totalDurationMs = session.durationMs(),
                 modifier = Modifier.fillMaxWidth()
             )

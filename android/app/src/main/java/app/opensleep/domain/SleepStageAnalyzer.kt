@@ -105,6 +105,7 @@ class SleepStageAnalyzer {
         audioSamples.clear()
     }
 
+    private fun buildFeatures(startMs: Long, endMs: Long, sleepStartMs: Long): WindowFeatures? {
         val accelWindow = samples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
         val audioWindow = audioSamples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
         val audioMeanDb = audioWindow.map { it.levelDbfs }.averageOrDefault(-65f)
