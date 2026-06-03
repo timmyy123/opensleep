@@ -27,6 +27,12 @@ class SleepStageAnalyzer {
         let clipped: Bool
     }
 
+    struct AudioEvent {
+        let timestamp: Date
+        let eventName: String
+        let confidence: Double
+    }
+
     private struct WindowFeatures {
         let start: Date
         let end: Date
@@ -37,6 +43,13 @@ class SleepStageAnalyzer {
         let audioEvents: Double
         let artifact: Bool
         let elapsed: TimeInterval
+        let snoreCount: Int
+        let breathCount: Int
+        let rustleCount: Int
+        let gaspCount: Int
+        let wakeSoundCount: Int
+        let silenceCount: Int
+        let hasMlAudio: Bool
     }
 
     private struct WindowPrediction {
@@ -50,12 +63,13 @@ class SleepStageAnalyzer {
     private var samples: [MotionSample] = []
     private var gyroSamples: [GyroSample] = []
     private var audioSamples: [AudioSample] = []
+    private var audioEvents: [AudioEvent] = []
 
-    private let analysisWindowSec: TimeInterval = 5 * 60
-    private let minPartialWindowSec: TimeInterval = 2 * 60
+    private let analysisWindowSec: TimeInterval = 30
+    private let minPartialWindowSec: TimeInterval = 15
     private let remCycleSec: TimeInterval = 90 * 60
     private let remWindowSec: TimeInterval = 22 * 60
-    private let minAccelSamplesPerWindow = 120
+    private let minAccelSamplesPerWindow = 60
 
     func addSample(timestamp: Date, x: Double, y: Double, z: Double) {
         let magnitude = (x*x + y*y + z*z).squareRoot()
@@ -69,6 +83,10 @@ class SleepStageAnalyzer {
 
     func addAudioLevel(timestamp: Date, levelDbfs: Double, clipped: Bool = false) {
         audioSamples.append(AudioSample(timestamp: timestamp, levelDbfs: min(0, max(-90, levelDbfs)), clipped: clipped))
+    }
+
+    func addAudioEvent(timestamp: Date, eventName: String, confidence: Double) {
+        audioEvents.append(AudioEvent(timestamp: timestamp, eventName: eventName, confidence: confidence))
     }
 
     func computeStages(sleepStart: Date) -> [SleepStage] {
@@ -97,15 +115,26 @@ class SleepStageAnalyzer {
         samples.removeAll()
         gyroSamples.removeAll()
         audioSamples.removeAll()
+        audioEvents.removeAll()
     }
 
     private func buildFeatures(start: Date, end: Date, sleepStart: Date) -> WindowFeatures? {
         let accelWindow = samples.filter { $0.timestamp >= start && $0.timestamp < end }
         let audioWindow = audioSamples.filter { $0.timestamp >= start && $0.timestamp < end }
         let audioMeanDb = audioWindow.isEmpty ? -65 : average(audioWindow.map(\.levelDbfs))
-        let audioEvents = Double(audioWindow.filter { $0.levelDbfs > -38 || $0.clipped }.count) /
+        let audioEventsCount = Double(audioWindow.filter { $0.levelDbfs > -38 || $0.clipped }.count) /
             Double(max(1, audioWindow.count))
         let audioMean = normalizeLinear(audioMeanDb, low: -62, high: -30)
+
+        let windowEvents = audioEvents.filter { $0.timestamp >= start && $0.timestamp < end }
+        let hasMlAudio = !windowEvents.isEmpty
+
+        let snoreCount = windowEvents.filter { $0.eventName == "snoring" || $0.eventName == "snort" }.count
+        let breathCount = windowEvents.filter { $0.eventName == "breathing" }.count
+        let rustleCount = windowEvents.filter { $0.eventName == "rustle" }.count
+        let gaspCount = windowEvents.filter { $0.eventName == "gasp" || $0.eventName == "sigh" || $0.eventName == "cough" }.count
+        let wakeSoundCount = windowEvents.filter { $0.eventName == "speech" || $0.eventName == "laughter" }.count
+        let silenceCount = windowEvents.filter { $0.eventName == "silence" }.count
 
         if accelWindow.count < 2 {
             // Synthesize a still feature window if motion updates were suspended/throttled by the OS
@@ -116,9 +145,16 @@ class SleepStageAnalyzer {
                 stillness: 1.0,
                 rotation: 0.0,
                 audioMean: audioMean,
-                audioEvents: audioEvents,
+                audioEvents: audioEventsCount,
                 artifact: false, // Throttling is background sleep behavior, not user movement
-                elapsed: start.timeIntervalSince(sleepStart)
+                elapsed: start.timeIntervalSince(sleepStart),
+                snoreCount: 0,
+                breathCount: 0,
+                rustleCount: 0,
+                gaspCount: 0,
+                wakeSoundCount: 0,
+                silenceCount: 0,
+                hasMlAudio: false
             )
         }
 
@@ -144,7 +180,7 @@ class SleepStageAnalyzer {
         let artifact = accelWindow.count < minAccelSamplesPerWindow ||
             range > 3.5 ||
             movement > 0.96 ||
-            audioEvents > 0.75
+            audioEventsCount > 0.75
 
         return WindowFeatures(
             start: start,
@@ -153,9 +189,16 @@ class SleepStageAnalyzer {
             stillness: 1 - movement,
             rotation: rotation,
             audioMean: audioMean,
-            audioEvents: audioEvents,
+            audioEvents: audioEventsCount,
             artifact: artifact,
-            elapsed: start.timeIntervalSince(sleepStart)
+            elapsed: start.timeIntervalSince(sleepStart),
+            snoreCount: snoreCount,
+            breathCount: breathCount,
+            rustleCount: rustleCount,
+            gaspCount: gaspCount,
+            wakeSoundCount: wakeSoundCount,
+            silenceCount: silenceCount,
+            hasMlAudio: hasMlAudio
         )
     }
 
@@ -164,6 +207,36 @@ class SleepStageAnalyzer {
             return WindowPrediction(start: features.start, end: features.end, type: .awake, confidence: 0.55, artifact: true)
         }
 
+        if features.hasMlAudio {
+            // 4-Stage Decision Logic Matrix based on pre-trained ML classifications and movement
+            let stage: SleepStageType
+            if features.movement >= 0.08 && (features.rustleCount > 0 || features.breathCount > 0 || 
+                    features.wakeSoundCount > 0 || features.snoreCount > 0 || features.gaspCount > 0) {
+                stage = .awake
+            } else if (features.movement > 0.01 && features.movement < 0.08) && 
+                    (features.rustleCount > 0 || features.snoreCount > 0 || features.gaspCount > 0 || features.silenceCount > 0) {
+                stage = .light
+            } else if features.movement <= 0.01 && (features.breathCount >= 3 || features.silenceCount >= 5) && 
+                    features.gaspCount == 0 && features.rustleCount == 0 && features.wakeSoundCount == 0 {
+                stage = .deep
+            } else if features.movement <= 0.01 && (features.gaspCount > 0 || (features.breathCount > 0 && features.breathCount < 3)) {
+                stage = .rem
+            } else {
+                if features.movement >= 0.08 { stage = .awake }
+                else if features.movement > 0.01 { stage = .light }
+                else if features.breathCount > 0 { stage = .deep }
+                else { stage = .light }
+            }
+            return WindowPrediction(
+                start: features.start,
+                end: features.end,
+                type: stage,
+                confidence: 0.85,
+                artifact: false
+            )
+        }
+
+        // Fallback to pure mathematical actigraphy if SoundAnalysis ML events are missing
         let elapsedHours = features.elapsed / 3600
         let earlyNight = min(1, max(0, 1 - elapsedHours / 3))
         let lateNight = min(1, max(0, (elapsedHours - 3) / 4))

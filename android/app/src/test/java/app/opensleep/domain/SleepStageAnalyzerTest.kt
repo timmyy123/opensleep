@@ -54,6 +54,40 @@ class SleepStageAnalyzerTest {
         assertTrue(stages.any { it.type == SleepStageType.AWAKE })
     }
 
+    @Test
+    fun decisionMatrixClassification() {
+        val analyzer = SleepStageAnalyzer()
+        val start = 4_000_000L
+
+        // 1. High movement (amplitude = 0.25f) + Speech -> WAKE
+        analyzer.clear()
+        addWindowWithEvent(analyzer, start, amplitude = 0.25f, event = "speech", eventCount = 5)
+        analyzer.addSample(start + 30_000L, 0.1f, 0f, 1f)
+        var stages = analyzer.computeStages(start)
+        assertTrue("High movement + Speech should be WAKE, was: ${stages.map { it.type }}", stages.any { it.type == SleepStageType.AWAKE })
+
+        // 2. Stillness (amplitude = 0.001f) + Rhythmic Breathing -> DEEP
+        analyzer.clear()
+        addWindowWithEvent(analyzer, start, amplitude = 0.001f, event = "breathing", eventCount = 4)
+        analyzer.addSample(start + 30_000L, 0.001f, 0f, 1f)
+        stages = analyzer.computeStages(start)
+        assertTrue("Stillness + Breathing should be DEEP, was: ${stages.map { it.type }}", stages.any { it.type == SleepStageType.DEEP })
+
+        // 3. Stillness (amplitude = 0.001f) + Gasps -> REM
+        analyzer.clear()
+        addWindowWithEvent(analyzer, start, amplitude = 0.001f, event = "gasp", eventCount = 1)
+        analyzer.addSample(start + 30_000L, 0.001f, 0f, 1f)
+        stages = analyzer.computeStages(start)
+        assertTrue("Stillness + Gasp should be REM, was: ${stages.map { it.type }}", stages.any { it.type == SleepStageType.REM })
+
+        // 4. Micro-movements (amplitude = 0.03f) + Snoring -> LIGHT
+        analyzer.clear()
+        addWindowWithEvent(analyzer, start, amplitude = 0.03f, event = "snoring", eventCount = 2)
+        analyzer.addSample(start + 30_000L, 0.03f, 0f, 1f)
+        stages = analyzer.computeStages(start)
+        assertTrue("Micro-movements + Snoring should be LIGHT, was: ${stages.map { it.type }}", stages.any { it.type == SleepStageType.LIGHT })
+    }
+
     private fun addWindow(
         analyzer: SleepStageAnalyzer,
         startMs: Long,
@@ -71,6 +105,28 @@ class SleepStageAnalyzerTest {
                 analyzer.addAudioLevel(t, audioDbfs)
             }
             t += 1_000L
+        }
+    }
+
+    private fun addWindowWithEvent(
+        analyzer: SleepStageAnalyzer,
+        startMs: Long,
+        amplitude: Float,
+        event: String,
+        eventCount: Int = 1
+    ) {
+        var t = startMs
+        val windowDuration = 30_000L
+        while (t < startMs + windowDuration) {
+            val phase = ((t - startMs) / 1_000f)
+            val offset = sin(phase).toFloat() * amplitude
+            analyzer.addSample(t, offset, 0f, 1f)
+            analyzer.addGyroSample(t, 0.01f, 0.01f, 0.02f)
+            t += 1_000L
+        }
+        val step = windowDuration / (eventCount + 1)
+        for (i in 1..eventCount) {
+            analyzer.addAudioEvent(startMs + i * step, event, 0.9f)
         }
     }
 

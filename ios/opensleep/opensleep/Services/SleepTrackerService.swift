@@ -4,6 +4,7 @@ import CoreMotion
 import BackgroundTasks
 import SwiftData
 import AVFoundation
+import SoundAnalysis
 
 /// Manages sleep tracking: starts/stops CMMotionManager, runs stage analysis,
 /// persists results to SwiftData via MainActor. Uses BGProcessingTask to
@@ -18,8 +19,11 @@ class SleepTrackerService: ObservableObject {
     private let motionManager = CMMotionManager()
     private let analyzer = SleepStageAnalyzer()
     private var modelContext: ModelContext?
-    private var audioRecorder: AVAudioRecorder?
-    private var audioMeterTimer: Timer?
+    private let audioEngine = AVAudioEngine()
+    private var streamAnalyzer: SNAudioStreamAnalyzer?
+    private var resultsObserver: ResultsObserver?
+    private let analysisQueue = DispatchQueue(label: "tech.opensleep.analysisQueue", qos: .default)
+    private var lastAudioLevelTime: Date = Date.distantPast
 
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
@@ -95,6 +99,14 @@ class SleepTrackerService: ObservableObject {
             }
         }
 
+        resultsObserver = ResultsObserver { [weak self] identifier, confidence in
+            guard let self = self else { return }
+            if confidence > 0.15, let event = self.mapIdentifierToEvent(identifier) {
+                DispatchQueue.main.async {
+                    self.analyzer.addAudioEvent(timestamp: Date(), eventName: event, confidence: confidence)
+                }
+            }
+        }
         startAudioMetering()
         scheduleBackgroundTask()
 
@@ -135,42 +147,98 @@ class SleepTrackerService: ObservableObject {
         }
     }
 
+    private func mapIdentifierToEvent(_ identifier: String) -> String? {
+        let lower = identifier.lowercased()
+        if lower.contains("speech") || lower.contains("talk") || lower.contains("whisper") || lower.contains("convers") {
+            return "speech"
+        }
+        if lower.contains("laughter") || lower.contains("giggle") || lower.contains("chuckle") {
+            return "laughter"
+        }
+        if lower.contains("sigh") {
+            return "sigh"
+        }
+        if lower.contains("breathing") {
+            return "breathing"
+        }
+        if lower.contains("snore") || lower.contains("snoring") {
+            return "snoring"
+        }
+        if lower.contains("gasp") {
+            return "gasp"
+        }
+        if lower.contains("snort") {
+            return "snort"
+        }
+        if lower.contains("cough") || lower.contains("throat_clearing") || lower.contains("throat clearing") {
+            return "cough"
+        }
+        if lower.contains("rustl") {
+            return "rustle"
+        }
+        if lower.contains("silence") || lower.contains("quiet") {
+            return "silence"
+        }
+        return nil
+    }
+
     private func startAudioMetering() {
-        let settings: [String: Any] = [
-            AVFormatIDKey: Int(kAudioFormatAppleLossless),
-            AVSampleRateKey: 8_000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
-        ]
-
+        let inputNode = audioEngine.inputNode
+        let inputFormat = inputNode.inputFormat(forBus: 0)
+        
+        streamAnalyzer = SNAudioStreamAnalyzer(format: inputFormat)
+        
         do {
-            let recorder = try AVAudioRecorder(url: URL(fileURLWithPath: "/dev/null"), settings: settings)
-            recorder.isMeteringEnabled = true
-            recorder.record()
-            audioRecorder = recorder
-
-            audioMeterTimer?.invalidate()
-            audioMeterTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] _ in
-                guard let self, let recorder = self.audioRecorder else { return }
-                recorder.updateMeters()
-                let averagePower = Double(recorder.averagePower(forChannel: 0))
-                let peakPower = Double(recorder.peakPower(forChannel: 0))
-                self.analyzer.addAudioLevel(
-                    timestamp: Date(),
-                    levelDbfs: averagePower,
-                    clipped: peakPower > -1
-                )
-            }
+            let request = try SNClassifySoundRequest(classifierIdentifier: .version1)
+            try streamAnalyzer?.add(request, withObserver: resultsObserver!)
         } catch {
-            print("Failed to start audio metering: \(error)")
+            print("Failed to add SoundAnalysis request: \(error)")
+        }
+        
+        inputNode.installTap(onBus: 0, bufferSize: 8192, format: inputFormat) { [weak self] buffer, time in
+            guard let self = self else { return }
+            
+            // 1. Calculate RMS and DBFS for fallback
+            if let channelData = buffer.floatChannelData?[0] {
+                let frameLength = UInt32(buffer.frameLength)
+                var sumSquares: Float = 0.0
+                var clipped = false
+                for i in 0..<Int(frameLength) {
+                    let sample = channelData[i]
+                    sumSquares += sample * sample
+                    if abs(sample) > 0.98 {
+                        clipped = true
+                    }
+                }
+                let rms = sqrt(sumSquares / Float(frameLength))
+                let dbfs = 20.0 * log10(max(0.000001, rms))
+                
+                let now = Date()
+                if now.timeIntervalSince(self.lastAudioLevelTime) >= 4 {
+                    self.lastAudioLevelTime = now
+                    DispatchQueue.main.async {
+                        self.analyzer.addAudioLevel(timestamp: now, levelDbfs: Double(dbfs), clipped: clipped)
+                    }
+                }
+            }
+            
+            // 2. Feed buffer to SNAudioStreamAnalyzer
+            self.analysisQueue.async {
+                self.streamAnalyzer?.analyze(buffer, atAudioFramePosition: time.sampleTime)
+            }
+        }
+        
+        do {
+            try audioEngine.start()
+        } catch {
+            print("Failed to start AVAudioEngine: \(error)")
         }
     }
 
     private func stopAudioMetering() {
-        audioMeterTimer?.invalidate()
-        audioMeterTimer = nil
-        audioRecorder?.stop()
-        audioRecorder = nil
+        audioEngine.inputNode.removeTap(onBus: 0)
+        audioEngine.stop()
+        streamAnalyzer = nil
     }
 
     private func registerBackgroundTask() {
@@ -199,5 +267,23 @@ class SleepTrackerService: ObservableObject {
             self.flushStages()
             task.setTaskCompleted(success: true)
         }
+    }
+}
+
+class ResultsObserver: NSObject, SNResultsObserving {
+    private let onEvent: (String, Double) -> Void
+
+    init(onEvent: @escaping (String, Double) -> Void) {
+        self.onEvent = onEvent
+    }
+
+    func request(_ request: SNRequest, didProduce result: SNResult) {
+        guard let classificationResult = result as? SNClassificationResult,
+              let topResult = classificationResult.classifications.first else { return }
+        onEvent(topResult.identifier, topResult.confidence)
+    }
+
+    func request(_ request: SNRequest, didFailWithError error: Error) {
+        print("Sound analysis request failed: \(error)")
     }
 }

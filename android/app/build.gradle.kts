@@ -13,7 +13,7 @@ android {
         applicationId = "tech.opensleep"
         minSdk = 28
         targetSdk = 36
-        versionCode = 4
+        versionCode = 5
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,6 +86,9 @@ dependencies {
 
     // LiteRT-LM on-device LLM
     implementation(libs.litertlm.android)
+
+    // TensorFlow Lite (YAMNet)
+    implementation(libs.tensorflow.lite)
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)

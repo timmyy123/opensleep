@@ -20,11 +20,11 @@ import kotlin.math.sqrt
 class SleepStageAnalyzer {
 
     companion object {
-        private const val ANALYSIS_WINDOW_MS = 5 * 60 * 1000L
-        private const val MIN_PARTIAL_WINDOW_MS = 2 * 60 * 1000L
+        private const val ANALYSIS_WINDOW_MS = 30 * 1000L
+        private const val MIN_PARTIAL_WINDOW_MS = 15 * 1000L
         private const val REM_CYCLE_MS = 90 * 60 * 1000L
         private const val REM_WINDOW_MS = 22 * 60 * 1000L
-        private const val MIN_ACCEL_SAMPLES_PER_WINDOW = 120
+        private const val MIN_ACCEL_SAMPLES_PER_WINDOW = 60
     }
 
     data class MotionSample(
@@ -38,6 +38,12 @@ class SleepStageAnalyzer {
         val clipped: Boolean = false
     )
 
+    data class AudioEvent(
+        val timestampMs: Long,
+        val eventName: String,
+        val confidence: Float
+    )
+
     private data class WindowFeatures(
         val startMs: Long,
         val endMs: Long,
@@ -47,7 +53,14 @@ class SleepStageAnalyzer {
         val audioMean: Float,
         val audioEvents: Float,
         val artifact: Boolean,
-        val elapsedMs: Long
+        val elapsedMs: Long,
+        val snoreCount: Int,
+        val breathCount: Int,
+        val rustleCount: Int,
+        val gaspCount: Int,
+        val wakeSoundCount: Int,
+        val silenceCount: Int,
+        val hasMlAudio: Boolean
     )
 
     private data class WindowPrediction(
@@ -61,6 +74,7 @@ class SleepStageAnalyzer {
     private val samples = mutableListOf<MotionSample>()
     private val gyroSamples = mutableListOf<Pair<Long, Float>>()
     private val audioSamples = mutableListOf<AudioSample>()
+    private val audioEvents = mutableListOf<AudioEvent>()
 
     fun addSample(timestampMs: Long, x: Float, y: Float, z: Float) {
         val magnitude = sqrt(x * x + y * y + z * z)
@@ -74,6 +88,10 @@ class SleepStageAnalyzer {
 
     fun addAudioLevel(timestampMs: Long, levelDbfs: Float, clipped: Boolean = false) {
         audioSamples.add(AudioSample(timestampMs, levelDbfs.coerceIn(-90f, 0f), clipped))
+    }
+
+    fun addAudioEvent(timestampMs: Long, eventName: String, confidence: Float) {
+        audioEvents.add(AudioEvent(timestampMs, eventName, confidence))
     }
 
     fun computeStages(sleepStartMs: Long): List<SleepStage> {
@@ -103,15 +121,26 @@ class SleepStageAnalyzer {
         samples.clear()
         gyroSamples.clear()
         audioSamples.clear()
+        audioEvents.clear()
     }
 
     private fun buildFeatures(startMs: Long, endMs: Long, sleepStartMs: Long): WindowFeatures? {
         val accelWindow = samples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
         val audioWindow = audioSamples.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
         val audioMeanDb = audioWindow.map { it.levelDbfs }.averageOrDefault(-65f)
-        val audioEvents = audioWindow.count { it.levelDbfs > -38f || it.clipped }
+        val audioEventsCount = audioWindow.count { it.levelDbfs > -38f || it.clipped }
             .toFloat() / max(1, audioWindow.size)
         val audioMean = normalizeLinear(audioMeanDb, -62f, -30f)
+
+        val windowEvents = audioEvents.filter { it.timestampMs >= startMs && it.timestampMs < endMs }
+        val hasMlAudio = windowEvents.isNotEmpty()
+        
+        val snoreCount = windowEvents.count { it.eventName == "snoring" || it.eventName == "snort" }
+        val breathCount = windowEvents.count { it.eventName == "breathing" }
+        val rustleCount = windowEvents.count { it.eventName == "rustle" }
+        val gaspCount = windowEvents.count { it.eventName == "gasp" || it.eventName == "sigh" || it.eventName == "cough" }
+        val wakeSoundCount = windowEvents.count { it.eventName == "speech" || it.eventName == "laughter" }
+        val silenceCount = windowEvents.count { it.eventName == "silence" }
 
         if (accelWindow.size < 2) {
             // Synthesize a still feature window if motion updates were suspended/throttled by the OS (Doze mode)
@@ -122,9 +151,16 @@ class SleepStageAnalyzer {
                 stillness = 1.0f,
                 rotation = 0.0f,
                 audioMean = audioMean,
-                audioEvents = audioEvents,
+                audioEvents = audioEventsCount,
                 artifact = false, // Background throttling is normal sleep behavior, not a movement artifact
-                elapsedMs = startMs - sleepStartMs
+                elapsedMs = startMs - sleepStartMs,
+                snoreCount = 0,
+                breathCount = 0,
+                rustleCount = 0,
+                gaspCount = 0,
+                wakeSoundCount = 0,
+                silenceCount = 0,
+                hasMlAudio = false
             )
         }
 
@@ -148,7 +184,7 @@ class SleepStageAnalyzer {
         val artifact = accelWindow.size < MIN_ACCEL_SAMPLES_PER_WINDOW ||
             range > 3.5f ||
             movement > 0.96f ||
-            audioEvents > 0.75f
+            audioEventsCount > 0.75f
 
         return WindowFeatures(
             startMs = startMs,
@@ -157,9 +193,16 @@ class SleepStageAnalyzer {
             stillness = 1f - movement,
             rotation = rotation,
             audioMean = audioMean,
-            audioEvents = audioEvents,
+            audioEvents = audioEventsCount,
             artifact = artifact,
-            elapsedMs = startMs - sleepStartMs
+            elapsedMs = startMs - sleepStartMs,
+            snoreCount = snoreCount,
+            breathCount = breathCount,
+            rustleCount = rustleCount,
+            gaspCount = gaspCount,
+            wakeSoundCount = wakeSoundCount,
+            silenceCount = silenceCount,
+            hasMlAudio = hasMlAudio
         )
     }
 
@@ -174,6 +217,50 @@ class SleepStageAnalyzer {
             )
         }
 
+        if (features.hasMlAudio) {
+            // 4-Stage Decision Logic Matrix based on pre-trained ML classifications and movement
+            val stage = when {
+                // High / Shaking Movement (Tossing & turning) + Any Sound (Rustling, breathing, or talking)
+                features.movement >= 0.08f && (features.rustleCount > 0 || features.breathCount > 0 || 
+                        features.wakeSoundCount > 0 || features.snoreCount > 0 || features.gaspCount > 0) -> {
+                    SleepStageType.AWAKE
+                }
+                
+                // Micro-Movements (Slight mattress shifts) + Rustling, Snoring, or Sighs
+                (features.movement > 0.01f && features.movement < 0.08f) && 
+                        (features.rustleCount > 0 || features.snoreCount > 0 || features.gaspCount > 0 || features.silenceCount > 0) -> {
+                    SleepStageType.LIGHT
+                }
+                
+                // Absolute 100% Stillness + Highly Rhythmic, Constant Breathing / Deep Silence
+                features.movement <= 0.01f && (features.breathCount >= 3 || features.silenceCount >= 5) && 
+                        features.gaspCount == 0 && features.rustleCount == 0 && features.wakeSoundCount == 0 -> {
+                    SleepStageType.DEEP
+                }
+                
+                // Absolute 100% Stillness (Muscle Paralysis) + Irregular, Fragmented Breathing / Sudden Gasps
+                features.movement <= 0.01f && (features.gaspCount > 0 || (features.breathCount > 0 && features.breathCount < 3)) -> {
+                    SleepStageType.REM
+                }
+                
+                // Fallback within ML mode if no specific clinical rule is hit directly
+                else -> {
+                    if (features.movement >= 0.08f) SleepStageType.AWAKE
+                    else if (features.movement > 0.01f) SleepStageType.LIGHT
+                    else if (features.breathCount > 0) SleepStageType.DEEP
+                    else SleepStageType.LIGHT
+                }
+            }
+            return WindowPrediction(
+                features.startMs,
+                features.endMs,
+                stage,
+                0.85f,
+                artifact = false
+            )
+        }
+
+        // Fallback to pure mathematical actigraphy if YAMNet ML events are missing
         val elapsedHours = features.elapsedMs / 3_600_000f
         val earlyNight = (1f - (elapsedHours / 3f)).coerceIn(0f, 1f)
         val lateNight = ((elapsedHours - 3f) / 4f).coerceIn(0f, 1f)
