@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit
 fun HomeScreen(viewModel: HomeViewModel) {
     val context = LocalContext.current
     val isSleeping by viewModel.isSleeping.collectAsState()
+    val isStopping by viewModel.isStopping.collectAsState()
     val activeSession by viewModel.activeSession.collectAsState()
     val elapsedSeconds by viewModel.elapsedSeconds.collectAsState()
     val healthConnectAvailable by viewModel.isHealthConnectAvailable.collectAsState()
@@ -217,28 +218,40 @@ fun HomeScreen(viewModel: HomeViewModel) {
             // Button
             Button(
                 onClick = {
+                    if (isStopping) return@Button
                     if (isSleeping) viewModel.stopSleep(context)
                     else viewModel.startSleep(context)
                 },
+                enabled = !isStopping,
                 modifier = Modifier
                     .size(160.dp)
-                    .scale(if (isSleeping) pulseScale else 1f),
+                    .scale(if (isSleeping && !isStopping) pulseScale else 1f),
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isSleeping) Color(0xFF1E1B4B) else IndigoAccent
+                    containerColor = if (isSleeping) Color(0xFF1E1B4B) else IndigoAccent,
+                    disabledContainerColor = Color(0xFF1E1B4B).copy(alpha = 0.6f)
                 ),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        imageVector = if (isSleeping) Icons.Default.Stop else Icons.Default.Bedtime,
-                        contentDescription = null,
-                        tint = TextPrimary,
-                        modifier = Modifier.size(40.dp)
-                    )
+                    if (isStopping) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(40.dp),
+                            color = TextPrimary,
+                            strokeWidth = 3.dp
+                        )
+                    } else {
+                        Icon(
+                            imageVector = if (isSleeping) Icons.Default.Stop else Icons.Default.Bedtime,
+                            contentDescription = null,
+                            tint = TextPrimary,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = if (isSleeping) stringResource(R.string.stop_sleep)
+                        text = if (isStopping) stringResource(R.string.saving)
+                               else if (isSleeping) stringResource(R.string.stop_sleep)
                                else stringResource(R.string.start_sleep),
                         style = MaterialTheme.typography.labelLarge,
                         color = TextPrimary

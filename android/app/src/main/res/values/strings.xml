@@ -3,6 +3,7 @@
     <string name="app_name">OpenSleep</string>
     <string name="start_sleep">Start Sleep</string>
     <string name="stop_sleep">Stop Sleep</string>
+    <string name="saving">Saving…</string>
     <string name="tracking_active">Tracking your sleep…</string>
     <string name="tracking_idle">Ready to track your sleep</string>
     <string name="time_asleep">time asleep</string>

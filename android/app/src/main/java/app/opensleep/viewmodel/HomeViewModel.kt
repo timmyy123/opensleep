@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 class HomeViewModel(
     private val repository: SleepRepository,
     private val healthSync: HealthSyncManager
@@ -24,6 +25,11 @@ class HomeViewModel(
 
     private val _isSleeping = MutableStateFlow(false)
     val isSleeping: StateFlow<Boolean> = _isSleeping.asStateFlow()
+
+    // True while service is finalizing the session after stop is requested.
+    // Locks the button so the user can't spam-tap or restart mid-finalization.
+    private val _isStopping = MutableStateFlow(false)
+    val isStopping: StateFlow<Boolean> = _isStopping.asStateFlow()
 
     private val _elapsedSeconds = MutableStateFlow(0L)
     val elapsedSeconds: StateFlow<Long> = _elapsedSeconds.asStateFlow()
@@ -44,11 +50,16 @@ class HomeViewModel(
                     repository.endSession(session.id, session.stages())
                     return@collectLatest
                 }
-                
+
                 _activeSession.value = session
                 _isSleeping.value = session != null
                 if (session != null) {
                     _elapsedSeconds.value = (System.currentTimeMillis() - session.startTimeMs) / 1000
+                }
+
+                // Once the session disappears the service has fully stopped — clear the stopping flag.
+                if (session == null) {
+                    _isStopping.value = false
                 }
             }
         }
@@ -85,6 +96,8 @@ class HomeViewModel(
     }
 
     fun stopSleep(context: Context) {
+        if (_isStopping.value) return  // Guard against double-tap during finalization
+        _isStopping.value = true
         val intent = Intent(context, SleepTrackerService::class.java).apply {
             action = SleepTrackerService.ACTION_STOP
         }
