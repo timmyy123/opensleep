@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/none"
+        android:title="@string/one_time"/>
+    <item
+        android:id="@+id/week_all"
+        android:title="@string/weekly"/>
+    <item
+        android:id="@+id/week_odd"
+        android:title="@string/odd"/>
+    <item
+        android:id="@+id/week_even"
+        android:title="@string/even"/>
+    <item
+        android:id="@+id/nonweekly"
+        android:title="@string/non_weekly"/>
+    <item
+        android:id="@+id/day_of_month"
+        android:title="@string/day_of_month"/>
+</menu>

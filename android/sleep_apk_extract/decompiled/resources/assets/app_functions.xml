@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<appfunctions>
+    <appfunction>
+        <function_id>com.urbandroid.sleep.functions.AppFunctions#createAlarm</function_id>
+        <enabled_by_default>true</enabled_by_default>
+    </appfunction>
+    <appfunction>
+        <function_id>com.urbandroid.sleep.functions.AppFunctions#startSleepTracking</function_id>
+        <enabled_by_default>true</enabled_by_default>
+    </appfunction>
+</appfunctions>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="abc_action_bar_embed_tabs">true</bool>
+    <bool name="abc_config_actionMenuItemAllCaps">true</bool>
+    <bool name="config_materialPreferenceIconSpaceReserved">false</bool>
+    <bool name="enableExtensionAppFunctionService">true</bool>
+    <bool name="enablePlatformAppFunctionService">false</bool>
+    <bool name="enable_system_alarm_service_default">false</bool>
+    <bool name="enable_system_foreground_service_default">true</bool>
+    <bool name="enable_system_job_service_default">true</bool>
+    <bool name="is_right_to_left">false</bool>
+    <bool name="mtrl_btn_textappearance_all_caps">true</bool>
+    <bool name="portrait_only">true</bool>
+    <bool name="tablet">false</bool>
+    <bool name="timepicker_force_input_mode_keyboard">true</bool>
+    <bool name="workmanager_test_configuration">false</bool>
+</resources>

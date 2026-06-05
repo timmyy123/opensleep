@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:background="@color/bg_card_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/margin_header"
+        android:layout_marginRight="@dimen/margin_header"
+        android:layout_marginStart="@dimen/margin_header"
+        android:layout_marginEnd="@dimen/margin_header">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/tertiary"
+            android:ellipsize="end"
+            android:id="@+id/titleTextGraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+    </LinearLayout>
+</RelativeLayout>

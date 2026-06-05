@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selected"
+    android:oneshot="false">
+    <item
+        android:duration="350"
+        android:drawable="@drawable/captcha_wakedroid_sleeping"/>
+    <item
+        android:duration="350"
+        android:drawable="@drawable/captcha_wakedroid_sleeping2"/>
+</animation-list>

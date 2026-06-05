@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/LinearLayout1"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:gravity="center"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="42dp"
+        android:src="@drawable/press_smartbridge"
+        android:adjustViewBounds="true"
+        android:layout_weight="1"
+        android:contentDescription="@string/smartlight_hue_press_pushlink_button"/>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center_horizontal"
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/smartlight_hue_press_pushlink_button"/>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/countdownPB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="36dp"
+        android:max="30"
+        style="@style/Widget.Material3Expressive.LinearProgressIndicator.Wavy"/>
+</LinearLayout>

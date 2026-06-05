@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/settings">
+    <PreferenceCategory
+        android:layout="@layout/category_empty"
+        android:key="settings_siren_category">
+        <com.urbandroid.sleep.gui.MaterialDialogListPreference
+            android:icon="@drawable/ic_feature_siren"
+            android:entries="@array/alarm_kill_time_entries"
+            android:layout="@layout/preference_card"
+            android:title="@string/siren_kill_time_title"
+            android:key="siren_kill_time"
+            android:summary="@string/siren_kill_time_summary"
+            android:defaultValue="60"
+            android:entryValues="@array/alarm_kill_time_values"/>
+        <Preference
+            android:icon="@drawable/ic_sound_tone_color"
+            android:layout="@layout/preference_card"
+            android:title="@string/siren_ringtone_title"
+            android:key="siren_ringtone"
+            android:summary="@string/sound"/>
+        <com.urbandroid.sleep.gui.MaterialDialogListPreference
+            android:icon="@drawable/ic_timer"
+            android:entries="@array/alarm_kill_time_entries"
+            android:layout="@layout/preference"
+            android:title="@string/alarm_kill_time_title"
+            android:key="alarm_kill_time"
+            android:summary="@string/alarm_kill_time_summary"
+            android:defaultValue="1200"
+            android:entryValues="@array/alarm_kill_time_values"/>
+        <com.urbandroid.sleep.gui.MaterialDialogListPreference
+            android:icon="@drawable/ic_action_repeat"
+            android:entries="@array/alarm_kill_snooze_count_entries"
+            android:layout="@layout/preference"
+            android:title="@string/alarm_repeat"
+            android:key="alarm_kill_snooze_count"
+            android:defaultValue="3"
+            android:entryValues="@array/alarm_kill_snooze_count_values"/>
+    </PreferenceCategory>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/help"
+    android:padding="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:src="@drawable/ic_help_q"
+    android:layout_alignTop="@+id/chart_parent"
+    android:layout_alignParentEnd="true"
+    style="@style/ButtonFlat"/>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>اس بات کو یقینی بنائیں کہ ٹریکنگ ڈیوائس آپ کے جسم کے قریب ہے جو آپ کی نیند کی حرکت کو پکڑنے کے قابل ہے۔</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 سیکنڈ</item>
+        <item>1 منٹ</item>
+        <item>3 منٹ</item>
+        <item>6 منٹ</item>
+        <item>9 منٹ</item>
+        <item>12 منٹ</item>
+        <item>18 منٹ</item>
+        <item>24 منٹ</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 منٹ</item>
+        <item>2 منٹ</item>
+        <item>3 منٹ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>20 منٹ</item>
+        <item>30 منٹ</item>
+        <item>40 منٹ</item>
+        <item>1 گھنٹہ</item>
+        <item>2 گھنٹے</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>یہ الارم اب سے 1 منٹ سے کم کے لیے سیٹ ہے۔</item>
+        <item>یہ الارم اس کے لیے مقرر ہے۔ %1$s</item>
+        <item>یہ الارم اس کے لیے مقرر ہے۔ %2$s</item>
+        <item>یہ الارم %1$s اور کے لیے سیٹ ہے۔ %2$s</item>
+        <item>یہ الارم اس کے لیے مقرر ہے۔ %3$s</item>
+        <item>یہ الارم %1$s اور کے لیے سیٹ ہے۔ %3$s</item>
+        <item>یہ الارم %2$s اور کے لیے سیٹ ہے۔ %3$s</item>
+        <item>یہ الارم %1$s، %2$s اور کے لیے سیٹ کیا گیا ہے۔ %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>بیٹا (تیزی سے اٹھنا)</item>
+        <item>گاما (انتہائی محرک)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>ڈیلٹا (گہری نیند)</item>
+        <item>تھیٹا (آرام دہ)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>بہت آسان</item>
+        <item>سادہ</item>
+        <item>انٹرمیڈیٹ</item>
+        <item>سخت</item>
+        <item>بہت مشکل</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 سیکنڈ</item>
+        <item>30 سیکنڈ</item>
+        <item>1 منٹ</item>
+        <item>2 منٹ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>30 منٹ</item>
+        <item>45 منٹ</item>
+        <item>60 منٹ</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>منسوخ کریں۔</item>
+        <item>نصف سال</item>
+        <item>3 ماہ</item>
+        <item>2 مہینے</item>
+        <item>1 مہینہ</item>
+        <item>2 ہفتے</item>
+        <item>تمام</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>مدھم</item>
+        <item>گھڑی کے ساتھ مدھم</item>
+        <item>ہمیشہ گھڑی پر</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>نیند کے گراف خود بخود شائع کریں۔</item>
+        <item>گراف اور حیثیت کو خود بخود شائع کریں۔</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>25 منٹ</item>
+        <item>30 منٹ</item>
+        <item>60 منٹ</item>
+        <item>90 منٹ</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>ایکسلرومیٹر</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>پاور نیپ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>25 منٹ</item>
+        <item>30 منٹ</item>
+        <item>40 منٹ</item>
+        <item>50 منٹ</item>
+        <item>1 گھنٹہ</item>
+        <item>1 گھنٹہ 30 منٹ</item>
+        <item>2 گھنٹے</item>
+    </array>
+    <array name="period_array">
+        <item>ہفتہ</item>
+        <item>14 دن</item>
+        <item>مہینہ</item>
+        <item>سہ ماہی سال</item>
+        <item>نصف سال</item>
+        <item>سال</item>
+        <item>تمام وقت</item>
+    </array>
+    <array name="period_values">
+        <item>14 دن</item>
+        <item>مہینہ</item>
+        <item>سہ ماہی سال</item>
+        <item>نصف سال</item>
+        <item>سال</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 سیکنڈ</item>
+        <item>30 سیکنڈ</item>
+        <item>1 منٹ</item>
+        <item>2 منٹ</item>
+        <item>5 منٹ</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>آخری بار استعمال کیا گیا۔</item>
+        <item>3 منٹ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>25 منٹ</item>
+        <item>30 منٹ</item>
+        <item>35 منٹ</item>
+        <item>40 منٹ</item>
+        <item>45 منٹ</item>
+        <item>50 منٹ</item>
+        <item>55 منٹ</item>
+        <item>1 گھنٹہ</item>
+        <item>90 منٹ</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>کوئی حد نہیں</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>مکمل الارم والیوم</item>
+        <item>کم الارم والیوم</item>
+        <item>الارم خاموش ہے۔</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 منٹ پہلے</item>
+        <item>15 منٹ پہلے</item>
+        <item>30 منٹ پہلے</item>
+        <item>45 منٹ پہلے</item>
+        <item>1 گھنٹہ پہلے</item>
+        <item>1 گھنٹہ 30 منٹ پہلے</item>
+        <item>2 گھنٹے پہلے</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 منٹ</item>
+        <item>2 منٹ</item>
+        <item>3 منٹ</item>
+        <item>4 منٹ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>30 منٹ</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>اسنوز کریں۔</item>
+        <item>برطرف کرنا</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>جب بیٹری &lt;20%</item>
+        <item>جب بیٹری &lt;10%</item>
+        <item>جب بیٹری &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 منٹ</item>
+        <item>3 منٹ</item>
+        <item>5 منٹ</item>
+        <item>10 منٹ</item>
+        <item>15 منٹ</item>
+        <item>20 منٹ</item>
+        <item>25 منٹ</item>
+        <item>30 منٹ</item>
+    </array>
+</resources>

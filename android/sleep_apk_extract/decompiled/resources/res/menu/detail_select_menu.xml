@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_action_play"
+        android:id="@+id/menu_play_selected"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_cut"
+        android:id="@+id/menu_delete_selected"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_eye"
+        android:id="@+id/menu_awake"
+        android:title="menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@drawable/ic_eye"
+                android:id="@+id/menu_add_awake_selected"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:icon="@drawable/ic_hide"
+                android:id="@+id/menu_delete_awake_selected"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+</menu>

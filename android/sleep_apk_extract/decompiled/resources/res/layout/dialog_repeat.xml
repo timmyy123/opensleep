@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.urbandroid.sleep.gui.SegmentedGroup
+        android:orientation="horizontal"
+        android:id="@+id/week_repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/week_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weekly"
+            style="@style/RadioButton"/>
+        <RadioButton
+            android:id="@+id/week_odd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/even"
+            style="@style/RadioButton"/>
+        <RadioButton
+            android:id="@+id/week_even"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/odd"
+            style="@style/RadioButton"/>
+    </com.urbandroid.sleep.gui.SegmentedGroup>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/weekly_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

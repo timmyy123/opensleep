@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Pastikan peranti penjejakan berada dekat dengan badan anda dapat menangkap pergerakan tidur anda</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 saat</item>
+        <item>1 minit</item>
+        <item>3 minit</item>
+        <item>6 minit</item>
+        <item>9 minit</item>
+        <item>12 minit</item>
+        <item>18 minit</item>
+        <item>24 minit</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minit</item>
+        <item>2 minit</item>
+        <item>3 minit</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>20 minit</item>
+        <item>30 minit</item>
+        <item>40 minit</item>
+        <item>1 jam</item>
+        <item>2 jam</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Penggera ini ditetapkan kurang daripada 1 minit dari sekarang</item>
+        <item>Penggera ini ditetapkan untuk %1$s</item>
+        <item>Penggera ini ditetapkan untuk %2$s</item>
+        <item>Penggera ini ditetapkan untuk %1$s dan %2$s</item>
+        <item>Penggera ini ditetapkan untuk %3$s</item>
+        <item>Penggera ini ditetapkan untuk %1$s dan %3$s</item>
+        <item>Penggera ini ditetapkan untuk %2$s dan %3$s</item>
+        <item>Penggera ini ditetapkan untuk %1$s, %2$s dan %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Bangun cepat)</item>
+        <item>Gamma (Sangat merangsang)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Tidur nyenyak)</item>
+        <item>Theta (Bersantai)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Sangat mudah</item>
+        <item>Mudah</item>
+        <item>Pertengahan</item>
+        <item>Keras</item>
+        <item>Sangat sukar</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 saat</item>
+        <item>30 saat</item>
+        <item>1 minit</item>
+        <item>2 minit</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>20 minit</item>
+        <item>30 minit</item>
+        <item>45 minit</item>
+        <item>60 minit</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Batal</item>
+        <item>Setengah tahun</item>
+        <item>3 bulan</item>
+        <item>2 bulan</item>
+        <item>1 bulan</item>
+        <item>2 minggu</item>
+        <item>Semua</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Malap</item>
+        <item>Malap dengan jam</item>
+        <item>Sentiasa mengikut jam</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Terbitkan automatik graf tidur</item>
+        <item>Autoterbitkan graf dan status</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>20 minit</item>
+        <item>25 minit</item>
+        <item>30 minit</item>
+        <item>60 minit</item>
+        <item>90 minit</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Tidur lena</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>20 minit</item>
+        <item>25 minit</item>
+        <item>30 minit</item>
+        <item>40 minit</item>
+        <item>50 minit</item>
+        <item>1 jam</item>
+        <item>1 jam 30 min</item>
+        <item>2 jam</item>
+    </array>
+    <array name="period_array">
+        <item>Minggu</item>
+        <item>14 hari</item>
+        <item>bulan</item>
+        <item>Suku tahun</item>
+        <item>Setengah tahun</item>
+        <item>tahun</item>
+        <item>Setiap masa</item>
+    </array>
+    <array name="period_values">
+        <item>14 hari</item>
+        <item>bulan</item>
+        <item>Suku tahun</item>
+        <item>Setengah tahun</item>
+        <item>tahun</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 saat</item>
+        <item>30 saat</item>
+        <item>1 minit</item>
+        <item>2 minit</item>
+        <item>5 minit</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Kali terakhir digunakan</item>
+        <item>3 minit</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>20 minit</item>
+        <item>25 minit</item>
+        <item>30 minit</item>
+        <item>35 minit</item>
+        <item>40 minit</item>
+        <item>45 minit</item>
+        <item>50 minit</item>
+        <item>55 minit</item>
+        <item>1 jam</item>
+        <item>90 minit</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Tiada had</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Kelantangan penggera penuh</item>
+        <item>Kelantangan penggera rendah</item>
+        <item>Penggera senyap</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 minit. sebelum ini</item>
+        <item>15 min. sebelum ini</item>
+        <item>30 min. sebelum ini</item>
+        <item>45 min. sebelum ini</item>
+        <item>1 jam sebelum</item>
+        <item>1 jam 30 min. sebelum ini</item>
+        <item>2 jam sebelum</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 minit</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 minit</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Tunda</item>
+        <item>Tolak</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Apabila bateri &lt;20%</item>
+        <item>Apabila bateri &lt;10%</item>
+        <item>Apabila bateri &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minit</item>
+        <item>3 minit</item>
+        <item>5 minit</item>
+        <item>10 minit</item>
+        <item>15 minit</item>
+        <item>20 minit</item>
+        <item>25 minit</item>
+        <item>30 minit</item>
+    </array>
+</resources>

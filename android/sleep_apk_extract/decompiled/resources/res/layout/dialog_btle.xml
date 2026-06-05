@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hr_indicator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/hr_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_bluetooth_big"
+        android:layout_centerInParent="true"/>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/primary"
+        android:id="@+id/hr_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@+id/hr_img"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

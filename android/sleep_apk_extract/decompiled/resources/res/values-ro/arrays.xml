@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Asigură-te că dispozitivul de monitorizare este aproape de corpul tău și este capabil să îți captureze mișcările din somn</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 de secunde</item>
+        <item>un minut</item>
+        <item>3 minute</item>
+        <item>6 minute</item>
+        <item>9 minute</item>
+        <item>12 minute</item>
+        <item>18 minute</item>
+        <item>24 de minute</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>un minut</item>
+        <item>2 minute</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>20 de minute</item>
+        <item>30 de minute</item>
+        <item>40 de minute</item>
+        <item>o orã</item>
+        <item>2 ore</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Valoare implicită dispozitiv</item>
+        <item>Utilizează doar cu căști</item>
+    </array>
+    <array name="alarm_set">
+        <item>Această alarmă va fi declanşată în mai puţin de 1 minut din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %1$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %2$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %1$s şi %2$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %3$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %1$s şi %3$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %2$s şi %3$s din acest moment.</item>
+        <item>Această alarmă va fi declanşată peste %1$s, %2$s şi %3$s din acest moment.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Trezire rapidă)</item>
+        <item>Gamma (Stimulare puternică)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Somn adânc)</item>
+        <item>Theta (Relaxare)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Foarte simplu</item>
+        <item>Simplu</item>
+        <item>Mediu</item>
+        <item>Greu</item>
+        <item>Foarte greu</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 secunde</item>
+        <item>30 de secunde</item>
+        <item>un minut</item>
+        <item>2 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>30 de minute</item>
+        <item>45 de minute</item>
+        <item>60 de minute</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Anulează</item>
+        <item>Jumătate de an</item>
+        <item>3 luni</item>
+        <item>2 luni</item>
+        <item>o lună</item>
+        <item>2 săptămâni</item>
+        <item>Toate</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Întunecă</item>
+        <item>Întunecă cu ceas</item>
+        <item>Ceas afișat mereu</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Publicați automat graficelor somnului</item>
+        <item>Publicați graficele și starea în mod automat</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 de minute</item>
+        <item>25 de minute</item>
+        <item>30 de minute</item>
+        <item>60 de minute</item>
+        <item>90 de minute</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometru</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Pui de somn</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 de minute</item>
+        <item>25 de minute</item>
+        <item>30 de minute</item>
+        <item>40 de minute</item>
+        <item>50 de minute</item>
+        <item>o oră</item>
+        <item>o oră și 30 de minute</item>
+        <item>2 ore</item>
+    </array>
+    <array name="period_array">
+        <item>o săptămână</item>
+        <item>14 zile</item>
+        <item>O lună</item>
+        <item>Sfert de an</item>
+        <item>Jumătate de an</item>
+        <item>Un an</item>
+        <item>Dintotdeauna</item>
+    </array>
+    <array name="period_values">
+        <item>14 zile</item>
+        <item>o lună</item>
+        <item>3 luni</item>
+        <item>6 luni</item>
+        <item>un an</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 secunde</item>
+        <item>30 de secunde</item>
+        <item>un minut</item>
+        <item>2 minute</item>
+        <item>5 minute</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Ultima utilizare</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 de minute</item>
+        <item>25 de minute</item>
+        <item>30 de minute</item>
+        <item>35 de minute</item>
+        <item>40 de minute</item>
+        <item>45 de minute</item>
+        <item>50 de minute</item>
+        <item>55 de minute</item>
+        <item>o oră</item>
+        <item>90 de minute</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Fără limită</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Volum maxim</item>
+        <item>Volum scăzut</item>
+        <item>Alarmă silențioasă</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>cu 5 min. înainte</item>
+        <item>cu 15 min. înainte</item>
+        <item>cu 30 de min. înainte</item>
+        <item>cu 45 de min. înainte</item>
+        <item>cu o oră înainte</item>
+        <item>cu o oră și 30 de min. înainte</item>
+        <item>cu 2 ore înainte</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Amână</item>
+        <item>Oprește</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Când bateria este &lt;20%</item>
+        <item>Când bateria este &lt;10%</item>
+        <item>Când bateria este &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>un minut</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 de minute</item>
+        <item>25 de minute</item>
+        <item>30 de minute</item>
+    </array>
+</resources>

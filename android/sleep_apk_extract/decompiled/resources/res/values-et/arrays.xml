@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Veenduge, et jälgimisseade oleks teie kehale lähedal ja suudaks teie une liikumist jäädvustada</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>Deaktiveeritud</item>
+        <item>30 sekundit</item>
+        <item>1 minut</item>
+        <item>3 minutit</item>
+        <item>6 minutit</item>
+        <item>9 minutit</item>
+        <item>12 minutit</item>
+        <item>18 minutit</item>
+        <item>24 minutit</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minut</item>
+        <item>2 minutit</item>
+        <item>3 minutit</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>20 minutit</item>
+        <item>30 minutit</item>
+        <item>40 minutit</item>
+        <item>1 tund</item>
+        <item>2 tundi</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Vaikeseaded</item>
+        <item>ainult kõrvaklapid</item>
+    </array>
+    <array name="alarm_set">
+        <item>See äratus on seatud vähem kui ühe minuti pärast.</item>
+        <item>See äratus on seatud %1$s</item>
+        <item>See äratus on seatud %2$s</item>
+        <item>See äratus on seatud %1$s ja %2$s</item>
+        <item>See äratus on seatud %3$s</item>
+        <item>See äratus on seatud %1$s ja %3$s</item>
+        <item>See äratus on seatud %2$s ja %3$s</item>
+        <item>See äratus on seatud %1$s, %2$s, ja %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>Deaktiveeritud</item>
+        <item>Beta (kiire ärkamine)</item>
+        <item>Gamma (väga stimuleeriv)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>Deaktiveeritud</item>
+        <item>Delta (sügav uni)</item>
+        <item>Theta (lõõgastav)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Väga lihtne</item>
+        <item>Lihtne</item>
+        <item>Vahepealne</item>
+        <item>Raske</item>
+        <item>Väga raske</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>Deaktiveeritud</item>
+        <item>10 sekundit</item>
+        <item>30 sekundit</item>
+        <item>1 minut</item>
+        <item>2 minutit</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>15 minutit</item>
+        <item>20 minutit</item>
+        <item>30 minutit</item>
+        <item>45 minutit</item>
+        <item>60 minutit</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Tühista</item>
+        <item>Pool aastat</item>
+        <item>3 kuud</item>
+        <item>2 kuud</item>
+        <item>1 kuu</item>
+        <item>2 nädalat</item>
+        <item>Kõik</item>
+    </array>
+    <array name="dimm_entries">
+        <item>Deaktiveeritud</item>
+        <item>Hämardus</item>
+        <item>Hämarda näidates kella</item>
+        <item>Alati kellaajaline</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Une graafikute automaatne avaldamine</item>
+        <item>Graafikute ja oleku automaatne avaldamine</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>Deaktiveeritud</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>15 minutit</item>
+        <item>20 minutit</item>
+        <item>25 minutit</item>
+        <item>30 minutit</item>
+        <item>60 minutit</item>
+        <item>90 minutit</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Kiirendusmõõtur</item>
+        <item>Sensor-sonaar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Jõuuinak</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>15 minutit</item>
+        <item>20 minutit</item>
+        <item>25 minutit</item>
+        <item>30 minutit</item>
+        <item>40 minutit</item>
+        <item>50 minutit</item>
+        <item>1 tund</item>
+        <item>1 tund 30 min</item>
+        <item>2 tundi</item>
+    </array>
+    <array name="period_array">
+        <item>Nädal</item>
+        <item>14 päeva</item>
+        <item>Kuu</item>
+        <item>Kvartal</item>
+        <item>Pool aastat</item>
+        <item>Aasta</item>
+        <item>Kogu aeg</item>
+    </array>
+    <array name="period_values">
+        <item>14 päeva</item>
+        <item>Kuu</item>
+        <item>Kvartal</item>
+        <item>Poolaasta</item>
+        <item>Aasta</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekundit</item>
+        <item>30 sekundit</item>
+        <item>1 minut</item>
+        <item>2 minutit</item>
+        <item>5 minutit</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Viimati kasutatud</item>
+        <item>3 minutit</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>15 minutit</item>
+        <item>20 minutit</item>
+        <item>25 minutit</item>
+        <item>30 minutit</item>
+        <item>35 minutit</item>
+        <item>40 minutit</item>
+        <item>45 minutit</item>
+        <item>50 minutit</item>
+        <item>55 minutit</item>
+        <item>1 tund</item>
+        <item>90 minutit</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Pole limiiti</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Maksimaalne äratuse helitugevus</item>
+        <item>Madal äratuse helitugevus</item>
+        <item>Äratus on vaikne</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>Deaktiveeritud</item>
+        <item>5 minutit enne</item>
+        <item>15 minutit enne</item>
+        <item>30 minutit enne</item>
+        <item>45 minutit enne</item>
+        <item>1 tund enne</item>
+        <item>1 tund 30 minutit enne</item>
+        <item>2 tundi enne</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>Deaktiveeritud</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Tukasta</item>
+        <item>Eira</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>Deaktiveeritud</item>
+        <item>Kui aku on alla 20%</item>
+        <item>Kui aku on alla 10%</item>
+        <item>Kui aku on alla 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minut</item>
+        <item>3 minutit</item>
+        <item>5 minutit</item>
+        <item>10 minutit</item>
+        <item>15 minutit</item>
+        <item>20 minutit</item>
+        <item>25 minutit</item>
+        <item>30 minutit</item>
+    </array>
+</resources>

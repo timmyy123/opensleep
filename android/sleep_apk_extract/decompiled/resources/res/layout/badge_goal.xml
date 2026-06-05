@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goal"
+    android:background="@drawable/circle_badge"
+    android:visibility="gone"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="2dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginStart="16dp"
+    android:layout_alignParentStart="true">
+    <ProgressBar
+        android:id="@+id/goal_progress"
+        android:padding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:max="100"
+        android:progress="10"
+        android:progressDrawable="@drawable/circular_progress"
+        android:layout_centerInParent="true"
+        style="?android:attr/progressBarStyleHorizontal"/>
+    <TextView
+        android:textSize="10dp"
+        android:textColor="@color/primary_icon"
+        android:gravity="center"
+        android:id="@+id/goal_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_goal"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

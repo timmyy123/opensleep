@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_action_pause_plus_white"
+        android:id="@+id/menu_item_pause_plus"
+        android:title="+5min"
+        app:actionLayout="@layout/menu_action_layout"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_action_pause_white"
+        android:id="@+id/menu_item_pause"
+        android:title="@string/pause"
+        app:actionLayout="@layout/menu_action_layout"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_action_stop_white"
+        android:id="@+id/menu_item_stop"
+        android:title="@string/player_stop"
+        app:showAsAction="always"/>
+</menu>

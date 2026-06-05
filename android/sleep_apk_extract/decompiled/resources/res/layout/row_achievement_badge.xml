@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iconParent"
+    android:layout_width="72dp"
+    android:layout_height="72dp"
+    android:layout_margin="8dp"
+    android:layout_centerInParent="true">
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/circle_accent"
+        android:layout_centerInParent="true"
+        android:alpha="0.75"/>
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/circle_badge"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:id="@+id/level"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

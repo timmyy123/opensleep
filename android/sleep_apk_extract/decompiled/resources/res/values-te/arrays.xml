@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ట్రాకింగ్ పరికరం మీ శరీరానికి దగ్గరగా ఉందని నిర్ధారించుకోండి, తద్వారా మీ నిద్ర కదలికలను సంగ్రహించవచ్చు.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 సెకన్లు</item>
+        <item>1 నిమిషం</item>
+        <item>3 నిమిషాలు</item>
+        <item>6 నిమిషాలు</item>
+        <item>9 నిమిషాలు</item>
+        <item>12 నిమిషాలు</item>
+        <item>18 నిమిషాలు</item>
+        <item>24 నిమిషాలు</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 నిమిషం</item>
+        <item>2 నిమిషాలు</item>
+        <item>3 నిమిషాలు</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+        <item>40 నిమిషాలు</item>
+        <item>1 గంట</item>
+        <item>2 గంటలు</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ఈ అలారం ఇప్పటి నుండి 1 నిమిషం కంటే తక్కువ సమయం పాటు సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %1$sకి సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %2$sకి సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %1$s మరియు %2$s కోసం సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %3$sకి సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %1$s మరియు %3$s కోసం సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %2$s మరియు %3$s కోసం సెట్ చేయబడింది.</item>
+        <item>ఈ అలారం %1$s, %2$s, మరియు %3$s కోసం సెట్ చేయబడింది.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>బీటా (వేగవంతమైన మేల్కొలుపు)</item>
+        <item>గామా (అధికంగా ఉత్తేజపరిచేది)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>డెల్టా (లోతైన నిద్ర)</item>
+        <item>తీటా (విశ్రాంతి)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>చాలా సులభం</item>
+        <item>సింపుల్</item>
+        <item>ఇంటర్మీడియట్</item>
+        <item>హార్డ్</item>
+        <item>చాలా కష్టం</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 సెకన్లు</item>
+        <item>30 సెకన్లు</item>
+        <item>1 నిమిషం</item>
+        <item>2 నిమిషాలు</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>15 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+        <item>45 నిమిషాలు</item>
+        <item>60 నిమిషాలు</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>రద్దు చేయి</item>
+        <item>అర్ధ సంవత్సరం</item>
+        <item>3 నెలలు</item>
+        <item>2 నెలలు</item>
+        <item>1 నెల</item>
+        <item>2 వారాలు</item>
+        <item>అన్నీ</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>మసక</item>
+        <item>గడియారంతో కాంతి మసకబారడం</item>
+        <item>ఎల్లప్పుడూ గడియారంలో ఉంటుంది</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>నిద్ర గ్రాఫ్‌లను స్వయంచాలకంగా ప్రచురించండి</item>
+        <item>గ్రాఫ్‌లు మరియు స్థితిని స్వయంచాలకంగా ప్రచురించండి</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>15 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>25 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+        <item>60 నిమిషాలు</item>
+        <item>90 నిమిషాలు</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>యాక్సిలెరోమీటర్</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>పవర్ న్యాప్</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>15 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>25 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+        <item>40 నిమిషాలు</item>
+        <item>50 నిమిషాలు</item>
+        <item>1 గంట</item>
+        <item>1 గంట 30 నిమి</item>
+        <item>2 గంటలు</item>
+    </array>
+    <array name="period_array">
+        <item>వారం</item>
+        <item>14 రోజులు</item>
+        <item>నెల</item>
+        <item>త్రైమాసిక సంవత్సరం</item>
+        <item>అర్ధ సంవత్సరం</item>
+        <item>సంవత్సరం</item>
+        <item>అన్ని సమయాలలో</item>
+    </array>
+    <array name="period_values">
+        <item>14 రోజులు</item>
+        <item>నెల</item>
+        <item>త్రైమాసిక సంవత్సరం</item>
+        <item>అర్ధ సంవత్సరం</item>
+        <item>సంవత్సరం</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 సెకన్లు</item>
+        <item>30 సెకన్లు</item>
+        <item>1 నిమిషం</item>
+        <item>2 నిమిషాలు</item>
+        <item>5 నిమిషాలు</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 నిమిషాలు</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>15 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>25 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+        <item>35 నిమిషాలు</item>
+        <item>40 నిమిషాలు</item>
+        <item>45 నిమిషాలు</item>
+        <item>50 నిమిషాలు</item>
+        <item>55 నిమిషాలు</item>
+        <item>1 గంట</item>
+        <item>90 నిమిషాలు</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x (4x) समानी्ती स्ती स्ती स्�</item>
+        <item>5x (5x) समानी</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>పూర్తి అలారం వాల్యూమ్</item>
+        <item>తక్కువ అలారం వాల్యూమ్</item>
+        <item>అలారం నిశ్శబ్దంగా ఉంది</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 నిమిషాల ముందు</item>
+        <item>15 నిమిషాల ముందు</item>
+        <item>30 నిమిషాల ముందు</item>
+        <item>45 నిమిషాల ముందు</item>
+        <item>1 గంట ముందు</item>
+        <item>1 గంట 30 నిమిషాల ముందు</item>
+        <item>2 గంటల ముందు</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 నిమి</item>
+        <item>2 నిమి</item>
+        <item>3 నిమి</item>
+        <item>4 నిమి</item>
+        <item>5 నిమి</item>
+        <item>10 నిమి</item>
+        <item>15 నిమి</item>
+        <item>20 నిమి</item>
+        <item>30 నిమి</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>తాత్కాలికంగా ఆపివేయండి</item>
+        <item>తీసివేయి</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>బ్యాటరీ &lt;20% ఉన్నప్పుడు</item>
+        <item>బ్యాటరీ &lt;10% ఉన్నప్పుడు</item>
+        <item>బ్యాటరీ &lt;5% ఉన్నప్పుడు</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 నిమిషం</item>
+        <item>3 నిమిషాలు</item>
+        <item>5 నిమిషాలు</item>
+        <item>10 నిమిషాలు</item>
+        <item>15 నిమిషాలు</item>
+        <item>20 నిమిషాలు</item>
+        <item>25 నిమిషాలు</item>
+        <item>30 నిమిషాలు</item>
+    </array>
+</resources>

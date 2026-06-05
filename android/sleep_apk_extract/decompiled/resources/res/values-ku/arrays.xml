@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Piştrast bike ku cîhaza şopandinê nêzîkî laşê te ye ku bikaribe tevgera te ya xewê tomar bike</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 çirke</item>
+        <item>1 deqîqe</item>
+        <item>3 deqe</item>
+        <item>6 deqîqe</item>
+        <item>9 deqîqe</item>
+        <item>12 deqîqe</item>
+        <item>18 deqîqe</item>
+        <item>24 deqîqe</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 deqîqe</item>
+        <item>2 deqe</item>
+        <item>3 deqe</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>30 deqîqe</item>
+        <item>40 deqîqe</item>
+        <item>1 saet</item>
+        <item>2 demjimêran</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Ev alarm ji bo kêmtirî 1 deqîqeyê ji niha ve hatiye danîn</item>
+        <item>Ev alarm ji bo %1$s hatiye danîn</item>
+        <item>Ev alarm ji bo %2$s hatiye danîn</item>
+        <item>Ev alarm ji bo %1$s û %2$s hatiye danîn.</item>
+        <item>Ev alarm ji bo %3$s hatiye danîn</item>
+        <item>Ev alarm ji bo %1$s û %3$s hatiye danîn.</item>
+        <item>Ev alarm ji bo %2$s û %3$s hatiye danîn.</item>
+        <item>Ev alarm ji bo %1$s, %2$s, û %3$s hatiye danîn.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Şiyarbûna Bilez)</item>
+        <item>Gamma (Zêde teşwîqker)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Xewa Kûr)</item>
+        <item>Theta (Rihetbûn)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Pir sade</item>
+        <item>Asan</item>
+        <item>Di nav</item>
+        <item>Hişk</item>
+        <item>Pir dijwar</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 çirke</item>
+        <item>30 çirke</item>
+        <item>1 deqîqe</item>
+        <item>2 deqe</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>15 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>30 deqîqe</item>
+        <item>45 deqîqe</item>
+        <item>60 deqîqe</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Bişûndekirin</item>
+        <item>Nîv sal</item>
+        <item>3 Meh</item>
+        <item>2 Meh</item>
+        <item>1 meh</item>
+        <item>2 Hefte</item>
+        <item>Gişt</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Nîsk</item>
+        <item>Bi demjimêrê re tarî dibe</item>
+        <item>Her tim li ser demjimêrê</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Grafîkên xewê bixweber biweşînin</item>
+        <item>Grafîk û rewşê bixweber biweşînin</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>15 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>25 deqîqe</item>
+        <item>30 deqîqe</item>
+        <item>60 deqîqe</item>
+        <item>90 deqîqe</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Xewna bi hêz</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>15 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>25 deqîqe</item>
+        <item>30 deqîqe</item>
+        <item>40 deqîqe</item>
+        <item>50 deqîqe</item>
+        <item>1 saet</item>
+        <item>1 saet û 30 deqe</item>
+        <item>2 demjimêran</item>
+    </array>
+    <array name="period_array">
+        <item>Hefte</item>
+        <item>14 roj</item>
+        <item>Meh</item>
+        <item>Çaryeka salê</item>
+        <item>Nîv sal</item>
+        <item>Sal</item>
+        <item>Her dem</item>
+    </array>
+    <array name="period_values">
+        <item>14 roj</item>
+        <item>Meh</item>
+        <item>Çaryeka salê</item>
+        <item>Nîv sal</item>
+        <item>Sal</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 çirke</item>
+        <item>30 çirke</item>
+        <item>1 deqîqe</item>
+        <item>2 deqe</item>
+        <item>5 deqîqe</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 deqe</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>15 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>25 deqîqe</item>
+        <item>30 deqîqe</item>
+        <item>35 deqîqe</item>
+        <item>40 deqîqe</item>
+        <item>45 deqîqe</item>
+        <item>50 deqîqe</item>
+        <item>55 deqîqe</item>
+        <item>1 saet</item>
+        <item>90 deqîqe</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3 caran</item>
+        <item>4x</item>
+        <item>5 caran</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Dengê alarmê yê tevahî</item>
+        <item>Dengê alarmê kêm</item>
+        <item>Alarm bêdeng e</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 deqe berê</item>
+        <item>15 deqe berê</item>
+        <item>30 deqe berê</item>
+        <item>45 deqe berê</item>
+        <item>1 saet berê</item>
+        <item>1 saet û 30 deqe berê</item>
+        <item>2 demjimêr berê</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 deqe</item>
+        <item>2 deqe</item>
+        <item>3 deqe</item>
+        <item>4 deqe</item>
+        <item>5 deqe</item>
+        <item>10 deqe</item>
+        <item>15 deqe</item>
+        <item>20 deqe</item>
+        <item>30 deqe</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Paşdexistin</item>
+        <item>Berdan</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Dema ku batarya &lt;20%</item>
+        <item>Dema ku batarya &lt;10%</item>
+        <item>Dema ku batarya &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 deqe</item>
+        <item>3 deqe</item>
+        <item>5 deqîqe</item>
+        <item>10 deqîqe</item>
+        <item>15 deqîqe</item>
+        <item>20 deqîqe</item>
+        <item>25 deqîqe</item>
+        <item>30 deqiqe</item>
+    </array>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_download_plain"
+        android:id="@+id/menu_ringtone"
+        android:title="@string/xmore"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_help_q"
+        android:id="@+id/menu_help"
+        android:title="@string/help"
+        app:showAsAction="always"/>
+</menu>

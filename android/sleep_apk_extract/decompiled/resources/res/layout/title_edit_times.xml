@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/title_time_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="["
+        android:lines="1"/>
+    <EditText
+        android:textColor="@color/primary"
+        android:id="@+id/title_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:inputType="time"
+        android:backgroundTint="@color/primary"/>
+    <TextView
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=","
+        android:lines="1"/>
+    <EditText
+        android:textColor="@color/primary"
+        android:id="@+id/title_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:inputType="time"
+        android:backgroundTint="@color/primary"/>
+    <TextView
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="] = "
+        android:lines="1"/>
+    <TextView
+        android:textColor="@color/primary"
+        android:id="@+id/title_time_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"/>
+</LinearLayout>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Būkite įsitikinę, kad sekimo prietaisas yra arti jūsų kūno ir gali užfiksuoti jūsų judesius</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekundžių</item>
+        <item>1 minutė</item>
+        <item>3 minutės</item>
+        <item>6 minutės</item>
+        <item>9 minutės</item>
+        <item>12 minučių</item>
+        <item>18 minučių</item>
+        <item>24 minutės</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minutė</item>
+        <item>2 minutės</item>
+        <item>3 minutės</item>
+        <item>5 minutės</item>
+        <item>10 minučių</item>
+        <item>20 minučių</item>
+        <item>30 minučių</item>
+        <item>40 minučių</item>
+        <item>1 val.</item>
+        <item>2 valandos</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Šis signalas skambės greičiau nei po 1 min.</item>
+        <item>Šis žadintuvas skambės už %1$s.</item>
+        <item>Šis žadintuvas skambės už %2$s.</item>
+        <item>Šis žadintuvas skambės už %1$s ir %2$s.</item>
+        <item>Šis žadintuvas skambės už %3$s.</item>
+        <item>Šis žadintuvas skambės už %1$s ir %3$s.</item>
+        <item>Šis signalas skambės už %2$s ir %3$s.</item>
+        <item>Šis žadintuvas skambės už %1$s, %2$s ir %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Greitas pakėlimas)</item>
+        <item>Gamma (Stipriai stimuliuojantis)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Gilus miegas)</item>
+        <item>Theta (Atpalaiduojantis)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Labai lengvas</item>
+        <item>Lengvas</item>
+        <item>Vidutinis</item>
+        <item>Sunkus</item>
+        <item>Labai sunkus</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekundžių</item>
+        <item>30 sekundžių</item>
+        <item>1 minutė</item>
+        <item>2 minutės</item>
+        <item>5 minutės</item>
+        <item>10 minučių</item>
+        <item>15 minučių</item>
+        <item>20 minučių</item>
+        <item>30 minučių</item>
+        <item>45 minutės</item>
+        <item>60 minučių</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Atšaukti</item>
+        <item>Pusė metų</item>
+        <item>3 mėnesiai</item>
+        <item>2 mėnesiai</item>
+        <item>1 mėnuo</item>
+        <item>2 savaitės</item>
+        <item>Viskas</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Pritemdyti</item>
+        <item>Pritemdyti kartu su laikrodžiu</item>
+        <item>Laikrodis matomas</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Automatiškai paskelbti miego diagramas</item>
+        <item>Automatiškai paskelbti diagramas ir būsenas</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minutės</item>
+        <item>10 minučių</item>
+        <item>15 minučių</item>
+        <item>20 minučių</item>
+        <item>25 minučių</item>
+        <item>30 minučių</item>
+        <item>60 minučių</item>
+        <item>90 minučių</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akselerometras</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Pogulis</item>
+        <item>5 minutes</item>
+        <item>10 minučių</item>
+        <item>15 minučių</item>
+        <item>20 minučių</item>
+        <item>25 minutės</item>
+        <item>30 minučių</item>
+        <item>40 minučių</item>
+        <item>50 minučių</item>
+        <item>1 valandą</item>
+        <item>1 valandą 30 min.</item>
+        <item>2 valandas</item>
+    </array>
+    <array name="period_array">
+        <item>Savaitė</item>
+        <item>14 dienų</item>
+        <item>Mėnuo</item>
+        <item>Ketvirtis</item>
+        <item>Pusę metų</item>
+        <item>Metai</item>
+        <item>Visi</item>
+    </array>
+    <array name="period_values">
+        <item>14 dienų</item>
+        <item>Mėnuo</item>
+        <item>Ketvirtis</item>
+        <item>Pusę metų</item>
+        <item>Metai</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekundžių</item>
+        <item>30 sekundžių</item>
+        <item>1 minutė</item>
+        <item>2 minutės</item>
+        <item>5 minutės</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Paskutinis naudotas</item>
+        <item>3 minutės</item>
+        <item>5 minutės</item>
+        <item>10 minučių</item>
+        <item>15 minučių</item>
+        <item>20 minučių</item>
+        <item>25 minutės</item>
+        <item>30 minučių</item>
+        <item>35 minutės</item>
+        <item>40 minučių</item>
+        <item>45 minutės</item>
+        <item>50 minučių</item>
+        <item>55 minutės</item>
+        <item>1 valanda</item>
+        <item>90 minučių</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Be apribojimo</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Pilnas žadintuvo garsumas</item>
+        <item>Žemas žadintuvo garsumas</item>
+        <item>Žadintuvas nutildytas</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min. prieš</item>
+        <item>15 min. prieš</item>
+        <item>30 min. prieš</item>
+        <item>45 min. prieš</item>
+        <item>1 valandos prieš</item>
+        <item>1 val. 30 min. prieš</item>
+        <item>2 valandas prieš</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min.</item>
+        <item>2 min.</item>
+        <item>3 min.</item>
+        <item>4 min.</item>
+        <item>5 min.</item>
+        <item>10 min.</item>
+        <item>15 min.</item>
+        <item>20 min.</item>
+        <item>30 min.</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Atidėti</item>
+        <item>Nutraukti</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Kai baterija &lt;20%</item>
+        <item>Kai baterija &lt;10%</item>
+        <item>Kai baterija &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minutė</item>
+        <item>3 minutės</item>
+        <item>5 minutės</item>
+        <item>10 minučių</item>
+        <item>15 minučių</item>
+        <item>20 minučių</item>
+        <item>25 minutės</item>
+        <item>30 minučių</item>
+    </array>
+</resources>

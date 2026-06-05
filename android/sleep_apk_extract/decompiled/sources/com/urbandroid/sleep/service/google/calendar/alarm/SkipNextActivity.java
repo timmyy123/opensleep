@@ -1,0 +1,45 @@
+package com.urbandroid.sleep.service.google.calendar.alarm;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import androidx.core.app.NotificationManagerCompat;
+import com.google.home.automation.zza$$ExternalSyntheticOutline0;
+import com.urbandroid.common.BaseActivity;
+import com.urbandroid.common.logging.Logger;
+import com.urbandroid.sleep.alarmclock.Alarm;
+import com.urbandroid.sleep.alarmclock.Alarms;
+import com.urbandroid.sleep.alarmclock.GlobalInitializator;
+
+/* JADX INFO: loaded from: classes5.dex */
+public class SkipNextActivity extends BaseActivity {
+    @Override // com.urbandroid.common.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.view.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        final Context applicationContext = getApplicationContext();
+        GlobalInitializator.initializeIfRequired(applicationContext);
+        final int intExtra = getIntent().getIntExtra("alarm_id", -1);
+        int intExtra2 = getIntent().getIntExtra("notification_id", -1);
+        zza$$ExternalSyntheticOutline0.m(intExtra, intExtra2, "SkipNextReceiver: alarm ", " notification-id ");
+        if (intExtra > -1) {
+            final Alarm alarm = Alarms.getAlarm(applicationContext.getContentResolver(), intExtra);
+            if (alarm != null) {
+                new AsyncTask<Void, Void, Void>() { // from class: com.urbandroid.sleep.service.google.calendar.alarm.SkipNextActivity.1
+                    @Override // android.os.AsyncTask
+                    public Void doInBackground(Void... voidArr) {
+                        if (!"com.urbandroid.sleep.ACTION_CALENDAR_SKIP_NEXT".equals(SkipNextActivity.this.getIntent().getAction())) {
+                            return null;
+                        }
+                        zza$$ExternalSyntheticOutline0.m(new StringBuilder("SkipNextReceiver: skip "), intExtra);
+                        Alarms.suspendNextAlarm(applicationContext, alarm);
+                        return null;
+                    }
+                }.execute(new Void[0]);
+            } else {
+                Logger.logWarning("SkipNextReceiver: alarm " + intExtra + " not found");
+            }
+        }
+        NotificationManagerCompat.from(applicationContext).cancel(intExtra2);
+        finish();
+    }
+}

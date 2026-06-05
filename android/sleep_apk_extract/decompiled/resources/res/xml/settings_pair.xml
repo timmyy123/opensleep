@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/settings">
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference_summary"
+        android:key="pair_expl"
+        android:summary="@string/pair_tracking_summary"/>
+    <PreferenceCategory
+        android:layout="@layout/category_first"
+        android:key="settings_category_pair_tracking">
+        <com.urbandroid.sleep.gui.EnablePreference
+            android:layout="@layout/preference_enable"
+            android:key="pair_tracking_enabled"
+            android:widgetLayout="@layout/preference_switch_widget"
+            android:defaultValue="false"
+            android:summaryOn="@string/enabled"
+            android:summaryOff="@string/disabled"/>
+        <Preference
+            android:icon="@drawable/ic_action_search"
+            android:layout="@layout/preference"
+            android:title="@string/find_partner"
+            android:key="pair_tracking_token"/>
+        <Preference
+            android:icon="@drawable/ic_help_q"
+            android:layout="@layout/preference"
+            android:title="@string/addons_install"
+            android:key="pair_tracking_read_more"/>
+        <Preference
+            android:persistent="false"
+            android:layout="@layout/preference"
+            android:key="empty1"/>
+        <Preference
+            android:persistent="false"
+            android:layout="@layout/preference"
+            android:key="empty2"/>
+    </PreferenceCategory>
+</PreferenceScreen>

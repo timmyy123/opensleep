@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:icon="@drawable/ic_action_play_white"
+        android:id="@+id/first_group"
+        android:checkableBehavior="single"
+        app:showAsAction="never">
+        <item
+            android:id="@+id/menu_playlist_shuffle"
+            android:title="@string/playlist_shuffle"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/menu_playlist_ordered"
+            android:title="@string/playlist_ordered"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/menu_playlist_loop_single"
+            android:title="@string/playlist_loop_single"
+            app:showAsAction="never"/>
+    </group>
+</menu>

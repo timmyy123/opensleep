@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>İzləmə cihazının yuxu hərəkətinizi tuta bilən bədəninizə yaxın olduğundan əmin olun</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 saniyə</item>
+        <item>1 dəqiqə</item>
+        <item>3 dəqiqə</item>
+        <item>6 dəqiqə</item>
+        <item>9 dəqiqə</item>
+        <item>12 dəqiqə</item>
+        <item>18 dəqiqə</item>
+        <item>24 dəqiqə</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 dəqiqə</item>
+        <item>2 dəqiqə</item>
+        <item>3 dəqiqə</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>40 dəqiqə</item>
+        <item>1 saat</item>
+        <item>2 saat</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Bu həyəcan indidən 1 dəqiqədən az müddətə qurulub</item>
+        <item>Bu həyəcan üçün qurulub %1$s</item>
+        <item>Bu həyəcan üçün qurulub %2$s</item>
+        <item>Bu siqnal %1$s üçün qurulub %2$s</item>
+        <item>Bu həyəcan üçün qurulub %3$s</item>
+        <item>Bu siqnal %1$s üçün qurulub %3$s</item>
+        <item>Bu siqnal %2$s üçün qurulub %3$s</item>
+        <item>Bu həyəcan %1$s, %2$s və üçün quraşdırılıb %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Tez oyanma)</item>
+        <item>Qamma (Yüksək stimullaşdırıcı)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Dərin yuxu)</item>
+        <item>Teta (Rahatlaşdırıcı)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Çox sadə</item>
+        <item>Sadə</item>
+        <item>Aralıq</item>
+        <item>Çətin</item>
+        <item>Çox çətin</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 saniyə</item>
+        <item>30 saniyə</item>
+        <item>1 dəqiqə</item>
+        <item>2 dəqiqə</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>15 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>45 dəqiqə</item>
+        <item>60 dəqiqə</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Ləğv et</item>
+        <item>Yarım il</item>
+        <item>3 ay</item>
+        <item>2 ay</item>
+        <item>1 ay</item>
+        <item>2 həftə</item>
+        <item>Hamısı</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Zəif</item>
+        <item>Saat ilə sönük</item>
+        <item>Həmişə saatda</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Yuxu qrafiklərini avtomatik dərc edin</item>
+        <item>Qrafikləri və statusu avtomatik dərc edin</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>15 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>25 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>60 dəqiqə</item>
+        <item>90 dəqiqə</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akselerometr</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Güc yatağı</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>15 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>25 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>40 dəqiqə</item>
+        <item>50 dəqiqə</item>
+        <item>1 saat</item>
+        <item>1 saat 30 dəq</item>
+        <item>2 saat</item>
+    </array>
+    <array name="period_array">
+        <item>Həftə</item>
+        <item>14 gün</item>
+        <item>ay</item>
+        <item>Rüb il</item>
+        <item>Yarım il</item>
+        <item>il</item>
+        <item>Həmişə</item>
+    </array>
+    <array name="period_values">
+        <item>14 gün</item>
+        <item>ay</item>
+        <item>Rüb il</item>
+        <item>Yarım il</item>
+        <item>il</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 saniyə</item>
+        <item>30 saniyə</item>
+        <item>1 dəqiqə</item>
+        <item>2 dəqiqə</item>
+        <item>5 dəqiqə</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Son istifadə olunub</item>
+        <item>3 dəqiqə</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>15 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>25 dəqiqə</item>
+        <item>30 dəqiqə</item>
+        <item>35 dəqiqə</item>
+        <item>40 dəqiqə</item>
+        <item>45 dəqiqə</item>
+        <item>50 dəqiqə</item>
+        <item>55 dəqiqə</item>
+        <item>1 saat</item>
+        <item>90 dəqiqə</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Limit yoxdur</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Tam həyəcan səsi</item>
+        <item>Aşağı həyəcan səsi</item>
+        <item>Siqnal səssizdir</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 dəqiqə əvvəl</item>
+        <item>15 dəqiqə əvvəl</item>
+        <item>30 dəqiqə əvvəl</item>
+        <item>45 dəqiqə əvvəl</item>
+        <item>1 saat əvvəl</item>
+        <item>1 saat 30 dəqiqə əvvəl</item>
+        <item>2 saat əvvəl</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 dəq</item>
+        <item>2 dəq</item>
+        <item>3 dəq</item>
+        <item>4 dəq</item>
+        <item>5 dəq</item>
+        <item>10 dəq</item>
+        <item>15 dəq</item>
+        <item>20 dəq</item>
+        <item>30 dəq</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Mürgülə</item>
+        <item>Rədd et</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Batareya &lt;20% olduqda</item>
+        <item>Batareya &lt;10% olduqda</item>
+        <item>Batareya &lt;5% olduqda</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 dəqiqə</item>
+        <item>3 dəqiqə</item>
+        <item>5 dəqiqə</item>
+        <item>10 dəqiqə</item>
+        <item>15 dəqiqə</item>
+        <item>20 dəqiqə</item>
+        <item>25 dəqiqə</item>
+        <item>30 dəqiqə</item>
+    </array>
+</resources>

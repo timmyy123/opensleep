@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/settings">
+    <PreferenceCategory
+        android:layout="@layout/category_empty"
+        android:key="settings_category_jetlag">
+        <com.urbandroid.sleep.gui.EnablePreference
+            android:layout="@layout/preference_enable"
+            android:key="jetlag"
+            android:widgetLayout="@layout/preference_switch_widget"
+            android:defaultValue="false"
+            android:summaryOn="@string/enabled"
+            android:summaryOff="@string/disabled"/>
+        <Preference
+            android:icon="@drawable/ic_help_q"
+            android:persistent="false"
+            android:layout="@layout/preference"
+            android:title="@string/menu_about"
+            android:key="jetlag_tutorial"/>
+        <com.urbandroid.sleep.gui.TimezonePreference
+            android:icon="@drawable/ic_jetlag"
+            android:layout="@layout/preference"
+            android:title="@string/jetlag_tz"
+            android:key="jetlag_tz"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout="@layout/category"
+        android:title="@string/addon"
+        android:key="settings_category_purchase">
+        <Preference
+            android:icon="@drawable/ic_mask"
+            android:persistent="false"
+            android:layout="@layout/preference"
+            android:title="Purchase Sleep Mask"
+            android:key="smartlight_mask_purchase"/>
+        <Preference
+            android:icon="@drawable/ic_sleep_phaser"
+            android:persistent="false"
+            android:layout="@layout/preference"
+            android:title="Purchase Sleep Phaser"
+            android:key="smartlight_phaser_purchase"/>
+    </PreferenceCategory>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

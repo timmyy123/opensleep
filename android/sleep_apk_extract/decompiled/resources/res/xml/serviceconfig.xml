@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/alarm_avoid_force_stop_justification"
+    android:summary="@string/force_stop_protection"
+    android:settingsActivity="com.urbandroid.sleep.alarmclock.settings.CaptchaCheatingSettingsActivity"
+    android:accessibilityEventTypes="typeWindowsChanged|typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:notificationTimeout="100"
+    android:accessibilityFlags=""
+    android:canRetrieveWindowContent="false"
+    android:canRequestTouchExplorationMode="false"
+    android:canRequestEnhancedWebAccessibility="false"
+    android:canRequestFilterKeyEvents="false"
+    android:canControlMagnification="false"
+    android:canPerformGestures="false"
+    android:canRequestFingerprintGestures="false"
+    android:isAccessibilityTool="false"/>

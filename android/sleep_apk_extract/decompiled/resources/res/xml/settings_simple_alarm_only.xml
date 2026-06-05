@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/settings">
+    <Preference
+        android:icon="@drawable/ic_information"
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="settings_expl"
+        android:summary="@string/main_settings_tip"/>
+    <PreferenceCategory
+        android:layout="@layout/category_first"
+        android:key="settings_category_sleep">
+        <Preference
+            android:icon="@drawable/ic_lullaby_clock"
+            android:layout="@layout/preference_card"
+            android:title="@string/alarm_list_title"
+            android:key="settings_category_alarm"/>
+        <Preference
+            android:icon="@drawable/ic_unlock_cloud_backup"
+            android:layout="@layout/preference_card"
+            android:title="@string/category_services"
+            android:key="settings_category_services"/>
+        <Preference
+            android:icon="@drawable/ic_feature_addon"
+            android:layout="@layout/preference_card"
+            android:title="@string/addon"
+            android:key="settings_category_addons"/>
+        <Preference
+            android:icon="@drawable/ic_feature_misc"
+            android:layout="@layout/preference_card"
+            android:title="@string/settings_category_ux"
+            android:key="settings_category_misc"/>
+    </PreferenceCategory>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

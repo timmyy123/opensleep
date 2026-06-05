@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Maak seker dat die opsporingstoestel naby jou liggaam is om jou slaapbeweging vas te vang</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekondes</item>
+        <item>1 minuut</item>
+        <item>3 minute</item>
+        <item>6 minute</item>
+        <item>9 minute</item>
+        <item>12 minute</item>
+        <item>18 minute</item>
+        <item>24 minute</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minuut</item>
+        <item>2 minute</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>20 minute</item>
+        <item>30 minute</item>
+        <item>40 minute</item>
+        <item>1 uur</item>
+        <item>2 ure</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Die alarm is vir minder as 1 minuut van nou af geskeduleer</item>
+        <item>Die alarm is gestel vir %1$s</item>
+        <item>Die alarm is gestel vir %2$s</item>
+        <item>Die alarm is gestel vir %1$s en %2$s</item>
+        <item>Die alarm is gestel vir %3$s</item>
+        <item>Die alarm is gestel vir %1$s en %3$s</item>
+        <item>Die alarm is gestel vir %2$s en %3$s</item>
+        <item>Die alarm is gestel vir %1$s, %2$s, en %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (vinnig wakker word)</item>
+        <item>Gamma (hoogs stimulerend)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (diep slaap)</item>
+        <item>Theta (Ontspannend)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Baie eenvoudig</item>
+        <item>Eenvoudig</item>
+        <item>Intermediêr</item>
+        <item>Moeilik</item>
+        <item>Baie moeilik</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekondes</item>
+        <item>30 sekondes</item>
+        <item>1 minuut</item>
+        <item>2 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>30 minute</item>
+        <item>45 minute</item>
+        <item>60 minute</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Kanselleer</item>
+        <item>Half-jaar</item>
+        <item>3 maande</item>
+        <item>2 maande</item>
+        <item>1 maand</item>
+        <item>2 weke</item>
+        <item>Almal</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Dof</item>
+        <item>Verduister met horlosie</item>
+        <item>Altyd op die klok</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Publiseer slaapgrafieke outomaties</item>
+        <item>Outo-publiseer grafieke en status</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>25 minute</item>
+        <item>30 minute</item>
+        <item>60 minute</item>
+        <item>90 minute</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Versnellingsmeter</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Uiltjie knip</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>25 minute</item>
+        <item>30 minute</item>
+        <item>40 minute</item>
+        <item>50 minute</item>
+        <item>1 uur</item>
+        <item>1 uur 30 min</item>
+        <item>2 ure</item>
+    </array>
+    <array name="period_array">
+        <item>Week</item>
+        <item>14 dae</item>
+        <item>Maand</item>
+        <item>Kwartaaljaar</item>
+        <item>Half-jaar</item>
+        <item>Jaar</item>
+        <item>Van alle tye</item>
+    </array>
+    <array name="period_values">
+        <item>14 dae</item>
+        <item>Maand</item>
+        <item>Kwartaal</item>
+        <item>Half-jaar</item>
+        <item>Jaar</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekondes</item>
+        <item>30 sekondes</item>
+        <item>1 minuut</item>
+        <item>2 minute</item>
+        <item>5 minute</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Laaste gebruik</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>25 minute</item>
+        <item>30 minute</item>
+        <item>35 minute</item>
+        <item>40 minute</item>
+        <item>45 minute</item>
+        <item>50 minute</item>
+        <item>55 minute</item>
+        <item>1 uur</item>
+        <item>90 minute</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Geen beperking</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Volle alarmvolume</item>
+        <item>Lae alarmvolume</item>
+        <item>Alarm is stil</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min. voor</item>
+        <item>15 min. voor</item>
+        <item>30 min. voor</item>
+        <item>45 min. voor</item>
+        <item>1 uur tevore</item>
+        <item>1 uur 30 min. voor</item>
+        <item>2 uur tevore</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Sluimer</item>
+        <item>Verwerp</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Wanneer battery &lt;20%</item>
+        <item>Wanneer battery &lt;10%</item>
+        <item>Wanneer battery &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minuut</item>
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>10 minute</item>
+        <item>15 minute</item>
+        <item>20 minute</item>
+        <item>25 minute</item>
+        <item>30 minute</item>
+    </array>
+</resources>

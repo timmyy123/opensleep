@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Впевніться, що Ваш засіб відстеження сну знаходиться недалеко від Вашого тіла і в змозі відслідковувати Ваші рухи уві сні</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 секунд</item>
+        <item>1 хвилина</item>
+        <item>3 хвилини</item>
+        <item>6 хвилин</item>
+        <item>9 хвилин</item>
+        <item>12 хвилин</item>
+        <item>18 хвилин</item>
+        <item>24 хвилини</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 хвилина</item>
+        <item>2 хвилини</item>
+        <item>3 хвилини</item>
+        <item>5 хвилин</item>
+        <item>10 хвилин</item>
+        <item>20 хвилин</item>
+        <item>30 хвилин</item>
+        <item>40 хвилин</item>
+        <item>1 година</item>
+        <item>2 години</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>Примусово через навушники</item>
+    </array>
+    <array name="alarm_set">
+        <item>Цей будильник спрацює менш, ніж за 1 хв.</item>
+        <item>Цей будильник спрацює за %1$s.</item>
+        <item>Цей будильник спрацює за %2$s.</item>
+        <item>Цей будильник спрацює за %1$s та %2$s.</item>
+        <item>Цей будильник спрацює за %3$s.</item>
+        <item>Цей будильник спрацює за %1$s та %3$s.</item>
+        <item>Цей будильник спрацює за %2$s та %3$s.</item>
+        <item>Цей будильник спрацює за %1$s,%2$s, та %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Бета (Швидке прокидання)</item>
+        <item>Гамма (Висока стимуляція)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Дельта (Глибокий сон)</item>
+        <item>Тета (Розслаблення)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Дуже проста</item>
+        <item>Проста</item>
+        <item>Середньої складності</item>
+        <item>Важка</item>
+        <item>Дуже важка</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 хвилина</item>
+        <item>2 хвилини</item>
+        <item>5 хвилин</item>
+        <item>10 хвилин</item>
+        <item>15 хвилин</item>
+        <item>20 хвилин</item>
+        <item>30 хвилин</item>
+        <item>45 хвилин</item>
+        <item>60 хвилин</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Скасувати</item>
+        <item>Пів року</item>
+        <item>3 місяці</item>
+        <item>2 місяці</item>
+        <item>1 місяць</item>
+        <item>2 тижні</item>
+        <item>Усе</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Затухати</item>
+        <item>Затухати із показом годинника</item>
+        <item>Екран годинника увімкнуто</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Автоматично публікувати графіки</item>
+        <item>Автоматично публікувати графіки та статус</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 хв.</item>
+        <item>10 хв.</item>
+        <item>15 хв.</item>
+        <item>20 хв.</item>
+        <item>25 хв.</item>
+        <item>30 хв.</item>
+        <item>60 хв.</item>
+        <item>90 хв.</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Акселерометр</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Підсилення</item>
+        <item>5 хвилин</item>
+        <item>10 хвилин</item>
+        <item>15 хвилин</item>
+        <item>20 хвилин</item>
+        <item>25 хвилин</item>
+        <item>30 хвилин</item>
+        <item>40 хвилин</item>
+        <item>50 хвилин</item>
+        <item>1 година</item>
+        <item>1 година 30 хвилин</item>
+        <item>2 години</item>
+    </array>
+    <array name="period_array">
+        <item>Тиждень</item>
+        <item>14 днів</item>
+        <item>Місяць</item>
+        <item>Квартал</item>
+        <item>Півроку</item>
+        <item>Рік</item>
+        <item>Все</item>
+    </array>
+    <array name="period_values">
+        <item>14 днів</item>
+        <item>Місяць</item>
+        <item>Квартал</item>
+        <item>Півроку</item>
+        <item>Рік</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 хвилина</item>
+        <item>2 хвилини</item>
+        <item>5 хвилин</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Останнє використане</item>
+        <item>3 хвилини</item>
+        <item>5 хвилин</item>
+        <item>10 хвилин</item>
+        <item>15 хвилин</item>
+        <item>20 хвилин</item>
+        <item>25 хвилин</item>
+        <item>30 хвилин</item>
+        <item>35 хвилин</item>
+        <item>40 хвилин</item>
+        <item>45 хвилин</item>
+        <item>50 хвилин</item>
+        <item>55 хвилин</item>
+        <item>1 година</item>
+        <item>90 хвилин</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Без обмежень</item>
+        <item>1 раз</item>
+        <item>2 рази</item>
+        <item>3 рази</item>
+        <item>4 рази</item>
+        <item>5 разів</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Максимальна гучність будильника</item>
+        <item>Мінімальна гучність будильника</item>
+        <item>Вимикнути звук будильника</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>за 5 хв.</item>
+        <item>за 15 хв.</item>
+        <item>за 30 хв.</item>
+        <item>за 45 хв.</item>
+        <item>за 1 год.</item>
+        <item>за 1 год. 30 хв.</item>
+        <item>за 2 год.</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 хв.</item>
+        <item>2 хв.</item>
+        <item>3 хв.</item>
+        <item>4 хв.</item>
+        <item>5 хв.</item>
+        <item>10 хв.</item>
+        <item>15 хв.</item>
+        <item>20 хв.</item>
+        <item>30 хв.</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Відкласти</item>
+        <item>Вимкнути</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Якщо рівень заряду &lt; 20%</item>
+        <item>Якщо рівень заряду &lt; 10%</item>
+        <item>Якщо рівень заряду &lt; 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 хвилина</item>
+        <item>3 хвилини</item>
+        <item>5 хвилин</item>
+        <item>10 хвилин</item>
+        <item>15 хвилин</item>
+        <item>20 хвилин</item>
+        <item>25 хвилин</item>
+        <item>30 хвилин</item>
+    </array>
+</resources>

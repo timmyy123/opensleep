@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/taskGroup"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+    <TextView
+        android:id="@+id/taskTitle"
+        android:paddingLeft="@dimen/material_card_padding"
+        android:paddingTop="@dimen/material_card_padding"
+        android:paddingRight="@dimen/material_card_padding"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:paddingStart="@dimen/material_card_padding"
+        android:paddingEnd="@dimen/material_card_padding"/>
+</LinearLayout>

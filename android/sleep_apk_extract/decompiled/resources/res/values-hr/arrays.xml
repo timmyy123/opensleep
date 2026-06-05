@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Provjerite je li uređaj za praćenje blizu vašeg tijela da može hvatati pokrete u snu.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekundi</item>
+        <item>1 minuta</item>
+        <item>3 minute</item>
+        <item>6 minuta</item>
+        <item>9 minuta</item>
+        <item>12 minuta</item>
+        <item>18 minuta</item>
+        <item>24 minute</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1minuta</item>
+        <item>2 minute</item>
+        <item>3 minute</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>20 minuta</item>
+        <item>30 minuta</item>
+        <item>40 minuta</item>
+        <item>1sat</item>
+        <item>2 sata</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Zadano</item>
+        <item>Samo prisilne slušalice</item>
+    </array>
+    <array name="alarm_set">
+        <item>Ovaj je alarm postavljen za manje od 1 minute od sada.</item>
+        <item>Ovaj je alarm postavljen za %1$s.</item>
+        <item>Ovaj je alarm postavljen za %2$s.</item>
+        <item>Ovaj je alarm postavljen za %1$s i %2$s.</item>
+        <item>Ovaj je alarm postavljen za %3$s.</item>
+        <item>Ovaj je alarm postavljen za %1$s i %3$s.</item>
+        <item>Ovaj je alarm postavljen za %2$s i %3$s.</item>
+        <item>Ovaj je alarm postavljen za %1$s, %2$s i %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (brzo buđenje)</item>
+        <item>Gama (visoko poticanje)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (dubok san)</item>
+        <item>Theta (opuštanje)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Vrlo jednostavno</item>
+        <item>Jednostavno</item>
+        <item>Srednje</item>
+        <item>Teško</item>
+        <item>Vrlo teško</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekundi</item>
+        <item>30 sekundi</item>
+        <item>1 minuta</item>
+        <item>2 minute</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>30 minuta</item>
+        <item>45 minuta</item>
+        <item>60 minuta</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Odustani</item>
+        <item>Pola godine</item>
+        <item>3 mjeseca</item>
+        <item>2 mjeseca</item>
+        <item>1 mjesec</item>
+        <item>2 tjedna</item>
+        <item>Sve</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Zatamnjenje</item>
+        <item>Zatamnjenje sa satom</item>
+        <item>Uključen zaslon sa satom</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Auto. objavljivanje grafova sna</item>
+        <item>Auto. objavljivanje grafova i statusa</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>60 minuta</item>
+        <item>90 minuta</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akcelerometar</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Snažno drijemanje</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>40 minuta</item>
+        <item>50 minuta</item>
+        <item>1 sat</item>
+        <item>1 sat 30 min</item>
+        <item>2 sata</item>
+    </array>
+    <array name="period_array">
+        <item>Tjedan</item>
+        <item>14 dana</item>
+        <item>Mjesec</item>
+        <item>Četvrtina godine</item>
+        <item>Pola godine</item>
+        <item>Godina</item>
+        <item>Sve</item>
+    </array>
+    <array name="period_values">
+        <item>14 dana</item>
+        <item>Mjesec</item>
+        <item>Četvrtina godine</item>
+        <item>Pola godine</item>
+        <item>Godina</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekundi</item>
+        <item>30 sekundi</item>
+        <item>1 minuta</item>
+        <item>2 minute</item>
+        <item>5 minuta</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Posljednja upotreba</item>
+        <item>3 minute</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>35 minuta</item>
+        <item>40 minuta</item>
+        <item>45 minuta</item>
+        <item>50 minuta</item>
+        <item>55 minuta</item>
+        <item>1 sat</item>
+        <item>90 minuta</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Bez ograničenja</item>
+        <item>Jedanput</item>
+        <item>Dvaput</item>
+        <item>Triput</item>
+        <item>Četiri puta</item>
+        <item>Pet puta</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Puna glasnoća alarma</item>
+        <item>Niska glasnoća alarma</item>
+        <item>Alarm je utišan</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min prije</item>
+        <item>15 min prije</item>
+        <item>30 min prije</item>
+        <item>45 min prije</item>
+        <item>1 sat prije</item>
+        <item>1 i pol sat prije</item>
+        <item>2 sata prije</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Odgađanje</item>
+        <item>Odbacivanje</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Kad je baterija &lt; 20%</item>
+        <item>Kad je baterija &lt; 10%</item>
+        <item>Kad je baterija &lt; 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minuta</item>
+        <item>3 minute</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+    </array>
+</resources>

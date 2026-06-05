@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_action_stats"
+        android:id="@+id/menu_trend"
+        android:orderInCategory="0"
+        android:title="@string/trend"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_tag"
+        android:id="@+id/menu_tags"
+        android:orderInCategory="1"
+        android:title="@string/tag"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_theme"
+        android:id="@+id/menu_chrono"
+        android:orderInCategory="2"
+        android:title="@string/chronotype"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_lightbulb"
+        android:id="@+id/menu_advice"
+        android:orderInCategory="3"
+        android:title="@string/advice"
+        app:showAsAction="always"/>
+</menu>

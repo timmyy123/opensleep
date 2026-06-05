@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Σιγουρευτείτε πως η συσκευή καταγραφής είναι κοντά στο σώμα σας και ικανή να καταγράψει τις κινήσεις σας</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 δευτ.</item>
+        <item>1 λεπτό</item>
+        <item>3 λεπτά</item>
+        <item>6 λεπτά</item>
+        <item>9 λεπτά</item>
+        <item>12 λεπτά</item>
+        <item>18 λεπτά</item>
+        <item>24 λεπτά</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 λεπτό</item>
+        <item>2 λεπτά</item>
+        <item>3 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>40 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>2 ώρες</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Προεπιλογή συσκευής</item>
+        <item>Εξαναγκασμός ακουστικών</item>
+    </array>
+    <array name="alarm_set">
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε λιγότερο από 1 λεπτό.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %1$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %2$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %1$s και %2$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %3$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %1$s και %3$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %2$s και %3$s.</item>
+        <item>Το ξυπνητήρι έχει ρυθμιστεί σε %1$s,%2$s, και %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Ταχύτερο ξύπνημα)</item>
+        <item>Gamma (Εξαιρετικά διεγερτικό)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Βαθύς ύπνος)</item>
+        <item>Theta (Χαλάρωση)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Πολύ απλό</item>
+        <item>Απλό</item>
+        <item>Μέτριο</item>
+        <item>Δύσκολο</item>
+        <item>Πολύ δύσκολο</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 δευτ.</item>
+        <item>30 δευτ.</item>
+        <item>1 λεπτό</item>
+        <item>2 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>45 λεπτά</item>
+        <item>60 λεπτά</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Άκυρο</item>
+        <item>Μισό χρόνο</item>
+        <item>3 Μήνες</item>
+        <item>2 Μήνες</item>
+        <item>1 Μήνας</item>
+        <item>2 εβδομάδες</item>
+        <item>Όλα</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Σκοτείνιασμα</item>
+        <item>Προβολή ρολογιού</item>
+        <item>Μόνιμη προβολή ρολογιού</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Αυτόματη δημοσίευση γραφημάτων</item>
+        <item>Αυτόματη δημοσίευση γραφ. &amp; κατάστασης</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>25 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>60 λεπτά</item>
+        <item>90 λεπτά</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Επιταχυνσιόμετρο</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Γρήγορη ξεκούραση</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>25 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>40 λεπτά</item>
+        <item>50 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>1 ώρα 30 λεπτά</item>
+        <item>2 ώρες</item>
+    </array>
+    <array name="period_array">
+        <item>Εβδομάδα</item>
+        <item>14 μέρες</item>
+        <item>μήνας</item>
+        <item>4 μήνες</item>
+        <item>6 μήνες</item>
+        <item>Χρόνος</item>
+        <item>Σύνολο:</item>
+    </array>
+    <array name="period_values">
+        <item>14 μέρες</item>
+        <item>30 μέρες</item>
+        <item>4 μήνες</item>
+        <item>6 μήνες</item>
+        <item>1 χρόνος</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 δευτερόλεπτα</item>
+        <item>30 δευτερόλεπτα</item>
+        <item>1 λεπτό</item>
+        <item>2 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Τελευταία επιλογή</item>
+        <item>3 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>25 λεπτά</item>
+        <item>30 λεπτά</item>
+        <item>35 λεπτά</item>
+        <item>40 λεπτά</item>
+        <item>45 λεπτά</item>
+        <item>50 λεπτά</item>
+        <item>55 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>90 λεπτά</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Χωρίς όριο</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Μέγιστη ένταση</item>
+        <item>Χαμηλή ένταση</item>
+        <item>Το ξυπν. σίγασε</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 λεπτά πριν</item>
+        <item>15 λεπτά πριν</item>
+        <item>30 λεπτά πριν</item>
+        <item>45 λεπτά πριν</item>
+        <item>1 ώρα πριν</item>
+        <item>1 ώρα 30 λεπτά πριν</item>
+        <item>2 ώρα πριν</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 λεπτό</item>
+        <item>2 λεπτά</item>
+        <item>3 λεπτά</item>
+        <item>4 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>30 λεπτά</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Αναβολή</item>
+        <item>Παράβλεψη</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Επίπεδο μπαταρίας &lt;20%</item>
+        <item>Επίπεδο μπαταρίας χαμηλότερο απο 10%</item>
+        <item>Επίπεδο μπαταρίας χαμηλότερο απο 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 λεπτό</item>
+        <item>3 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>25 λεπτά</item>
+        <item>30 λεπτά</item>
+    </array>
+</resources>

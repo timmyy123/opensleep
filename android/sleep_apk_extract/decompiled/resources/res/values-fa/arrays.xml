@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>اطمینان حاصل کنید که دستگاه به بدن شما نزدیک است که بتواند حرکات خواب شما را ضبط و بر آن نظارت کند</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>۳۰ ثانیه</item>
+        <item>۱ دقیقه</item>
+        <item>۳ دقیقه</item>
+        <item>۶ دقیقه</item>
+        <item>۹ دقیقه</item>
+        <item>۱۲ دقیقه</item>
+        <item>۱۸ دقیقه</item>
+        <item>۲۴ دقیقه</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>۱ دقیقه</item>
+        <item>۲ دقیقه</item>
+        <item>۳ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۴۰ دقیقه</item>
+        <item>۱ ساعت</item>
+        <item>۲ ساعت</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>پیش فرض دستگاه</item>
+        <item>استفاده ی اجباری از هدفون</item>
+    </array>
+    <array name="alarm_set">
+        <item>این آلارم برای کمتر از ۱ دقیقه از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %1$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %2$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %1$s و %2$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %3$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %1$s و %3$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %2$s و %3$s از هم اکنون تنظیم شده است.</item>
+        <item>این آلارم برای %1$s,%2$s و %3$s از هم اکنون تنظیم شده است.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>بتا (بیداری سریع)</item>
+        <item>گاما (بسیار مهیج)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>دلتا (خواب عمیق)</item>
+        <item>تتا (آرامش بخش)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>بسیار ساده</item>
+        <item>ساده</item>
+        <item>حد واسط</item>
+        <item>سخت</item>
+        <item>خیلی سخت</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>غیر فعال</item>
+        <item>۱۰ ثانیه</item>
+        <item>۳۰ ثانیه</item>
+        <item>۱ دقیقه</item>
+        <item>۲ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۴۵ دقیقه</item>
+        <item>۶۰ دقیقه</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>لغو</item>
+        <item>۶ ماه</item>
+        <item>۳ ماه</item>
+        <item>۲ ماه</item>
+        <item>۱ ماه</item>
+        <item>۲ هفته</item>
+        <item>همه</item>
+    </array>
+    <array name="dimm_entries">
+        <item>غیرفعال</item>
+        <item>تاریک</item>
+        <item>تاریک با ساعت</item>
+        <item>روشن بودن به همراه ساعت</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>انتشار خودکار نمودارهای خواب</item>
+        <item>انتشار خودکار نمودارها و وضعیت</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۲۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۶۰ دقیقه</item>
+        <item>۹۰ دقیقه</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>شتاب سنج</item>
+        <item>سنسور سونار</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>غیر فعال</item>
+        <item>چرت کوتاه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۲۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۴۰ دقیقه</item>
+        <item>۵۰ دقیقه</item>
+        <item>۱ ساعت</item>
+        <item>۱ ساعت و نیم</item>
+        <item>۲ ساعت</item>
+    </array>
+    <array name="period_array">
+        <item>هفته</item>
+        <item>۱۴ روز</item>
+        <item>ماه</item>
+        <item>۳ ماه</item>
+        <item>۶ ماه</item>
+        <item>سال</item>
+        <item>همه زمان ها</item>
+    </array>
+    <array name="period_values">
+        <item>۱۴ روز</item>
+        <item>۱ ماه</item>
+        <item>۳ ماه</item>
+        <item>۶ ماه</item>
+        <item>۱ سال</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>۱۰ ثانیه</item>
+        <item>۳۰ ثانیه</item>
+        <item>۱ دقیقه</item>
+        <item>۲ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>آخرین استفاده</item>
+        <item>۳ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۲۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+        <item>۳۵ دقیقه</item>
+        <item>۴۰ دقیقه</item>
+        <item>۴۵ دقیقه</item>
+        <item>۵۰ دقیقه</item>
+        <item>۵۵ دقیقه</item>
+        <item>۱ ساعت</item>
+        <item>۱ ساعت ۳۰ دقیقه</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>بدون محدودیت</item>
+        <item>۱ بار</item>
+        <item>۲ بار</item>
+        <item>۳ بار</item>
+        <item>۴ بار</item>
+        <item>۵ بار</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>حداکثر شدت صدا</item>
+        <item>حداقل شدت صدا</item>
+        <item>بی صدا</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>غیر فعال</item>
+        <item>۵ دقیقه قبل آن</item>
+        <item>۱۵ دقیقه قبل آن</item>
+        <item>۳۰ دقیقه قبل آن</item>
+        <item>۴۵ دقیقه قبل آن</item>
+        <item>۱ ساعت قبل آن</item>
+        <item>۱ ساعت و نیم قبل آن</item>
+        <item>۲ ساعت قبل آن</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>۱ دقیقه</item>
+        <item>۲ دقیقه</item>
+        <item>۳ دقیقه</item>
+        <item>۴ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>غیر فعال</item>
+        <item>تعویق</item>
+        <item>قطع کردن</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>غیر فعال</item>
+        <item>هنگامی که باتری زیر ۲۰٪ باشد</item>
+        <item>هنگامی که باتری زیر ۱۰٪ باشد</item>
+        <item>هنگامی که باتری زیر ۵٪ باشد</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>۱ دقیقه</item>
+        <item>۳ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۰ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۲۰ دقیقه</item>
+        <item>۲۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+    </array>
+</resources>

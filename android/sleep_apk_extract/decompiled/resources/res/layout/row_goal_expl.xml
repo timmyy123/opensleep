@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:paddingTop="@dimen/card_padding_horizontal_half"
+    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:paddingStart="@dimen/card_padding_horizontal"
+    android:paddingEnd="@dimen/card_padding_horizontal">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@android:id/summary"
+        android:fadingEdge="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goal_summary"/>
+</LinearLayout>

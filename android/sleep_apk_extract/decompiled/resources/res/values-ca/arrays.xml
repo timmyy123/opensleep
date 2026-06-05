@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Assegura\'t que el dispositiu de seguiment estigui a prop del teu cos i pugui captar els teus moviments durant el son</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 segons</item>
+        <item>1 minut</item>
+        <item>3 minuts</item>
+        <item>6 minuts</item>
+        <item>9 minuts</item>
+        <item>12 minuts</item>
+        <item>18 minuts</item>
+        <item>24 minuts</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minut</item>
+        <item>2 minuts</item>
+        <item>3 minuts</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>20 minuts</item>
+        <item>30 minuts</item>
+        <item>40 minuts</item>
+        <item>1 hora</item>
+        <item>2 hores</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Aquesta alarma sonarà en menys d\'un minut.</item>
+        <item>Aquesta alarma sonarà en menys de %1$s.</item>
+        <item>Aquesta alarma sonarà en menys de %2$s.</item>
+        <item>Aquesta alarma sonarà en menys de %1$s i %2$s.</item>
+        <item>Aquesta alarma sonarà en menys de %3$s.</item>
+        <item>Aquesta alarma sonarà en menys de %1$s i %3$s.</item>
+        <item>Aquesta alarma sonarà en menys de %2$s i %3$s.</item>
+        <item>Aquesta alarma sonarà en menys de %1$s,%2$s, i %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>Desactivat</item>
+        <item>Beta (Despertar ràpid)</item>
+        <item>Gamma (Molt estimulant)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>Desactivat</item>
+        <item>Delta (Son profund)</item>
+        <item>Theta (Relaxant)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Molt simple</item>
+        <item>Simple</item>
+        <item>Intermedi</item>
+        <item>Difícil</item>
+        <item>Molt difícil</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>Deshabilitat</item>
+        <item>10 segons</item>
+        <item>30 segons</item>
+        <item>1 minut</item>
+        <item>2 minuts</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>30 minuts</item>
+        <item>45 minuts</item>
+        <item>60 minuts</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Cancel·lar</item>
+        <item>Mig any</item>
+        <item>3 Mesos</item>
+        <item>2 Mesos</item>
+        <item>1 Mes</item>
+        <item>2 setmanes</item>
+        <item>Tot</item>
+    </array>
+    <array name="dimm_entries">
+        <item>Mai</item>
+        <item>Atenuar</item>
+        <item>Atenuar amb el rellotge reloj</item>
+        <item>Clock screen on</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Auto-publicar gràfiques de son</item>
+        <item>Auto-publicar gràfiques i estat</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>25 minuts</item>
+        <item>30 minuts</item>
+        <item>60 minuts</item>
+        <item>90 minuts</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accel·leròmetre</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>Desactivat</item>
+        <item>Power nap</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>25 minuts</item>
+        <item>30 minuts</item>
+        <item>40 minuts</item>
+        <item>50 minuts</item>
+        <item>1 hora</item>
+        <item>1 hora 30 min</item>
+        <item>2 hores</item>
+    </array>
+    <array name="period_array">
+        <item>Setmana</item>
+        <item>14 dies</item>
+        <item>Mes</item>
+        <item>Quart</item>
+        <item>Mig any</item>
+        <item>Any</item>
+        <item>Tots</item>
+    </array>
+    <array name="period_values">
+        <item>14 dies</item>
+        <item>Mes</item>
+        <item>Quart</item>
+        <item>Mig any</item>
+        <item>Any</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 segons</item>
+        <item>30 segons</item>
+        <item>1 minut</item>
+        <item>2 minuts</item>
+        <item>5 minuts</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Tria a l\'alarma</item>
+        <item>3 minuts</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>25 minuts</item>
+        <item>30 minuts</item>
+        <item>35 minuts</item>
+        <item>40 minuts</item>
+        <item>45 minuts</item>
+        <item>50 minuts</item>
+        <item>55 minuts</item>
+        <item>60 minuts</item>
+        <item>90 minuts</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Sense límit</item>
+        <item>1 vegada</item>
+        <item>2 vegades</item>
+        <item>3 vegades</item>
+        <item>4 vegades</item>
+        <item>5 vegades</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Alarma a màxim volum</item>
+        <item>Alarma a mínim volum</item>
+        <item>Alarma silenciosa</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>Mai</item>
+        <item>5 min. abans</item>
+        <item>15 min. abans</item>
+        <item>30 min. abans</item>
+        <item>45 min. abans</item>
+        <item>1 hora abans</item>
+        <item>1 hora 30 min. abans</item>
+        <item>2 hores abans</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 minut</item>
+        <item>2 minuts</item>
+        <item>3 minuts</item>
+        <item>4 minuts</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>30 minuts</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>Mai</item>
+        <item>Una mica més!</item>
+        <item>Desactivar</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>Mai</item>
+        <item>Quan la càrrega sigui &lt;20%</item>
+        <item>Quan la càrrega sigui &lt;10%</item>
+        <item>Quan la càrrega sigui &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minut</item>
+        <item>3 minuts</item>
+        <item>5 minuts</item>
+        <item>10 minuts</item>
+        <item>15 minuts</item>
+        <item>20 minuts</item>
+        <item>25 minuts</item>
+        <item>30 minuts</item>
+    </array>
+</resources>

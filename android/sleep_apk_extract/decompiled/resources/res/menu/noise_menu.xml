@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_help_q"
+        android:id="@+id/menu_doc"
+        android:title="@string/help"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_action_noise"
+        android:id="@+id/menu_all"
+        android:title="@string/menu_all"
+        app:showAsAction="never"/>
+    <item
+        android:icon="@drawable/ic_action_play"
+        android:id="@+id/play_all"
+        android:title="@string/play_all_recording"
+        app:showAsAction="never"/>
+    <item
+        android:icon="@drawable/ic_action_discard"
+        android:id="@+id/delete_all"
+        android:title="@string/delete_all"
+        app:showAsAction="never"/>
+</menu>

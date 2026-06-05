@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Chắc chắn rằng thiết bị nằm gần bạn để có thể ghi lại giấc ngủ của bạn</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 giây</item>
+        <item>1 phút</item>
+        <item>3 phút</item>
+        <item>6 phút</item>
+        <item>9 phút</item>
+        <item>12 phút</item>
+        <item>18 phút</item>
+        <item>24 phút</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 phút</item>
+        <item>2 phút</item>
+        <item>3 phút</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+        <item>40 phút</item>
+        <item>1 tiếng</item>
+        <item>2 tiếng</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Mặc định thiết bị</item>
+        <item>Chỉ tai nghe</item>
+    </array>
+    <array name="alarm_set">
+        <item>Báo thức này sẽ phát ra trong &lt;1 phút từ bây giờ</item>
+        <item>Báo thức trong %1$s</item>
+        <item>Báo thức trong %2$s</item>
+        <item>Báo thức trong %1$s và %2$s</item>
+        <item>Báo thức này được đặt cho %3$s</item>
+        <item>Báo thức trong %1$s và %3$s</item>
+        <item>Báo thức trong %2$s and %3$s</item>
+        <item>Báo thức trong %1$s, %2$s, và %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Thức dậy nhanh chóng)</item>
+        <item>Gamma (Kích thích mạnh)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>Không</item>
+        <item>Delta (Giấc ngủ sâu)</item>
+        <item>Theta (Thư giản)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Rất đơn giản</item>
+        <item>Đơn giản</item>
+        <item>Trung bình</item>
+        <item>Khó</item>
+        <item>Rất khó</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 giây</item>
+        <item>30 giây</item>
+        <item>1 phút</item>
+        <item>2 phút</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+        <item>45 phút</item>
+        <item>60 phút</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Hủy</item>
+        <item>Nửa năm</item>
+        <item>3 tháng</item>
+        <item>2 tháng</item>
+        <item>1 tháng</item>
+        <item>2 tuần</item>
+        <item>Tất cả</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Màn hình tối</item>
+        <item>Màn hình tối và đồng hồ</item>
+        <item>Luôn bật màn hình</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Tự động chia sẽ biểu đồ giấc ngủ</item>
+        <item>Tự động chia sẻ cả biểu đồ và trạng thái</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>25 phút</item>
+        <item>30 phút</item>
+        <item>60 phút</item>
+        <item>90 phút</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Gia tốc kế</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Ngủ trưa (ngủ ngắn)</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>25 phút</item>
+        <item>30 phút</item>
+        <item>40 phút</item>
+        <item>50 phút</item>
+        <item>1 tiếng</item>
+        <item>1 tiếng 30 phút</item>
+        <item>2 tiếng</item>
+    </array>
+    <array name="period_array">
+        <item>Tuần</item>
+        <item>14 ngày</item>
+        <item>Tháng</item>
+        <item>Một quý</item>
+        <item>Nửa năm</item>
+        <item>Năm</item>
+        <item>Tất cả thời gian</item>
+    </array>
+    <array name="period_values">
+        <item>14 ngày</item>
+        <item>Tháng</item>
+        <item>Quý năm</item>
+        <item>Nửa năm</item>
+        <item>Năm</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 giây</item>
+        <item>30 giây</item>
+        <item>1 phút</item>
+        <item>2 phút</item>
+        <item>5 phút</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Dựa trên lần đặt trước</item>
+        <item>3 phút</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>25 phút</item>
+        <item>30 phút</item>
+        <item>35 phút</item>
+        <item>40 phút</item>
+        <item>45 phút</item>
+        <item>50 phút</item>
+        <item>55 phút</item>
+        <item>1 giờ</item>
+        <item>90 phút</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Không giới hạn</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Âm lượng báo thức ở mức cao nhất</item>
+        <item>Âm lượng báo thức ở mức thấp nhất</item>
+        <item>Báo thức im lặng</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>Trước 5 phút</item>
+        <item>Trước 15 phút</item>
+        <item>Trước 30 phút</item>
+        <item>Trước 45 phút</item>
+        <item>Trước 1 tiếng</item>
+        <item>Trước 1 tiếng 30 phút</item>
+        <item>Trước 2 tiếng</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 phút</item>
+        <item>2 phút</item>
+        <item>3 phút</item>
+        <item>4 phút</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>30 phút</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Báo lại sau</item>
+        <item>Dừng</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Khi pin &lt;20%</item>
+        <item>Khi pin &lt;10%</item>
+        <item>Khi pin &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 phút</item>
+        <item>3 phút</item>
+        <item>5 phút</item>
+        <item>10 phút</item>
+        <item>15 phút</item>
+        <item>20 phút</item>
+        <item>25 phút</item>
+        <item>30 phút</item>
+    </array>
+</resources>

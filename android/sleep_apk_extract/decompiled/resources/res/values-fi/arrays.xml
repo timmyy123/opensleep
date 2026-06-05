@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Varmista, että seurantalaite on lähellä kehoasi, jotta se voi tallentaa unenaikaiset liikkeesi</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekuntia</item>
+        <item>1 minuutti</item>
+        <item>3 minuuttia</item>
+        <item>6 minuuttia</item>
+        <item>9 minuuttia</item>
+        <item>12 minuuttia</item>
+        <item>18 minuuttia</item>
+        <item>24 minuuttia</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minuutti</item>
+        <item>2 minuuttia</item>
+        <item>3 minuuttia</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>30 minuuttia</item>
+        <item>40 minuuttia</item>
+        <item>1 tunti</item>
+        <item>2 tuntia</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Laitteen oletus</item>
+        <item>Pakota kuulokkeiden käyttö</item>
+    </array>
+    <array name="alarm_set">
+        <item>Hälytykseen on aikaa vähemmän kuin minuutti.</item>
+        <item>Hälytykseen on aikaa %1$s.</item>
+        <item>Hälytykseen on aikaa %2$s.</item>
+        <item>Hälytykseen on aikaa %1$s ja %2$s.</item>
+        <item>Hälytykseen on aikaa %3$s.</item>
+        <item>Hälytykseen on aikaa %1$s ja %3$s.</item>
+        <item>Hälytykseen on aikaa %2$s ja %3$s.</item>
+        <item>Hälytykseen on aikaa %1$s,%2$s, ja %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Nopea herääminen)</item>
+        <item>Gamma (Voimakkaasti stimuloiva)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Syvä uni)</item>
+        <item>Theta (Rauhoittuminen)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Erittäin helppo</item>
+        <item>Helppo</item>
+        <item>Keskitaso</item>
+        <item>Vaikea</item>
+        <item>Erittäin vaikea</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekuntia</item>
+        <item>30 sekuntia</item>
+        <item>1 minuutti</item>
+        <item>2 minuuttia</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>30 minuuttia</item>
+        <item>45 minuuttia</item>
+        <item>60 minuuttia</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Peruuta</item>
+        <item>6 kuukautta</item>
+        <item>3 kuukautta</item>
+        <item>2 kuukautta</item>
+        <item>1 kuukausi</item>
+        <item>2 viikkoa</item>
+        <item>Kaikki</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Himmennä</item>
+        <item>Himmennä, mutta näytä kello</item>
+        <item>Kello aina päällä</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Julkaise unen kaavio automaattisesti</item>
+        <item>Julkaise unen kaavio ja tila automaattisesti</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>25 minuuttia</item>
+        <item>30 minuuttia</item>
+        <item>60 minuuttia</item>
+        <item>90 minuuttia</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Kiihtyvyysanturi</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Power nap</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>25 minuuttia</item>
+        <item>30 minuuttia</item>
+        <item>40 minuuttia</item>
+        <item>50 minuuttia</item>
+        <item>1 tunti</item>
+        <item>1 tunti 30 min</item>
+        <item>2 tuntia</item>
+    </array>
+    <array name="period_array">
+        <item>Viikko</item>
+        <item>14 päivää</item>
+        <item>Kuukausi</item>
+        <item>Neljännesvuosi</item>
+        <item>Puoli vuotta</item>
+        <item>Vuosi</item>
+        <item>Kaikki</item>
+    </array>
+    <array name="period_values">
+        <item>14 päivää</item>
+        <item>Kuukausi</item>
+        <item>Neljännesvuosi</item>
+        <item>Puoli vuotta</item>
+        <item>Vuosi</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekuntia</item>
+        <item>30 sekuntia</item>
+        <item>1 minuutti</item>
+        <item>2 minuuttia</item>
+        <item>5 minuuttia</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Viimeksi käytetty</item>
+        <item>3 minuuttia</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>25 minuuttia</item>
+        <item>30 minuuttia</item>
+        <item>35 minuuttia</item>
+        <item>40 minuuttia</item>
+        <item>45 minuuttia</item>
+        <item>50 minuuttia</item>
+        <item>55 minuuttia</item>
+        <item>1 tunti</item>
+        <item>90 minuuttia</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Ei rajoitusta</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Täysi äänenvoimakkuus</item>
+        <item>Alhainen äänenvoimakkuus</item>
+        <item>Äänetön</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min ennen</item>
+        <item>15 min ennen</item>
+        <item>30 min ennen</item>
+        <item>45 min ennen</item>
+        <item>1 tunti ennen</item>
+        <item>1 tunti ja 30 min ennen</item>
+        <item>2 tuntia ennen</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Torkku</item>
+        <item>Sulje hälytys</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Kun akkua alle &lt;20%</item>
+        <item>Kun akkua alle &lt;10%</item>
+        <item>Kun akkua alle &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minuutti</item>
+        <item>3 minuuttia</item>
+        <item>5 minuuttia</item>
+        <item>10 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>20 minuuttia</item>
+        <item>25 minuuttia</item>
+        <item>30 minuuttia</item>
+    </array>
+</resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Tiyaking malapit sa iyong katawan ang tracking device na nakakakuha ng iyong galaw sa pagtulog</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 segundo</item>
+        <item>1 minuto</item>
+        <item>3 minuto</item>
+        <item>6 na minuto</item>
+        <item>9 minuto</item>
+        <item>12 minuto</item>
+        <item>18 minuto</item>
+        <item>24 minuto</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minuto</item>
+        <item>2 minuto</item>
+        <item>3 minuto</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>20 minuto</item>
+        <item>30 minuto</item>
+        <item>40 minuto</item>
+        <item>1 oras</item>
+        <item>2 oras</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Nakatakda ang alarm na ito nang wala pang 1 minuto mula ngayon</item>
+        <item>Nakatakda ang alarm na ito para sa %1$s</item>
+        <item>Nakatakda ang alarm na ito para sa %2$s</item>
+        <item>Nakatakda ang alarm na ito para sa %1$s at %2$s</item>
+        <item>Nakatakda ang alarm na ito para sa %3$s</item>
+        <item>Nakatakda ang alarm na ito para sa %1$s at %3$s</item>
+        <item>Nakatakda ang alarm na ito para sa %2$s at %3$s</item>
+        <item>Nakatakda ang alarm na ito para sa %1$s, %2$s, at %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Mabilis na gumising)</item>
+        <item>Gamma (Lubhang nagpapasigla)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Malalim na pagtulog)</item>
+        <item>Theta (Nagre-relax)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Napakasimple</item>
+        <item>Simple</item>
+        <item>Intermediate</item>
+        <item>Mahirap</item>
+        <item>Napakahirap</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 segundo</item>
+        <item>30 segundo</item>
+        <item>1 minuto</item>
+        <item>2 minuto</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>15 minuto</item>
+        <item>20 minuto</item>
+        <item>30 minuto</item>
+        <item>45 minuto</item>
+        <item>60 minuto</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Kanselahin</item>
+        <item>Kalahating taon</item>
+        <item>3 Buwan</item>
+        <item>2 Buwan</item>
+        <item>1 Buwan</item>
+        <item>2 Linggo</item>
+        <item>Lahat</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Dim</item>
+        <item>Dim sa orasan</item>
+        <item>Laging nasa orasan</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Awtomatikong i-publish ang mga sleep graph</item>
+        <item>Awtomatikong i-publish ang mga graph at status</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>15 minuto</item>
+        <item>20 minuto</item>
+        <item>25 minuto</item>
+        <item>30 minuto</item>
+        <item>60 minuto</item>
+        <item>90 minuto</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Power nap</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>15 minuto</item>
+        <item>20 minuto</item>
+        <item>25 minuto</item>
+        <item>30 minuto</item>
+        <item>40 minuto</item>
+        <item>50 minuto</item>
+        <item>1 oras</item>
+        <item>1 oras 30 min</item>
+        <item>2 oras</item>
+    </array>
+    <array name="period_array">
+        <item>Linggo</item>
+        <item>14 na araw</item>
+        <item>buwan</item>
+        <item>Quarter year</item>
+        <item>Kalahating taon</item>
+        <item>taon</item>
+        <item>Sa lahat ng oras</item>
+    </array>
+    <array name="period_values">
+        <item>14 na araw</item>
+        <item>buwan</item>
+        <item>Quarter year</item>
+        <item>Kalahating taon</item>
+        <item>taon</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 segundo</item>
+        <item>30 segundo</item>
+        <item>1 minuto</item>
+        <item>2 minuto</item>
+        <item>5 minuto</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 minuto</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>15 minuto</item>
+        <item>20 minuto</item>
+        <item>25 minuto</item>
+        <item>30 minuto</item>
+        <item>35 minuto</item>
+        <item>40 minuto</item>
+        <item>45 minuto</item>
+        <item>50 minuto</item>
+        <item>55 minuto</item>
+        <item>1 oras</item>
+        <item>90 minuto</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Buong dami ng alarma</item>
+        <item>Mababang volume ng alarma</item>
+        <item>Tahimik ang alarm</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min. dati</item>
+        <item>15 min. dati</item>
+        <item>30 min. dati</item>
+        <item>45 min. dati</item>
+        <item>1 oras bago</item>
+        <item>1 oras 30 min. dati</item>
+        <item>2 oras bago</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>I-snooze</item>
+        <item>I-dismiss</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Kapag ang baterya &lt;20%</item>
+        <item>Kapag ang baterya &lt;10%</item>
+        <item>Kapag ang baterya &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minuto</item>
+        <item>3 minuto</item>
+        <item>5 minuto</item>
+        <item>10 minuto</item>
+        <item>15 minuto</item>
+        <item>20 minuto</item>
+        <item>25 minuto</item>
+        <item>30 minuto</item>
+    </array>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="m20.24,4.45 l1.73,1c-5.214,5.332 -11.923,9.88 -16.51,14.574l16.54,0 0,2 -20,0 0,-20.048 2,0 0,18.588c0,1.766 10.561,-10.435 16.24,-16.114z"/>
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M15.974,4.445h4.282v2h-4.282z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="3"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero"/>
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M21.969,5.417l-0,4.033l-2,0l-0,-4.033z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="3"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero"/>
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M19.972,4.442h2v2.573h-2z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="3"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero"/>
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M4.028,20.233l15.106,-15.106l1.579,1.579l-15.106,15.106z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="3"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero"/>
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M3.198,20.077h3.983v1.267h-3.983z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="3"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero"/>
+</vector>

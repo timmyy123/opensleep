@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android" android:drawable="@drawable/day_splash">
+    <target
+        android:name="sun"
+        android:animation="@animator/sunrise"/>
+    <target
+        android:name="sun_aura"
+        android:animation="@animator/reveal30"/>
+    <target
+        android:name="sun_core"
+        android:animation="@animator/reveal"/>
+</animated-vector>

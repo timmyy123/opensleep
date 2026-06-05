@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/enable_alarm"
+        android:title="@string/turn_on"/>
+    <item
+        android:id="@+id/disable_alarm_for_today"
+        android:title="@string/disable_alarm_for_today"/>
+    <item
+        android:id="@+id/enable_alarm_for_today"
+        android:title="@string/enable_alarm_for_today"/>
+    <item
+        android:id="@+id/edit_alarm"
+        android:title="@string/menu_edit_alarm"/>
+    <item
+        android:id="@+id/copy_alarm"
+        android:title="@string/menu_copy_alarm"/>
+    <item
+        android:id="@+id/delete_alarm"
+        android:title="@string/delete_alarm"/>
+    <item
+        android:id="@+id/delete_all_disabled"
+        android:title="@string/delete_all_disabled"/>
+</menu>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+    <FrameLayout
+        android:id="@+id/wave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.urbandroid.sleep.captcha.LOLView
+        android:id="@+id/captcha_si"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:background="@drawable/ic_captcha_lolcaptcha"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:gravity="top|center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/captcha_si_count"
+        android:padding="1dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:includeFontPadding="false"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

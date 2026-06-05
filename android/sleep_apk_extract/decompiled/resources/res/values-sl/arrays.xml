@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Prepričajte se, da je naprava blizu vašega telesa za boljše beleženje spanja</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekund</item>
+        <item>1 minuta</item>
+        <item>3 minute</item>
+        <item>6 minut</item>
+        <item>9 minut</item>
+        <item>12 minut</item>
+        <item>18 minut</item>
+        <item>24 minut</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minuta</item>
+        <item>2 minuti</item>
+        <item>3 minute</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>20 minut</item>
+        <item>30 minut</item>
+        <item>40 minut</item>
+        <item>1 ura</item>
+        <item>2 uri</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Privzeto</item>
+        <item>Samo slušalke</item>
+    </array>
+    <array name="alarm_set">
+        <item>Alarm bo zvonil čez manj kot minuto od zdaj</item>
+        <item>Alarm bo zvonil čez %1$s</item>
+        <item>Alarm bo zvonil čez %2$s</item>
+        <item>Alarm bo zvonil čez %1$s in %2$s</item>
+        <item>Alarm bo zvonil čez %3$s</item>
+        <item>Alarm bo zvonil čez %1$s in %3$s</item>
+        <item>Alarm bo zvonil čez %2$s in %3$s</item>
+        <item>Alarm bo zvonil čez %1$s, %2$s in %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (hitro bujenje)</item>
+        <item>Gama (stimuliranje)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (globoko spanje)</item>
+        <item>Theta (sproščanje)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Zelo preprosto</item>
+        <item>Preprosto</item>
+        <item>Srednje</item>
+        <item>Težko</item>
+        <item>Zelo težko</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekund</item>
+        <item>30 sekund</item>
+        <item>1 minuta</item>
+        <item>2 minuti</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>30 minut</item>
+        <item>45 minut</item>
+        <item>60 minut</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Prekliči</item>
+        <item>Pol leta</item>
+        <item>3 meseci</item>
+        <item>2 meseca</item>
+        <item>1 mesec</item>
+        <item>2 tedna</item>
+        <item>Vse</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Zatemnitev zaslona</item>
+        <item>Zatemnitev zaslona z uro</item>
+        <item>Vedno vklopljena ura</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Samodejno objavi grafe spanja</item>
+        <item>Samodejno objavi grafe spanja in status</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>25 minut</item>
+        <item>30 minut</item>
+        <item>60 minut</item>
+        <item>90 minut</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Pospeškometer</item>
+        <item>Sonarni senzor</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Zakasnitveni dremež</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>25 minut</item>
+        <item>30 minut</item>
+        <item>40 minut</item>
+        <item>50 minut</item>
+        <item>1 ura</item>
+        <item>1 ura in 30 minut</item>
+        <item>2 uri</item>
+    </array>
+    <array name="period_array">
+        <item>Teden</item>
+        <item>14 dni</item>
+        <item>Mesec</item>
+        <item>3 meseci</item>
+        <item>Pol leta</item>
+        <item>Leto</item>
+        <item>Ves čas</item>
+    </array>
+    <array name="period_values">
+        <item>14 dni</item>
+        <item>Mesec</item>
+        <item>3 meseci</item>
+        <item>Pol leta</item>
+        <item>Leto</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekund</item>
+        <item>30 sekkund</item>
+        <item>1 minuta</item>
+        <item>2 minuti</item>
+        <item>5 minut</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Nazadnje uporabljen</item>
+        <item>3 minute</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>25 minut</item>
+        <item>30 minut</item>
+        <item>35 minut</item>
+        <item>40 minut</item>
+        <item>45 minut</item>
+        <item>50 minut</item>
+        <item>55 minut</item>
+        <item>60 minut</item>
+        <item>90 minut</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Brez omejitve</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Polna jakost</item>
+        <item>Nizka jakost</item>
+        <item>Tiho</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 minut prej</item>
+        <item>15 minut prej</item>
+        <item>30 minut prej</item>
+        <item>45 minut prej</item>
+        <item>1 uro prej</item>
+        <item>1 uro in 30 minut prej</item>
+        <item>2 uri prej</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Dremež</item>
+        <item>Opusti</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Ko raven napolnjenosti pade pod 20%</item>
+        <item>Ko raven napolnjenosti pade pod 10%</item>
+        <item>Ko raven napolnjenosti pade pod 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minuta</item>
+        <item>3 minute</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>25 minut</item>
+        <item>30 minut</item>
+    </array>
+</resources>

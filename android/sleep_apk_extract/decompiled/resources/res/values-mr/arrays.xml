@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>तुमच्या झोपेच्या हालचाली टिपण्यासाठी ट्रॅकिंग डिव्हाइस तुमच्या शरीराच्या जवळ आहे याची खात्री करा.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>३० सेकंद</item>
+        <item>१ मिनिट</item>
+        <item>३ मिनिटे</item>
+        <item>६ मिनिटे</item>
+        <item>९ मिनिटे</item>
+        <item>१२ मिनिटे</item>
+        <item>१८ मिनिटे</item>
+        <item>२४ मिनिटे</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>१ मिनिट</item>
+        <item>२ मिनिटे</item>
+        <item>३ मिनिटे</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>३० मिनिटे</item>
+        <item>४० मिनिटे</item>
+        <item>१ तास</item>
+        <item>२ तास</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>हा अलार्म आतापासून १ मिनिटापेक्षा कमी वेळेसाठी सेट केला आहे.</item>
+        <item>हा अलार्म %1$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %2$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %1$s आणि %2$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %3$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %1$s आणि %3$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %2$s आणि %3$s साठी सेट केला आहे.</item>
+        <item>हा अलार्म %1$s, %2$s आणि %3$s साठी सेट केला आहे.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>बीटा (जलद जागे होणे)</item>
+        <item>गामा (अत्यंत उत्तेजक)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>डेल्टा (गाढ झोप)</item>
+        <item>थीटा (आरामदायक)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>खूप सोपे</item>
+        <item>सोपे</item>
+        <item>इंटरमीडिएट</item>
+        <item>कठीण</item>
+        <item>खूप कठीण</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>१० सेकंद</item>
+        <item>३० सेकंद</item>
+        <item>१ मिनिट</item>
+        <item>२ मिनिटे</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>३० मिनिटे</item>
+        <item>४५ मिनिटे</item>
+        <item>६० मिनिटे</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>रद्द करा</item>
+        <item>अर्धा वर्ष</item>
+        <item>३ महिने</item>
+        <item>२ महिने</item>
+        <item>१ महिना</item>
+        <item>२ आठवडे</item>
+        <item>सर्व</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>मंद</item>
+        <item>घड्याळासह मंद करा</item>
+        <item>नेहमी घड्याळावर</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>झोपेचे आलेख ऑटो-प्रकाशित करा</item>
+        <item>आलेख आणि स्थिती स्वयं-प्रकाशित करा</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>२५ मिनिटे</item>
+        <item>३० मिनिटे</item>
+        <item>६० मिनिटे</item>
+        <item>९० मिनिटे</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>अ‍ॅक्सिलरोमीटर</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>पॉवर नॅप</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>२५ मिनिटे</item>
+        <item>३० मिनिटे</item>
+        <item>४० मिनिटे</item>
+        <item>५० मिनिटे</item>
+        <item>१ तास</item>
+        <item>१ तास ३० मिनिटे</item>
+        <item>२ तास</item>
+    </array>
+    <array name="period_array">
+        <item>आठवडा</item>
+        <item>१४ दिवस</item>
+        <item>महिना</item>
+        <item>तिमाही वर्ष</item>
+        <item>अर्धा वर्ष</item>
+        <item>वर्ष</item>
+        <item>सर्व वेळ</item>
+    </array>
+    <array name="period_values">
+        <item>१४ दिवस</item>
+        <item>महिना</item>
+        <item>तिमाही वर्ष</item>
+        <item>अर्धा वर्ष</item>
+        <item>वर्ष</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>१० सेकंद</item>
+        <item>३० सेकंद</item>
+        <item>१ मिनिट</item>
+        <item>२ मिनिटे</item>
+        <item>५ मिनिटे</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>३ मिनिटे</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>२५ मिनिटे</item>
+        <item>३० मिनिटे</item>
+        <item>३५ मिनिटे</item>
+        <item>४० मिनिटे</item>
+        <item>४५ मिनिटे</item>
+        <item>५० मिनिटे</item>
+        <item>५५ मिनिटे</item>
+        <item>१ तास</item>
+        <item>९० मिनिटे</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>१x</item>
+        <item>२x</item>
+        <item>३x</item>
+        <item>४x</item>
+        <item>५x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>पूर्ण अलार्म व्हॉल्यूम</item>
+        <item>कमी अलार्मचा आवाज</item>
+        <item>अलार्म शांत आहे.</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>५ मिनिटांपूर्वी</item>
+        <item>१५ मिनिटे आधी</item>
+        <item>३० मिनिटे आधी</item>
+        <item>४५ मिनिटे आधी</item>
+        <item>१ तास आधी</item>
+        <item>१ तास ३० मिनिटे आधी</item>
+        <item>२ तास आधी</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>१ मिनिट</item>
+        <item>२ मि</item>
+        <item>३ मि</item>
+        <item>४ मि</item>
+        <item>५ मि</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>३० मिनिटे</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>स्नूझ करा</item>
+        <item>डिसमिस करा</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>जेव्हा बॅटरी &lt;20%</item>
+        <item>जेव्हा बॅटरी &lt;१०%</item>
+        <item>जेव्हा बॅटरी &lt;५%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>१ मिनिटे</item>
+        <item>३ मिनिटे</item>
+        <item>५ मिनिटे</item>
+        <item>१० मिनिटे</item>
+        <item>१५ मिनिटे</item>
+        <item>२० मिनिटे</item>
+        <item>२५ मिनिटे</item>
+        <item>३० मिनिटे</item>
+    </array>
+</resources>

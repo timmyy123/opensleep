@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ตรวจสอบให้แน่ใจอีกครั้งว่าอุปกรณ์ติดตามอยู่ใกล้กับร่างกายของคุณ และยัสามารถจับการเคลื่อนไหวของการนอนหลับ</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 วินาที</item>
+        <item>1 นาที</item>
+        <item>3 นาที</item>
+        <item>6 นาที</item>
+        <item>9 นาที</item>
+        <item>12 นาที</item>
+        <item>18 นาที</item>
+        <item>24 นาที</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 นาที</item>
+        <item>2 นาที</item>
+        <item>3 นาที</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>20 นาที</item>
+        <item>30 นาที</item>
+        <item>40 นาที</item>
+        <item>1 ชั่วโมง</item>
+        <item>2 ชั่วโมง</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>อุปกรณ์เริ่มต้น</item>
+        <item>บังคับหูฟังเท่านั้น</item>
+    </array>
+    <array name="alarm_set">
+        <item>การปลุกนี้ตั้งไว้ไม่เกิน 1 นาทีนับจากนี้</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%1$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%2$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%1$s and %2$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%3$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%1$s and %3$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%2$s and %3$s.</item>
+        <item>ตั้งปลุกนี้ไว้สำหรับ%1$s,%2$s, and %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (ตื่นอย่างรวดเร็ว)</item>
+        <item>Gamma (การกระตุ้นอย่างสูง)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (หลับลึก)</item>
+        <item>Theta (ผ่อนคลาย)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>ง่ายมาก</item>
+        <item>ง่าย</item>
+        <item>ปานกลาง</item>
+        <item>ยาก</item>
+        <item>5 - ยากมาก</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 วินาที</item>
+        <item>30 วินาที</item>
+        <item>1 นาที</item>
+        <item>2 นาที</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>30 นาที</item>
+        <item>45 นาที</item>
+        <item>60 นาที</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>ยกเลิก</item>
+        <item>ครึ่งปี</item>
+        <item>3 เดือน</item>
+        <item>2 เดือน</item>
+        <item>1 เดือน</item>
+        <item>2 สัปดาห์</item>
+        <item>ทั้งหมด</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>สลัว</item>
+        <item>หรี่ด้วยนาฬิกา</item>
+        <item>ใช้นาฬิกาเสมอ</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>เผยแพร่กราฟนอนหลับอัตโนมัติ</item>
+        <item>เผยแพร่กราฟและสถานะอัตโนมัติ</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>25 นาที</item>
+        <item>30 นาที</item>
+        <item>60 นาที</item>
+        <item>90 นาที</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>เครื่องวัดความเร่ง</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>งีบหลับ</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>25 นาที</item>
+        <item>30 นาที</item>
+        <item>40 นาที</item>
+        <item>50 นาที</item>
+        <item>1 ช.ม.</item>
+        <item>1 ช.ม. 30 นาที</item>
+        <item>2 ช.ม.</item>
+    </array>
+    <array name="period_array">
+        <item>สัปดาห์</item>
+        <item>14 วัน</item>
+        <item>เดือน</item>
+        <item>ไตรมาส</item>
+        <item>ครึ่งปี</item>
+        <item>ปี</item>
+        <item>เวลาทั้งหมด</item>
+    </array>
+    <array name="period_values">
+        <item>14 วัน</item>
+        <item>เดือน</item>
+        <item>ไตรมาส</item>
+        <item>ครึ่งปี</item>
+        <item>ปี</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 วินาที</item>
+        <item>30 วินาที</item>
+        <item>30 วินาที</item>
+        <item>2 นาที</item>
+        <item>5 นาที</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>ใช้ล่าสุด</item>
+        <item>3 นาที</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>25 นาที</item>
+        <item>30 นาที</item>
+        <item>35 นาที</item>
+        <item>40 นาที</item>
+        <item>45 นาที</item>
+        <item>50 นาที</item>
+        <item>55 นาที</item>
+        <item>1 ชั่วโมง</item>
+        <item>90 นาที</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>ไม่จำกัด</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>ระดับเสียงปลุกเต็ม</item>
+        <item>ระดับเสียงปลุกต่ำ</item>
+        <item>ปลุกเงียบ</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 นาที ก่อน</item>
+        <item>15 นาที ก่อน</item>
+        <item>30 นาที ก่อน</item>
+        <item>45 นาที ก่อน</item>
+        <item>1 ช.ม. ก่อน</item>
+        <item>1 ช.ม. 30 นาที ก่อน</item>
+        <item>2 ช.ม. ก่อน</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 นาที</item>
+        <item>2 นาที</item>
+        <item>3 นาที</item>
+        <item>4 นาที</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>30 นาที</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>เตือนทีหลัง</item>
+        <item>ยกเลิก</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>เมื่อแบตเตอรี่ต่ำกว่า 20%</item>
+        <item>เมื่อแบตเตอรี่ต่ำกว่า 10%</item>
+        <item>เมื่อแบตเตอรี่ต่ำกว่า 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>30 วินาที</item>
+        <item>3 นาที</item>
+        <item>5 นาที</item>
+        <item>10 นาที</item>
+        <item>15 นาที</item>
+        <item>20 นาที</item>
+        <item>25 นาที</item>
+        <item>30 นาที</item>
+    </array>
+</resources>

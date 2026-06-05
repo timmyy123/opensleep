@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/controlBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false">
+    <com.google.android.material.button.MaterialButton
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        android:id="@+id/dislike"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:minHeight="72dp"
+        android:text="@string/not_interested"
+        android:maxLines="2"
+        android:layout_weight="1"
+        android:layout_marginEnd="4dp"
+        app:backgroundTint="@color/shadow"
+        app:icon="@drawable/ic_thumb_down"
+        app:iconSize="28dp"
+        app:iconTint="@color/white"
+        app:strokeColor="@color/white"
+        style="@style/Widget.Material3Expressive.Button.OutlinedButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        android:id="@+id/like"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:minHeight="72dp"
+        android:text="@string/want_it"
+        android:maxLines="2"
+        android:layout_weight="1"
+        android:layout_marginStart="4dp"
+        app:backgroundTint="@color/shadow"
+        app:icon="@drawable/ic_thumb_up"
+        app:iconGravity="end"
+        app:iconSize="28dp"
+        app:iconTint="@color/white"
+        app:strokeColor="@color/white"
+        style="@style/Widget.Material3Expressive.Button.OutlinedButton"/>
+</LinearLayout>

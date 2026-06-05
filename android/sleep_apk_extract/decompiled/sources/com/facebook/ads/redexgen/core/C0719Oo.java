@@ -1,0 +1,15 @@
+package com.facebook.ads.redexgen.core;
+
+/* JADX INFO: renamed from: com.facebook.ads.redexgen.X.Oo, reason: case insensitive filesystem */
+/* JADX INFO: loaded from: assets/audience_network/classes2.dex */
+public class C0719Oo implements InterfaceC1077b8 {
+    public final /* synthetic */ C02656g A00;
+
+    public C0719Oo(C02656g c02656g) {
+        this.A00 = c02656g;
+    }
+
+    @Override // com.facebook.ads.redexgen.core.InterfaceC1077b8
+    public final void AE7(C1076b7 c1076b7) {
+    }
+}

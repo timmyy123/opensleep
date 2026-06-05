@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Устройство отслеживание должно находиться близко к телу, чтобы отслеживать движения во сне</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 секунд</item>
+        <item>1 минуту</item>
+        <item>3 минуты</item>
+        <item>6 минут</item>
+        <item>9 минут</item>
+        <item>12 минут</item>
+        <item>18 минут</item>
+        <item>24 минуты</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 минуты</item>
+        <item>2 минут</item>
+        <item>3 минут</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+        <item>40 минут</item>
+        <item>1 часа</item>
+        <item>2 часов</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Этот будильник сработает менее чем через 1 минуту</item>
+        <item>Этот будильник сработает через %1$s</item>
+        <item>Этот будильник сработает через %2$s</item>
+        <item>Этот будильник сработает через %1$s и %2$s</item>
+        <item>Этот будильник сработает через %3$s</item>
+        <item>Этот будильник сработает через %1$s и %3$s</item>
+        <item>Этот будильник сработает через %2$s и %3$s</item>
+        <item>Этот будильник сработает через %1$s, %2$s и %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Бета (быстрое пробуждение)</item>
+        <item>Гамма (сильная стимуляция)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Дельта (глубокий сон)</item>
+        <item>Тета (расслабление)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Очень просто</item>
+        <item>Просто</item>
+        <item>Средне</item>
+        <item>Трудно</item>
+        <item>Очень трудно</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 минуту</item>
+        <item>2 минуты</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+        <item>45 минут</item>
+        <item>60 минут</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Отмена</item>
+        <item>Полгода</item>
+        <item>3 месяца</item>
+        <item>2 месяца</item>
+        <item>1 месяц</item>
+        <item>2 недели</item>
+        <item>Все</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Затемнять</item>
+        <item>Затемнять с часами</item>
+        <item>Всегда показывать часы</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Автом. публиковать график</item>
+        <item>Автом. публиковать график и статус</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>60 минут</item>
+        <item>90 минут</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Акселерометр</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Сон после обеда</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>40 минут</item>
+        <item>50 минут</item>
+        <item>1 час</item>
+        <item>1 час 30 минут</item>
+        <item>2 часа</item>
+    </array>
+    <array name="period_array">
+        <item>Неделя</item>
+        <item>14 дней</item>
+        <item>Месяц</item>
+        <item>Квартал</item>
+        <item>Полгода</item>
+        <item>Год</item>
+        <item>Все время</item>
+    </array>
+    <array name="period_values">
+        <item>14 дней</item>
+        <item>Месяц</item>
+        <item>Квартал</item>
+        <item>Полгода</item>
+        <item>Год</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 минута</item>
+        <item>2 минуты</item>
+        <item>5 минут</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Последняя исп.</item>
+        <item>3 минуты</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>35 минут</item>
+        <item>40 минут</item>
+        <item>45 минут</item>
+        <item>50 минут</item>
+        <item>55 минут</item>
+        <item>1 час</item>
+        <item>90 минут</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Без ограничений</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Максимальная громкость будильника</item>
+        <item>Минимальная громкость будильника</item>
+        <item>Полностью отключать звук</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>за 5 минут</item>
+        <item>за 15 минут</item>
+        <item>за 30 минут</item>
+        <item>за 45 минут</item>
+        <item>за 1 час</item>
+        <item>за 1 час 30 мин</item>
+        <item>за 2 часа</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 минута</item>
+        <item>2 минуты</item>
+        <item>3 минуты</item>
+        <item>4 минуты</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Отложить</item>
+        <item>Отключить</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Когда аккумулятор &lt;20%</item>
+        <item>Когда аккумулятор &lt;10%</item>
+        <item>Когда аккумулятор &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 минута</item>
+        <item>3 минуты</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+    </array>
+</resources>

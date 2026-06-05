@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent>
+            <url-template android:value="{@url}"/>
+            <parameter android:name="feature"/>
+        </intent>
+        <intent>
+            <url-template android:value="https://sleep-as-android/feature/dashboard"/>
+        </intent>
+    </capability>
+    <shortcut
+        android:shortcutId="feature_start_tracking"
+        android:shortcutShortLabel="@string/shortcut_feature_start_tracking">
+        <intent android:data="https://sleep-as-android/feature/start-tracking"/>
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:value="@array/app_actions_start_tracking"
+                android:key="feature"/>
+        </capability-binding>
+    </shortcut>
+    <shortcut
+        android:shortcutId="feature_stop_tracking"
+        android:shortcutShortLabel="@string/shortcut_feature_stop_tracking">
+        <intent android:data="https://sleep-as-android/feature/stop-tracking"/>
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:value="@array/app_actions_stop_tracking"
+                android:key="feature"/>
+        </capability-binding>
+    </shortcut>
+    <shortcut
+        android:shortcutId="feature_alarms"
+        android:shortcutShortLabel="@string/shortcut_feature_alarms">
+        <intent android:data="https://sleep-as-android/feature/alarms"/>
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:value="@array/app_actions_alarms"
+                android:key="feature"/>
+        </capability-binding>
+    </shortcut>
+    <shortcut
+        android:shortcutId="feature_last_sleep"
+        android:shortcutShortLabel="@string/shortcut_feature_last_sleep">
+        <intent android:data="https://sleep-as-android/feature/last-sleep"/>
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:value="@array/app_actions_last_sleep"
+                android:key="feature"/>
+        </capability-binding>
+    </shortcut>
+</shortcuts>

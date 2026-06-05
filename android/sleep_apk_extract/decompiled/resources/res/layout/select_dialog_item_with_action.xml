@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorAlertDialogListItem"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:drawablePadding="24dp"
+        android:layout_toLeftOf="@+id/action"
+        android:layout_centerVertical="true"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"/>
+    <ImageButton
+        android:id="@+id/action"
+        android:padding="12dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        style="@style/ButtonFlat"/>
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/trial_layout"
+    android:background="@color/bg_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/tertiary"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:id="@+id/trial_warning"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:layout_weight="1"/>
+    <com.google.android.material.button.MaterialButton
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/primary_inverse"
+        android:gravity="center"
+        android:id="@+id/trial_unlock_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trial_unlock"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:backgroundTint="@color/special"
+        app:icon="@drawable/ic_lock_unlock"
+        app:iconPadding="8dp"
+        app:iconTint="@color/primary_inverse"/>
+</LinearLayout>

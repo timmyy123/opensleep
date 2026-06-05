@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>確保追蹤用的裝置靠近身體，以正確收集睡眠活動狀況</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 秒</item>
+        <item>1 分鐘</item>
+        <item>3 分鐘</item>
+        <item>6 分鐘</item>
+        <item>9 分鐘</item>
+        <item>12 分鐘</item>
+        <item>18 分鐘</item>
+        <item>24 分鐘</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 分鐘</item>
+        <item>2 分鐘</item>
+        <item>3 分鐘</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>20 分鐘</item>
+        <item>30 分鐘</item>
+        <item>40 分鐘</item>
+        <item>1 小時</item>
+        <item>2 小時</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>設備預設值</item>
+        <item>強制僅用耳機</item>
+    </array>
+    <array name="alarm_set">
+        <item>鬧鐘將於 1 分鐘內響起</item>
+        <item>鬧鐘將於 %1$s 後響起</item>
+        <item>鬧鐘將於 %2$s 後響起</item>
+        <item>鬧鐘將於 %1$s %2$s 後響起</item>
+        <item>鬧鐘將於 %3$s 後響起</item>
+        <item>鬧鐘將於 %1$s 與 %3$s 響起</item>
+        <item>鬧鐘將於 %2$s 與 %3$s 響起</item>
+        <item>鬧鐘將於 %1$s %2$s %3$s 後響起</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta（快速喚醒）</item>
+        <item>Gamma 波（高度刺激）</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta 波（深度睡眠）</item>
+        <item>Theta 波（放鬆）</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>非常簡單</item>
+        <item>簡單</item>
+        <item>適中</item>
+        <item>困難</item>
+        <item>非常困難</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 秒</item>
+        <item>30 秒</item>
+        <item>1 分鐘</item>
+        <item>2 分鐘</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>30 分鐘</item>
+        <item>45 分鐘</item>
+        <item>60 分鐘</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>取消</item>
+        <item>半年</item>
+        <item>3 個月</item>
+        <item>2 個月</item>
+        <item>1 個月</item>
+        <item>2 週</item>
+        <item>全部</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>變暗</item>
+        <item>變暗顯示時鐘</item>
+        <item>始終顯示時鐘</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>自動發佈睡眠圖表</item>
+        <item>自動發佈睡眠圖表和狀態資訊</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>25 分鐘</item>
+        <item>30 分鐘</item>
+        <item>60 分鐘</item>
+        <item>90 分鐘</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>加速度感應器</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>短暫小睡</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>25 分鐘</item>
+        <item>30 分鐘</item>
+        <item>40 分鐘</item>
+        <item>50 分鐘</item>
+        <item>1 小時</item>
+        <item>1 小時 30 分鐘</item>
+        <item>2 小時</item>
+    </array>
+    <array name="period_array">
+        <item>週</item>
+        <item>14 天</item>
+        <item>月</item>
+        <item>季</item>
+        <item>半年</item>
+        <item>年</item>
+        <item>全部</item>
+    </array>
+    <array name="period_values">
+        <item>14 天</item>
+        <item>一個月</item>
+        <item>一季</item>
+        <item>半年</item>
+        <item>一年</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 秒</item>
+        <item>30 秒</item>
+        <item>1 分鐘</item>
+        <item>2 分鐘</item>
+        <item>5 分鐘</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>上次貪睡時間</item>
+        <item>3 分鐘</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>25 分鐘</item>
+        <item>30 分鐘</item>
+        <item>35 分鐘</item>
+        <item>40 分鐘</item>
+        <item>45 分鐘</item>
+        <item>50 分鐘</item>
+        <item>55 分鐘</item>
+        <item>1 小時</item>
+        <item>90 分鐘</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>無限制</item>
+        <item>1 次</item>
+        <item>2 次</item>
+        <item>3 次</item>
+        <item>4 次</item>
+        <item>5 次</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>最大鬧鐘音量</item>
+        <item>降低鬧鐘音量</item>
+        <item>鬧鐘完全靜音</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>提前 5 分鐘</item>
+        <item>提前 15 分鐘</item>
+        <item>提前 30 分鐘</item>
+        <item>提前 45 分鐘</item>
+        <item>提前 1 小時</item>
+        <item>提前 1 小時 30 分鐘</item>
+        <item>提前 2 小時</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 分鐘</item>
+        <item>2 分鐘</item>
+        <item>3 分鐘</item>
+        <item>4 分鐘</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>30 分鐘</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>貪睡</item>
+        <item>停止</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>電量少於 20% 時</item>
+        <item>電量少於 10% 時</item>
+        <item>電量少於 5% 時</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 分鐘</item>
+        <item>3 分鐘</item>
+        <item>5 分鐘</item>
+        <item>10 分鐘</item>
+        <item>15 分鐘</item>
+        <item>20 分鐘</item>
+        <item>25 分鐘</item>
+        <item>30 分鐘</item>
+    </array>
+</resources>

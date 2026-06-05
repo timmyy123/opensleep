@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chronotype"
+    android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginEnd="16dp"
+    android:layout_alignParentEnd="true"
+    android:elevation="8dp">
+    <ImageView
+        android:id="@+id/chronotype_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/owl"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    <TextView
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/chronotype_score"
+        android:background="@drawable/badge_indicator"
+        android:clickable="false"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

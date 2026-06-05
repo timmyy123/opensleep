@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android" android:drawable="@drawable/night_splash">
+    <target
+        android:name="moon_core"
+        android:animation="@animator/reveal_moon"/>
+    <target
+        android:name="moon"
+        android:animation="@animator/moonrise"/>
+</animated-vector>

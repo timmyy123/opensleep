@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_alarm"
+        android:id="@+id/menu_alarm"
+        android:orderInCategory="0"
+        android:title="@string/alarm_list_title"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_dashboard"
+        android:id="@+id/menu_dashbaord"
+        android:orderInCategory="1"
+        android:title="@string/dashboard"/>
+    <item
+        android:icon="@drawable/ic_timelapse"
+        android:id="@+id/menu_stats"
+        android:orderInCategory="2"
+        android:title="@string/stats"/>
+    <item
+        android:icon="@drawable/ic_action_graph"
+        android:id="@+id/menu_graphs"
+        android:orderInCategory="3"
+        android:title="@string/graphs"/>
+    <item
+        android:icon="@drawable/ic_action_noise"
+        android:id="@+id/menu_noise"
+        android:orderInCategory="4"
+        android:title="@string/noise"/>
+</menu>

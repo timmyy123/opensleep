@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>የመከታተያ መሳሪያው የእንቅልፍ እንቅስቃሴዎን ለመያዝ ወደ ሰውነትዎ ቅርብ መሆኑን ያረጋግጡ</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 ሰከንድ</item>
+        <item>1 ደቂቃ</item>
+        <item>3 ደቂቃዎች</item>
+        <item>6 ደቂቃዎች</item>
+        <item>9 ደቂቃዎች</item>
+        <item>12 ደቂቃዎች</item>
+        <item>18 ደቂቃዎች</item>
+        <item>24 ደቂቃዎች</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 ደቂቃ</item>
+        <item>2 ደቂቃዎች</item>
+        <item>3 ደቂቃዎች</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+        <item>40 ደቂቃዎች</item>
+        <item>1 ሰዓት</item>
+        <item>2 ሰዓታት</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ይህ ማንቂያ የተቀናበረው ከ1 ደቂቃ ባነሰ ጊዜ ነው።</item>
+        <item>ይህ ማንቂያ ለ%1$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%2$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%1$s እና %2$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%3$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%1$s እና %3$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%2$s እና %3$s ተቀናብሯል</item>
+        <item>ይህ ማንቂያ ለ%1$s፣ %2$s እና %3$s የተዘጋጀ ነው።</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>ቤታ (ፈጣን መነሳት)</item>
+        <item>ጋማ (በጣም የሚያነቃቃ)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>ዴልታ (ጥልቅ እንቅልፍ)</item>
+        <item>ቴታ (የሚዝናና)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>በጣም ቀላል</item>
+        <item>ቀላል</item>
+        <item>መካከለኛ</item>
+        <item>ከባድ</item>
+        <item>በጣም ከባድ</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 ሰከንድ</item>
+        <item>30 ሰከንድ</item>
+        <item>1 ደቂቃ</item>
+        <item>2 ደቂቃዎች</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>15 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+        <item>45 ደቂቃዎች</item>
+        <item>60 ደቂቃዎች</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>ሰርዝ</item>
+        <item>ግማሽ ዓመት</item>
+        <item>3 ወራት</item>
+        <item>2 ወራት</item>
+        <item>1 ወር</item>
+        <item>2 ሳምንታት</item>
+        <item>ሁሉም</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>ዲም</item>
+        <item>ከሰዓት ጋር ደብዛዛ</item>
+        <item>ሁልጊዜ በሰዓት ላይ</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>የእንቅልፍ ግራፎችን በራስ-ያትሙ</item>
+        <item>ግራፎችን እና ሁኔታን በራስ-አትም።</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>15 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>25 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+        <item>60 ደቂቃዎች</item>
+        <item>90 ደቂቃዎች</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>የፍጥነት መለኪያ</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>የኃይል እንቅልፍ</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>15 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>25 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+        <item>40 ደቂቃዎች</item>
+        <item>50 ደቂቃዎች</item>
+        <item>1 ሰዓት</item>
+        <item>1 ሰአት 30 ደቂቃ</item>
+        <item>2 ሰዓታት</item>
+    </array>
+    <array name="period_array">
+        <item>ሳምንት</item>
+        <item>14 ቀናት</item>
+        <item>ወር</item>
+        <item>ሩብ ዓመት</item>
+        <item>ግማሽ ዓመት</item>
+        <item>አመት</item>
+        <item>ሁል ጊዜ</item>
+    </array>
+    <array name="period_values">
+        <item>14 ቀናት</item>
+        <item>ወር</item>
+        <item>ሩብ ዓመት</item>
+        <item>ግማሽ ዓመት</item>
+        <item>አመት</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 ሰከንድ</item>
+        <item>30 ሰከንድ</item>
+        <item>1 ደቂቃ</item>
+        <item>2 ደቂቃዎች</item>
+        <item>5 ደቂቃዎች</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 ደቂቃዎች</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>15 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>25 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+        <item>35 ደቂቃዎች</item>
+        <item>40 ደቂቃዎች</item>
+        <item>45 ደቂቃዎች</item>
+        <item>50 ደቂቃዎች</item>
+        <item>55 ደቂቃዎች</item>
+        <item>1 ሰዓት</item>
+        <item>90 ደቂቃዎች</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>ሙሉ የማንቂያ ድምጽ</item>
+        <item>ዝቅተኛ የማንቂያ መጠን</item>
+        <item>ማንቂያ ጸጥ አለ።</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 ደቂቃ ከዚህ በፊት</item>
+        <item>15 ደቂቃ ከዚህ በፊት</item>
+        <item>30 ደቂቃ ከዚህ በፊት</item>
+        <item>45 ደቂቃ ከዚህ በፊት</item>
+        <item>ከ 1 ሰዓት በፊት</item>
+        <item>1 ሰአት 30 ደቂቃ ከዚህ በፊት</item>
+        <item>ከ 2 ሰዓታት በፊት</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 ደቂቃ</item>
+        <item>2 ደቂቃ</item>
+        <item>3 ደቂቃ</item>
+        <item>4 ደቂቃ</item>
+        <item>5 ደቂቃ</item>
+        <item>10 ደቂቃ</item>
+        <item>15 ደቂቃ</item>
+        <item>20 ደቂቃ</item>
+        <item>30 ደቂቃ</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>አሸልብ</item>
+        <item>አሰናብት</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>ባትሪ &lt;20% ሲደርስ</item>
+        <item>ባትሪ &lt;10%</item>
+        <item>ባትሪ &lt;5% ሲደርስ</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 ደቂቃ</item>
+        <item>3 ደቂቃዎች</item>
+        <item>5 ደቂቃዎች</item>
+        <item>10 ደቂቃዎች</item>
+        <item>15 ደቂቃዎች</item>
+        <item>20 ደቂቃዎች</item>
+        <item>25 ደቂቃዎች</item>
+        <item>30 ደቂቃዎች</item>
+    </array>
+</resources>

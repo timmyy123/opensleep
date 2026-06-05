@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ಟ್ರ್ಯಾಕಿಂಗ್ ಸಾಧನವು ನಿಮ್ಮ ದೇಹಕ್ಕೆ ಹತ್ತಿರದಲ್ಲಿದೆ ಮತ್ತು ನಿಮ್ಮ ನಿದ್ರೆಯ ಚಲನೆಯನ್ನು ಸೆರೆಹಿಡಿಯಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 ಸೆಕೆಂಡುಗಳು</item>
+        <item>1 ನಿಮಿಷ</item>
+        <item>3 ನಿಮಿಷಗಳು</item>
+        <item>6 ನಿಮಿಷಗಳು</item>
+        <item>9 ನಿಮಿಷಗಳು</item>
+        <item>12 ನಿಮಿಷಗಳು</item>
+        <item>18 ನಿಮಿಷಗಳು</item>
+        <item>24 ನಿಮಿಷಗಳು</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 ನಿಮಿಷ</item>
+        <item>2 ನಿಮಿಷಗಳು</item>
+        <item>3 ನಿಮಿಷಗಳು</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+        <item>40 ನಿಮಿಷಗಳು</item>
+        <item>1 ಗಂಟೆ</item>
+        <item>2 ಗಂಟೆಗಳು</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ಈ ಅಲಾರಾಂ ಈಗಿನಿಂದ 1 ನಿಮಿಷಕ್ಕಿಂತ ಕಡಿಮೆ ಸಮಯದವರೆಗೆ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %1$s ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %2$s ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %1$s ಮತ್ತು %2$s ಗಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %3$s ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %1$s ಮತ್ತು %3$s ಗಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %2$s ಮತ್ತು %3$s ಗಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+        <item>ಈ ಅಲಾರಾಂ ಅನ್ನು %1$s, %2$s, ಮತ್ತು %3$s ಗಳಿಗೆ ಹೊಂದಿಸಲಾಗಿದೆ.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>ಬೀಟಾ (ವೇಗದ ಎಚ್ಚರ)</item>
+        <item>ಗಾಮಾ (ಹೆಚ್ಚು ಉತ್ತೇಜಕ)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>ಡೆಲ್ಟಾ (ಆಳವಾದ ನಿದ್ರೆ)</item>
+        <item>ಥೀಟಾ (ವಿಶ್ರಾಂತಿ)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>ತುಂಬಾ ಸರಳ</item>
+        <item>ಸರಳ</item>
+        <item>ಮಧ್ಯಂತರ</item>
+        <item>ಕಠಿಣ</item>
+        <item>ತುಂಬಾ ಕಷ್ಟ</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 ಸೆಕೆಂಡುಗಳು</item>
+        <item>30 ಸೆಕೆಂಡುಗಳು</item>
+        <item>1 ನಿಮಿಷ</item>
+        <item>2 ನಿಮಿಷಗಳು</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>15 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+        <item>45 ನಿಮಿಷಗಳು</item>
+        <item>60 ನಿಮಿಷಗಳು</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>ರದ್ದುಮಾಡಿ</item>
+        <item>ಅರ್ಧ ವರ್ಷ</item>
+        <item>3 ತಿಂಗಳುಗಳು</item>
+        <item>2 ತಿಂಗಳುಗಳು</item>
+        <item>1 ತಿಂಗಳು</item>
+        <item>2 ವಾರಗಳು</item>
+        <item>ಎಲ್ಲವೂ</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>ಮಂದ</item>
+        <item>ಗಡಿಯಾರದೊಂದಿಗೆ ಮಂದಗೊಳಿಸಿ</item>
+        <item>ಯಾವಾಗಲೂ ಗಡಿಯಾರದಲ್ಲಿ</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>ನಿದ್ರೆಯ ಗ್ರಾಫ್‌ಗಳನ್ನು ಸ್ವಯಂ ಪ್ರಕಟಿಸಿ</item>
+        <item>ಗ್ರಾಫ್‌ಗಳು ಮತ್ತು ಸ್ಥಿತಿಯನ್ನು ಸ್ವಯಂ ಪ್ರಕಟಿಸಿ</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>15 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>25 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+        <item>60 ನಿಮಿಷಗಳು</item>
+        <item>90 ನಿಮಿಷಗಳು</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>ವೇಗವರ್ಧಕ</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>ಪವರ್ ನ್ಯಾಪ್</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>15 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>25 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+        <item>40 ನಿಮಿಷಗಳು</item>
+        <item>50 ನಿಮಿಷಗಳು</item>
+        <item>1 ಗಂಟೆ</item>
+        <item>1 ಗಂಟೆ 30 ನಿಮಿಷ</item>
+        <item>2 ಗಂಟೆಗಳು</item>
+    </array>
+    <array name="period_array">
+        <item>ವಾರ</item>
+        <item>14 ದಿನಗಳು</item>
+        <item>ತಿಂಗಳು</item>
+        <item>ತ್ರೈಮಾಸಿಕ ವರ್ಷ</item>
+        <item>ಅರ್ಧ ವರ್ಷ</item>
+        <item>ವರ್ಷ</item>
+        <item>ಎಲ್ಲಾ ಸಮಯ</item>
+    </array>
+    <array name="period_values">
+        <item>14 ದಿನಗಳು</item>
+        <item>ತಿಂಗಳು</item>
+        <item>ತ್ರೈಮಾಸಿಕ ವರ್ಷ</item>
+        <item>ಅರ್ಧ ವರ್ಷ</item>
+        <item>ವರ್ಷ</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 ಸೆಕೆಂಡುಗಳು</item>
+        <item>30 ಸೆಕೆಂಡುಗಳು</item>
+        <item>1 ನಿಮಿಷ</item>
+        <item>2 ನಿಮಿಷಗಳು</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 ನಿಮಿಷಗಳು</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>15 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>25 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+        <item>35 ನಿಮಿಷಗಳು</item>
+        <item>40 ನಿಮಿಷಗಳು</item>
+        <item>45 ನಿಮಿಷಗಳು</item>
+        <item>50 ನಿಮಿಷಗಳು</item>
+        <item>55 ನಿಮಿಷಗಳು</item>
+        <item>1 ಗಂಟೆ</item>
+        <item>90 ನಿಮಿಷಗಳು</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>ಪೂರ್ಣ ಅಲಾರಾಂ ವಾಲ್ಯೂಮ್</item>
+        <item>ಕಡಿಮೆ ಅಲಾರಾಂ ವಾಲ್ಯೂಮ್</item>
+        <item>ಅಲಾರಾಂ ನಿಶ್ಯಬ್ದವಾಗಿದೆ</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 ನಿಮಿಷಗಳ ಮೊದಲು</item>
+        <item>15 ನಿಮಿಷಗಳ ಮೊದಲು</item>
+        <item>30 ನಿಮಿಷಗಳ ಮೊದಲು</item>
+        <item>45 ನಿಮಿಷಗಳ ಮೊದಲು</item>
+        <item>1 ಗಂಟೆ ಮೊದಲು</item>
+        <item>1 ಗಂಟೆ 30 ನಿಮಿಷಗಳ ಹಿಂದೆ</item>
+        <item>2 ಗಂಟೆಗಳ ಮೊದಲು</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 ನಿಮಿಷ</item>
+        <item>2 ನಿಮಿಷ</item>
+        <item>3 ನಿಮಿಷ</item>
+        <item>4 ನಿಮಿಷ</item>
+        <item>5 ನಿಮಿಷ</item>
+        <item>10 ನಿಮಿಷ</item>
+        <item>15 ನಿಮಿಷ</item>
+        <item>20 ನಿಮಿಷ</item>
+        <item>30 ನಿಮಿಷ</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>ಸ್ನೂಜ್ ಮಾಡಿ</item>
+        <item>ವಜಾಗೊಳಿಸಿ</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>ಬ್ಯಾಟರಿ &lt;20% ಇದ್ದಾಗ</item>
+        <item>ಬ್ಯಾಟರಿ &lt;10% ಇದ್ದಾಗ</item>
+        <item>ಬ್ಯಾಟರಿ &lt;5% ಇದ್ದಾಗ</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>#ERROR!</item>
+        <item>3 ನಿಮಿಷಗಳು</item>
+        <item>5 ನಿಮಿಷಗಳು</item>
+        <item>10 ನಿಮಿಷಗಳು</item>
+        <item>15 ನಿಮಿಷಗಳು</item>
+        <item>20 ನಿಮಿಷಗಳು</item>
+        <item>25 ನಿಮಿಷಗಳು</item>
+        <item>30 ನಿಮಿಷಗಳು</item>
+    </array>
+</resources>

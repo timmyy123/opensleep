@@ -1,0 +1,110 @@
+package org.aspectj.runtime.reflect;
+
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.SourceLocation;
+import org.aspectj.runtime.reflect.JoinPointImpl;
+
+/* JADX INFO: loaded from: classes5.dex */
+public final class Factory {
+    private static Object[] NO_ARGS;
+    static Hashtable prims;
+    int count = 0;
+    String filename;
+    Class lexicalClass;
+    ClassLoader lookupClassLoader;
+    private static final Class[] NO_TYPES = new Class[0];
+    private static final String[] NO_STRINGS = new String[0];
+
+    static {
+        Hashtable hashtable = new Hashtable();
+        prims = hashtable;
+        hashtable.put("void", Void.TYPE);
+        prims.put("boolean", Boolean.TYPE);
+        prims.put("byte", Byte.TYPE);
+        prims.put("char", Character.TYPE);
+        prims.put("short", Short.TYPE);
+        prims.put("int", Integer.TYPE);
+        prims.put("long", Long.TYPE);
+        prims.put("float", Float.TYPE);
+        prims.put("double", Double.TYPE);
+        NO_ARGS = new Object[0];
+    }
+
+    public Factory(String str, Class cls) {
+        this.filename = str;
+        this.lexicalClass = cls;
+        this.lookupClassLoader = cls.getClassLoader();
+    }
+
+    public static Class makeClass(String str, ClassLoader classLoader) {
+        if (str.equals("*")) {
+            return null;
+        }
+        Class cls = (Class) prims.get(str);
+        if (cls != null) {
+            return cls;
+        }
+        try {
+            return classLoader == null ? Class.forName(str) : Class.forName(str, false, classLoader);
+        } catch (ClassNotFoundException unused) {
+            return ClassNotFoundException.class;
+        }
+    }
+
+    public static JoinPoint makeJP(JoinPoint.StaticPart staticPart, Object obj, Object obj2, Object obj3) {
+        return new JoinPointImpl(staticPart, obj, obj2, new Object[]{obj3});
+    }
+
+    public MethodSignature makeMethodSig(String str, String str2, Class cls, String str3, String str4, String str5, String str6) {
+        int i = Integer.parseInt(str, 16);
+        StringTokenizer stringTokenizer = new StringTokenizer(str3, ":");
+        int iCountTokens = stringTokenizer.countTokens();
+        Class[] clsArr = new Class[iCountTokens];
+        for (int i2 = 0; i2 < iCountTokens; i2++) {
+            clsArr[i2] = makeClass(stringTokenizer.nextToken(), this.lookupClassLoader);
+        }
+        StringTokenizer stringTokenizer2 = new StringTokenizer(str4, ":");
+        int iCountTokens2 = stringTokenizer2.countTokens();
+        String[] strArr = new String[iCountTokens2];
+        for (int i3 = 0; i3 < iCountTokens2; i3++) {
+            strArr[i3] = stringTokenizer2.nextToken();
+        }
+        StringTokenizer stringTokenizer3 = new StringTokenizer(str5, ":");
+        int iCountTokens3 = stringTokenizer3.countTokens();
+        Class[] clsArr2 = new Class[iCountTokens3];
+        for (int i4 = 0; i4 < iCountTokens3; i4++) {
+            clsArr2[i4] = makeClass(stringTokenizer3.nextToken(), this.lookupClassLoader);
+        }
+        return new MethodSignatureImpl(i, str2, cls, clsArr, strArr, clsArr2, makeClass(str6, this.lookupClassLoader));
+    }
+
+    public JoinPoint.StaticPart makeSJP(String str, Signature signature, int i) {
+        int i2 = this.count;
+        this.count = i2 + 1;
+        return new JoinPointImpl.StaticPartImpl(i2, str, signature, makeSourceLoc(i, -1));
+    }
+
+    public SourceLocation makeSourceLoc(int i, int i2) {
+        return new SourceLocationImpl(this.lexicalClass, this.filename, i);
+    }
+
+    public static JoinPoint makeJP(JoinPoint.StaticPart staticPart, Object obj, Object obj2) {
+        return new JoinPointImpl(staticPart, obj, obj2, NO_ARGS);
+    }
+
+    public static JoinPoint makeJP(JoinPoint.StaticPart staticPart, Object obj, Object obj2, Object obj3, Object obj4) {
+        return new JoinPointImpl(staticPart, obj, obj2, new Object[]{obj3, obj4});
+    }
+
+    public static JoinPoint makeJP(JoinPoint.StaticPart staticPart, Object obj, Object obj2, Object[] objArr) {
+        return new JoinPointImpl(staticPart, obj, obj2, objArr);
+    }
+
+    public MethodSignature makeMethodSig(String str, String str2, String str3, String str4, String str5, String str6, String str7) {
+        return makeMethodSig(str, str2, makeClass(str3, this.lookupClassLoader), str4, str5, str6, str7);
+    }
+}

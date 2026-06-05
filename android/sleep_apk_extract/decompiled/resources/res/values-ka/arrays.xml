@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>დარწმუნდით, რომ თვალთვალის მოწყობილობა თქვენს სხეულთან ახლოსაა და შეუძლია თქვენი ძილის მოძრაობის დაფიქსირება.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 წამი</item>
+        <item>1 წუთი</item>
+        <item>3 წუთი</item>
+        <item>6 წუთი</item>
+        <item>9 წუთი</item>
+        <item>12 წუთი</item>
+        <item>18 წუთი</item>
+        <item>24 წუთი</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 წუთი</item>
+        <item>2 წუთი</item>
+        <item>3 წუთი</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>20 წუთი</item>
+        <item>30 წუთი</item>
+        <item>40 წუთი</item>
+        <item>1 საათი</item>
+        <item>2 საათი</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ეს მაღვიძარა დაყენებულია ამ მომენტიდან 1 წუთზე ნაკლებ დროში</item>
+        <item>ეს მაღვიძარა დაყენებულია %1$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %2$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %1$s-ზე და %2$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %3$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %1$s-ზე და %3$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %2$s-ზე და %3$s-ზე</item>
+        <item>ეს მაღვიძარა დაყენებულია %1$s-ზე, %2$s-ზე და %3$s-ზე</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>ბეტა (სწრაფი გამოღვიძება)</item>
+        <item>გამა (მაღალი სტიმულაცია)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>დელტა (ღრმა ძილი)</item>
+        <item>თეტა (დამამშვიდებელი)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>ძალიან მარტივი</item>
+        <item>მარტივი</item>
+        <item>საშუალო</item>
+        <item>რთული</item>
+        <item>ძალიან რთული</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 წამი</item>
+        <item>30 წამი</item>
+        <item>1 წუთი</item>
+        <item>2 წუთი</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>15 წუთი</item>
+        <item>20 წუთი</item>
+        <item>30 წუთი</item>
+        <item>45 წუთი</item>
+        <item>60 წუთი</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>გაუქმება</item>
+        <item>ნახევარი წელი</item>
+        <item>3 თვე</item>
+        <item>2 თვე</item>
+        <item>1 თვე</item>
+        <item>2 კვირა</item>
+        <item>ყველა</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>დიმ</item>
+        <item>საათის დაბინდვა</item>
+        <item>ყოველთვის საათზე</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>ძილის გრაფიკების ავტომატური გამოქვეყნება</item>
+        <item>გრაფიკებისა და სტატუსის ავტომატური გამოქვეყნება</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>15 წუთი</item>
+        <item>20 წუთი</item>
+        <item>25 წუთი</item>
+        <item>30 წუთი</item>
+        <item>60 წუთი</item>
+        <item>90 წუთი</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>აქსელერომეტრი</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>ძილი</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>15 წუთი</item>
+        <item>20 წუთი</item>
+        <item>25 წუთი</item>
+        <item>30 წუთი</item>
+        <item>40 წუთი</item>
+        <item>50 წუთი</item>
+        <item>1 საათი</item>
+        <item>1 საათი 30 წთ</item>
+        <item>2 საათი</item>
+    </array>
+    <array name="period_array">
+        <item>კვირა</item>
+        <item>14 დღე</item>
+        <item>თვე</item>
+        <item>კვარტალური წელი</item>
+        <item>ნახევარი წელი</item>
+        <item>წელი</item>
+        <item>ყველა დროის</item>
+    </array>
+    <array name="period_values">
+        <item>14 დღე</item>
+        <item>თვე</item>
+        <item>კვარტალური წელი</item>
+        <item>ნახევარი წელი</item>
+        <item>წელი</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 წამი</item>
+        <item>30 წამი</item>
+        <item>1 წუთი</item>
+        <item>2 წუთი</item>
+        <item>5 წუთი</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 წუთი</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>15 წუთი</item>
+        <item>20 წუთი</item>
+        <item>25 წუთი</item>
+        <item>30 წუთი</item>
+        <item>35 წუთი</item>
+        <item>40 წუთი</item>
+        <item>45 წუთი</item>
+        <item>50 წუთი</item>
+        <item>55 წუთი</item>
+        <item>1 საათი</item>
+        <item>90 წუთი</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>სიგნალიზაციის სრული ხმა</item>
+        <item>დაბალი სიგნალიზაციის ხმა</item>
+        <item>სიგნალიზაცია ჩუმია</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 წუთით ადრე</item>
+        <item>15 წუთით ადრე</item>
+        <item>30 წუთით ადრე</item>
+        <item>45 წუთით ადრე</item>
+        <item>1 საათით ადრე</item>
+        <item>1 საათით 30 წუთით ადრე</item>
+        <item>2 საათით ადრე</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 წთ</item>
+        <item>2 წთ</item>
+        <item>3 წთ</item>
+        <item>4 წთ</item>
+        <item>5 წთ</item>
+        <item>10 წთ</item>
+        <item>15 წთ</item>
+        <item>20 წთ</item>
+        <item>30 წთ</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>გადადება</item>
+        <item>დახურვა</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>როდესაც ბატარეა &lt;20%-ია</item>
+        <item>როდესაც ბატარეა &lt;10%-ია</item>
+        <item>როდესაც ბატარეა &lt;5%-ია</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 წუთი</item>
+        <item>3 წუთი</item>
+        <item>5 წუთი</item>
+        <item>10 წუთი</item>
+        <item>15 წუთი</item>
+        <item>20 წუთი</item>
+        <item>25 წუთი</item>
+        <item>30 წუთი</item>
+    </array>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/settings">
+    <PreferenceCategory
+        android:layout="@layout/category_empty"
+        android:key="settings_category_social">
+        <com.urbandroid.sleep.gui.MaterialDialogListPreference
+            android:icon="@drawable/ic_action_accept"
+            android:entries="@array/facebook_preference_entries"
+            android:layout="@layout/preference"
+            android:title="@string/facebook_preference_title"
+            android:key="facebook_mode"
+            android:summary="@string/facebook_preference_summary"
+            android:defaultValue="0"
+            android:entryValues="@array/facebook_preference_values"/>
+        <CheckBoxPreference
+            android:icon="@drawable/empty_ab"
+            android:layout="@layout/preference"
+            android:title="@string/share_comments_title"
+            android:key="share_comments"
+            android:widgetLayout="@layout/preference_switch_widget"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout="@layout/category"
+        android:title="@string/share_service">
+        <Preference
+            android:icon="@drawable/ic_service_twitter"
+            android:layout="@layout/preference_card"
+            android:title="X (Twitter)"
+            android:key="share_twitter"/>
+    </PreferenceCategory>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

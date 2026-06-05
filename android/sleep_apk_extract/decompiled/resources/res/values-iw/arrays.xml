@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ודא כי מכשיר המעקב נמצא קרוב לגופך ומסוגל לתעד את תזוזות השינה שלך</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 שניות</item>
+        <item>דקה</item>
+        <item>3 דקות</item>
+        <item>6 דקות</item>
+        <item>9 דקות</item>
+        <item>12 דקות</item>
+        <item>18 דקות</item>
+        <item>24 דקות</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>דקה אחת</item>
+        <item>2 דקות</item>
+        <item>3 דקות</item>
+        <item>5 דקות</item>
+        <item>10 דדקות</item>
+        <item>20 דקות</item>
+        <item>30 דקות</item>
+        <item>40 דקות</item>
+        <item>שעה אחת</item>
+        <item>שעתיים</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>ברירת המחדל של המכשיר</item>
+        <item>Force headphones only</item>
+    </array>
+    <array name="alarm_set">
+        <item>הצלצול נקבע לפחות מדקה מעכשיו.</item>
+        <item>-צלצול זה נקבע ל %1$s מעכשיו.</item>
+        <item>-צלצול זה נקבע ל %2$s מעכשיו.</item>
+        <item>-צלצול זה נקבע ל %1$s ו- %2$s מעכשיו.</item>
+        <item>צלצול זה נקבע ל- %3$s מעכשיו.</item>
+        <item>צלצול זה נקבע ל- %1$s ו- %3$s מעכשיו.</item>
+        <item>צלצול זה נקבע ל- %2$s ו- %3$s מעכשיו.</item>
+        <item>צלצול זה נקבע ל- %1$s,%2$s, ו- %3$s מעכשיו.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (התעוררות מהירה)</item>
+        <item>Gamma (ממריץ במיוחד)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (שינה עמוקה)</item>
+        <item>Theta (הירגעות)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>1 - פשוט מאוד</item>
+        <item>פשוט</item>
+        <item>בינוני</item>
+        <item>קשה</item>
+        <item>קשה מאוד</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>מבוטל</item>
+        <item>10 שניות</item>
+        <item>30 שניות</item>
+        <item>1 דקות</item>
+        <item>2 דקות</item>
+        <item>5 דקות</item>
+        <item>10 דקות</item>
+        <item>15 דקות</item>
+        <item>20 דקות</item>
+        <item>30 דקות</item>
+        <item>45 דקות</item>
+        <item>60 דקות</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>בטל</item>
+        <item>חצי שנה</item>
+        <item>שלושה חודשיים</item>
+        <item>חודשיים</item>
+        <item>חודש</item>
+        <item>שבועיים</item>
+        <item>כל הזמן</item>
+    </array>
+    <array name="dimm_entries">
+        <item>לעולם לא</item>
+        <item>עמעם</item>
+        <item>מעם עם שעון</item>
+        <item>Clock screen on</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>פרסם אוטומטית את הגרפים</item>
+        <item>פרסם אוטומטית את הגרפים והסטטוס</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 דקות</item>
+        <item>10 דקות</item>
+        <item>15 דקות</item>
+        <item>20 דקות</item>
+        <item>25 דקות</item>
+        <item>30 דקות</item>
+        <item>60 דקות</item>
+        <item>90 דקות</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>מד תאוצה</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>מבוטל</item>
+        <item>שנת כוח</item>
+        <item>5 דקות</item>
+        <item>10 דקות</item>
+        <item>15 דקות</item>
+        <item>20 דקות</item>
+        <item>25 דקות</item>
+        <item>30 דקות</item>
+        <item>40 דקות</item>
+        <item>50 דקות</item>
+        <item>שעה</item>
+        <item>שעה וחצי</item>
+        <item>שעתיים</item>
+    </array>
+    <array name="period_array">
+        <item>שבוע</item>
+        <item>שבועיים</item>
+        <item>חודש</item>
+        <item>רבעון</item>
+        <item>חצי שנה</item>
+        <item>שנה</item>
+        <item>הכל</item>
+    </array>
+    <array name="period_values">
+        <item>14 ימים</item>
+        <item>חודש</item>
+        <item>רבעון</item>
+        <item>חצי שנה</item>
+        <item>שנה</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 שניות</item>
+        <item>30 שניות</item>
+        <item>1 דקות</item>
+        <item>2 דקות</item>
+        <item>5 דקות</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>היה בשימוש לאחרונה</item>
+        <item>3 דקות</item>
+        <item>5 דקות</item>
+        <item>10 דקות</item>
+        <item>15 דקות</item>
+        <item>20 דקות</item>
+        <item>25 דקות</item>
+        <item>30 דקות</item>
+        <item>35 דקות</item>
+        <item>40 דקות</item>
+        <item>45 דקות</item>
+        <item>50 דקות</item>
+        <item>55 דקות</item>
+        <item>שעה אחת</item>
+        <item>90 דקות</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>ללא הגבלה</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>ההתראה בעוצמת קול מקסימלית</item>
+        <item>ההתראות בעוצמת קול נמוכה</item>
+        <item>ההתראה מושתקת</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>לעולם לא</item>
+        <item>דקות 5 לפני</item>
+        <item>דקות 15 לפני</item>
+        <item>דקות 30 לפני</item>
+        <item>דקות 45 לפני</item>
+        <item>שעה לפני</item>
+        <item>שעה וחצי לפני</item>
+        <item>שעתיים לפני</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>דקה</item>
+        <item>שתי דק\'</item>
+        <item>שלוש דק\'</item>
+        <item>ארבע דק\'</item>
+        <item>חמש דק\'</item>
+        <item>עשר דק\'</item>
+        <item>חמש עשרה דק\'</item>
+        <item>עשרים דק\'</item>
+        <item>שלושים דק\'</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>כלום</item>
+        <item>נמנום</item>
+        <item>הפסק</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>לעולם לא</item>
+        <item>כאשר הסוללה &lt;20%</item>
+        <item>כאשר הסוללה &lt;10%</item>
+        <item>כאשר הסוללה &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 דקות</item>
+        <item>3 דקות</item>
+        <item>5 דקות</item>
+        <item>10 דקות</item>
+        <item>15 דקות</item>
+        <item>20 דקות</item>
+        <item>25 דקות</item>
+        <item>30 דקות</item>
+    </array>
+</resources>

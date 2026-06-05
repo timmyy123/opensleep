@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stats_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/no_records"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/fragment_stats_no_records"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="fill_vertical"
+        android:id="@+id/stats_recycler"
+        android:scrollbars="none"
+        android:fadingEdge="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/drawer_dark_dark"
+        android:divider="@null"
+        android:choiceMode="singleChoice"/>
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_gravity="center"
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        style="@style/Widget.Material3Expressive.CircularProgressIndicator.Wavy"/>
+</RelativeLayout>

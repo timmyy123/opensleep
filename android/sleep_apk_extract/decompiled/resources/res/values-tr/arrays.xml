@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Uyku hareketini yakalaması için izleme cihazının vücudunuza yakın olduğundan emin olun.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 saniye</item>
+        <item>1 dakika</item>
+        <item>3 dakika</item>
+        <item>6 dakika</item>
+        <item>9 dakika</item>
+        <item>12 dakika</item>
+        <item>18 dakika</item>
+        <item>24 dakika</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 Dakika</item>
+        <item>2 Dakika</item>
+        <item>3 Dakika</item>
+        <item>5 Dakika</item>
+        <item>10 Dakika</item>
+        <item>20 Dakika</item>
+        <item>30 Dakika</item>
+        <item>40 Dakika</item>
+        <item>1 Saat</item>
+        <item>2 Saat</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Varsayılan cihaz</item>
+        <item>Sadece kulaklığa zorla</item>
+    </array>
+    <array name="alarm_set">
+        <item>Alarmın çalmasına şu andan itibaren bir dakikadan az var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %1$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %2$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %1$s ve %2$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %3$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %1$s ve %3$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %2$s ve %3$s var.</item>
+        <item>Alarmın çalmasına şu andan itibaren %1$s,%2$s, ve %3$s var.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>Yok</item>
+        <item>Beta (Hızlı uyanma)</item>
+        <item>Gama (Uyarma)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>Yok</item>
+        <item>Delta (Derin Uyku)</item>
+        <item>Teta (Rahatlama)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Çok kolay</item>
+        <item>Kolay</item>
+        <item>Orta</item>
+        <item>Zor</item>
+        <item>Çok zor</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 saniye</item>
+        <item>30 saniye</item>
+        <item>1 dakika</item>
+        <item>2 dakika</item>
+        <item>5 dakika</item>
+        <item>10 dakika</item>
+        <item>15 dakika</item>
+        <item>20 dakika</item>
+        <item>30 dakika</item>
+        <item>45 dakika</item>
+        <item>60 dakika</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>İptal</item>
+        <item>6 Ay</item>
+        <item>3 Ay</item>
+        <item>2 Ay</item>
+        <item>1 Ay</item>
+        <item>2 Hafta</item>
+        <item>Hepsi</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Karart</item>
+        <item>Saatle birlikte karart</item>
+        <item>Saat sürekli açık kalsın</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Uyku grafiklerini otomatik olarak paylaş</item>
+        <item>Grafikleri ve durumu otomatik olarak paylaş</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 dakika</item>
+        <item>10 dakika</item>
+        <item>15 dakika</item>
+        <item>20 dakika</item>
+        <item>25 dakika</item>
+        <item>30 dakika</item>
+        <item>60 dakika</item>
+        <item>90 dakika</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>İvme ölçer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Güç uykusu</item>
+        <item>5 dakika</item>
+        <item>10 dakika</item>
+        <item>15 dakika</item>
+        <item>20 dakika</item>
+        <item>25 dakika</item>
+        <item>30 dakika</item>
+        <item>40 dakika</item>
+        <item>50 dakika</item>
+        <item>1 saat</item>
+        <item>1 saat 30 dakika</item>
+        <item>2 saat</item>
+    </array>
+    <array name="period_array">
+        <item>Hafta</item>
+        <item>14 gün</item>
+        <item>Ay</item>
+        <item>3 Ay</item>
+        <item>6 Ay</item>
+        <item>1 Yıl</item>
+        <item>Tümü</item>
+    </array>
+    <array name="period_values">
+        <item>14 gün</item>
+        <item>Ay</item>
+        <item>4 ay</item>
+        <item>6 ay</item>
+        <item>Sene</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 saniye</item>
+        <item>30 saniye</item>
+        <item>1 dakika</item>
+        <item>2 dakika</item>
+        <item>5 dakika</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Son kullanılan</item>
+        <item>3 dakika</item>
+        <item>5 dakika</item>
+        <item>10 dakika</item>
+        <item>15 dakika</item>
+        <item>20 dakika</item>
+        <item>25 dakika</item>
+        <item>30 dakika</item>
+        <item>35 dakika</item>
+        <item>40 dakika</item>
+        <item>45 dakika</item>
+        <item>50 dakika</item>
+        <item>55 dakika</item>
+        <item>1 saat</item>
+        <item>90 dakika</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Limit yok</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Alarm sesini kısma</item>
+        <item>Alarm sesini kıs</item>
+        <item>Alarmı sustur</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>Asla</item>
+        <item>5 dk. önce</item>
+        <item>15 dk. önce</item>
+        <item>30 dk. önce</item>
+        <item>45 dk. önce</item>
+        <item>1 saat önce</item>
+        <item>1 saat 30 dakika önce</item>
+        <item>2 saat önce</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 dk</item>
+        <item>2 dk</item>
+        <item>3 dk</item>
+        <item>4 dk</item>
+        <item>5 dk</item>
+        <item>10 dk</item>
+        <item>15 dk</item>
+        <item>20 dk</item>
+        <item>30 dk</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Ertele</item>
+        <item>Kapat</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Pil %20’nin altındayken</item>
+        <item>Pil %10’un altındayken</item>
+        <item>Pil %5’in altındayken</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 dakika</item>
+        <item>3 dakika</item>
+        <item>5 dakika</item>
+        <item>10 dakika</item>
+        <item>15 dakika</item>
+        <item>20 dakika</item>
+        <item>25 dakika</item>
+        <item>30 dakika</item>
+    </array>
+</resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Қадағалайтын құрылғы ұйқы кезіндегі қозғалысты сезе алатындай жақын ғып қойыңыз</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 секунд</item>
+        <item>1 минут</item>
+        <item>3 минут</item>
+        <item>6 минут</item>
+        <item>9 минут</item>
+        <item>12 минут</item>
+        <item>18 минут</item>
+        <item>24 минут</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 минут</item>
+        <item>2 минут</item>
+        <item>3 минут</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+        <item>40 минут</item>
+        <item>1 сағат</item>
+        <item>2 сағат</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Құрылғы әдепкісі</item>
+        <item>Тек құлаққап</item>
+    </array>
+    <array name="alarm_set">
+        <item>Бұл оятар 1 минуттен кем уақыттан кейін соғады</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %1$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %2$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %1$s және %2$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %3$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %1$s және %3$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %2$s және %3$s</item>
+        <item>Бұл оятар келесі уақытқа қойылды: %1$s, %2$s және %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Бета (тез ояну)</item>
+        <item>Гамма (Өте ынталандырады)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Делта (терең ұйқы)</item>
+        <item>Тета (босаңсу)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Өте жеңіл</item>
+        <item>Жеңіл</item>
+        <item>Орташа</item>
+        <item>Қиын</item>
+        <item>Өте қиын</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 минут</item>
+        <item>2 минут</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+        <item>45 минут</item>
+        <item>60 минут</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Қайту</item>
+        <item>Жарты жыл</item>
+        <item>3 ай</item>
+        <item>2 ай</item>
+        <item>1 ай</item>
+        <item>2 апта</item>
+        <item>Бәрі</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Қараңғы</item>
+        <item>Сағаты бар қараңғы</item>
+        <item>Әрдайым сағатты көрсету</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Ұйқы диаграмасын аутоматты түрде жариялау</item>
+        <item>Ұйқы диаграмасы мен статусты аутоматты түрде жариялау</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>60 минут</item>
+        <item>90 минут</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Акселерометр</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Күшті мызғу</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>40 минут</item>
+        <item>50 минут</item>
+        <item>1 сағат</item>
+        <item>1 сағат 30 мин</item>
+        <item>2 сағат</item>
+    </array>
+    <array name="period_array">
+        <item>Апта</item>
+        <item>14 күн</item>
+        <item>Ай</item>
+        <item>Ширек жыл</item>
+        <item>Жарты жыл</item>
+        <item>Жыл</item>
+        <item>Барлық уақыт</item>
+    </array>
+    <array name="period_values">
+        <item>14 күн</item>
+        <item>Ай</item>
+        <item>Ширек жыл</item>
+        <item>Жарты жыл</item>
+        <item>Жыл</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 секунд</item>
+        <item>30 секунд</item>
+        <item>1 минут</item>
+        <item>2 минут</item>
+        <item>5 минут</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Соңғы рет қолданылды</item>
+        <item>3 минут</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>35 минут</item>
+        <item>40 минут</item>
+        <item>45 минут</item>
+        <item>50 минут</item>
+        <item>55 минут</item>
+        <item>1 сағат</item>
+        <item>90 минут</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Шексіз</item>
+        <item>1х</item>
+        <item>2х</item>
+        <item>3х</item>
+        <item>4х</item>
+        <item>5х</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Толық дауысталған оятар</item>
+        <item>Төмен дауысталған оятар</item>
+        <item>Оятар дауыссыз</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 мин бұрын</item>
+        <item>15 мин бұрын</item>
+        <item>30 мин бұрын</item>
+        <item>45 мин бұрын</item>
+        <item>1 сағат бұрын</item>
+        <item>1 сағат 30 мин бұрын</item>
+        <item>2 сағат бұрын</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 мин</item>
+        <item>2 мин</item>
+        <item>3 мин</item>
+        <item>4 мин</item>
+        <item>5 мин</item>
+        <item>10 мин</item>
+        <item>15 мин</item>
+        <item>20 мин</item>
+        <item>30 мин</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Мызғу</item>
+        <item>Тоқтату</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Батарея &lt;20% кезде</item>
+        <item>Батарея &lt;10% кезде</item>
+        <item>Батарея &lt;5% кезде</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 минут</item>
+        <item>3 минут</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+    </array>
+</resources>

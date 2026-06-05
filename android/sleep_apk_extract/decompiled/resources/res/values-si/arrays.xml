@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ඔබේ නින්දේ චලනය ග්‍රහණය කර ගැනීමට හැකි වන පරිදි ලුහුබැඳීමේ උපාංගය ඔබේ ශරීරයට සමීප බව සහතික කර ගන්න.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>තත්පර 30 යි</item>
+        <item>මිනිත්තු 1 යි</item>
+        <item>විනාඩි 3 යි</item>
+        <item>විනාඩි 6 යි</item>
+        <item>විනාඩි 9 යි</item>
+        <item>විනාඩි 12 යි</item>
+        <item>විනාඩි 18 යි</item>
+        <item>විනාඩි 24 යි</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>මිනිත්තු 1 යි</item>
+        <item>මිනිත්තු 2 යි</item>
+        <item>මිනිත්තු 3 යි</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 30 යි</item>
+        <item>විනාඩි 40 යි</item>
+        <item>පැය 1 යි</item>
+        <item>පැය 2 යි</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>මෙම අනතුරු ඇඟවීම දැන් සිට මිනිත්තු 1කට අඩු කාලයක් සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %1$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %2$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %1$s සහ %2$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %3$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %1$s සහ %3$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %2$s සහ %3$s සඳහා සකසා ඇත.</item>
+        <item>මෙම අනතුරු ඇඟවීම %1$s, %2$s, සහ %3$s සඳහා සකසා ඇත.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>බීටා (වේගවත් අවදි වීම)</item>
+        <item>ගැමා (ඉතා උත්තේජක)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>ඩෙල්ටා (ගැඹුරු නින්ද)</item>
+        <item>තීටා (විවේක ගැනීම)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>ඉතා සරලයි</item>
+        <item>සරල</item>
+        <item>අතරමැදි</item>
+        <item>අමාරුයි</item>
+        <item>ඉතා අමාරුයි</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>තත්පර 10 යි</item>
+        <item>තත්පර 30 යි</item>
+        <item>මිනිත්තු 1 යි</item>
+        <item>මිනිත්තු 2 යි</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 30 යි</item>
+        <item>විනාඩි 45 යි</item>
+        <item>විනාඩි 60 යි</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>අවලංගු කරන්න</item>
+        <item>අර්ධ වසර</item>
+        <item>මාස 3 යි</item>
+        <item>මාස 2 යි</item>
+        <item>මාස 1 යි</item>
+        <item>සති 2 යි</item>
+        <item>සියල්ල</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>අඳුරු</item>
+        <item>ඔරලෝසුව සමඟ අඳුරු කරන්න</item>
+        <item>සැමවිටම ඔරලෝසුවේ</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>නින්ද ප්‍රස්ථාර ස්වයංක්‍රීයව ප්‍රකාශයට පත් කරන්න</item>
+        <item>ප්‍රස්ථාර සහ තත්ත්වය ස්වයංක්‍රීයව ප්‍රකාශයට පත් කරන්න</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 25 යි</item>
+        <item>විනාඩි 30 යි</item>
+        <item>විනාඩි 60 යි</item>
+        <item>මිනිත්තු 90 යි</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>ත්වරණමානය</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>බල නින්ද</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 25 යි</item>
+        <item>විනාඩි 30 යි</item>
+        <item>විනාඩි 40 යි</item>
+        <item>විනාඩි 50 යි</item>
+        <item>පැය 1 යි</item>
+        <item>පැය 1 යි විනාඩි 30 යි</item>
+        <item>පැය 2 යි</item>
+    </array>
+    <array name="period_array">
+        <item>සතිය</item>
+        <item>දින 14 යි</item>
+        <item>මාසය</item>
+        <item>කාර්තු වර්ෂය</item>
+        <item>අර්ධ වසර</item>
+        <item>වර්ෂය</item>
+        <item>සියලු කාලය</item>
+    </array>
+    <array name="period_values">
+        <item>දින 14 යි</item>
+        <item>මාසය</item>
+        <item>කාර්තු වර්ෂය</item>
+        <item>අර්ධ වසර</item>
+        <item>වර්ෂය</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>තත්පර 10 යි</item>
+        <item>තත්පර 30 යි</item>
+        <item>මිනිත්තු 1 යි</item>
+        <item>මිනිත්තු 2 යි</item>
+        <item>විනාඩි 5 යි</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>විනාඩි 3 යි</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 25 යි</item>
+        <item>විනාඩි 30 යි</item>
+        <item>විනාඩි 35 යි</item>
+        <item>විනාඩි 40 යි</item>
+        <item>විනාඩි 45 යි</item>
+        <item>විනාඩි 50 යි</item>
+        <item>විනාඩි 55 යි</item>
+        <item>පැය 1 යි</item>
+        <item>මිනිත්තු 90 යි</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>සම්පූර්ණ අනතුරු ඇඟවීමේ ශබ්දය</item>
+        <item>අඩු අනතුරු ඇඟවීමේ ශබ්දය</item>
+        <item>අනතුරු ඇඟවීම නිහඬයි</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>මිනිත්තු 5කට පෙර</item>
+        <item>මිනිත්තු 15කට පෙර</item>
+        <item>මිනිත්තු 30කට පෙර</item>
+        <item>මිනිත්තු 45කට පෙර</item>
+        <item>පැය 1කට පෙර</item>
+        <item>පැය 1 විනාඩි 30 කට පෙර</item>
+        <item>පැය 2කට පෙර</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>විනාඩි 1</item>
+        <item>විනාඩි 2 යි</item>
+        <item>විනාඩි 3</item>
+        <item>විනාඩි 4</item>
+        <item>විනාඩි 5</item>
+        <item>විනාඩි 10</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20</item>
+        <item>විනාඩි 30</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>මඳක් නිදි කරන්න</item>
+        <item>අස් කරන්න</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>බැටරිය &lt;20% ට අඩු වූ විට</item>
+        <item>බැටරිය &lt;10% ක් වූ විට</item>
+        <item>බැටරිය &lt;5% ක් වූ විට</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>මිනිත්තු 1 යි</item>
+        <item>විනාඩි 3 යි</item>
+        <item>විනාඩි 5 යි</item>
+        <item>විනාඩි 10 යි</item>
+        <item>විනාඩි 15 යි</item>
+        <item>විනාඩි 20 යි</item>
+        <item>විනාඩි 25 යි</item>
+        <item>විනාඩි 30 යි</item>
+    </array>
+</resources>

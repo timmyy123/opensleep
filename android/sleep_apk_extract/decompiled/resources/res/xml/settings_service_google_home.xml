@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/service_google_home">
+    <PreferenceCategory
+        android:layout="@layout/category_empty"
+        android:key="settings_category_google_home_enabled">
+        <com.urbandroid.sleep.gui.EnablePreference
+            android:layout="@layout/preference_enable"
+            android:key="settings_google_home_automation"
+            android:widgetLayout="@layout/preference_switch_widget"
+            android:defaultValue="false"
+            android:summaryOn="@string/enabled"
+            android:summaryOff="@string/disabled"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout="@layout/category"
+        android:key="settings_category_google_home_automation">
+        <Preference
+            android:icon="@drawable/ic_feature_bedtime"
+            android:layout="@layout/preference_card"
+            android:title="@string/time_to_bed_title"
+            android:key="settings_google_home_automation_bedtime"/>
+        <Preference
+            android:icon="@drawable/ic_lullaby_clock"
+            android:layout="@layout/preference_card"
+            android:title="@string/default_label"
+            android:key="settings_google_home_automation_alarm"/>
+        <Preference
+            android:icon="@drawable/ic_captcha_lightcaptcha"
+            android:layout="@layout/preference_card"
+            android:title="@string/category_wake_up"
+            android:key="settings_google_home_automation_wake_up"/>
+    </PreferenceCategory>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="center"
+        android:height="@dimen/m3_toolbar_button_circle_size"
+        android:width="@dimen/m3_toolbar_button_circle_size">
+        <shape android:shape="oval">
+            <solid android:color="?attr/toolbarNavigationButtonCircleColor"/>
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:drawable="?attr/controlBackground"/>
+</layer-list>

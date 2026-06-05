@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Forsikre deg om at enheten som sporer søvnen din er nær kroppen din for å kunne fange opp bevegelser mens du sover.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekunder</item>
+        <item>1 minutt</item>
+        <item>3 minutter</item>
+        <item>6 minutter</item>
+        <item>9 minutter</item>
+        <item>12 minutter</item>
+        <item>18 minutter</item>
+        <item>24 minutter</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minutt</item>
+        <item>2 minutter</item>
+        <item>3 minutter</item>
+        <item>4 minutter</item>
+        <item>10 minutter</item>
+        <item>20 minutter</item>
+        <item>30 minutter</item>
+        <item>40 minutter</item>
+        <item>1 time</item>
+        <item>2 timer</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Standard for enheten</item>
+        <item>Tving bruk av hodetelefoner</item>
+    </array>
+    <array name="alarm_set">
+        <item>Alarmen ringer om mindre enn ett minutt.</item>
+        <item>Alarmen ringer om %1$s.</item>
+        <item>Alarmen ringer om %2$s.</item>
+        <item>Alarmen ringer om %1$s og %2$s.</item>
+        <item>Alarmen ringer om %3$s.</item>
+        <item>Alarmen ringer om %1$s og %3$s.</item>
+        <item>Alarmen ringer om %2$s og %3$s.</item>
+        <item>Alarmen ringer om %1$s,%2$s, og %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta - Rask oppvåkning</item>
+        <item>Gamma - høystimulerende</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Deep sleep) Dyp søvn</item>
+        <item>Theta (Relaxing) Slapper av</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Veldig enkel</item>
+        <item>Enkel</item>
+        <item>Middels</item>
+        <item>Vanskelig</item>
+        <item>Veldig vanskelig</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>Av</item>
+        <item>10 sekunder</item>
+        <item>30 sekunder</item>
+        <item>1 minutt</item>
+        <item>2 minutter</item>
+        <item>5 minutter</item>
+        <item>10 minutter</item>
+        <item>15 minutter</item>
+        <item>20 minutter</item>
+        <item>30 minutter</item>
+        <item>45 minutter</item>
+        <item>60 minutter</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Avbryt</item>
+        <item>Halvt år</item>
+        <item>3 måneder</item>
+        <item>2 måneder</item>
+        <item>1 måned</item>
+        <item>2 uker</item>
+        <item>Alle</item>
+    </array>
+    <array name="dimm_entries">
+        <item>Aldri</item>
+        <item>Dim</item>
+        <item>Dim med klokke</item>
+        <item>Clock screen on</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Last opp grafer automatisk</item>
+        <item>Last opp status og grafer automatisk</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minutter</item>
+        <item>10 minutter</item>
+        <item>15 minutter</item>
+        <item>20 minutter</item>
+        <item>25 minutter</item>
+        <item>30 minutter</item>
+        <item>60 minutter</item>
+        <item>90 minutter</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akselerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>Av</item>
+        <item>Høneblund (Power Nap)</item>
+        <item>5 minutter</item>
+        <item>10 minutter</item>
+        <item>15 minutter</item>
+        <item>20 minutter</item>
+        <item>25 minutter</item>
+        <item>30 minutter</item>
+        <item>40 minutter</item>
+        <item>50 minutter</item>
+        <item>1 time</item>
+        <item>1 time 30 min</item>
+        <item>2 timer</item>
+    </array>
+    <array name="period_array">
+        <item>Uke</item>
+        <item>14 dager</item>
+        <item>Måned</item>
+        <item>Kvartal</item>
+        <item>Halvt år</item>
+        <item>År</item>
+        <item>Alle</item>
+    </array>
+    <array name="period_values">
+        <item>14 dager</item>
+        <item>En måned</item>
+        <item>Et kvart år</item>
+        <item>Et halvt år</item>
+        <item>Et år</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekunder</item>
+        <item>30 sekunder</item>
+        <item>1 minutt</item>
+        <item>2 minutes</item>
+        <item>5 minutter</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Sist brukt</item>
+        <item>3 minutter</item>
+        <item>5 minutter</item>
+        <item>10 minutter</item>
+        <item>15 minutter</item>
+        <item>20 minutter</item>
+        <item>25 minutter</item>
+        <item>30 minutter</item>
+        <item>35 minutter</item>
+        <item>40 minutter</item>
+        <item>45 minutter</item>
+        <item>50 minutter</item>
+        <item>55 minutter</item>
+        <item>1 time</item>
+        <item>90 minutter</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Ingen grense</item>
+        <item>1 Gang</item>
+        <item>2 Ganger</item>
+        <item>3 Ganger</item>
+        <item>4 Ganger</item>
+        <item>5 Ganger</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Fullt volum på alarm</item>
+        <item>Lavt volum på alarm</item>
+        <item>Alarm er stille</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>Aldri</item>
+        <item>5 min. før</item>
+        <item>15 min. før</item>
+        <item>30 min. før</item>
+        <item>45 min. før</item>
+        <item>1 time før</item>
+        <item>1 time og 30 min. før</item>
+        <item>2 timer før</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>Ingen</item>
+        <item>Slumre</item>
+        <item>Avslutt</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Når batteri &lt;20%</item>
+        <item>Når batteri &lt;10%</item>
+        <item>Når batteri &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minutt</item>
+        <item>3 minutter</item>
+        <item>5 minutter</item>
+        <item>10 minutter</item>
+        <item>15 minutter</item>
+        <item>20 minutter</item>
+        <item>25 minutter</item>
+        <item>30 minutter</item>
+    </array>
+</resources>

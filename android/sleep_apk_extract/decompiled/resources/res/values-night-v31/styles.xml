@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.sleep.Launcher" parent="@style/Theme.sleep">
+        <item name="android:windowBackground">@color/bg_main</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowSplashScreenBackground">@color/bg_main</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/night_splash_animated</item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <item name="colorPrimary">@color/barDark</item>
+        <item name="colorPrimaryDark">@color/barDark_dark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

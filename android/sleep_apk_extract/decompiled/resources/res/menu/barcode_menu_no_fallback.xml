@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_flashlight_white"
+        android:id="@+id/flashlight"
+        android:title="@string/smartlight_peelight"
+        app:showAsAction="always"/>
+</menu>

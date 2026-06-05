@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Sigurohuni që pajisja gjurmuese të jetë afër trupit tuaj në gjendje të kapë lëvizjen tuaj të gjumit</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekonda</item>
+        <item>1 minutë</item>
+        <item>3 minuta</item>
+        <item>6 minuta</item>
+        <item>9 minuta</item>
+        <item>12 minuta</item>
+        <item>18 minuta</item>
+        <item>24 minuta</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minutë</item>
+        <item>2 minuta</item>
+        <item>3 minuta</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>20 minuta</item>
+        <item>30 minuta</item>
+        <item>40 minuta</item>
+        <item>1 orë</item>
+        <item>2 orë</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Ky alarm është vendosur për të rënë në më pak se 1 min</item>
+        <item>Ky alarm është vendosur për %1$s</item>
+        <item>Ky alarm është vendosur për %2$s</item>
+        <item>Ky alarm është vendosur për %1$s dhe %2$s</item>
+        <item>Ky alarm është vendosur për %3$s</item>
+        <item>Ky alarm është vendosur për %1$s dhe %3$s</item>
+        <item>Ky alarm është vendosur për %2$s dhe %3$s</item>
+        <item>Ky alarm është vendosur për %1$s, %2$s, dhe %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Zgjim i shpejtë)</item>
+        <item>Gamma (Stimulim i lartë)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Gjumë i thellë)</item>
+        <item>Theta (Relaksim)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Shumë e thjeshtë</item>
+        <item>E thjeshtë</item>
+        <item>E ndërmjetme</item>
+        <item>E vështirë</item>
+        <item>Shumë e vështirë</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekonda</item>
+        <item>30 sekonda</item>
+        <item>1 minutë</item>
+        <item>2 minuta</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>30 minuta</item>
+        <item>45 minuta</item>
+        <item>60 minuta</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Anulo</item>
+        <item>Gjysmë viti</item>
+        <item>3 muaj</item>
+        <item>2 muaj</item>
+        <item>1 muaj</item>
+        <item>2 javë</item>
+        <item>Të gjitha</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Vagëllim</item>
+        <item>Vagëllim me orë</item>
+        <item>Ora gjithmonë e dukshme</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Publiko automatikisht grafikët e gjumit</item>
+        <item>Publiko automatikisht grafikët dhe gjëndjen</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>60 minuta</item>
+        <item>90 minuta</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akselerometri</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Dremitje force</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>40 minuta</item>
+        <item>50 minuta</item>
+        <item>1 orë</item>
+        <item>1 orë e 30 minuta</item>
+        <item>2 orë</item>
+    </array>
+    <array name="period_array">
+        <item>Javë</item>
+        <item>14 ditë</item>
+        <item>Muaj</item>
+        <item>Viti tremujor</item>
+        <item>Gjysëm viti</item>
+        <item>Viti</item>
+        <item>Gjithe kohes</item>
+    </array>
+    <array name="period_values">
+        <item>14 ditë</item>
+        <item>Muaj</item>
+        <item>Viti tremujor</item>
+        <item>Gjysëm viti</item>
+        <item>Viti</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekonda</item>
+        <item>30 sekonda</item>
+        <item>1 minutë</item>
+        <item>2 minuta</item>
+        <item>5 minuta</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Përdorimi i fundit</item>
+        <item>3 minuta</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+        <item>35 minuta</item>
+        <item>40 minuta</item>
+        <item>45 minuta</item>
+        <item>50 minuta</item>
+        <item>55 minuta</item>
+        <item>1 orë</item>
+        <item>90 minuta</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Pa kufizim</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Volumi maksimal i alarmit</item>
+        <item>Volumi i ultë i alarmit</item>
+        <item>Alarmi është i heshtur</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 minuta përpara</item>
+        <item>15 minuta përpara</item>
+        <item>30 minuta përpara</item>
+        <item>45 minuta përpara</item>
+        <item>1 orë përpara</item>
+        <item>1 orë e 30 minuta përpara</item>
+        <item>2 orë përpara</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Shty</item>
+        <item>Largo</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Kur bateria &lt;20%</item>
+        <item>Kur bateria &lt;10%</item>
+        <item>Kur bateria &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minutë</item>
+        <item>3 minuta</item>
+        <item>5 minuta</item>
+        <item>10 minuta</item>
+        <item>15 minuta</item>
+        <item>20 minuta</item>
+        <item>25 minuta</item>
+        <item>30 minuta</item>
+    </array>
+</resources>

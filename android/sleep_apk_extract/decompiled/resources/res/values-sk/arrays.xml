@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Uistite sa, že máte zariadenie dostatočne blízko tela, aby mohlo zaznamenávať váš pohyb</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekúnd</item>
+        <item>1 minútu</item>
+        <item>3 minúty</item>
+        <item>6 minút</item>
+        <item>9 minút</item>
+        <item>12 minút</item>
+        <item>18 minút</item>
+        <item>24 minút</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minúta</item>
+        <item>2 minúty</item>
+        <item>3 minúty</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>20 minút</item>
+        <item>30 minút</item>
+        <item>40 minút</item>
+        <item>1 hodina</item>
+        <item>2 hodiny</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Predvolené nastavenie zariadenia</item>
+        <item>Iba slúchadlá</item>
+    </array>
+    <array name="alarm_set">
+        <item>Alarm sa spustí o necelú minútu.</item>
+        <item>Alarm sa spustí o %1$s.</item>
+        <item>Alarm sa spustí o %2$s.</item>
+        <item>Alarm sa spustí o %1$s a %2$s.</item>
+        <item>Alarm sa spustí o %3$s.</item>
+        <item>Alarm sa spustí o %1$s a %3$s.</item>
+        <item>Alarm sa spustí o %2$s a %3$s.</item>
+        <item>Alarm sa spustí o %1$s,%2$s, a %3$s.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Prebudení)</item>
+        <item>Gamma (Stimulačné)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>Vypnuté</item>
+        <item>Delta (Hlboký spánok)</item>
+        <item>Theta (Relaxácia a meditácia)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Veľmi jednoduchá</item>
+        <item>Jednoduchá</item>
+        <item>Mierne obtiažna</item>
+        <item>Náročná</item>
+        <item>Veľmi náročná</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>Vypnuté</item>
+        <item>10 sekúnd</item>
+        <item>30 sekúnd</item>
+        <item>1 minúta</item>
+        <item>2 minúty</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>15 minút</item>
+        <item>20 minút</item>
+        <item>30 minút</item>
+        <item>45 minút</item>
+        <item>60 minút</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Zrušiť</item>
+        <item>Pol roka</item>
+        <item>3 mesiace</item>
+        <item>2 mesiace</item>
+        <item>1 mesiac</item>
+        <item>2 týždne</item>
+        <item>Všetko</item>
+    </array>
+    <array name="dimm_entries">
+        <item>Nikdy</item>
+        <item>Stmievať</item>
+        <item>Stmievať a zobrazovať hodiny</item>
+        <item>Vždy zobrazovať hodiny</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Automaticky zverejňovať grafy spánku</item>
+        <item>Automaticky zverejňovať grafy spánku a informácie o tom, či spíte</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>15 minút</item>
+        <item>20 minút</item>
+        <item>25 minút</item>
+        <item>30 minút</item>
+        <item>60 minút</item>
+        <item>90 minút</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Akcelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>Vypnuté</item>
+        <item>Zdriemnuť si</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>15 minút</item>
+        <item>20 minút</item>
+        <item>25 minút</item>
+        <item>30 minút</item>
+        <item>40 minút</item>
+        <item>50 minút</item>
+        <item>1 hodina</item>
+        <item>1 hodina 30 min</item>
+        <item>2 hodiny</item>
+    </array>
+    <array name="period_array">
+        <item>Týždeň</item>
+        <item>14 dní</item>
+        <item>Mesiac</item>
+        <item>Štvrťrok</item>
+        <item>Polrok</item>
+        <item>Rok</item>
+        <item>Všetko</item>
+    </array>
+    <array name="period_values">
+        <item>14 dní</item>
+        <item>Mesiac</item>
+        <item>Štvrťrok</item>
+        <item>Polrok</item>
+        <item>Rok</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekúnd</item>
+        <item>30 sekúnd</item>
+        <item>1 minúta</item>
+        <item>2 minúty</item>
+        <item>5 minút</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Zvoliť pri zvonení</item>
+        <item>3 minúty</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>15 minút</item>
+        <item>20 minút</item>
+        <item>25 minút</item>
+        <item>30 minút</item>
+        <item>35 minút</item>
+        <item>40 minút</item>
+        <item>45 minút</item>
+        <item>50 minút</item>
+        <item>55 minút</item>
+        <item>60 minút</item>
+        <item>90 minút</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Bez limitu</item>
+        <item>1-krát</item>
+        <item>2-krát</item>
+        <item>3-krát</item>
+        <item>4-krát</item>
+        <item>5-krát</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Alarm hrá na maximálnu hlasitosť</item>
+        <item>Alarm je stíšený</item>
+        <item>Alarm nehrá</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>Nikdy</item>
+        <item>5 min. predtým</item>
+        <item>15 min. predtým</item>
+        <item>30 min. predtým</item>
+        <item>45 min. predtým</item>
+        <item>1 hod. predtým</item>
+        <item>1 a pol hod. predtým</item>
+        <item>2 hod. predtým</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>Nič</item>
+        <item>Odložiť</item>
+        <item>Ukončiť</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>Nikdy</item>
+        <item>Keď má batéria &lt;20 percent</item>
+        <item>Keď má batéria &lt;10 percent</item>
+        <item>Keď má batéria &lt;5 percent</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minúta</item>
+        <item>3 minúty</item>
+        <item>5 minút</item>
+        <item>10 minút</item>
+        <item>15 minút</item>
+        <item>20 minút</item>
+        <item>25 minút</item>
+        <item>30 minút</item>
+    </array>
+</resources>

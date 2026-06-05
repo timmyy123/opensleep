@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Bizonyosodj meg róla, hogy a telefonod a közeledben van, hogy mérni tudja az alvás közbeni mozgásodat</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 másodperc</item>
+        <item>1 perc</item>
+        <item>3 perc</item>
+        <item>6 perc</item>
+        <item>9 perc</item>
+        <item>12 perc</item>
+        <item>18 perc</item>
+        <item>24 perc</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>3 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>20 perc</item>
+        <item>30 perc</item>
+        <item>40 perc</item>
+        <item>1 óra</item>
+        <item>2 óra</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>Fejhallgató</item>
+    </array>
+    <array name="alarm_set">
+        <item>Ébresztés kevesebb mint egy percen belül</item>
+        <item>Ébresztés %1$s múlva</item>
+        <item>Ébresztés %2$s múlva</item>
+        <item>Ébresztés %1$s és %2$s múlva</item>
+        <item>Ébresztés %3$s múlva</item>
+        <item>Ébresztés %1$s és %3$s múlva</item>
+        <item>Ébresztés %2$s és %3$s múlva</item>
+        <item>Ébresztés %1$s,%2$s és %3$s múlva</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Gyors ébredés)</item>
+        <item>Gamma (Erősen stimuláló)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Mély alvás)</item>
+        <item>Theta (Relaxáció)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Nagyon könnyű</item>
+        <item>Könnyű</item>
+        <item>Közepes</item>
+        <item>Nehéz</item>
+        <item>Nagyon nehéz</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 másodperc</item>
+        <item>30 másodperc</item>
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>30 perc</item>
+        <item>45 perc</item>
+        <item>60 perc</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Mégse</item>
+        <item>Fél év</item>
+        <item>3 hónap</item>
+        <item>2 hónap</item>
+        <item>1 hónap</item>
+        <item>2 hét</item>
+        <item>Mind</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Halványítás</item>
+        <item>Halványítás órával</item>
+        <item>Óra folyamatos kijelzése</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Automatikus grafikon megosztás</item>
+        <item>Automatikus grafikon és státusz megosztás</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>25 perc</item>
+        <item>30 perc</item>
+        <item>60 perc</item>
+        <item>90 perc</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Gyorsulásmérő</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Szieszta</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>25 perc</item>
+        <item>30 perc</item>
+        <item>40 perc</item>
+        <item>50 perc</item>
+        <item>1 óra</item>
+        <item>1 óra 30 perc</item>
+        <item>2 óra</item>
+    </array>
+    <array name="period_array">
+        <item>Hét</item>
+        <item>14 nap</item>
+        <item>Hónap</item>
+        <item>Negyed év</item>
+        <item>Fél év</item>
+        <item>Év</item>
+        <item>Minden</item>
+    </array>
+    <array name="period_values">
+        <item>14 nap</item>
+        <item>Hónap</item>
+        <item>Negyed év</item>
+        <item>Fél év</item>
+        <item>Év</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 másodperc</item>
+        <item>30 másodperc</item>
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>5 perc</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Utoljára használt</item>
+        <item>3 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>25 perc</item>
+        <item>30 perc</item>
+        <item>35 perc</item>
+        <item>40 perc</item>
+        <item>45 perc</item>
+        <item>50 perc</item>
+        <item>55 perc</item>
+        <item>1 óra</item>
+        <item>90 perc</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Nincs korlát</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Ébresztés teljes hangerőn</item>
+        <item>Ébresztés minimális hangerőn</item>
+        <item>Ébresztés hang nélkül</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 perccel előtte</item>
+        <item>15 perccel előtte</item>
+        <item>30 perccel előtte</item>
+        <item>45 perccel előtte</item>
+        <item>1 órával előtte</item>
+        <item>másfél órával előtte</item>
+        <item>2 órával előtte</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>3 perc</item>
+        <item>4 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>30 perc</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Szundi</item>
+        <item>Leállítás</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Ha a töltöttség &lt;20%</item>
+        <item>Ha a töltöttség &lt;10%</item>
+        <item>Ha a töltöttség &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 perc</item>
+        <item>3 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>20 perc</item>
+        <item>25 perc</item>
+        <item>30 perc</item>
+    </array>
+</resources>

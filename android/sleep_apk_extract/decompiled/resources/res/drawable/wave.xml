@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="150dp"
+    android:width="560dp"
+    android:viewportWidth="160"
+    android:viewportHeight="150">
+    <group android:name="wave">
+        <path
+            android:pathData="M0,75 q5,75,10,0 t10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0 10,0"
+            android:strokeColor="@color/tint"
+            android:strokeWidth="5"
+            android:strokeLineJoin="miter"/>
+    </group>
+</vector>

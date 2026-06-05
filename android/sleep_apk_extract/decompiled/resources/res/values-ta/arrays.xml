@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>கண்காணிப்பு சாதனம் உங்கள் உடலுக்கு அருகில் இருப்பதை உறுதிசெய்து கொள்ளுங்கள், இதனால் உங்கள் தூக்க அசைவுகளைப் பதிவுசெய்ய முடியும்.</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 வினாடிகள்</item>
+        <item>1 நிமிடம்</item>
+        <item>3 நிமிடங்கள்</item>
+        <item>6 நிமிடங்கள்</item>
+        <item>9 நிமிடங்கள்</item>
+        <item>12 நிமிடங்கள்</item>
+        <item>18 நிமிடங்கள்</item>
+        <item>24 நிமிடங்கள்</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 நிமிடம்</item>
+        <item>2 நிமிடங்கள்</item>
+        <item>3 நிமிடங்கள்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+        <item>40 நிமிடங்கள்</item>
+        <item>1 மணி நேரம்</item>
+        <item>2 மணி நேரம்</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>இந்த அலாரம் இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவாகவே அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %1$sக்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %2$sக்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %1$s மற்றும் %2$s க்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %3$sக்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %1$s மற்றும் %3$s க்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %2$s மற்றும் %3$s க்கு அமைக்கப்பட்டுள்ளது.</item>
+        <item>இந்த அலாரம் %1$s, %2$s, மற்றும் %3$s ஆகியவற்றுக்கு அமைக்கப்பட்டுள்ளது.</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>பீட்டா (விரைவான விழிப்பு)</item>
+        <item>காமா (மிகவும் தூண்டுதல்)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>டெல்டா (ஆழ்ந்த தூக்கம்)</item>
+        <item>தீட்டா (ஓய்வெடுக்கும்)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>மிகவும் எளிமையானது</item>
+        <item>எளிமையானது</item>
+        <item>இடைநிலை</item>
+        <item>கடினமானது</item>
+        <item>மிகவும் கடினம்</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 வினாடிகள்</item>
+        <item>30 வினாடிகள்</item>
+        <item>1 நிமிடம்</item>
+        <item>2 நிமிடங்கள்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+        <item>45 நிமிடங்கள்</item>
+        <item>60 நிமிடங்கள்</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>ரத்துசெய்</item>
+        <item>அரை வருடம்</item>
+        <item>3 மாதங்கள்</item>
+        <item>2 மாதங்கள்</item>
+        <item>1 மாதம்</item>
+        <item>2 வாரங்கள்</item>
+        <item>அனைத்தும்</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>மங்கலான</item>
+        <item>கடிகாரத்துடன் மங்கலாக்குங்கள்</item>
+        <item>எப்போதும் கடிகாரத்தில்</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>தூக்க வரைபடங்களைத் தானாக வெளியிடு</item>
+        <item>வரைபடங்கள் மற்றும் நிலையைத் தானாக வெளியிடு</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>25 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+        <item>60 நிமிடங்கள்</item>
+        <item>90 நிமிடங்கள்</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>முடுக்கமானி</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>பவர் குட்நைட்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>25 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+        <item>40 நிமிடங்கள்</item>
+        <item>50 நிமிடங்கள்</item>
+        <item>1 மணி நேரம்</item>
+        <item>1 மணி 30 நிமிடம்</item>
+        <item>2 மணி நேரம்</item>
+    </array>
+    <array name="period_array">
+        <item>வாரம்</item>
+        <item>14 நாட்கள்</item>
+        <item>மாதம்</item>
+        <item>காலாண்டு ஆண்டு</item>
+        <item>அரை வருடம்</item>
+        <item>ஆண்டு</item>
+        <item>எல்லா நேரமும்</item>
+    </array>
+    <array name="period_values">
+        <item>14 நாட்கள்</item>
+        <item>மாதம்</item>
+        <item>காலாண்டு ஆண்டு</item>
+        <item>அரை வருடம்</item>
+        <item>ஆண்டு</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 வினாடிகள்</item>
+        <item>30 வினாடிகள்</item>
+        <item>1 நிமிடம்</item>
+        <item>2 நிமிடங்கள்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 நிமிடங்கள்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>25 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+        <item>35 நிமிடங்கள்</item>
+        <item>40 நிமிடங்கள்</item>
+        <item>45 நிமிடங்கள்</item>
+        <item>50 நிமிடங்கள்</item>
+        <item>55 நிமிடங்கள்</item>
+        <item>1 மணி நேரம்</item>
+        <item>90 நிமிடங்கள்</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x (1x)</item>
+        <item>2x</item>
+        <item>3x (3x)</item>
+        <item>4x பிக்சல்கள்</item>
+        <item>5x பிக்சல்கள்</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>முழு அலாரம் ஒலியளவு</item>
+        <item>குறைந்த அலாரம் ஒலியளவு</item>
+        <item>அலாரம் அமைதியாக உள்ளது</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 நிமிடங்களுக்கு முன்பு</item>
+        <item>15 நிமிடங்களுக்கு முன்பு</item>
+        <item>30 நிமிடங்களுக்கு முன்பு</item>
+        <item>45 நிமிடங்களுக்கு முன்பு</item>
+        <item>1 மணி நேரத்திற்கு முன்பு</item>
+        <item>1 மணி நேரம் 30 நிமிடங்களுக்கு முன்பு</item>
+        <item>2 மணி நேரத்திற்கு முன்பு</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 நிமிடம்</item>
+        <item>2 நிமிடம்</item>
+        <item>3 நிமிடம்</item>
+        <item>4 நிமிடம்</item>
+        <item>5 நிமிடம்</item>
+        <item>10 நிமிடம்</item>
+        <item>15 நிமிடம்</item>
+        <item>20 நிமிடம்</item>
+        <item>30 நிமிடம்</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>உறக்கநிலையில் வை</item>
+        <item>நிராகரி</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>பேட்டரி &lt;20% க்கும் குறைவாக இருக்கும்போது</item>
+        <item>பேட்டரி &lt;10% இருக்கும்போது</item>
+        <item>பேட்டரி &lt;5% க்குக் கீழே இருக்கும்போது</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 நிமிடம்</item>
+        <item>3 நிமிடங்கள்</item>
+        <item>5 நிமிடங்கள்</item>
+        <item>10 நிமிடங்கள்</item>
+        <item>15 நிமிடங்கள்</item>
+        <item>20 நிமிடங்கள்</item>
+        <item>25 நிமிடங்கள்</item>
+        <item>30 நிமிடங்கள்</item>
+    </array>
+</resources>

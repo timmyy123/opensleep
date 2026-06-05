@@ -1,0 +1,14 @@
+package com.google.android.gms.fitness.data;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+
+/* JADX INFO: loaded from: classes3.dex */
+public abstract class zzj {
+    public static final /* synthetic */ int $r8$clinit = 0;
+
+    static {
+        Collections.unmodifiableSet(new HashSet(Arrays.asList(DataType.TYPE_MOVE_MINUTES, DataType.AGGREGATE_MOVE_MINUTES, DataType.TYPE_WORKOUT_EXERCISE, DataType.zzg, DataType.TYPE_ACTIVITY_SEGMENT, DataType.AGGREGATE_ACTIVITY_SUMMARY, HealthDataTypes.TYPE_BLOOD_GLUCOSE, HealthDataTypes.AGGREGATE_BLOOD_GLUCOSE_SUMMARY, HealthDataTypes.TYPE_BLOOD_PRESSURE, HealthDataTypes.AGGREGATE_BLOOD_PRESSURE_SUMMARY, DataType.TYPE_BODY_FAT_PERCENTAGE, DataType.AGGREGATE_BODY_FAT_PERCENTAGE_SUMMARY, HealthDataTypes.TYPE_BODY_TEMPERATURE, HealthDataTypes.AGGREGATE_BODY_TEMPERATURE_SUMMARY, DataType.TYPE_BASAL_METABOLIC_RATE, DataType.AGGREGATE_BASAL_METABOLIC_RATE_SUMMARY, DataType.TYPE_CALORIES_EXPENDED, DataType.AGGREGATE_CALORIES_EXPENDED, HealthDataTypes.TYPE_CERVICAL_MUCUS, HealthDataTypes.TYPE_CERVICAL_POSITION, DataType.TYPE_CYCLING_PEDALING_CADENCE, DataType.TYPE_CYCLING_PEDALING_CUMULATIVE, DataType.TYPE_CYCLING_WHEEL_REVOLUTION, DataType.TYPE_CYCLING_WHEEL_RPM, DataType.zzf, DataType.TYPE_DISTANCE_DELTA, DataType.AGGREGATE_DISTANCE_DELTA, DataType.TYPE_HEART_POINTS, DataType.AGGREGATE_HEART_POINTS, DataType.TYPE_HEART_RATE_BPM, DataType.AGGREGATE_HEART_RATE_SUMMARY, DataType.TYPE_HEIGHT, DataType.AGGREGATE_HEIGHT_SUMMARY, DataType.TYPE_HYDRATION, DataType.AGGREGATE_HYDRATION, DataType.zzp, DataType.zzF, DataType.zzB, DataType.zzA, DataType.zzo, DataType.zzs, DataType.zzS, DataType.zzP, DataType.zzR, DataType.zzI, DataType.zzO, DataType.zzw, DataType.zza, DataType.zzD, DataType.zzL, DataType.zzy, DataType.zzz, DataType.zzm, DataType.zzr, DataType.zzu, DataType.zzl, DataType.zzt, DataType.zzv, DataType.zzj, DataType.zzx, DataType.zzM, DataType.zzH, DataType.zzq, DataType.zzn, DataType.zzh, DataType.zzG, DataType.zzb, DataType.zzi, DataType.zzJ, DataType.zzc, DataType.zzN, DataType.zzQ, DataType.zzC, DataType.zzK, DataType.zzE, DataType.AGGREGATE_LOCATION_BOUNDING_BOX, DataType.TYPE_LOCATION_SAMPLE, DataType.TYPE_LOCATION_TRACK, HealthDataTypes.TYPE_MENSTRUATION, DataType.TYPE_NUTRITION, DataType.AGGREGATE_NUTRITION_SUMMARY, HealthDataTypes.TYPE_OVULATION_TEST, HealthDataTypes.TYPE_OXYGEN_SATURATION, HealthDataTypes.AGGREGATE_OXYGEN_SATURATION_SUMMARY, DataType.TYPE_POWER_SAMPLE, DataType.AGGREGATE_POWER_SUMMARY, DataType.zze, DataType.zzd, DataType.TYPE_SLEEP_SEGMENT, DataType.TYPE_SPEED, DataType.AGGREGATE_SPEED_SUMMARY, DataType.TYPE_STEP_COUNT_CADENCE, DataType.TYPE_STEP_COUNT_CUMULATIVE, DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA, DataType.zzk, HealthDataTypes.TYPE_VAGINAL_SPOTTING, DataType.TYPE_WEIGHT, DataType.AGGREGATE_WEIGHT_SUMMARY)));
+    }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="1200dp"
+    android:width="1200dp"
+    android:viewportWidth="317.5"
+    android:viewportHeight="317.5">
+    <group android:translateY="-77">
+        <group
+            android:name="sun"
+            android:scaleX="0.508"
+            android:scaleY="0.508"
+            android:translateX="334.7921"
+            android:translateY="241.1682">
+            <group
+                android:scaleX="1.3099"
+                android:scaleY="1.3099"
+                android:translateX="-739.5222"
+                android:translateY="-341.7796">
+                <path
+                    android:name="sun_aura"
+                    android:fillColor="#ffc107"
+                    android:pathData="M300 148.0918c-27.40634 0 -54.64423 11.28094 -74.02344 30.66015 -19.37921 19.37921 -30.66015 46.6171 -30.66015 74.02344 0 27.40634 11.28094 54.64423 30.66015 74.02344 19.37921 19.37921 46.6171 30.66015 74.02344 30.66015 27.40634 0 54.64423 -11.28094 74.02344 -30.66015 19.37921 -19.37921 30.66015 -46.6171 30.66015 -74.02344 0 -27.40634 -11.28094 -54.64423 -30.66015 -74.02344C354.64423 159.37274 327.40634 148.0918 300 148.0918Z"
+                    android:fillAlpha="0.3326"/>
+            </group>
+            <path
+                android:name="sun_core"
+                android:fillColor="@drawable/_day_splash__0_res_0x7f080055"
+                android:pathData="M-233.1991 -10.66435A113.3484 113.3484 0 0 1 -459.8959 -10.66435A113.3484 113.3484 0 0 1 -233.1991 -10.66435Z"
+                android:fillAlpha="1"/>
+        </group>
+        <group
+            android:scaleX="0.6572"
+            android:scaleY="0.6572"
+            android:translateX="496.6817"
+            android:translateY="242.4326">
+            <path
+                android:fillColor="@drawable/_day_splash__1_res_0x7f080056"
+                android:pathData="M-514.40682 -46.3433c33.77206 0.0256 64.14628 20.55335 76.76475 51.87949 0 0 19.10735 110.44724 24.63983 113.64141v0.1325h-2.64396 -212.35288v-0.0646c-0.42835 0.0307 -0.85731 0.0522 -1.28658 0.0646 -16.54543 -0.00033 -29.95795 -13.41317 -29.9579 -29.95861 0.0169 -14.62689 10.59371 -27.10322 25.02053 -29.51412 3.72852 -19.85271 18.98774 -35.53983 38.72976 -39.81582 7.82377 -38.58001 41.72119 -66.3232 81.08645 -66.36485z"/>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M-369.1919 58.36714A63.29438 63.29438 0 0 1 -495.7806 58.36714A63.29438 63.29438 0 0 1 -369.1919 58.36714Z"/>
+        </group>
+    </group>
+</vector>

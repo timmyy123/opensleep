@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="400dp">
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/d_splash"/>
+    <TextView
+        android:textSize="24sp"
+        android:gravity="center"
+        android:id="@+id/textView"
+        android:paddingTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You absolutely did it!"/>
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:paddingTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upcoming tasks:"/>
+    <ListView
+        android:id="@+id/taskList"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+</LinearLayout>

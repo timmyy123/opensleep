@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:textColor="@color/primary"
+        android:gravity="top"
+        android:id="@+id/edit"
+        android:background="@drawable/card_outline_edit_solid"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="28dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="com.mycompany.mywearable"
+        android:maxLines="6"
+        android:minLines="3"
+        android:scrollHorizontally="true"
+        android:inputType="textMultiLine"
+        android:paddingStart="8dp"
+        android:paddingEnd="28dp"/>
+</LinearLayout>

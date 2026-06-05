@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/itemMac"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:ellipsize="end"
+        android:layout_gravity="start|center_vertical"
+        android:id="@+id/itemHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:maxLines="1"
+        android:layout_marginStart="12dp"/>
+</LinearLayout>

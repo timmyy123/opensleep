@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Se till att spårningsenheten är nära till din kropp för att fånga dina sömnrörelser</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 sekunder</item>
+        <item>1 minut</item>
+        <item>3 minuter</item>
+        <item>6 minuter</item>
+        <item>9 minuter</item>
+        <item>12 minuter</item>
+        <item>18 minuter</item>
+        <item>24 minuter</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minut</item>
+        <item>2 minuter</item>
+        <item>3 minuter</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>20 minuter</item>
+        <item>30 minuter</item>
+        <item>40 minuter</item>
+        <item>1 timme</item>
+        <item>2 timmar</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Enhetens standardljud</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Alarmet är inställt på mindre än 1 minut från nu</item>
+        <item>Det här alarmet är satt för %1$s</item>
+        <item>Det här alarmet är satt för %2$s</item>
+        <item>Det här alarmet är satt för %1$s och %2$s</item>
+        <item>Det här alarmet är satt för %3$s</item>
+        <item>Det här alarmet är satt för %1$s och %3$s</item>
+        <item>Det här alarmet är satt för %2$s och %3$s</item>
+        <item>Det här alarmet är satt för %1$s, %2$s, och %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (snabbt uppvaknande)</item>
+        <item>Gamma (högt stimulerande)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (djupsömn)</item>
+        <item>Theta (avslappnande)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Väldigt simpel</item>
+        <item>Simpel</item>
+        <item>Lagom</item>
+        <item>Svår</item>
+        <item>Väldigt svår</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 sekunder</item>
+        <item>30 sekunder</item>
+        <item>1 minut</item>
+        <item>2 minuter</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>15 minuter</item>
+        <item>20 minuter</item>
+        <item>30 minuter</item>
+        <item>45 minuter</item>
+        <item>60 minuter</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Avbryt</item>
+        <item>Halvår</item>
+        <item>3 månader</item>
+        <item>2 månader</item>
+        <item>1 månad</item>
+        <item>2 veckor</item>
+        <item>Alla</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Dämpa</item>
+        <item>Dämpa med klocka</item>
+        <item>Alltid på klocka</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Auto-publicera sömngrafer</item>
+        <item>Auto-publicera grafer och status</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>15 minuter</item>
+        <item>20 minuter</item>
+        <item>25 minuter</item>
+        <item>30 minuter</item>
+        <item>60 minuter</item>
+        <item>90 minuter</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Power nap</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>15 minuter</item>
+        <item>20 minuter</item>
+        <item>25 minuter</item>
+        <item>30 minuter</item>
+        <item>40 minuter</item>
+        <item>50 minuter</item>
+        <item>1 timme</item>
+        <item>1 timme 30 min</item>
+        <item>2 timmar</item>
+    </array>
+    <array name="period_array">
+        <item>Vecka</item>
+        <item>14 dagar</item>
+        <item>Månad</item>
+        <item>Kvartalsår</item>
+        <item>Halvår</item>
+        <item>År</item>
+        <item>Alltid</item>
+    </array>
+    <array name="period_values">
+        <item>14 dagar</item>
+        <item>Månad</item>
+        <item>Kvartalsår</item>
+        <item>Halvår</item>
+        <item>År</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 sekunder</item>
+        <item>30 sekunder</item>
+        <item>1 minut</item>
+        <item>2 minuter</item>
+        <item>5 minuter</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Senast använd</item>
+        <item>3 minuter</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>15 minuter</item>
+        <item>20 minuter</item>
+        <item>25 minuter</item>
+        <item>30 minuter</item>
+        <item>35 minuter</item>
+        <item>40 minuter</item>
+        <item>45 minuter</item>
+        <item>50 minuter</item>
+        <item>55 minuter</item>
+        <item>1 timme</item>
+        <item>90 minuter</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Ingen begränsning</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Full alarmvolym</item>
+        <item>Låg alarmvolym</item>
+        <item>Tyst alarm</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min. innan</item>
+        <item>15 min. innan</item>
+        <item>30 min. innan</item>
+        <item>25 min. innan</item>
+        <item>1 timme innan</item>
+        <item>1 timme 30 min. innan</item>
+        <item>2 timmar innan</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 minuter</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Snooze</item>
+        <item>Avfärda</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>När batteriet är &lt;20%</item>
+        <item>När batteriet är &lt;10%</item>
+        <item>När batteriet är &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minut</item>
+        <item>3 minuter</item>
+        <item>5 minuter</item>
+        <item>10 minuter</item>
+        <item>15 minuter</item>
+        <item>20 minuter</item>
+        <item>25 minuter</item>
+        <item>30 minuter</item>
+    </array>
+</resources>

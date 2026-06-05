@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textColor="@color/primary"
+    android:id="@+id/taskTitle"
+    android:background="@color/pyjama_blue"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:drawablePadding="8dp"/>

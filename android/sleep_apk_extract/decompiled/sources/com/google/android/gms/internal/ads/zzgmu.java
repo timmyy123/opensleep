@@ -1,0 +1,13 @@
+package com.google.android.gms.internal.ads;
+
+/* JADX INFO: loaded from: classes3.dex */
+public final class zzgmu implements zzimu {
+    public static zzgmu zza() {
+        return zzgmt.zza;
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzinj
+    public final /* synthetic */ Object zzb() {
+        return new zzgms();
+    }
+}

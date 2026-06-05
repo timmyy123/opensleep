@@ -1,0 +1,34 @@
+package com.google.android.gms.internal.ads;
+
+/* JADX INFO: loaded from: classes3.dex */
+public final class zzaip implements zzafy {
+    private final zzafy zza = new zzaio();
+
+    public zzaip(int i) {
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzafy
+    public final boolean zza(zzafz zzafzVar) {
+        return this.zza.zza(zzafzVar);
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzafy
+    public final void zzc(zzagb zzagbVar) {
+        this.zza.zzc(zzagbVar);
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzafy
+    public final int zzd(zzafz zzafzVar, zzagy zzagyVar) {
+        return this.zza.zzd(zzafzVar, zzagyVar);
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzafy
+    public final void zze(long j, long j2) {
+        this.zza.zze(j, j2);
+    }
+
+    @Override // com.google.android.gms.internal.ads.zzafy
+    public final void zzf() {
+        this.zza.zzf();
+    }
+}

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ត្រូវប្រាកដថាឧបករណ៍តាមដាននៅជិតរាងកាយរបស់អ្នកអាចចាប់យកចលនានៃការគេងរបស់អ្នក។</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 វិនាទី</item>
+        <item>1 នាទី។</item>
+        <item>3 នាទី។</item>
+        <item>6 នាទី។</item>
+        <item>9 នាទី។</item>
+        <item>12 នាទី។</item>
+        <item>18 នាទី។</item>
+        <item>24 នាទី។</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 នាទី។</item>
+        <item>2 នាទី។</item>
+        <item>3 នាទី។</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>30 នាទី។</item>
+        <item>40 នាទី។</item>
+        <item>1 ម៉ោង។</item>
+        <item>2 ម៉ោង។</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់តិចជាង 1 នាទីចាប់ពីពេលនេះ</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %1$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %2$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %1$s និង %2$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %3$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %1$s និង %3$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %2$s និង %3$s</item>
+        <item>ការជូនដំណឹងនេះត្រូវបានកំណត់សម្រាប់ %1$s, %2$s និង %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>បេតា (ភ្ញាក់ឡើងលឿន)</item>
+        <item>ហ្គាម៉ា (រំញោចខ្លាំង)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>តំបន់ដីសណ្ត (ការគេងជ្រៅ)</item>
+        <item>ថេតា (សម្រាក)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>សាមញ្ញណាស់។</item>
+        <item>សាមញ្ញ</item>
+        <item>កម្រិតមធ្យម</item>
+        <item>រឹង</item>
+        <item>ពិបាកណាស់។</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 វិនាទី</item>
+        <item>30 វិនាទី</item>
+        <item>1 នាទី។</item>
+        <item>2 នាទី។</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>15 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>30 នាទី។</item>
+        <item>45 នាទី។</item>
+        <item>60 នាទី។</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>បោះបង់</item>
+        <item>កន្លះឆ្នាំ</item>
+        <item>3 ខែ</item>
+        <item>2 ខែ</item>
+        <item>1 ខែ</item>
+        <item>2 សប្តាហ៍</item>
+        <item>ទាំងអស់។</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>ស្រអាប់</item>
+        <item>ស្រអាប់ជាមួយនាឡិកា</item>
+        <item>តែងតែនៅលើនាឡិកា</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>បោះពុម្ពក្រាហ្វការគេងដោយស្វ័យប្រវត្តិ</item>
+        <item>ផ្សាយក្រាហ្វ និងស្ថានភាពដោយស្វ័យប្រវត្តិ</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>15 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>25 នាទី។</item>
+        <item>30 នាទី។</item>
+        <item>60 នាទី។</item>
+        <item>90 នាទី។</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>ឧបករណ៍វាស់ល្បឿន</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>ការគេងថាមពល</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>15 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>25 នាទី។</item>
+        <item>30 នាទី។</item>
+        <item>40 នាទី។</item>
+        <item>50 នាទី។</item>
+        <item>1 ម៉ោង។</item>
+        <item>1 ម៉ោង 30 នាទី។</item>
+        <item>2 ម៉ោង។</item>
+    </array>
+    <array name="period_array">
+        <item>សប្តាហ៍</item>
+        <item>14 ថ្ងៃ។</item>
+        <item>ខែ</item>
+        <item>ត្រីមាស</item>
+        <item>កន្លះឆ្នាំ</item>
+        <item>ឆ្នាំ</item>
+        <item>គ្រប់ពេលវេលា</item>
+    </array>
+    <array name="period_values">
+        <item>14 ថ្ងៃ។</item>
+        <item>ខែ</item>
+        <item>ត្រីមាស</item>
+        <item>កន្លះឆ្នាំ</item>
+        <item>ឆ្នាំ</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 វិនាទី</item>
+        <item>30 វិនាទី</item>
+        <item>1 នាទី។</item>
+        <item>2 នាទី។</item>
+        <item>5 នាទី។</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 នាទី។</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>15 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>25 នាទី។</item>
+        <item>30 នាទី។</item>
+        <item>35 នាទី។</item>
+        <item>40 នាទី។</item>
+        <item>45 នាទី។</item>
+        <item>50 នាទី។</item>
+        <item>55 នាទី។</item>
+        <item>1 ម៉ោង។</item>
+        <item>90 នាទី។</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>កម្រិតសំឡេងរោទិ៍ពេញ</item>
+        <item>កម្រិតសំឡេងរោទិ៍ទាប</item>
+        <item>សំឡេងរោទិ៍គឺស្ងាត់</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 នាទី ពីមុន</item>
+        <item>15 នាទី មុន</item>
+        <item>30 នាទី ពីមុន</item>
+        <item>45 នាទី មុន</item>
+        <item>1 ម៉ោងមុន។</item>
+        <item>1 ម៉ោង 30 នាទី។ ពីមុន</item>
+        <item>2 ម៉ោងមុន។</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 នាទី</item>
+        <item>2 នាទី</item>
+        <item>3 នាទី</item>
+        <item>4 នាទី</item>
+        <item>5 នាទី</item>
+        <item>10 នាទី</item>
+        <item>15 នាទី</item>
+        <item>20 នាទី</item>
+        <item>30 នាទី</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>ផ្អាក</item>
+        <item>ច្រានចោល</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>នៅពេលដែលថ្ម &lt;20%</item>
+        <item>នៅពេលដែលថ្ម &lt;10%</item>
+        <item>នៅពេលដែលថ្ម &lt;5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 នាទី។</item>
+        <item>3 នាទី។</item>
+        <item>5 នាទី។</item>
+        <item>10 នាទី។</item>
+        <item>15 នាទី។</item>
+        <item>20 នាទី។</item>
+        <item>25 នាទី។</item>
+        <item>30 នាទី។</item>
+    </array>
+</resources>

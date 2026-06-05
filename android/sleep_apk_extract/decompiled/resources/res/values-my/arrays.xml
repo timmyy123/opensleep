@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>ခြေရာခံကိရိယာသည် သင်၏အိပ်စက်ခြင်းလှုပ်ရှားမှုကို ဖမ်းယူနိုင်စေရန် သင့်ခန္ဓာကိုယ်နှင့် နီးကပ်ကြောင်း သေချာပါစေ။</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 စက္ကန့်</item>
+        <item>၁ မိနစ်</item>
+        <item>၃ မိနစ်</item>
+        <item>၆ မိနစ်</item>
+        <item>၉ မိနစ်</item>
+        <item>12 မိနစ်</item>
+        <item>18 မိနစ်</item>
+        <item>၂၄ မိနစ်</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>၁ မိနစ်</item>
+        <item>၂ မိနစ်</item>
+        <item>၃ မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>မိနစ် 30</item>
+        <item>မိနစ် ၄၀</item>
+        <item>၁ နာရီ</item>
+        <item>2 နှစ်ရီ</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>ဤနှိုးစက်ကို ယခုမှ 1 မိနစ်အောက်သာ သတ်မှတ်ထားသည်။</item>
+        <item>ဤနှိုးစက်ကို %1$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %2$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %1$s နှင့် %2$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %3$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %1$s နှင့် %3$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %2$s နှင့် %3$s အတွက် သတ်မှတ်ထားသည်</item>
+        <item>ဤနှိုးစက်ကို %1$s၊ %2$s နှင့် %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>ဘီတာ (အမြန်နိုးထခြင်း)</item>
+        <item>Gamma (အလွန်လှုံ့ဆော်မှု)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>မြစ်ဝကျွန်းပေါ် (Deep Sleep)</item>
+        <item>သီတာ (အနားယူခြင်း)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>အလွန်ရိုးရှင်းပါသည်။</item>
+        <item>ရိုးရိုးရှင်းရှင်း</item>
+        <item>အလယ်အလတ်</item>
+        <item>ခက်တယ်။</item>
+        <item>အရမ်းခက်တယ်။</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>၁၀ စက္ကန့်</item>
+        <item>30 စက္ကန့်</item>
+        <item>၁ မိနစ်</item>
+        <item>၂ မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>၁၅ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>မိနစ် 30</item>
+        <item>၄၅ မိနစ်</item>
+        <item>မိနစ် 60</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>မလုပ်တော့</item>
+        <item>တစ်နှစ်ခွဲ</item>
+        <item>၃ လ</item>
+        <item>၂ လ</item>
+        <item>၁ လ</item>
+        <item>2 ပတ်</item>
+        <item>အားလုံး</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>မှိန်မှိန်</item>
+        <item>နာရီနှင့်အတူ မှိန်မှိန်</item>
+        <item>အမြဲတမ်းနာရီ</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>အိပ်စက်မှုဂရပ်များကို အလိုအလျောက် ဖြန့်ချိသည်။</item>
+        <item>ဂရပ်များနှင့် အခြေအနေများကို အလိုအလျောက် ထုတ်ဝေသည်။</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>၁၅ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>25 မိနစ်</item>
+        <item>မိနစ် 30</item>
+        <item>မိနစ် 60</item>
+        <item>မိနစ် 90</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>အရှိန်မြှင့်ကိရိယာ</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>ပါဝါတစ်ရေးတစ်မော</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>၁၅ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>25 မိနစ်</item>
+        <item>မိနစ် 30</item>
+        <item>မိနစ် ၄၀</item>
+        <item>မိနစ် ၅၀</item>
+        <item>၁ နာရီ</item>
+        <item>၁ နာရီ ၃၀ မိနစ်</item>
+        <item>2 နှစ်ရီ</item>
+    </array>
+    <array name="period_array">
+        <item>အေးလေ</item>
+        <item>၁၄ ရက်</item>
+        <item>လ</item>
+        <item>လေးပုံနှစ်ပုံ</item>
+        <item>တစ်နှစ်ခွဲ</item>
+        <item>တစ်နှစ်</item>
+        <item>အချိန်တိုင်း</item>
+    </array>
+    <array name="period_values">
+        <item>၁၄ ရက်</item>
+        <item>လ</item>
+        <item>လေးပုံနှစ်ပုံ</item>
+        <item>တစ်နှစ်ခွဲ</item>
+        <item>တစ်နှစ်</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>၁၀ စက္ကန့်</item>
+        <item>30 စက္ကန့်</item>
+        <item>၁ မိနစ်</item>
+        <item>၂ မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>၃ မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>၁၅ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>25 မိနစ်</item>
+        <item>မိနစ် 30</item>
+        <item>၃၅ မိနစ်</item>
+        <item>မိနစ် ၄၀</item>
+        <item>၄၅ မိနစ်</item>
+        <item>မိနစ် ၅၀</item>
+        <item>၅၅ မိနစ်</item>
+        <item>၁ နာရီ</item>
+        <item>မိနစ် 90</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>၃x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>နှိုးစက်အသံအတိုးအကျယ်</item>
+        <item>နှိုးစက်အသံအတိုးအကျယ်</item>
+        <item>နှိုးစက် အသံတိတ်နေသည်။</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>၅ မိနစ် မီ</item>
+        <item>15 မိနစ် မီ</item>
+        <item>30 မိနစ် မီ</item>
+        <item>၄၅ မိနစ် မီ</item>
+        <item>1 နာရီမတိုင်မီ</item>
+        <item>၁ နာရီ ၃၀ မိနစ်။ မီ</item>
+        <item>2 နာရီမတိုင်မီ</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>၁ မိနစ်</item>
+        <item>2 မိနစ်</item>
+        <item>၃ မိနစ်</item>
+        <item>4 မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>15 မိနစ်</item>
+        <item>20 မိနစ်</item>
+        <item>30 မိနစ်</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>တမှေးမှေး</item>
+        <item>ပယ်ရန်</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>ဘက်ထရီ &lt;20% ရှိသောအခါ၊</item>
+        <item>ဘက်ထရီ &lt;10% ရှိသောအခါ၊</item>
+        <item>ဘက်ထရီ &lt;5% ရှိသောအခါ၊</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>၁ မိနစ်</item>
+        <item>၃ မိနစ်</item>
+        <item>၅ မိနစ်</item>
+        <item>၁၀ မိနစ်</item>
+        <item>၁၅ မိနစ်</item>
+        <item>မိနစ် 20</item>
+        <item>25 မိနစ်</item>
+        <item>မိနစ် 30</item>
+    </array>
+</resources>

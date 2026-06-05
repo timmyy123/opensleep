@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_action_airplane_mode_off"
+        android:id="@+id/menu_airplane"
+        android:title="@string/turn_off"
+        app:showAsAction="always"/> /&gt; 
+    <item
+        android:icon="@drawable/ic_share_variant"
+        android:id="@+id/menu_share"
+        android:title="@string/share_android"
+        app:showAsAction="always"/> /&gt; 
+    <item
+        android:icon="@drawable/ic_help_q"
+        android:id="@+id/menu_doc"
+        android:title="@string/help"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_action_discard"
+        android:id="@+id/menu_delete"
+        android:title="@string/delete"
+        app:showAsAction="always"/> /&gt; 
+</menu>

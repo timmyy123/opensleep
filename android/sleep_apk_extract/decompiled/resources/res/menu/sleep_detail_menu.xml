@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_share_variant"
+        android:id="@+id/menu_share"
+        android:title="@string/share_android"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_help_q"
+        android:id="@+id/menu_doc"
+        android:title="@string/help"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_action_noise"
+        android:id="@+id/menu_noise"
+        android:title="@string/noise"/>
+    <item
+        android:icon="@drawable/ic_action_discard"
+        android:id="@+id/menu_delete"
+        android:title="@string/delete"/>
+</menu>

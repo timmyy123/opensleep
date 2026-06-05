@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<appfunctions>
+    <appfunction>
+        <id>com.urbandroid.sleep.functions.AppFunctions#createAlarm</id>
+        <enabledByDefault>true</enabledByDefault>
+        <parameters>
+            <dataTypeMetadata>
+                <id>unused</id>
+                <isNullable>false</isNullable>
+                <type>7</type>
+            </dataTypeMetadata>
+            <id>unused</id>
+            <isRequired>true</isRequired>
+            <name>hour</name>
+        </parameters>
+        <parameters>
+            <dataTypeMetadata>
+                <id>unused</id>
+                <isNullable>false</isNullable>
+                <type>7</type>
+            </dataTypeMetadata>
+            <id>unused</id>
+            <isRequired>true</isRequired>
+            <name>minute</name>
+        </parameters>
+        <response>
+            <id>unused</id>
+            <valueType>
+                <id>unused</id>
+                <isNullable>false</isNullable>
+                <type>8</type>
+            </valueType>
+        </response>
+        <functionId>com.urbandroid.sleep.functions.AppFunctions#createAlarm</functionId>
+    </appfunction>
+    <appfunction>
+        <id>com.urbandroid.sleep.functions.AppFunctions#startSleepTracking</id>
+        <enabledByDefault>true</enabledByDefault>
+        <response>
+            <id>unused</id>
+            <valueType>
+                <id>unused</id>
+                <isNullable>false</isNullable>
+                <type>8</type>
+            </valueType>
+        </response>
+        <functionId>com.urbandroid.sleep.functions.AppFunctions#startSleepTracking</functionId>
+    </appfunction>
+</appfunctions>
+

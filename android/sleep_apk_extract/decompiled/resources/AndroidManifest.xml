@@ -1,0 +1,2388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="231055"
+    android:versionName="20260519"
+    android:compileSdkVersion="37"
+    android:compileSdkVersionCodename="17"
+    package="com.urbandroid.sleep"
+    platformBuildVersionCode="37"
+    platformBuildVersionName="17">
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="35"/>
+    <permission
+        android:label="@string/read_sleep_data_permission"
+        android:name="com.urbandroid.sleep.READ"
+        android:protectionLevel="dangerous"
+        android:description="@string/sleep_data_permission_description_read"/>
+    <permission
+        android:label="@string/write_sleep_data_permission"
+        android:name="com.urbandroid.sleep.WRITE"
+        android:protectionLevel="signature"
+        android:description="@string/sleep_data_permission_description_write"/>
+    <uses-permission-sdk-23 android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission-sdk-23 android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission-sdk-23 android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_SHORT_SERVICE"/>
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED"/>
+    <uses-permission-sdk-23 android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
+    <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission
+        android:name="android.permission.GET_TASKS"
+        android:maxSdkVersion="20"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission-sdk-23 android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission-sdk-23 android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.WRITE_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.READ_RESTING_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.WRITE_RESTING_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.READ_OXYGEN_SATURATION"/>
+    <uses-permission android:name="android.permission.health.WRITE_OXYGEN_SATURATION"/>
+    <uses-permission android:name="android.permission.health.READ_SLEEP"/>
+    <uses-permission android:name="android.permission.health.WRITE_SLEEP"/>
+    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.screen.PORTRAIT"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.screen.LANDSCAPE"
+        android:required="false"/>
+    <supports-screens
+        android:anyDensity="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:resizeable="true"
+        android:xlargeScreens="true"/>
+    <queries>
+        <package android:name="com.urbandroid.sleep.full.key"/>
+        <package android:name="com.urbandroid.sleep.addon.port"/>
+        <package android:name="com.urbandroid.sleep.addon.stats"/>
+        <package android:name="com.urbandroid.sleep.addon.widget"/>
+        <package android:name="com.urbandroid.sleep.addon.appwidget"/>
+        <package android:name="com.urbandroid.sleep.addon.lullaby"/>
+        <package android:name="com.urbandroid.sleep.lullaby"/>
+        <package android:name="com.urbandroid.sleep.captchapack"/>
+        <package android:name="com.urbandroid.ddc"/>
+        <package android:name="com.urbandroid.hue"/>
+        <package android:name="com.urbandroid.lux"/>
+        <package android:name="com.urbandroid.mind"/>
+        <package android:name="com.urbandroid.sleep.addon.samsung"/>
+        <package android:name="com.urbandroid.sleep.addon.generic.samsung"/>
+        <package android:name="com.urbandroid.sleep.garmin"/>
+        <package android:name="com.urbandroid.air"/>
+        <package android:name="com.urbandroid.dontkillmyapp"/>
+        <package android:name="com.urbandroid.dnd"/>
+        <package android:name="com.urbandroid.dozzzer"/>
+        <package android:name="com.urbandroid.sayit"/>
+        <package android:name="com.urbandroid.babysleep"/>
+        <package android:name="com.urbandroid.inline"/>
+        <package android:name="com.urbandroid.kinestop"/>
+        <package android:name="com.urbandroid.voli"/>
+        <package android:name="com.urbandroid.lis10"/>
+        <package android:name="com.urbandroid.mycaptcha"/>
+        <package android:name="com.urbandroid.pokemoney"/>
+        <package android:name="com.arlosoft.macrodroid"/>
+        <package android:name="net.dinglisch.android.taskerm"/>
+        <package android:name="com.llamalab.automate"/>
+        <package android:name="com.chrome.beta"/>
+        <package android:name="com.android.chrome"/>
+        <package android:name="com.chrome.canary"/>
+        <package android:name="com.chrome.dev"/>
+        <package android:name="com.google.android.gms"/>
+        <package android:name="com.google.android.calendar"/>
+        <package android:name="com.google.android.apps.fitness"/>
+        <package android:name="com.google.android.wearable.app"/>
+        <package android:name="com.android.vending"/>
+        <package android:name="com.google.android.gm"/>
+        <package android:name="com.google.android.documentsui"/>
+        <package android:name="com.google.android.apps.healthdata"/>
+        <package android:name="com.samsung.android.sdkapp.health"/>
+        <package android:name="com.samsung.android.app.watchmanager"/>
+        <package android:name="com.samsung.android.app.watchmanager2"/>
+        <package android:name="com.sec.android.app.shealth"/>
+        <package android:name="com.spotify.music"/>
+        <package android:name="com.getpebble.android"/>
+        <package android:name="coredevices.coreapp"/>
+        <package android:name="com.getpebble.android.basalt"/>
+        <package android:name="io.rebble.pebblekit2"/>
+        <package android:name="com.garmin.android.apps.connectmobile"/>
+        <package android:name="com.urbandroid.watchsleepstarter"/>
+        <package android:name="com.xiaomi.hm.health"/>
+        <package android:name="com.fitbit.FitbitMobile"/>
+        <package android:name="nodomain.freeyourgadget.gadgetbridge"/>
+        <package android:name="cz.zdenekhorak.mibandtools"/>
+        <package android:name="cz.zdenekhorak.amazfittools"/>
+        <package android:name="com.mc.miband1"/>
+        <package android:name="com.mc.xiaomi1"/>
+        <package android:name="com.mc.amazfit1"/>
+        <package android:name="com.mc.miband1.huawei"/>
+        <package android:name="com.mc.amazfit1.huawei"/>
+        <package android:name="com.mc.xiaomi1.huawei"/>
+        <package android:name="com.fossil.wearables.fossil"/>
+        <package android:name="com.chakaponden.sleepasandroid.garmin"/>
+        <package android:name="com.chakaponden.sleepasandroid.maxim"/>
+        <package android:name="com.chakaponden.sleepasandroid.go2sleep"/>
+        <package android:name="com.chakaponden.sleepasandroid.o2ring"/>
+        <package android:name="com.edotassi.amazmod"/>
+        <package android:name="com.google.android.apps.wear.companion"/>
+        <package android:name="com.pcmehanik.smarttoolbox"/>
+        <package android:name="com.facebook"/>
+        <package android:name="com.facebook.katana"/>
+        <package android:name="com.facebook.orca"/>
+        <package android:name="io.rebble.cobble"/>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider"/>
+        <provider android:authorities="com.facebook.orca.provider.PlatformProvider"/>
+        <intent>
+            <action android:name="android.intent.action.SEND"/>
+            <data android:mimeType="image/jpeg"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND"/>
+            <data android:mimeType="image/jpeg"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND"/>
+            <data android:mimeType="message/rfc822"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND_MULTIPLE"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND_MULTIPLE"/>
+            <data android:mimeType="message/rfc822"/>
+        </intent>
+        <package android:name="com.spotify.music.debug"/>
+        <package android:name="com.spotify.music.canary"/>
+        <package android:name="com.spotify.music.partners"/>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="https"/>
+        </intent>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.INSERT"/>
+            <data android:mimeType="vnd.android.cursor.dir/event"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="sms"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+            <data android:path="tel:"/>
+        </intent>
+        <intent>
+            <action android:name="com.android.vending.billing.InAppBillingService.BIND"/>
+        </intent>
+        <intent>
+            <action android:name="com.google.android.apps.play.billingtestcompanion.BillingOverrideService.BIND"/>
+        </intent>
+        <intent>
+            <action android:name="io.rebble.pebblekit2.SEND_DATA_TO_WATCH"/>
+        </intent>
+        <intent>
+            <action android:name="com.spotify.sso.action.START_AUTH_FLOW"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+        <package android:name="com.google.android.aicore"/>
+    </queries>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID"/>
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION"/>
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+    <uses-permission android:name="com.google.android.apps.aicore.service.BIND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_CUSTOM_AUDIENCE"/>
+    <permission
+        android:name="com.urbandroid.sleep.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.urbandroid.sleep.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"/>
+    <application
+        android:theme="@style/Theme.sleep"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:name="com.urbandroid.sleep.SleepApplication"
+        android:allowBackup="true"
+        android:restoreAnyVersion="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:extractNativeLibs="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:usesCleartextTraffic="true"
+        android:resizeableActivity="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:requestLegacyExternalStorage="true"
+        android:preserveLegacyExternalStorage="true"
+        android:localeConfig="@xml/locales_config"
+        android:enableOnBackInvokedCallback="true">
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false"/>
+        <meta-data
+            android:name="google_analytics_ssaid_collection_enabled"
+            android:value="false"/>
+        <meta-data
+            android:name="google_analytics_default_allow_ad_personalization_signals"
+            android:value="false"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token"/>
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="true"/>
+        <meta-data
+            android:name="com.facebook.sdk.AutoInitEnabled"
+            android:value="true"/>
+        <meta-data
+            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+            android:value="true"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode"/>
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIR2uZkHtaQMSJgzS3-gIjLf1mIdWT07w1CmOkDg"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1970766161278534~7527315218"/>
+        <meta-data
+            android:name="com.samsung.android.health.platform_type"
+            android:value="rel"/>
+        <meta-data
+            android:name="com.samsung.android.health.permission.read"
+            android:value="com.samsung.health.sleep;com.samsung.health.sleep_stage;com.samsung.health.exercise;com.samsung.health.heart_rate;com.samsung.health.step_count;com.samsung.health.user_profile"/>
+        <meta-data
+            android:name="com.samsung.android.health.permission.write"
+            android:value="com.samsung.health.sleep;com.samsung.health.sleep_stage"/>
+        <meta-data
+            android:name="android.webkit.WebView.MetricsOptOut"
+            android:value="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_dream_diary_title"
+            android:name="com.urbandroid.sleep.captcha.DreamDiaryCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="7"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="7"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_smile_title"
+            android:name="com.urbandroid.sleep.captcha.SmileCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="8"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="8"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_qr_code_title"
+            android:name="com.urbandroid.sleep.captcha.barcode.BarcodeCaptureActivity"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:showOnLockScreen="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.google.zxing.client.android.SCAN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_simple_math_title"
+            android:name="com.urbandroid.sleep.captcha.SimpleMathCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="1"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="1"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_typed_math_title"
+            android:name="com.urbandroid.sleep.captcha.TypeMathCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="5"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="2"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_qr_code_title"
+            android:name="com.urbandroid.sleep.captcha.QRCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="3"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="4"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.CONFIG"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_preferene_title"
+            android:name="com.urbandroid.sleep.captcha.NFCScanner"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_nfc_tag_title"
+            android:name="com.urbandroid.sleep.captcha.NFCCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="6"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="5"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.CONFIG"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_zombie"
+            android:name="com.urbandroid.sleep.captcha.zombie.ZombieWalkCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="10"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="10"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_light"
+            android:name="com.urbandroid.sleep.captcha.light.LightCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="11"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="11"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_wakedroid"
+            android:name="com.urbandroid.sleep.captcha.WakedroidCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="12"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="12"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/maze_captcha_title"
+            android:name="com.urbandroid.sleep.captcha.maze.MazeCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="13"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="13"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_jumping_sheep"
+            android:name="com.urbandroid.sleep.captcha.agentsheep.AgentSheepCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:screenOrientation="landscape"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="14"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="14"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_memoji"
+            android:name="com.urbandroid.sleep.captcha.memoji.MemojiCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="15"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="15"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_shake_it_title"
+            android:name="com.urbandroid.sleep.captcha.ShakeItCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="4"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="6"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_sleeping_sheep_title"
+            android:name="com.urbandroid.sleep.captcha.SleepingSheepsCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="2"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="3"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.Dark"
+            android:label="@string/captcha_lol_title"
+            android:name="com.urbandroid.sleep.captcha.LOLCaptcha"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true">
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.id"
+                android:value="9"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.order"
+                android:value="9"/>
+            <meta-data
+                android:name="com.urbandroid.sleep.captcha.meta.has_difficulty"
+                android:value="true"/>
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.OPEN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.urbandroid.sleep.alarmclock.DummyFinishActivity"/>
+        <activity
+            android:name="com.urbandroid.sleep.alarmclock.DummyBroadcastActivity"
+            android:taskAffinity="com.urbandroid.sleep.alarm"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Black"
+            android:label="@string/settings_category_track"
+            android:name="com.urbandroid.sleep.Sleep"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/menu_test"
+            android:name="com.urbandroid.sleep.SleepTest"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.noexit.translucent"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.graph.GraphDetailsActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.noexit.translucent"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.graph.GraphEditActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:name="com.urbandroid.sleep.fragment.dashboard.detail.SleepDetailActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="@string/settings_category_track"
+            android:name="com.urbandroid.sleep.SleepTrackStartHelperActivity"
+            android:exported="true"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data
+                    android:scheme="sleep"
+                    android:host="sleeptracking"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="vnd.google.fitness.TRACK"/>
+                <data android:mimeType="vnd.google.fitness.activity/other"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.urbandroid.sleep.StartShortcutActivity"
+            android:taskAffinity="com.urbandroid.sleep.Shortcut"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.Launcher"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.alarmclock.AlarmClock"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data
+                    android:scheme="sleep"
+                    android:host="alarmclock"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SHOW_ALARMS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="http"
+                    android:host="sleeppromo.page.link/fitify50"/>
+                <data
+                    android:scheme="https"
+                    android:host="sleeppromo.page.link/fitify50"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.urbandroid.sleep.StartTrackActivity"
+            android:excludeFromRecents="true"
+            android:turnScreenOn="true"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.urbandroid.sleep.SkipNextAlarmActivity"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.urbandroid.sleep.backup.UploadToCloudActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/player_title"
+            android:name="com.urbandroid.sleep.media.PlayAudioActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.location.LocationActivity"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/settings"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SearchSettingsActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.search"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SearchActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|stateVisible"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.noexit.translucent"
+            android:label="@string/settings"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SimpleSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_smart"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SmartSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/service_google_home"
+            android:name="com.urbandroid.sleep.alarmclock.settings.GoogleHomeAutomationSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_alarm"
+            android:name="com.urbandroid.sleep.alarmclock.settings.AlarmSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings"
+            android:name="com.urbandroid.sleep.alarmclock.settings.BackupAlarmSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/sleep_recording_title"
+            android:name="com.urbandroid.sleep.alarmclock.settings.NoiseSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/sound_recognition"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SoundRecognitionSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_ux"
+            android:name="com.urbandroid.sleep.alarmclock.settings.MiscSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/privacy"
+            android:name="com.urbandroid.sleep.alarmclock.settings.PrivacySettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/stats"
+            android:name="com.urbandroid.sleep.alarmclock.settings.StatsSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/morning_screen"
+            android:name="com.urbandroid.sleep.alarmclock.settings.MorningScreenSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_track"
+            android:name="com.urbandroid.sleep.alarmclock.settings.TrackSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/automatic_sleep_tracking"
+            android:name="com.urbandroid.sleep.alarmclock.settings.TrackAutoSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/awake_detection"
+            android:name="com.urbandroid.sleep.alarmclock.settings.AwakeSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_social"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SocialSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/captcha_preferene_title"
+            android:name="com.urbandroid.sleep.alarmclock.settings.CaptchaSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/captcha_no_escape"
+            android:name="com.urbandroid.sleep.alarmclock.settings.CaptchaCheatingSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_wake_up_check"
+            android:name="com.urbandroid.sleep.alarmclock.settings.CaptchaWakeUpCheckSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/bedtime_no_alarm"
+            android:name="com.urbandroid.sleep.alarmclock.settings.BedtimeNoAlarmSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/alarm_alert_snooze_text"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SnoozeSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/gentle_wake_up"
+            android:name="com.urbandroid.sleep.alarmclock.settings.GentleSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/target_sleep_time_notify_title"
+            android:name="com.urbandroid.sleep.alarmclock.settings.BedtimeSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_lucid_title"
+            android:name="com.urbandroid.sleep.alarmclock.settings.LucidSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/category_services"
+            android:name="com.urbandroid.sleep.alarmclock.settings.ServicesSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/automation"
+            android:name="com.urbandroid.sleep.alarmclock.settings.AutomationSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/lullaby"
+            android:name="com.urbandroid.sleep.alarmclock.settings.LullabySettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/jetlag"
+            android:name="com.urbandroid.sleep.alarmclock.settings.JetLagSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/pair_tracking"
+            android:name="com.urbandroid.sleep.alarmclock.settings.PairSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/add_record_title"
+            android:name="com.urbandroid.sleep.AddRecordActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/add_record_title"
+            android:name="com.urbandroid.sleep.NewAddRecordActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/alarm_list_title"
+            android:name="com.urbandroid.sleep.alarmclock.AlarmActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/tabs"
+            android:name="com.urbandroid.sleep.fragment.TabTuneActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/stats"
+            android:name="com.urbandroid.sleep.alarmclock.StatsActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/noise"
+            android:name="com.urbandroid.sleep.alarmclock.NoiseActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/graphs"
+            android:name="com.urbandroid.sleep.alarmclock.GraphActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/addon"
+            android:name="com.urbandroid.sleep.alarmclock.AddonActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/default_label"
+            android:name="com.urbandroid.sleep.alarmclock.SetAlarm"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/alarm_alert_snooze_text"
+            android:name="com.urbandroid.sleep.alarmclock.SetAlarmSnooze"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/time_to_bed_title"
+            android:name="com.urbandroid.sleep.alarmclock.SetAlarmBedtime"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/gentle_wake_up"
+            android:name="com.urbandroid.sleep.alarmclock.SetAlarmGentle"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.alarmclock.UnlockFlowFeaturesActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.FirstUsePreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.JetLagPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.SensorPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.NFCTagPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.QRCodePreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/menu_about"
+            android:name="com.urbandroid.sleep.QuickStartPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/rate_sleep_dialog"
+            android:name="com.urbandroid.sleep.alarmclock.RatingActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/rate_sleep_dialog"
+            android:name="com.urbandroid.sleep.fragment.dashboard.morning.MorningActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:showOnLockScreen="true"/>
+        <activity
+            android:theme="@style/Theme.Dialog.sleep"
+            android:name="com.urbandroid.sleep.alarmclock.EditActivity"/>
+        <activity
+            android:theme="@style/Theme.Dialog.sleep"
+            android:name="com.urbandroid.sleep.alarmclock.EditDarkActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.fullscreen.Dark"
+            android:name="com.urbandroid.sleep.alarmclock.AlarmAlert"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.fullscreen.Black"
+            android:name="com.urbandroid.sleep.alarmclock.AlarmAlertFullScreen"
+            android:exported="true"
+            android:taskAffinity="com.urbandroid.sleep.alarm"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:keepScreenOn="true"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.fullscreen.Dark"
+            android:name="com.urbandroid.sleep.alarmclock.lockedboot.BackupAlarmActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|orientation|navigation|keyboardHidden|keyboard|locale"
+            android:keepScreenOn="true"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.fullscreen.Dark"
+            android:name="com.urbandroid.sleep.alarmclock.lockedboot.ScreenUnlockActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:keepScreenOn="true"
+            android:showOnLockScreen="false"
+            android:turnScreenOn="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.actionModeTrash"
+            android:name="com.urbandroid.sleep.media.MediaListActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="Twitter sharing"
+            android:name="com.urbandroid.sleep.share.twitter.PrepareRequestTokenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="https"
+                    android:host="twitter-callback-sleep"/>
+                <data
+                    android:scheme="sleep"
+                    android:host="twitter-callback-sleep"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="Twitter sharing"
+            android:name="com.urbandroid.sleep.share.twitter.InitiateLoginActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.translucent"
+            android:name="com.urbandroid.sleep.alarmclock.AddAlarmActivity"
+            android:permission="com.android.alarm.permission.SET_ALARM"
+            android:exported="true"
+            android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SET_ALARM"/>
+                <action android:name="android.intent.action.SET_TIMER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/light"
+            android:name="com.urbandroid.sleep.smartlight.LightActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/light"
+            android:name="com.urbandroid.sleep.service.google.home.GoogleHomeLightActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/settings_category_smartlight"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SmartLightSettingsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/usb_device_filter"/>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/smartwatch"
+            android:name="com.urbandroid.sleep.alarmclock.settings.SmartwatchSettingsActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/google_fit"
+            android:name="com.urbandroid.sleep.service.google.fit.GoogleFitAuthorizationActivity"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/samsung_shealth"
+            android:name="com.urbandroid.sleep.service.samsung.shealth.SamsungSHealthAuthorizationActivity"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/google_calendar"
+            android:name="com.urbandroid.sleep.service.google.calendar.GoogleCalendarSettingActivity"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:name="com.urbandroid.sleep.service.google.healthconnect.HealthConnectSyncActivity"
+            android:exported="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/permissions"
+            android:name="com.urbandroid.sleep.service.google.healthconnect.PermissionsRationaleActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"/>
+            </intent-filter>
+        </activity>
+        <activity-alias
+            android:label="@string/permissions"
+            android:name="com.urbandroid.sleep.AndroidURationaleActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:exported="true"
+            android:targetActivity="com.urbandroid.sleep.service.google.healthconnect.PermissionsRationaleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE"/>
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name="com.urbandroid.sleep.ViewPermissionUsageActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:exported="true"
+            android:targetActivity="com.urbandroid.sleep.service.google.healthconnect.PermissionsRationaleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE"/>
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS"/>
+            </intent-filter>
+        </activity-alias>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/advanced_stats"
+            android:name="com.urbandroid.sleep.addon.stats.SleepStats"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/smartwatch"
+            android:name="com.urbandroid.sleep.SmartWatchActivity"
+            android:keepScreenOn="true"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.noexit.translucent"
+            android:label="@string/advice"
+            android:name="com.urbandroid.sleep.addon.stats.advice.AdviceActivity"/>
+        <activity
+            android:theme="@style/Theme.Locale.Light"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.addon.taskerplugin.ui.EditEventActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.Locale.Light"
+            android:label="@string/app_name"
+            android:name="com.urbandroid.sleep.addon.taskerplugin.ui.EditActionActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="@string/time_picker_dialog"
+            android:name="com.urbandroid.sleep.SleepStartAppAction"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="sas"
+                    android:host="start-tracking"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="@string/alarm_alert_dismiss_text"
+            android:name="com.urbandroid.sleep.SleepStopVoice"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK_VOICE_ACTION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.VOICE"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:name="com.urbandroid.sleep.appactions.OpenFeatureActivity"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="https"
+                    android:host="sleep-as-android"
+                    android:pathPrefix="/feature"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:name="com.urbandroid.sleep.service.google.calendar.alarm.RevertActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_REVERT_CALENDAR_SKIP_NEXT"/>
+                <action android:name="com.urbandroid.sleep.ACTION_REVERT_CALENDAR_OFFSET"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:name="com.urbandroid.sleep.service.google.calendar.alarm.SkipNextActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_CALENDAR_SKIP_NEXT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="@string/ifttt"
+            android:name="com.urbandroid.sleep.service.automation.ifttt.IftttActivity"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.spotify.sdk.android.auth.LoginActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/Theme.sleep.translucent"
+            android:name="com.urbandroid.sleep.alarmclock.ImportZipActivity"
+            android:exported="true"
+            android:noHistory="true">
+            <intent-filter android:label="@string/menu_import">
+                <data android:scheme="file"/>
+                <data android:scheme="content"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/x-zip-compressed"/>
+                <data android:mimeType="application/zip"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/Theme.sleep.translucent"
+            android:label="@string/menu_import"
+            android:name="com.urbandroid.sleep.alarmclock.ImportCsvActivity"
+            android:exported="true"
+            android:noHistory="true">
+            <intent-filter>
+                <data android:scheme="file"/>
+                <data android:scheme="content"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/csv"/>
+                <data android:mimeType="text/x-csv"/>
+                <data android:mimeType="text/comma-separated-values"/>
+            </intent-filter>
+        </activity>
+        <service
+            android:name="com.urbandroid.sleep.alarmclock.AlarmKlaxon"
+            android:exported="true"
+            android:foregroundServiceType="systemExempted|mediaPlayback">
+            <intent-filter android:priority="999">
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_SUSPEND"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_RESUME"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.urbandroid.sleep.SleepService"
+            android:exported="true"
+            android:foregroundServiceType="health|microphone|mediaPlayback"/>
+        <service
+            android:name="com.urbandroid.sleep.smartwatch.pebble.RePebbleListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rebble.pebblekit2.RECEIVE_DATA_FROM_WATCH"/>
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.urbandroid.sleep.RecordingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.recordforeground.ACTION"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.urbandroid.sleep.smartwatch.fitbit.FitbitHttpServerService"
+            android:foregroundServiceType="connectedDevice"/>
+        <service
+            android:name="com.urbandroid.sleep.smartwatch.zepp.ZeppHttpServerService"
+            android:foregroundServiceType="connectedDevice"/>
+        <service
+            android:name="com.urbandroid.sleep.service.health.HeathImportDataService"
+            android:foregroundServiceType="dataSync"/>
+        <service
+            android:name="com.urbandroid.sleep.service.google.fit.GoogleFitSyncJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.samsung.shealth.SamsungSHealthSyncJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.google.healthconnect.HealthConnectSyncJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.google.calendar.GoogleCalendarSynchronizationService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.google.calendar.GoogleCalendarSyncJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.persistence.SilentExportService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.DeleteObsoleteNoisesService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.CalculateChronotypeService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.media.lullaby.LullabyService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback"/>
+        <service
+            android:name="com.urbandroid.sleep.share.ShareAfterDismissService"
+            android:foregroundServiceType="shortService"/>
+        <service
+            android:name="com.urbandroid.sleep.service.automation.AutomationService"
+            android:foregroundServiceType="shortService"/>
+        <service
+            android:name="com.urbandroid.sleep.smartwatch.wear.WearMessageServerService"
+            android:exported="true"
+            android:foregroundServiceType="connectedDevice">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED"/>
+                <data
+                    android:scheme="wear"
+                    android:host="*"
+                    android:pathPrefix="/sleep"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.urbandroid.util.TtsService"
+            android:foregroundServiceType="mediaPlayback"/>
+        <service
+            android:name="com.urbandroid.sleep.alarmclock.lockedboot.BackupAlarmService"
+            android:exported="false"
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted|mediaPlayback"/>
+        <service
+            android:name="com.urbandroid.sleep.service.GoalUpdateIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:label="@string/settings_category_track"
+            android:name="com.urbandroid.sleep.SleepTrackTileService"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.urbandroid.sleep.alarmclock.FrequentGeoService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"/>
+        <service
+            android:name="com.urbandroid.sleep.activityrecognition.DetectedUpdatesIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.activityrecognition.DetectedTransitionIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.activityrecognition.SleepSegmentsUpdateIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.activityrecognition.SleepTimeSuggestionNotificationService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.alarmclock.DefaultRingtoneResolveService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.alarmclock.CleanupService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.NoiseMediaStoreJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.service.sync.RequestSyncJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name="com.urbandroid.sleep.autostart.AutoTrackingService"
+            android:foregroundServiceType="health"/>
+        <service
+            android:name="com.urbandroid.sleep.service.PromoSyncJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:label="@string/app_name_long"
+            android:name="com.urbandroid.sleep.CaptchaAntiCheatingAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:enabled="true"
+            android:exported="false"
+            android:description="@string/alarm_avoid_force_stop_justification"
+            class=".CaptchaAntiCheatingAccessibilityService">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/serviceconfig"/>
+        </service>
+        <service
+            android:name="androidx.appfunctions.internal.AppFunctionServiceImpl"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES"/>
+            </intent-filter>
+            <meta-data
+                android:name="home:0:preferred"
+                android:value=""/>
+        </service>
+        <receiver
+            android:label="@string/time_to_bed_title"
+            android:name="com.urbandroid.sleep.appwidget.DroidWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.appwidget.DroidWidget.ACTION_REFRESH"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_RESCHEDULED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_STATE_CHANGE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_droid"/>
+        </receiver>
+        <receiver
+            android:label="@string/next_alarm"
+            android:name="com.urbandroid.sleep.appwidget.AlarmWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_RESCHEDULED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_STATE_CHANGE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_alarm"/>
+        </receiver>
+        <receiver
+            android:label="@string/settings_category_track"
+            android:name="com.urbandroid.sleep.appwidget.SleepWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.appwidget.SleepWidget.ACTION_REFRESH"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_RESCHEDULED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_STATE_CHANGE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_sleep"/>
+        </receiver>
+        <receiver
+            android:label="@string/hypnogram"
+            android:name="com.urbandroid.sleep.appwidget.GraphWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SLEEP_TRACKING_STOPPED"/>
+                <action android:name="com.urbandroid.sleep.ACTION_GRAPH_CHANGED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_graph"/>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.AlarmModificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_STATE_CHANGE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARMS_STATE_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.AlarmReceiver"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="com.urbandroid.sleep.alarmclock.RANDOM_ALARM_DIAGNOSTICS"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_NOTIF_SNOOZE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.RATE_SLEEP_LATER"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_NOTIF_DISMISS"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.alarm_killed"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.cancel_snooze"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SKIP_NEXT_ALARM_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SHOW_SKIP_NEXT_ALARM_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_SNOOZE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_DISMISS_CAPTCHA"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.cancel_snooze_no_captcha"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_WAKE_UP_CHECK"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.AlarmStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT_START_INTERNAL"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.alarm_killed"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_DONE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.lucid.LucidReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.LUCID_CUE_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT_START_INTERNAL"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.alarm_killed"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_DONE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.apnea.ApneaReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_APNEA_ALARM"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.mic.SnoringReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ANTISNORING_ACTION"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.BedtimeReceiver"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALARM_ALERT"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALERT_REPEAT_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALERT_SNOOZE_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALERT_DISMISS_ACTION"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.StartTrackReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK_WITH_IDEAL_ALARM_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK_WITH_IDEAL_ALARM_PLUS_BEDTIME_BEFORE_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.START_SLEEP_WEARABLE_TRACK"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.START_SLEEP_WIDGET_TRACK"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.AutoStartTrackReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.AUTO_START_SLEEP_TRACK"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.AUTO_START_SLEEP_TRACK_BEDTIME"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.smartwatch.pebble.PebbleStartReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.getpebble.action.app.RECEIVE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.smartwatch.samsung.SamsungReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.samsung.STARTED_ON_WATCH"/>
+                <action android:name="com.urbandroid.sleep.samsung.DATA_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.samsung.HR_DATA_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.samsung.PAUSE_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.samsung.RESUME_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.samsung.SNOOZE_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.samsung.DISMISS_FROM_WATCH"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.smartwatch.generic.GenericWatchReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.watch.STARTED_ON_WATCH"/>
+                <action android:name="com.urbandroid.sleep.watch.DATA_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.watch.HR_DATA_UPDATE"/>
+                <action android:name="com.urbandroid.sleep.watch.PAUSE_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.watch.RESUME_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.watch.SNOOZE_FROM_WATCH"/>
+                <action android:name="com.urbandroid.sleep.watch.DISMISS_FROM_WATCH"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.ReplacedReceiver"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.AlarmInitReceiver"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.DELAYED_BOOT_COMPLETED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.RECALCULATE_ALARM"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.alarmclock.lockedboot.LockedBootReceiver"
+            android:exported="false"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.trial.CheckReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.CHECK_R"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.trial.PremiumCloudReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.SCP"/>
+                <action android:name="com.urbandroid.sleep.CCP"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.service.sync.RequestSyncReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.REQUEST_SYNC"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.addon.taskerplugin.receiver.QueryReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.QUERY_CONDITION"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.addon.taskerplugin.receiver.FireReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.service.automation.AutomationReceiver"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.SLEEP_TRACKING_STARTED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SLEEP_TRACKING_STOPPED"/>
+                <action android:name="com.urbandroid.sleep.ACTION_TRACKING_USER_PAUSED"/>
+                <action android:name="com.urbandroid.sleep.ACTION_TRACKING_USER_RESUMED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_SNOOZE_CLICKED_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.cancel_snooze_finished"/>
+                <action android:name="com.urbandroid.sleep.ACTION_LULLABY_START_PLAYBACK"/>
+                <action android:name="com.urbandroid.sleep.ACTION_LULLABY_STOPPED_PLAYBACK"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALARM_ALERT"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT_START"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT_DISMISS"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SHOW_SKIP_NEXT_ALARM"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SKIP_NEXT_ALARM_ACTION"/>
+                <action android:name="com.urbandroid.sleep.LUCID_CUE_ACTION"/>
+                <action android:name="com.urbandroid.sleep.ANTISNORING_ACTION"/>
+                <action android:name="com.urbandroid.sleep.SMART_PERIOD"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.AUTO_START_SLEEP_TRACK"/>
+                <action android:name="com.urbandroid.sleep.TRACKING_DEEP_SLEEP"/>
+                <action android:name="com.urbandroid.sleep.TRACKING_LIGHT_SLEEP"/>
+                <action android:name="com.urbandroid.sleep.LULLABY_VOLUME_DOWN"/>
+                <action android:name="com.urbandroid.sleep.ACTION_APNEA_ALARM"/>
+                <action android:name="com.urbandroid.sleep.AWAKE"/>
+                <action android:name="com.urbandroid.sleep.NOT_AWAKE"/>
+                <action android:name="com.urbandroid.sleep.audio.SOUND_EVENT_SNORE"/>
+                <action android:name="com.urbandroid.sleep.audio.SOUND_EVENT_TALK"/>
+                <action android:name="com.urbandroid.sleep.audio.SOUND_EVENT_COUGH"/>
+                <action android:name="com.urbandroid.sleep.audio.SOUND_EVENT_BABY"/>
+                <action android:name="com.urbandroid.sleep.audio.SOUND_EVENT_LAUGH"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.SHOW_SKIP_NEXT_ALARM_ACTION"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_RESCHEDULED"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_WAKE_UP_CHECK"/>
+                <action android:name="com.urbandroid.sleep.JETLAG_START"/>
+                <action android:name="com.urbandroid.sleep.JETLAG_END"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.service.google.calendar.GoogleCalendarChangeReceiver"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
+                <data android:scheme="content"/>
+                <data android:host="com.android.calendar"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="urbandroid.android.intent.action.PROVIDER_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.captcha.CaptchaCallbackReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.STOP"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.START"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.SOLVED"/>
+                <action android:name="com.urbandroid.sleep.captcha.intent.action.ALIVE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:label="@string/app_name_long"
+            android:name="com.urbandroid.sleep.alarmclock.SleepDeviceAdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true"
+            android:description="@string/captcha_no_escape_justification">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/deviceadmin"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.ActivityBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.OtherActivityReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+                <action android:name="urbandroid.android.intent.action.AIRPLANE_MODE"/>
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT_DISMISS"/>
+                <action android:name="com.urbandroid.sleep.ACTION_TRACKING_STOPPED"/>
+                <action android:name="com.urbandroid.sleep.ACTION_AWAKE_WHEN_USING_PHONE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.service.ddc.DdcIntegrationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.alarmclock.TIME_TO_BED_ALARM_ALERT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.service.huemanic.HuemanicIntegrationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_LULLABY_STOP_PLAYBACK"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.ActivityReceiver"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"
+            android:exported="false"/>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.ActivityTransitionReceiver"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_PROCESS_ACTIVITY_TRANSITIONS"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.SleepSegmentsUpdateReceiver"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_PROCESS_ACTIVITY_TRANSITIONS"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.urbandroid.sleep.activityrecognition.NotifySleepTimeSuggestionReceiver"
+            android:exported="true"/>
+        <receiver
+            android:name="com.urbandroid.sleep.sensor.extra.ExtraDataExternalReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.urbandroid.sleep.ACTION_EXTRA_DATA_UPDATE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.urbandroid.sleep.autostart.AutoTrackingReceiver"/>
+        <provider
+            android:name="com.urbandroid.sleep.alarmclock.AlarmProvider"
+            android:readPermission="com.urbandroid.sleep.READ"
+            android:writePermission="com.urbandroid.sleep.WRITE"
+            android:exported="true"
+            android:authorities="com.urbandroid.sleep.alarmclock"/>
+        <provider
+            android:name="com.urbandroid.sleep.persistence.DbContentProvider"
+            android:readPermission="com.urbandroid.sleep.READ"
+            android:writePermission="com.urbandroid.sleep.WRITE"
+            android:exported="true"
+            android:authorities="com.urbandroid.sleep.history"/>
+        <provider
+            android:name="com.urbandroid.sleep.addon.stats.model.StatsContentProvider"
+            android:readPermission="com.urbandroid.sleep.READ"
+            android:exported="true"
+            android:authorities="com.urbandroid.sleep.stats"/>
+        <provider
+            android:name="com.urbandroid.sleep.prefs.PreferenceContentProvider"
+            android:readPermission="com.urbandroid.sleep.READ"
+            android:exported="true"
+            android:authorities="com.urbandroid.sleep.preference"/>
+        <provider
+            android:name="com.urbandroid.sleep.persistence.ExportContentProvider"
+            android:readPermission="com.urbandroid.sleep.READ"
+            android:exported="true"
+            android:authorities="com.urbandroid.sleep.export"
+            android:grantUriPermissions="true"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.fileprovider"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider"/>
+        </provider>
+        <provider
+            android:name="com.urbandroid.util.MultiprocessPreferences"
+            android:exported="true"
+            android:authorities="@string/multiprocess_preferences_authority"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/goal"
+            android:name="com.urbandroid.sleep.addon.stats.goal.GoalCreateActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/goal"
+            android:name="com.urbandroid.sleep.addon.stats.goal.GoalSelectActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/achievements"
+            android:name="com.urbandroid.sleep.achievement.AchievementActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/shortcut"
+            android:name="com.urbandroid.sleep.shortcut.ShortcutActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/shortcut"
+            android:name="com.urbandroid.sleep.shortcut.AddShortcutActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/sleep_assistant"
+            android:name="com.urbandroid.sleep.ai.AiActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/goal"
+            android:name="com.urbandroid.sleep.addon.stats.goal.GoalDetailActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.transition"
+            android:label="@string/expire_info_freemium_first"
+            android:name="com.urbandroid.sleep.alarmclock.UnlockActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:name="com.urbandroid.sleep.trial.RestoreUnlockPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:name="com.urbandroid.sleep.trial.RestoreInAppPreviewActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/smartlight_find_bridge"
+            android:name="com.urbandroid.sleep.smartlight.DiscoveryActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/stats"
+            android:name="com.urbandroid.sleep.alarmclock.CountriesActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition.transparent"
+            android:label="@string/dashboard"
+            android:name="com.urbandroid.sleep.alarmclock.DashboardActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.Dark"
+            android:label="@string/captcha_no_escape"
+            android:name="com.urbandroid.sleep.alarmclock.settings.NoEscapeActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep"
+            android:label="@string/spotify"
+            android:name="com.urbandroid.sleep.media.spotify.SpotifyManagerAuthActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar"
+            android:label="@string/lullaby"
+            android:name="com.urbandroid.sleep.media.lullaby.LullabyActivity"/>
+        <activity
+            android:theme="@style/Theme.sleep.toolbar.transition"
+            android:label="@string/captcha_default_title"
+            android:name="com.urbandroid.sleep.captcha.list.CaptchaTileListActivity"/>
+        <activity android:name="com.urbandroid.sleep.service.matter.MatterActivity"/>
+        <service
+            android:name="com.urbandroid.sleep.smartwatch.garmin.GarminProviderService"
+            android:foregroundServiceType="connectedDevice"/>
+        <receiver
+            android:name="com.urbandroid.sleep.smartwatch.garmin.GarminReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.garmin.android.connectiq.INCOMING_MESSAGE"/>
+                <action android:name="com.urbandroid.sleep.garmin.CHECK_CONNECTED"/>
+                <action android:name="com.urbandroid.sleep.watch.START_TRACKING"/>
+                <action android:name="com.urbandroid.sleep.watch.STOP_TRACKING"/>
+                <action android:name="com.urbandroid.sleep.watch.SET_PAUSE"/>
+                <action android:name="com.urbandroid.sleep.watch.SET_BATCH_SIZE"/>
+                <action android:name="com.urbandroid.sleep.watch.SET_SUSPENDED"/>
+                <action android:name="com.urbandroid.sleep.watch.START_ALARM"/>
+                <action android:name="com.urbandroid.sleep.watch.STOP_ALARM"/>
+                <action android:name="com.urbandroid.sleep.watch.UPDATE_ALARM"/>
+                <action android:name="com.urbandroid.sleep.watch.HINT"/>
+                <action android:name="com.urbandroid.sleep.watch.CHECK_CONNECTED"/>
+                <action android:name="com.urbandroid.sleep.watch.REPORT"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="androidx.appfunctions.service.PlatformAppFunctionService"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE"
+            android:enabled="@bool/enablePlatformAppFunctionService"
+            android:exported="true">
+            <property
+                android:name="android.app.appfunctions"
+                android:value="app_functions.xml"/>
+            <property
+                android:name="android.app.appfunctions.schema"
+                android:value="app_functions_schema.xsd"/>
+            <property
+                android:name="android.app.appfunctions.v2"
+                android:value="app_functions_v2.xml"/>
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="androidx.appfunctions.service.ExtensionAppFunctionService"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE"
+            android:enabled="@bool/enableExtensionAppFunctionService"
+            android:exported="true">
+            <property
+                android:name="android.app.appfunctions"
+                android:value="app_functions.xml"/>
+            <property
+                android:name="android.app.appfunctions.schema"
+                android:value="app_functions_schema.xsd"/>
+            <property
+                android:name="android.app.appfunctions.v2"
+                android:value="app_functions_v2.xml"/>
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService"/>
+            </intent-filter>
+        </service>
+        <uses-library
+            android:name="com.android.extensions.appfunctions"
+            android:required="false"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent"
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:exported="false"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"
+            android:enableOnBackInvokedCallback="false"/>
+        <provider
+            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.mobileadsinitprovider"
+            android:initOrder="100"/>
+        <service
+            android:name="com.google.android.gms.ads.AdService"
+            android:enabled="true"
+            android:exported="false"/>
+        <activity
+            android:name="com.google.android.gms.ads.OutOfContextTestingActivity"
+            android:exported="false"
+            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.google.android.gms.ads.NotificationHandlerActivity"
+            android:exported="false"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true"/>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.androidx-startup">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"/>
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup"/>
+            <meta-data
+                android:name="androidx.view.ProcessLifecycleInitializer"
+                android:value="androidx.startup"/>
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                android:value="androidx.startup"/>
+        </provider>
+        <service
+            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:enabled="@bool/enable_system_job_service_default"
+            android:exported="true"
+            android:directBootAware="false"/>
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:enabled="@bool/enable_system_foreground_service_default"
+            android:exported="false"
+            android:directBootAware="false"/>
+        <receiver
+            android:name="androidx.work.impl.utils.ForceStopRunnable.BroadcastReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:directBootAware="false"/>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:enabled="false"
+            android:exported="false"
+            android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+            android:permission="android.permission.DUMP"
+            android:enabled="true"
+            android:exported="true"
+            android:directBootAware="false">
+            <intent-filter>
+                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="androidx.health.platform.client.impl.sdkservice.HealthDataSdkService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.health.platform.client.ACTION_BIND_SDK_SERVICE"/>
+            </intent-filter>
+        </service>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"/>
+        <service
+            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+            android:exported="true"
+            android:visibleToInstantApps="true"/>
+        <meta-data
+            android:name="com.google.android.play.billingclient.version"
+            android:value="7.1.1"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.android.billingclient.api.ProxyBillingActivity"
+            android:exported="false"
+            android:configChanges="screenSize|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.android.billingclient.api.ProxyBillingActivityV2"
+            android:exported="false"
+            android:configChanges="screenSize|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity
+            android:theme="@style/com_facebook_activity_theme"
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="screenSize|screenLayout|orientation|keyboardHidden|keyboard"/>
+        <activity android:name="com.facebook.CustomTabMainActivity"/>
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="fbconnect"
+                    android:host="cct.com.urbandroid.sleep"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.spotify.sdk.android.auth.browser.RedirectUriReceiverActivity"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="spotify-sdk"
+                    android:host="auth"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.google.gms.fitness.sdk.version"
+            android:value="21.3.0"/>
+        <service
+            android:name="com.google.android.gms.nearby.exposurenotification.WakeUpService"
+            android:permission="com.google.android.gms.nearby.exposurenotification.EXPOSURE_CALLBACK"
+            android:exported="true"/>
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false"/>
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:enabled="true"
+            android:exported="false"/>
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:exported="false"
+            android:directBootAware="true">
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.ai.FirebaseAIRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"/>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name="com.facebook.ads.AudienceNetworkActivity"
+            android:exported="false"
+            android:configChanges="smallestScreenSize|screenSize|screenLayout|orientation|keyboardHidden"/>
+        <provider
+            android:name="com.facebook.ads.AudienceNetworkContentProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.AudienceNetworkContentProvider"/>
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.firebaseinitprovider"
+            android:initOrder="100"
+            android:directBootAware="true"/>
+        <provider
+            android:name="com.facebook.internal.FacebookInitProvider"
+            android:exported="false"
+            android:authorities="com.urbandroid.sleep.FacebookInitProvider"/>
+        <receiver
+            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.facebook.AuthenticationTokenManager.CurrentAuthenticationTokenChangedBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <uses-library
+            android:name="android.ext.adservices"
+            android:required="false"/>
+        <uses-library
+            android:name="androidx.window.extensions"
+            android:required="false"/>
+        <uses-library
+            android:name="androidx.window.sidecar"
+            android:required="false"/>
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:exported="false"
+            android:directBootAware="true"/>
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            android:permission="android.permission.DUMP"
+            android:enabled="true"
+            android:exported="true"
+            android:directBootAware="false">
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SKIP_FILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+            android:exported="false">
+            <meta-data
+                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+                android:value="cct"/>
+        </service>
+        <service
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"/>
+        <receiver
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+            android:exported="false"/>
+        <service
+            android:name="com.garmin.android.connectiq.IQGarminBindingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.garmin.android.connectiq.GARMIN_BINDING_SERVICE_ACTION"/>
+            </intent-filter>
+        </service>
+        <activity
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
+            android:name="com.garmin.android.connectiq.AutoUIDialogHostActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:theme="@style/Theme.PlayCore.Transparent"
+            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+            android:exported="false"
+            android:stateNotNeeded="true"/>
+    </application>
+</manifest>

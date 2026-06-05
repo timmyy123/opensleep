@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="addons_entries">
+        <item>addons_backup</item>
+        <item>addons_wearables</item>
+        <item>addons_lullaby</item>
+        <item>addons_sleepphaser</item>
+        <item>addons_mask</item>
+        <item>addons_captcha</item>
+        <item>addons_apnea</item>
+    </array>
+    <array name="addons_entries_us">
+        <item>addons_backup</item>
+        <item>addons_wearables</item>
+        <item>addons_lullaby</item>
+        <item>addons_sleepphaser</item>
+        <item>addons_mask</item>
+        <item>addons_captcha</item>
+        <item>addons_apnea</item>
+        <item>addons_sms</item>
+    </array>
+    <array name="advice_issues_deep_sleep_less">
+        <item>@string/advice_issues_schedule</item>
+        <item>@string/advice_issues_lcd</item>
+        <item>@string/advice_issues_calm</item>
+        <item>@string/advice_issues_lullaby</item>
+        <item>@string/advice_issues_stress</item>
+        <item>@string/advice_issues_alco</item>
+        <item>@string/advice_issues_sports</item>
+        <item>@string/advice_issues_eat</item>
+    </array>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Make sure the tracking device is close to your body able to capture your sleep movement</item>
+    </array>
+    <array name="advice_issues_duration_less">
+        <item>@string/advice_issues_schedule</item>
+        <item>@string/advice_issues_nap</item>
+        <item>@string/advice_issues_lcd</item>
+        <item>@string/advice_issues_light</item>
+        <item>@string/advice_issues_caffeine</item>
+        <item>@string/advice_issues_calm</item>
+        <item>@string/advice_issues_lullaby</item>
+        <item>@string/advice_issues_cool</item>
+        <item>@string/advice_issues_stress</item>
+        <item>@string/advice_issues_alco</item>
+        <item>@string/advice_issues_sports</item>
+    </array>
+    <array name="advice_issues_duration_more">
+        <item>@string/advice_issues_wake</item>
+    </array>
+    <array name="advice_issues_hr">
+        <item>@string/advice_issues_eat</item>
+        <item>@string/advice_issues_caffeine</item>
+        <item>@string/advice_issues_stress</item>
+        <item>@string/advice_issues_alco</item>
+        <item>@string/advice_issues_schedule</item>
+    </array>
+    <array name="advice_issues_hrv">
+        <item>@string/advice_issues_stress</item>
+        <item>@string/advice_issues_caffeine</item>
+        <item>@string/advice_issues_calm</item>
+        <item>@string/advice_issues_alco</item>
+        <item>@string/advice_issues_lullaby</item>
+        <item>@string/advice_issues_schedule</item>
+        <item>@string/advice_issues_sports</item>
+    </array>
+    <array name="advice_issues_sleep_variance">
+        <item>@string/advice_issues_light</item>
+        <item>@string/advice_issues_stress</item>
+        <item>@string/advice_issues_sports</item>
+        <item>@string/advice_issues_lullaby</item>
+        <item>@string/advice_issues_caffeine</item>
+        <item>@string/advice_issues_schedule</item>
+    </array>
+    <array name="advice_issues_snoring_more">
+        <item>@string/advice_issues_back</item>
+        <item>@string/advice_issues_alco</item>
+        <item>@string/advice_issues_smoke</item>
+        <item>@string/advice_issues_sports</item>
+        <item>@string/advice_issues_med</item>
+    </array>
+    <array name="advice_issues_snoring_too_much">
+        <item>@string/apnea_category_summary</item>
+        <item>@string/advice_sleep_lab</item>
+    </array>
+    <array name="advice_issues_social_jetlag">
+        <item>@string/advice_issues_light</item>
+        <item>@string/advice_issues_caffeine</item>
+        <item>@string/advice_issues_schedule</item>
+    </array>
+    <array name="airplane_preference_entries">
+        <item>@string/manual</item>
+        <item>@string/automatic</item>
+    </array>
+    <array name="airplane_preference_values">
+        <item>0</item>
+        <item>2</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>3 minutes</item>
+        <item>6 minutes</item>
+        <item>9 minutes</item>
+        <item>12 minutes</item>
+        <item>18 minutes</item>
+        <item>24 minutes</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_values">
+        <item>-1</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>180000</item>
+        <item>360000</item>
+        <item>540000</item>
+        <item>720000</item>
+        <item>1080000</item>
+        <item>1440000</item>
+    </array>
+    <array name="alarm_increasing_volume_speed_entries">
+        <item>5 seconds</item>
+        <item>15 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+    </array>
+    <array name="alarm_increasing_volume_speed_values">
+        <item>5000</item>
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>120000</item>
+    </array>
+    <array name="alarm_kill_snooze_count_entries">
+        <item>2x</item>
+        <item>3x</item>
+        <item>5x</item>
+        <item>10x</item>
+    </array>
+    <array name="alarm_kill_snooze_count_values">
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+    </array>
+    <array name="alarm_kill_time_values">
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>1800</item>
+        <item>2400</item>
+        <item>3600</item>
+        <item>7200</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_output_values">
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="alarm_set">
+        <item>This alarm is set for less than 1 minute from now</item>
+        <item>This alarm is set for %1$s</item>
+        <item>This alarm is set for %2$s</item>
+        <item>This alarm is set for %1$s and %2$s</item>
+        <item>This alarm is set for %3$s</item>
+        <item>This alarm is set for %1$s and %3$s</item>
+        <item>This alarm is set for %2$s and %3$s</item>
+        <item>This alarm is set for %1$s, %2$s, and %3$s</item>
+    </array>
+    <array name="alarm_sorting_entries">
+        <item>@string/stats_caption_day</item>
+        <item>@string/time</item>
+    </array>
+    <array name="alarm_sorting_values">
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="alarms_synonyms">
+        <item>alarm</item>
+        <item>set alarm</item>
+        <item>add alarm</item>
+    </array>
+    <array name="android_wear_capabilities">
+        <item>sleep_tracking_phone</item>
+    </array>
+    <array name="anti_snoring_entries">
+        <item>@string/disabled</item>
+        <item>@string/sound</item>
+        <item>@string/vibration</item>
+        <item>@string/both</item>
+        <item>@string/notification</item>
+    </array>
+    <array name="anti_snoring_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </array>
+    <array name="app_actions_alarms">
+        <item>alarms</item>
+        <item>my alarms</item>
+        <item>alarms list</item>
+        <item>my alarms list</item>
+    </array>
+    <array name="app_actions_last_sleep">
+        <item>last sleep</item>
+        <item>my last sleep</item>
+    </array>
+    <array name="app_actions_start_tracking">
+        <item>start tracking</item>
+        <item>tracking</item>
+        <item>sleep tracking</item>
+        <item>start sleep tracking</item>
+    </array>
+    <array name="app_actions_stop_tracking">
+        <item>finish sleep tracking</item>
+        <item>finish tracking</item>
+        <item>finish</item>
+        <item>finish sleep</item>
+        <item>end sleep tracking</item>
+        <item>end tracking</item>
+        <item>end</item>
+        <item>end sleep</item>
+        <item>stop sleep tracking</item>
+        <item>stop tracking</item>
+        <item>stop</item>
+        <item>stop sleep</item>
+    </array>
+    <array name="auto_start_charge_entries">
+        <item>@string/sensor_sonar</item>
+        <item>@string/always</item>
+        <item>@string/never_rate</item>
+    </array>
+    <array name="auto_start_charge_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="auto_start_entries">
+        <item>@string/manual_only</item>
+        <item>@string/when_asleep</item>
+        <item>@string/time_to_bed_title</item>
+        <item>@string/non_deep_sleep_window_title</item>
+    </array>
+    <array name="auto_start_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (Fast wake up)</item>
+        <item>Gamma (Highly stimulating)</item>
+    </array>
+    <array name="binaural_alarm_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (Deep sleep)</item>
+        <item>Theta (Relaxing)</item>
+    </array>
+    <array name="binaural_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Very simple</item>
+        <item>Simple</item>
+        <item>Intermediate</item>
+        <item>Hard</item>
+        <item>Very hard</item>
+    </array>
+    <array name="captcha_difficulty_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="captcha_no_escape_phone_switchoff_preference_entries">
+        <item>@string/lullaby_name_NONE</item>
+        <item>@string/motivation_normal</item>
+        <item>@string/motivation_high</item>
+    </array>
+    <array name="captcha_no_escape_phone_switchoff_preference_values">
+        <item>disable</item>
+        <item>refundable_wakeup_motivation_1</item>
+        <item>refundable_wakeup_motivation_2</item>
+    </array>
+    <array name="captcha_preference_values">
+        <item>0</item>
+    </array>
+    <array name="dashboard_synonyms">
+        <item>board</item>
+        <item>control panel</item>
+    </array>
+    <array name="day_incidence_hour_entries">
+        <item>06:00</item>
+        <item>04:00</item>
+        <item>02:00</item>
+        <item>00:00</item>
+        <item>22:00</item>
+        <item>20:00</item>
+        <item>18:00</item>
+        <item>16:00</item>
+        <item>14:00</item>
+        <item>12:00</item>
+    </array>
+    <array name="day_incidence_hour_values">
+        <item>6</item>
+        <item>4</item>
+        <item>2</item>
+        <item>0</item>
+        <item>22</item>
+        <item>20</item>
+        <item>18</item>
+        <item>16</item>
+        <item>14</item>
+        <item>12</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>60 minutes</item>
+    </array>
+    <array name="delay_tracking_values">
+        <item>0</item>
+        <item>10000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>120000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1200000</item>
+        <item>1800000</item>
+        <item>2700000</item>
+        <item>3600000</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Cancel</item>
+        <item>Half year</item>
+        <item>3 Months</item>
+        <item>2 Months</item>
+        <item>1 Month</item>
+        <item>2 Weeks</item>
+        <item>All</item>
+    </array>
+    <array name="delete_older_than_values">
+        <item>-1</item>
+        <item>182</item>
+        <item>92</item>
+        <item>61</item>
+        <item>30</item>
+        <item>14</item>
+        <item>0</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Dim</item>
+        <item>Dim with clock</item>
+        <item>Always on clock</item>
+    </array>
+    <array name="dimm_values">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="empty">
+        <item>item</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Auto-publish sleep graphs</item>
+        <item>Auto-publish graphs and status</item>
+    </array>
+    <array name="facebook_preference_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="featured_entries">
+        <item>featured_kinestop</item>
+        <item>featured_air</item>
+        <item>featured_aircraft</item>
+        <item>featured_babysleep</item>
+        <item>featured_voli</item>
+        <item>featured_sayit</item>
+        <item>featured_pokemoney</item>
+        <item>featured_dkma</item>
+        <item>featured_dnd</item>
+    </array>
+    <array name="filter_array">
+        <item>@string/menu_all</item>
+        <item>@string/workdays</item>
+        <item>@string/weekends</item>
+    </array>
+    <array name="friend_entries">
+    </array>
+    <array name="gradual_vibration_values">
+        <item>0</item>
+        <item>10</item>
+        <item>50</item>
+        <item>80</item>
+        <item>100</item>
+    </array>
+    <array name="graph_color_theme_entries">
+        <item>@string/default_ringtone_name</item>
+        <item>@string/color_teal</item>
+        <item>@string/color_green</item>
+        <item>@string/color_blue</item>
+        <item>@string/color_purple</item>
+        <item>@string/settings_category_misc</item>
+        <item>@string/legacy</item>
+    </array>
+    <array name="graph_color_theme_values">
+        <item>0</item>
+        <item>10</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>20</item>
+    </array>
+    <array name="home_screen_entries">
+        <item>@string/dashboard</item>
+        <item>@string/tabs</item>
+        <item>@string/alarms_only</item>
+    </array>
+    <array name="home_screen_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="hour_format_entries">
+        <item>@string/device_default</item>
+        <item>13:00</item>
+        <item>1:00</item>
+        <item>1:00 PM</item>
+    </array>
+    <array name="hour_format_values">
+        <item>-1</item>
+        <item>24</item>
+        <item>12</item>
+        <item>13</item>
+    </array>
+    <array name="ideal_array">
+        <item>0:30</item>
+        <item>0:40</item>
+        <item>0:50</item>
+        <item>1:00</item>
+        <item>1:10</item>
+        <item>1:20</item>
+        <item>1:30</item>
+        <item>1:40</item>
+        <item>1:50</item>
+        <item>2:00</item>
+        <item>2:10</item>
+        <item>2:20</item>
+        <item>2:30</item>
+        <item>2:40</item>
+        <item>2:50</item>
+        <item>3:00</item>
+        <item>3:10</item>
+        <item>3:20</item>
+        <item>3:30</item>
+        <item>3:40</item>
+        <item>3:50</item>
+        <item>4:00</item>
+        <item>4:10</item>
+        <item>4:20</item>
+        <item>4:30</item>
+        <item>4:40</item>
+        <item>4:50</item>
+        <item>5:00</item>
+        <item>5:10</item>
+        <item>5:20</item>
+        <item>5:30</item>
+        <item>5:40</item>
+        <item>5:50</item>
+        <item>6:00</item>
+        <item>6:10</item>
+        <item>6:20</item>
+        <item>6:30</item>
+        <item>6:40</item>
+        <item>6:50</item>
+        <item>7:00</item>
+        <item>7:10</item>
+        <item>7:20</item>
+        <item>7:30</item>
+        <item>7:40</item>
+        <item>7:50</item>
+        <item>8:00</item>
+        <item>8:10</item>
+        <item>8:20</item>
+        <item>8:30</item>
+        <item>8:40</item>
+        <item>8:50</item>
+        <item>9:00</item>
+        <item>9:10</item>
+        <item>9:20</item>
+        <item>9:30</item>
+        <item>9:40</item>
+        <item>9:50</item>
+        <item>10:00</item>
+        <item>10:10</item>
+        <item>10:20</item>
+        <item>10:30</item>
+        <item>10:40</item>
+        <item>10:50</item>
+        <item>11:00</item>
+        <item>11:10</item>
+        <item>11:20</item>
+        <item>11:30</item>
+        <item>11:40</item>
+        <item>11:50</item>
+        <item>12:00</item>
+        <item>12:10</item>
+        <item>12:20</item>
+        <item>12:30</item>
+        <item>12:40</item>
+        <item>12:50</item>
+        <item>13:00</item>
+        <item>13:10</item>
+        <item>13:20</item>
+        <item>13:30</item>
+        <item>13:40</item>
+        <item>13:50</item>
+        <item>14:00</item>
+    </array>
+    <array name="integrated_entries">
+        <item>featured_brall</item>
+        <item>featured_ddc</item>
+        <item>featured_twilight</item>
+        <item>featured_lifewatch</item>
+        <item>featured_mindroid</item>
+        <item>featured_inline</item>
+        <item>featured_huemanic</item>
+    </array>
+    <array name="logging_level_entries">
+        <item>Normal</item>
+        <item>Enhanced</item>
+    </array>
+    <array name="logging_level_values">
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="lucid_after_hours">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </array>
+    <array name="lucid_loop_entries">
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+        <item>10x</item>
+        <item>20x</item>
+    </array>
+    <array name="lucid_loop_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+    </array>
+    <array name="lucid_mask_brightness_entries">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </array>
+    <array name="lucid_mask_brightness_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="lucid_mask_pattern_entries">
+        <item>Pattern 1</item>
+        <item>Pattern 2</item>
+        <item>Pattern 3</item>
+        <item>Pattern 4</item>
+        <item>Pattern 5</item>
+        <item>Pattern 6</item>
+    </array>
+    <array name="lucid_mask_pattern_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </array>
+    <array name="lucid_mask_speed_entries">
+        <item>Slow</item>
+        <item>Medium</item>
+        <item>Fast</item>
+    </array>
+    <array name="lucid_mask_speed_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="lucid_sensitivity">
+        <item>@string/low_sensitivity</item>
+        <item>@string/medium_sensitivity</item>
+        <item>@string/high_sensitivity</item>
+    </array>
+    <array name="lullaby_playlist_size_entries">
+        <item>@string/playlist_loop_single</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+        <item>6x</item>
+        <item>8x</item>
+        <item>10x</item>
+        <item>12x</item>
+        <item>15x</item>
+        <item>20x</item>
+    </array>
+    <array name="lullaby_playlist_size_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>15</item>
+        <item>20</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>
+        <item>90 minutes</item>
+    </array>
+    <array name="media_decreasing_volume_after_values">
+        <item>-1</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1200000</item>
+        <item>1500000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>5400000</item>
+    </array>
+    <array name="menu_backup">
+        <item>@string/menu_export</item>
+        <item>@string/menu_upload_cloud</item>
+        <item>@string/menu_import</item>
+        <item>@string/menu_download_cloud</item>
+        <item>@string/rate</item>
+        <item>@string/help</item>
+    </array>
+    <array name="menu_backup_download">
+        <item>@string/menu_import</item>
+        <item>@string/menu_download_cloud</item>
+    </array>
+    <array name="morning_screen_entries">
+        <item>@string/disabled</item>
+        <item>@string/morning_briefing</item>
+        <item>@string/graphs</item>
+        <item>@string/dashboard</item>
+    </array>
+    <array name="morning_screen_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="nap_entries">
+        <item>0:01</item>
+        <item>0:02</item>
+        <item>0:03</item>
+        <item>0:04</item>
+        <item>0:05</item>
+        <item>0:07</item>
+        <item>0:10</item>
+        <item>0:15</item>
+        <item>0:20</item>
+        <item>0:25</item>
+        <item>0:30</item>
+        <item>0:35</item>
+        <item>0:40</item>
+        <item>0:45</item>
+        <item>0:50</item>
+        <item>0:55</item>
+        <item>1:00</item>
+        <item>1:10</item>
+        <item>1:20</item>
+        <item>1:30</item>
+        <item>1:40</item>
+        <item>1:50</item>
+        <item>2:00</item>
+        <item>2:15</item>
+        <item>2:30</item>
+        <item>2:45</item>
+        <item>3:00</item>
+        <item>3:30</item>
+        <item>4:00</item>
+        <item>4:30</item>
+        <item>5:00</item>
+        <item>5:30</item>
+        <item>6:00</item>
+        <item>6:30</item>
+        <item>7:00</item>
+        <item>7:30</item>
+        <item>8:00</item>
+        <item>9:00</item>
+        <item>10:00</item>
+    </array>
+    <array name="nap_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>7</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
+        <item>135</item>
+        <item>150</item>
+        <item>165</item>
+        <item>180</item>
+        <item>210</item>
+        <item>240</item>
+        <item>270</item>
+        <item>300</item>
+        <item>330</item>
+        <item>360</item>
+        <item>390</item>
+        <item>420</item>
+        <item>450</item>
+        <item>480</item>
+        <item>540</item>
+        <item>600</item>
+    </array>
+    <array name="navigation">
+        <item>@string/alarm_list_title</item>
+        <item>@string/graphs</item>
+        <item>@string/stats</item>
+        <item>@string/noise</item>
+        <item>@string/addon</item>
+    </array>
+    <array name="noise_input_entries">
+        <item>@string/default_ringtone_name</item>
+        <item>@string/device_default</item>
+        <item>MIC</item>
+        <item>@string/sound_recognition</item>
+        <item>UNPROCESSED</item>
+    </array>
+    <array name="noise_input_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </array>
+    <array name="noise_output_entries">
+        <item>@string/default_ringtone_name</item>
+        <item>MP4</item>
+        <item>OGG</item>
+    </array>
+    <array name="noise_output_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accelerometer</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_method_values">
+        <item>0</item>
+        <item>2</item>
+    </array>
+    <array name="non_deep_sleep_sensitivity_checks_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </array>
+    <array name="non_deep_sleep_sensitivity_entries">
+        <item>@string/high_sensitivity</item>
+        <item>@string/medium_sensitivity</item>
+        <item>@string/low_sensitivity</item>
+        <item>@string/very_low_sensitivity</item>
+    </array>
+    <array name="non_deep_sleep_sensitivity_values">
+        <item>1.5</item>
+        <item>2</item>
+        <item>3</item>
+        <item>6</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Power nap</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>50 minutes</item>
+        <item>1 hour</item>
+        <item>1 hour 30 min</item>
+        <item>2 hours</item>
+    </array>
+    <array name="non_deep_sleep_window_values">
+        <item>0</item>
+        <item>59</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </array>
+    <array name="period_array">
+        <item>Week</item>
+        <item>14 days</item>
+        <item>Month</item>
+        <item>Quarter year</item>
+        <item>Half year</item>
+        <item>Year</item>
+        <item>All time</item>
+    </array>
+    <array name="period_entries">
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+        <item>90</item>
+        <item>182</item>
+        <item>360</item>
+        <item>1080</item>
+    </array>
+    <array name="period_values">
+        <item>14 days</item>
+        <item>Month</item>
+        <item>Quarter year</item>
+        <item>Half year</item>
+        <item>Year</item>
+    </array>
+    <array name="playlist_mode_entries">
+        <item>@string/playlist_shuffle</item>
+        <item>@string/playlist_ordered</item>
+        <item>@string/playlist_loop_single</item>
+    </array>
+    <array name="playlist_mode_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="rate_later_entries">
+        <item>@string/disabled</item>
+        <item>@string/hour</item>
+        <item>@string/hours_2</item>
+        <item>@string/hours_3</item>
+        <item>@string/hours_4</item>
+        <item>@string/hours_5</item>
+        <item>@string/hours_6</item>
+        <item>@string/hours_7</item>
+        <item>@string/hours_8</item>
+    </array>
+    <array name="rate_later_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </array>
+    <array name="repeat_entries">
+        <item>0x</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+        <item>10x</item>
+        <item>20x</item>
+        <item>30x</item>
+        <item>40x</item>
+        <item>50x</item>
+    </array>
+    <array name="repeat_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </array>
+    <array name="repeat_weekly_array">
+        <item>@string/weekly</item>
+        <item>@string/even</item>
+        <item>@string/odd</item>
+        <item>@string/non_weekly</item>
+    </array>
+    <array name="sensitivity_array">
+        <item>@string/disabled</item>
+        <item>@string/low_sensitivity</item>
+        <item>@string/medium_sensitivity</item>
+        <item>@string/high_sensitivity</item>
+    </array>
+    <array name="sensitivity_array_smart_wake">
+        <item>@string/high_sensitivity</item>
+        <item>@string/medium_sensitivity</item>
+        <item>@string/low_sensitivity</item>
+        <item>@string/very_low_sensitivity</item>
+    </array>
+    <array name="sensitivity_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="sensitivity_values_short">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="sleep_detection_preference_entries">
+        <item>@string/disabled</item>
+        <item>@string/manual_only</item>
+        <item>@string/auto_save</item>
+    </array>
+    <array name="sleep_detection_preference_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="sleep_events">
+        <item>@string/event_SLEEP_TRACKING_STARTED</item>
+        <item>@string/event_SLEEP_TRACKING_STOPPED</item>
+        <item>@string/event_ALARM_ALERT_DISMISS</item>
+        <item>@string/event_ALARM_ALERT_START</item>
+        <item>@string/event_ALARM_SNOOZE_CLICKED</item>
+        <item>@string/event_TIME_TO_BED_ALARM_ALERT</item>
+        <item>@string/event_ANTISNORING</item>
+        <item>@string/event_REM</item>
+        <item>@string/event_SMART_PERIOD</item>
+    </array>
+    <array name="sleep_recording_threshold_entries">
+        <item>10%</item>
+        <item>20%</item>
+        <item>30%</item>
+        <item>40%</item>
+        <item>50%</item>
+        <item>60%</item>
+        <item>70%</item>
+        <item>80%</item>
+        <item>90%</item>
+    </array>
+    <array name="sleep_recording_threshold_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </array>
+    <array name="smartlight_light_up_after_entries">
+        <item>@string/never_rate</item>
+        <item>@string/alarm_alert_snooze_text</item>
+        <item>@string/alarm_alert_dismiss_text</item>
+        <item>@string/both</item>
+    </array>
+    <array name="smartlight_light_up_after_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="smartlight_peelight_time_values">
+        <item>-1</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+        <item>1000</item>
+    </array>
+    <array name="snooze_after_alarm_entries">
+        <item>@string/disabled</item>
+        <item>@string/enabled</item>
+    </array>
+    <array name="snooze_after_alarm_values">
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>35 minutes</item>
+        <item>40 minutes</item>
+        <item>45 minutes</item>
+        <item>50 minutes</item>
+        <item>55 minutes</item>
+        <item>1 hour</item>
+        <item>90 minutes</item>
+    </array>
+    <array name="snooze_duration_values">
+        <item>0</item>
+        <item>-1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+        <item>90</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="snooze_limit_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="sonar_method_entries">
+        <item>F18-22</item>
+        <item>F18-20</item>
+        <item>F20</item>
+        <item>F19</item>
+        <item>F18</item>
+    </array>
+    <array name="sonar_method_values">
+        <item>CHIRP_18_20</item>
+        <item>CHIRP_18_20_REALLY</item>
+        <item>MONO_20</item>
+        <item>MONO_19</item>
+        <item>MONO_18</item>
+    </array>
+    <array name="start_synonyms">
+        <item>sleep</item>
+    </array>
+    <array name="start_tracking_synonyms">
+        <item>recording</item>
+        <item>tracking</item>
+        <item>start recording</item>
+        <item>launch tracking</item>
+        <item>launch recording</item>
+        <item>run tracking</item>
+        <item>run recording</item>
+        <item>run sleep recording</item>
+        <item>run sleep tracking</item>
+    </array>
+    <array name="stop_tracking_synonyms">
+        <item>stop</item>
+        <item>stop recording</item>
+        <item>finish tracking</item>
+        <item>finish recording</item>
+        <item>finish sleep recording</item>
+        <item>finish sleep tracking</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Full alarm volume</item>
+        <item>Low alarm volume</item>
+        <item>Alarm is silent</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="target_sleep_time_entries">
+        <item>0:30</item>
+        <item>1:00</item>
+        <item>1:30</item>
+        <item>2:00 (Dymaxion 4x30/Uberman 6x20)</item>
+        <item>2:50 (Everyman 1.5+4x20)</item>
+        <item>3:00</item>
+        <item>3:10 (Everyman 1.5+5x20)</item>
+        <item>3:30</item>
+        <item>4:00 (Everyman 3+3x20)</item>
+        <item>4:30 (Everyman 3.5+3x20)</item>
+        <item>4:40 (DualCore 2.5+1.5+2x20)</item>
+        <item>5:00</item>
+        <item>5:10 (Everyman 4.5+2x20)</item>
+        <item>5:20 (DualCore 3.5+1.5+20)</item>
+        <item>5:30</item>
+        <item>6:00</item>
+        <item>6:20 (Biphasic 6+20)</item>
+        <item>6:30 (Biphasic 5+90)</item>
+        <item>6:45</item>
+        <item>7:00 (Mono/Biphasic 2x3.5)</item>
+        <item>7:15</item>
+        <item>7:30</item>
+        <item>7:45</item>
+        <item>8:00</item>
+        <item>8:15</item>
+        <item>8:30</item>
+        <item>8:45</item>
+        <item>9:00</item>
+        <item>9:30</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 min. before</item>
+        <item>15 min. before</item>
+        <item>30 min. before</item>
+        <item>45 min. before</item>
+        <item>1 hour before</item>
+        <item>1 hour 30 min. before</item>
+        <item>2 hours before</item>
+    </array>
+    <array name="target_sleep_time_notify_values">
+        <item>-1</item>
+        <item>5</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </array>
+    <array name="target_sleep_time_values">
+        <item>0.5</item>
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>2.833</item>
+        <item>3</item>
+        <item>3.166</item>
+        <item>3.5</item>
+        <item>4</item>
+        <item>4.5</item>
+        <item>4.666</item>
+        <item>5</item>
+        <item>5.166</item>
+        <item>5.333</item>
+        <item>5.5</item>
+        <item>6</item>
+        <item>6.333</item>
+        <item>6.5</item>
+        <item>6.75</item>
+        <item>7</item>
+        <item>7.25</item>
+        <item>7.5</item>
+        <item>7.75</item>
+        <item>8</item>
+        <item>8.25</item>
+        <item>8.5</item>
+        <item>8.75</item>
+        <item>9</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </array>
+    <array name="temperature_entries">
+        <item>@string/default_ringtone_name</item>
+        <item>°C</item>
+        <item>°F</item>
+    </array>
+    <array name="temperature_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="theme_entries">
+        <item>@string/automatic</item>
+        <item>@string/automatic</item>
+        <item>@string/owl</item>
+        <item>@string/lark</item>
+        <item>@string/phone_preference</item>
+    </array>
+    <array name="theme_values">
+        <item>0</item>
+        <item>3</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="time_to_bed_repeat_values">
+        <item>-1</item>
+        <item>60000</item>
+        <item>120000</item>
+        <item>180000</item>
+        <item>240000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1200000</item>
+        <item>1800000</item>
+    </array>
+    <array name="trim_graph_entries">
+        <item>@string/disabled</item>
+        <item>2x</item>
+        <item>2.5x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="trim_graph_values">
+        <item>0</item>
+        <item>2</item>
+        <item>2.5</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Snooze</item>
+        <item>Dismiss</item>
+    </array>
+    <array name="volume_button_setting_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="wake_app_check_per_alarm_entries">
+        <item>@string/disabled</item>
+        <item>@string/enabled</item>
+    </array>
+    <array name="wake_app_check_per_alarm_values">
+        <item>0</item>
+        <item>1</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>When battery &lt;20%</item>
+        <item>When battery &lt;10%</item>
+        <item>When battery &lt;5%</item>
+    </array>
+    <array name="wake_lock_values">
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minutes</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+    </array>
+    <array name="wake_up_check_after_values">
+        <item>60000</item>
+        <item>180000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1200000</item>
+        <item>1500000</item>
+        <item>1800000</item>
+    </array>
+    <array name="wake_up_check_repeat_entries">
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+        <item>10x</item>
+    </array>
+    <array name="wake_up_check_repeat_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>10</item>
+    </array>
+    <array name="week_repeat_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+    <array name="week_start_entries">
+        <item>@string/device_default</item>
+        <item>@string/week_sunday</item>
+        <item>@string/week_monday</item>
+        <item>@string/week_saturday</item>
+        <item>@string/week_friday</item>
+        <item>@string/week_wednesday</item>
+        <item>@string/week_thursday</item>
+    </array>
+    <array name="week_start_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>7</item>
+        <item>6</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
+    <array name="year_of_birth_values">
+        <item>1900</item>
+        <item>1901</item>
+        <item>1902</item>
+        <item>1903</item>
+        <item>1904</item>
+        <item>1905</item>
+        <item>1906</item>
+        <item>1907</item>
+        <item>1908</item>
+        <item>1909</item>
+        <item>1910</item>
+        <item>1911</item>
+        <item>1912</item>
+        <item>1913</item>
+        <item>1914</item>
+        <item>1915</item>
+        <item>1916</item>
+        <item>1917</item>
+        <item>1918</item>
+        <item>1919</item>
+        <item>1920</item>
+        <item>1921</item>
+        <item>1922</item>
+        <item>1923</item>
+        <item>1924</item>
+        <item>1925</item>
+        <item>1926</item>
+        <item>1927</item>
+        <item>1928</item>
+        <item>1929</item>
+        <item>1930</item>
+        <item>1931</item>
+        <item>1932</item>
+        <item>1933</item>
+        <item>1934</item>
+        <item>1935</item>
+        <item>1936</item>
+        <item>1937</item>
+        <item>1938</item>
+        <item>1939</item>
+        <item>1940</item>
+        <item>1941</item>
+        <item>1942</item>
+        <item>1943</item>
+        <item>1944</item>
+        <item>1945</item>
+        <item>1946</item>
+        <item>1947</item>
+        <item>1948</item>
+        <item>1949</item>
+        <item>1950</item>
+        <item>1951</item>
+        <item>1952</item>
+        <item>1953</item>
+        <item>1954</item>
+        <item>1955</item>
+        <item>1956</item>
+        <item>1957</item>
+        <item>1958</item>
+        <item>1959</item>
+        <item>1960</item>
+        <item>1961</item>
+        <item>1962</item>
+        <item>1963</item>
+        <item>1964</item>
+        <item>1965</item>
+        <item>1966</item>
+        <item>1967</item>
+        <item>1968</item>
+        <item>1969</item>
+        <item>1970</item>
+        <item>1971</item>
+        <item>1972</item>
+        <item>1973</item>
+        <item>1974</item>
+        <item>1975</item>
+        <item>1976</item>
+        <item>1977</item>
+        <item>1978</item>
+        <item>1979</item>
+        <item>1980</item>
+        <item>1981</item>
+        <item>1982</item>
+        <item>1983</item>
+        <item>1984</item>
+        <item>1985</item>
+        <item>1986</item>
+        <item>1987</item>
+        <item>1988</item>
+        <item>1989</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+        <item>1996</item>
+        <item>1997</item>
+        <item>1998</item>
+        <item>1999</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+        <item>2008</item>
+        <item>2009</item>
+        <item>2010</item>
+        <item>2011</item>
+        <item>2012</item>
+        <item>2013</item>
+        <item>2014</item>
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+    </array>
+    <array name="zoom_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </array>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Radio Gaga"
+            android:singleLine="true"
+            android:layout_weight="1"/>
+        <com.google.android.material.button.MaterialButton
+            android:textColor="@color/tint"
+            android:id="@+id/find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/find"
+            android:includeFontPadding="false"
+            style="@style/Widget.Material3.Button.TextButton"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <EditText
+        android:id="@+id/edit2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="https://my.streaming.url"
+        android:singleLine="true"/>
+</LinearLayout>

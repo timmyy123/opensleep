@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/primary"
+        android:ellipsize="end"
+        android:id="@android:id/title"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm_repeat"
+        android:lines="1"
+        android:layout_weight="1"
+        android:paddingStart="24dp"
+        android:paddingEnd="8dp"/>
+    <Spinner
+        android:id="@+id/week_repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

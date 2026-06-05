@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Համոզվեք, որ հետևող սարքը մոտ է ձեր մարմնին և կարող է գրանցել ձեր քնի շարժումները</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 վայրկյան</item>
+        <item>1 րոպե</item>
+        <item>3 րոպե</item>
+        <item>6 րոպե</item>
+        <item>9 րոպե</item>
+        <item>12 րոպե</item>
+        <item>18 րոպե</item>
+        <item>24 րոպե</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 րոպե</item>
+        <item>2 րոպե</item>
+        <item>3 րոպե</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>20 րոպե</item>
+        <item>30 րոպե</item>
+        <item>40 րոպե</item>
+        <item>1 ժամ</item>
+        <item>2 ժամ</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>Այս զարթուցիչը դրված է 1 րոպեից էլ պակաս ժամանակով</item>
+        <item>Այս զարթուցիչը սահմանված է %1$s-ի համար</item>
+        <item>Այս զարթուցիչը դրված է %2$s-ի համար</item>
+        <item>Այս զարթուցիչը սահմանված է %1$s և %2$s համար։</item>
+        <item>Այս զարթուցիչը դրված է %3$s-ի վրա</item>
+        <item>Այս զարթուցիչը սահմանված է %1$s և %3$s համար։</item>
+        <item>Այս զարթուցիչը սահմանված է %2$s և %3$s համար։</item>
+        <item>Այս զարթուցիչը սահմանված է %1$s, %2$s և %3$s համար։</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Բետա (արագ արթնացում)</item>
+        <item>Գամմա (բարձր խթանող)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Դելտա (խորը քուն)</item>
+        <item>Թետա (հանգստացնող)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Շատ պարզ</item>
+        <item>Պարզ</item>
+        <item>Միջին</item>
+        <item>Դժվար</item>
+        <item>Շատ դժվար</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 վայրկյան</item>
+        <item>30 վայրկյան</item>
+        <item>1 րոպե</item>
+        <item>2 րոպե</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>30 րոպե</item>
+        <item>45 րոպե</item>
+        <item>60 րոպե</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Չեղարկել</item>
+        <item>Կես տարի</item>
+        <item>3 ամիս</item>
+        <item>2 ամիս</item>
+        <item>1 ամիս</item>
+        <item>2 շաբաթ</item>
+        <item>Բոլորը</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Մուգ</item>
+        <item>Ժամացույցի հետ մարել</item>
+        <item>Միշտ ժամացույցի վրա</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Ավտոմատ հրապարակել քնի գրաֆիկները</item>
+        <item>Ավտոմատ հրապարակել գրաֆիկները և կարգավիճակը</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>25 րոպե</item>
+        <item>30 րոպե</item>
+        <item>60 րոպե</item>
+        <item>90 րոպե</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Աքսելերոմետր</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Ուժային քուն</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>25 րոպե</item>
+        <item>30 րոպե</item>
+        <item>40 րոպե</item>
+        <item>50 րոպե</item>
+        <item>1 ժամ</item>
+        <item>1 ժամ 30 րոպե</item>
+        <item>2 ժամ</item>
+    </array>
+    <array name="period_array">
+        <item>Շաբաթ</item>
+        <item>14 օր</item>
+        <item>Ամիս</item>
+        <item>Եռամսյակ</item>
+        <item>Կես տարի</item>
+        <item>Տարի</item>
+        <item>Բոլոր ժամանակների</item>
+    </array>
+    <array name="period_values">
+        <item>14 օր</item>
+        <item>Ամիս</item>
+        <item>Եռամսյակ</item>
+        <item>Կես տարի</item>
+        <item>Տարի</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 վայրկյան</item>
+        <item>30 վայրկյան</item>
+        <item>1 րոպե</item>
+        <item>2 րոպե</item>
+        <item>5 րոպե</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>@string/last_used</item>
+        <item>3 րոպե</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>25 րոպե</item>
+        <item>30 րոպե</item>
+        <item>35 րոպե</item>
+        <item>40 րոպե</item>
+        <item>45 րոպե</item>
+        <item>50 րոպե</item>
+        <item>55 րոպե</item>
+        <item>1 ժամ</item>
+        <item>90 րոպե</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>@string/no_limit</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Զարթուցիչի լրիվ ձայնը</item>
+        <item>Ցածր ազդանշանի ձայն</item>
+        <item>Զարթուցիչը լուռ է</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 րոպե առաջ</item>
+        <item>15 րոպե առաջ</item>
+        <item>30 րոպե առաջ</item>
+        <item>45 րոպե առաջ</item>
+        <item>1 ժամ առաջ</item>
+        <item>1 ժամ 30 րոպե առաջ</item>
+        <item>2 ժամ առաջ</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 րոպե</item>
+        <item>2 րոպե</item>
+        <item>3 րոպե</item>
+        <item>4 րոպե</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>30 րոպե</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Հետաձգել</item>
+        <item>Փակել</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Երբ մարտկոցը &lt;20% է</item>
+        <item>Երբ մարտկոցը &lt;10% է</item>
+        <item>Երբ մարտկոցը &lt;5% է</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 րոպե</item>
+        <item>3 րոպե</item>
+        <item>5 րոպե</item>
+        <item>10 րոպե</item>
+        <item>15 րոպե</item>
+        <item>20 րոպե</item>
+        <item>25 րոպե</item>
+        <item>30 րոպե</item>
+    </array>
+</resources>

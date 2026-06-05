@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/tabs">
+    <CheckBoxPreference
+        android:icon="@drawable/ic_dashboard"
+        android:layout="@layout/preference"
+        android:title="@string/dashboard"
+        android:key="tab_dashboard"
+        android:widgetLayout="@layout/preference_switch_widget"
+        android:defaultValue="true"/>
+    <CheckBoxPreference
+        android:icon="@drawable/ic_timelapse"
+        android:layout="@layout/preference"
+        android:title="@string/stats"
+        android:key="tab_stats"
+        android:widgetLayout="@layout/preference_switch_widget"
+        android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:icon="@drawable/ic_action_graph"
+        android:layout="@layout/preference"
+        android:title="@string/graphs"
+        android:key="tab_graphs"
+        android:widgetLayout="@layout/preference_switch_widget"
+        android:defaultValue="true"/>
+    <CheckBoxPreference
+        android:icon="@drawable/ic_action_noise"
+        android:layout="@layout/preference"
+        android:title="@string/noise"
+        android:key="tab_noise"
+        android:widgetLayout="@layout/preference_switch_widget"
+        android:defaultValue="false"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty1"/>
+    <Preference
+        android:persistent="false"
+        android:layout="@layout/preference"
+        android:key="empty2"/>
+</PreferenceScreen>

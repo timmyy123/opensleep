@@ -1,0 +1,336 @@
+{
+  "bridgeversions": [
+    {
+      "swversion": "01003542",
+      "api_level": "1.0.0",
+      "features": [
+        "LightAPI1",
+        "GroupAPI1",
+        "ScheduleAPI1",
+        "BridgeConfigurationAPI1"
+      ]
+    },
+    {
+      "swversion": "01005825",
+      "api_level": "1.0.0",
+      "features": [
+        "LightAPI2",
+        "GroupAPI1",
+        "ScheduleAPI1",
+        "BridgeConfigurationAPI1"
+      ]
+    },
+    {
+      "swversion": "01005237",
+      "api_level": "1.1.0",
+      "features": [
+        "LightAPI2",
+        "GroupAPI1",
+        "SceneAPI1",
+        "ScheduleAPI2",
+        "BridgeConfigurationAPI2"
+      ]
+    },
+    {
+      "swversion": "01006390",
+      "api_level": "1.1.0",
+      "features": [
+        "LightAPI2",
+        "GroupAPI1",
+        "SceneAPI1",
+        "ScheduleAPI2",
+        "BridgeConfigurationAPI1"
+      ]
+    },
+    {
+      "swversion": "01008227",
+      "api_level": "1.1.0",
+      "features": [
+        "LightAPI2",
+        "GroupAPI1",
+        "SceneAPI1",
+        "ScheduleAPI2",
+        "BridgeConfigurationAPI1"
+      ]
+    },
+    {
+      "swversion": "01007343",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI2",
+        "ScheduleAPI3",
+        "BridgeConfigurationAPI1",
+        "RuleAPI1",
+        "SensorAPI1"
+      ]
+    },
+    {
+      "swversion": "01007374",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI2",
+        "ScheduleAPI3",
+        "BridgeConfigurationAPI1",
+        "RuleAPI1",
+        "SensorAPI1"
+      ]
+    },
+    {
+      "swversion": "01008554",
+      "api_level": "1.2.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI2",
+        "ScheduleAPI3",
+        "BridgeConfigurationAPI2",
+        "RuleAPI1",
+        "SensorAPI1"
+      ]
+    },
+    {
+      "swversion": "01010387",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI2",
+        "ScheduleAPI3",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1"
+      ]
+    },
+    {
+      "swversion": "01010623",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI4",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01011060",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI4",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "api_level": "1.2.1",
+      "features": [
+        "LightAPI2",
+        "GroupAPI1",
+        "SceneAPI2",
+        "ScheduleAPI3",
+        "BridgeConfigurationAPI3",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01010282",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI4",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01011274",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI4",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01012415",
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI4",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "api_level": "1.3.0",
+      "features": [
+        "LightAPI3",
+        "GroupAPI1",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI5",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "api_level": "1.4.0",
+      "features": [
+        "LightAPI4",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },  
+    {
+      "swversion": "01019845",
+      "api_level": "1.6.0",
+      "features": [
+        "LightAPI6",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01020112",
+      "api_level": "1.6.0",
+      "features": [
+        "LightAPI6",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "swversion": "01020844",
+      "api_level": "1.6.0",
+      "features": [
+        "LightAPI6",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "api_level": "1.6.0",
+      "features": [
+        "LightAPI5",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },   
+    {
+      "api_level": "1.7.0",
+      "features": [
+        "LightAPI6",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI6",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },  
+    {
+      "api_level": "1.8.0",
+      "features": [
+        "LightAPI6",
+        "GroupAPI2",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI7",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    }  ,
+    {
+      "api_level": "1.9.0",
+      "features": [
+        "LightAPI7",
+        "GroupAPI3",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI7",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+    {
+      "api_level": "1.10.0",
+      "features": [
+        "LightAPI7",
+        "GroupAPI3",
+        "SceneAPI3",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI8",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    },
+             {
+      "api_level": "1.11.0",
+      "features": [
+        "LightAPI7",
+        "GroupAPI4",
+        "SceneAPI4",
+        "ScheduleAPI5",
+        "BridgeConfigurationAPI8",
+        "RuleAPI1",
+        "SensorAPI1",
+        "TimeZoneAPI1"
+      ]
+    }
+  ]
+}

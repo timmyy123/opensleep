@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="addons_entries">
+        <item>addons_backup</item>
+        <item>addons_lullaby</item>
+        <item>addons_captcha</item>
+        <item>addons_wearables</item>
+    </array>
+    <array name="advice_issues_deep_sleep_more">
+        <item>確実に測定するために端末を体の側に置いて下さい</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30秒</item>
+        <item>1分</item>
+        <item>3分</item>
+        <item>6分</item>
+        <item>9分</item>
+        <item>12分</item>
+        <item>18分</item>
+        <item>24分</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1分</item>
+        <item>2分</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>20分</item>
+        <item>30分</item>
+        <item>40分</item>
+        <item>1時間</item>
+        <item>2時間</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>端末設定に従う</item>
+        <item>ヘッドホン</item>
+    </array>
+    <array name="alarm_set">
+        <item>アラームが1分以内です</item>
+        <item>アラームは%1$sに設定されています</item>
+        <item>アラームは%2$s後に設定されています</item>
+        <item>アラームは%1$sと%2$s後に設定されています</item>
+        <item>アラームは%3$s後に設定されています</item>
+        <item>アラームは%1$sと%3$s後に設定されています</item>
+        <item>アラームは%2$s%3$s後に設定されています</item>
+        <item>アラームは%1$sと%2$s%3$s後に設定されています</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>ベータ波 (早起き)</item>
+        <item>ガンマ波 (高刺激)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>デルタ波(深い睡眠)</item>
+        <item>シータ波 (リラックス)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>とても簡単</item>
+        <item>簡単</item>
+        <item>普通</item>
+        <item>難しい</item>
+        <item>とても難しい</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10秒</item>
+        <item>30秒</item>
+        <item>1分</item>
+        <item>2分</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>30分</item>
+        <item>45分</item>
+        <item>60分</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>キャンセル</item>
+        <item>6ヶ月</item>
+        <item>3ヶ月</item>
+        <item>2ヶ月</item>
+        <item>1ヶ月</item>
+        <item>2週間</item>
+        <item>すべて</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>減光</item>
+        <item>減光 (時計)</item>
+        <item>常に時計を表示</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>グラフの自動投稿</item>
+        <item>グラフと状態の自動投稿</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>25分</item>
+        <item>30分</item>
+        <item>60分</item>
+        <item>90分</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>加速度センサー</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>お昼寝</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>25分</item>
+        <item>30分</item>
+        <item>40分</item>
+        <item>50分</item>
+        <item>1時間</item>
+        <item>1時間30分</item>
+        <item>2時間</item>
+    </array>
+    <array name="period_array">
+        <item>1週間</item>
+        <item>2週間</item>
+        <item>1ヶ月</item>
+        <item>3ヶ月</item>
+        <item>6ヶ月</item>
+        <item>1年</item>
+        <item>すべて</item>
+    </array>
+    <array name="period_values">
+        <item>14日</item>
+        <item>1ヶ月</item>
+        <item>3ヶ月</item>
+        <item>6ヶ月</item>
+        <item>1年</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10秒</item>
+        <item>30秒</item>
+        <item>1分</item>
+        <item>2分</item>
+        <item>5分</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>アラーム作動時に選択</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>25分</item>
+        <item>30分</item>
+        <item>35分</item>
+        <item>40分</item>
+        <item>45分</item>
+        <item>50分</item>
+        <item>55分</item>
+        <item>60分</item>
+        <item>90分</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>無制限</item>
+        <item>1回</item>
+        <item>2回</item>
+        <item>3回</item>
+        <item>4回</item>
+        <item>5回</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>アラームを最大音量のままにする</item>
+        <item>アラームを小さくする</item>
+        <item>アラームをとめる</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5分前</item>
+        <item>15分前</item>
+        <item>30分前</item>
+        <item>45分前</item>
+        <item>1時間前</item>
+        <item>1時間30分前</item>
+        <item>2時間前</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1分</item>
+        <item>2分</item>
+        <item>3分</item>
+        <item>4分</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>30分</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>スヌーズ</item>
+        <item>アラーム停止</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>20%</item>
+        <item>10%</item>
+        <item>5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1分</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>10分</item>
+        <item>15分</item>
+        <item>20分</item>
+        <item>25分</item>
+        <item>30分</item>
+    </array>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/topLayout"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.urbandroid.sleep.captcha.camera.CameraSourcePreview
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.urbandroid.sleep.captcha.camera.GraphicOverlay
+            android:id="@+id/faceOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.urbandroid.sleep.captcha.camera.CameraSourcePreview>
+    <ImageView
+        android:id="@+id/smile"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/smile"
+        android:maxWidth="500px"
+        android:maxHeight="500px"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_captcha_smile_mirror"
+        android:scaleType="fitXY"/>
+</RelativeLayout>

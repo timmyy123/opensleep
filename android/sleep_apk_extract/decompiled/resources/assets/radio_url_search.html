@@ -1,0 +1,98 @@
+<html>
+
+<style>
+    #form {
+        visibility: hidden;
+    }
+    body {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+    }
+    #titleText {
+        color: #999999;
+        font-size: 6em;
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+    #dot1, #dot2, #dot3 { visibility: hidden }
+
+    #subtitle {
+        color: #999999;
+        font-size: 3em;
+        text-align: center;
+        margin-top: 2em;
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+    .icon-clipboard {
+        /*margin-left: 0.5em;*/
+        /*margin-right: 0.5em;*/
+        opacity: 0.6;
+        display: inline-block;
+        width: 67px;
+        height: 1.6em;
+        vertical-align: middle;
+        filter: invert();
+        background-repeat: no-repeat;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIEZvbnQgQXdlc29tZSBQcm8gNS4xNS40IGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIC0tPjxwYXRoIGQ9Ik00MzMuOTQxIDY1Ljk0MWwtNTEuODgyLTUxLjg4MkE0OCA0OCAwIDAgMCAzNDguMTE4IDBIMTc2Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djQ4SDQ4Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djMyMGMwIDI2LjUxIDIxLjQ5IDQ4IDQ4IDQ4aDIyNGMyNi41MSAwIDQ4LTIxLjQ5IDQ4LTQ4di00OGg4MGMyNi41MSAwIDQ4LTIxLjQ5IDQ4LTQ4Vjk5Ljg4MmE0OCA0OCAwIDAgMC0xNC4wNTktMzMuOTQxek0yNjYgNDY0SDU0YTYgNiAwIDAgMS02LTZWMTUwYTYgNiAwIDAgMSA2LTZoNzR2MjI0YzAgMjYuNTEgMjEuNDkgNDggNDggNDhoOTZ2NDJhNiA2IDAgMCAxLTYgNnptMTI4LTk2SDE4MmE2IDYgMCAwIDEtNi02VjU0YTYgNiAwIDAgMSA2LTZoMTA2djg4YzAgMTMuMjU1IDEwLjc0NSAyNCAyNCAyNGg4OHYyMDJhNiA2IDAgMCAxLTYgNnptNi0yNTZoLTY0VjQ4aDkuNjMyYzEuNTkxIDAgMy4xMTcuNjMyIDQuMjQzIDEuNzU3bDQ4LjM2OCA0OC4zNjhhNiA2IDAgMCAxIDEuNzU3IDQuMjQzVjExMnoiLz48L3N2Zz4=);
+    }
+</style>
+
+<script>
+    function submitForm() {
+        document.getElementById("form").submit();
+    };
+
+    function loopDots(step) {
+        var timeout = 250
+        var dot1 = document.getElementById("dot1")
+        var dot2 = document.getElementById("dot2")
+        var dot3 = document.getElementById("dot3")
+
+        switch (step) {
+            case 1:
+                dot1.style.visibility = "visible";
+                setTimeout(() => loopDots(2), timeout);
+                return;
+            case 2:
+                dot2.style.visibility = "visible";
+                setTimeout(() => loopDots(3), timeout);
+                return;
+            case 3:
+                dot3.style.visibility = "visible";
+                setTimeout(() => loopDots(), timeout);
+                return;
+            default:
+                dot1.style.visibility = "hidden";
+                dot2.style.visibility = "hidden";
+                dot3.style.visibility = "hidden";
+                setTimeout(() => loopDots(1), timeout);
+                return;
+        }
+    };
+
+    function run() {
+        loopDots();
+        submitForm();
+    };
+</script>
+
+<body onload="run()">
+
+<div class="bodyWrapper">
+    <div id="titleText">Looking for the radio stream URL<span id="dot1">.</span><span id="dot2">.</span><span id="dot3">.</span></div>
+    <div id="subtitle">On the next page, tap <div class="icon-clipboard"></div> to copy the URL to clipboard.</div>
+</div>
+
+<form id="form" action="{{url}}" method="{{method}}" enctype="{{enctype}}">
+    {{fields}}
+</form>
+
+</body>
+
+</html>

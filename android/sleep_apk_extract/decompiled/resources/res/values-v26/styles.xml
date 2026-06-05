@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.AppCompat" parent="@style/Base.V26.Theme.AppCompat">
+    </style>
+    <style name="Base.Theme.AppCompat.Light" parent="@style/Base.V26.Theme.AppCompat.Light">
+    </style>
+    <style name="Base.V26.Theme.AppCompat" parent="@style/Base.V23.Theme.AppCompat">
+        <item name="colorError">?android:attr/colorError</item>
+    </style>
+    <style name="Base.V26.Theme.AppCompat.Light" parent="@style/Base.V23.Theme.AppCompat.Light">
+        <item name="colorError">?android:attr/colorError</item>
+    </style>
+    <style name="Base.V26.Widget.AppCompat.Toolbar" parent="@style/Base.V7.Widget.AppCompat.Toolbar">
+        <item name="android:touchscreenBlocksFocus">true</item>
+        <item name="android:keyboardNavigationCluster">true</item>
+    </style>
+    <style name="Base.Widget.AppCompat.Toolbar" parent="@style/Base.V26.Widget.AppCompat.Toolbar">
+    </style>
+    <style name="Widget.Design.AppBarLayout" parent="@android:style/Widget">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:stateListAnimator">@animator/design_appbar_state_list_animator</item>
+        <item name="android:touchscreenBlocksFocus">false</item>
+        <item name="android:keyboardNavigationCluster">false</item>
+    </style>
+    <style name="Widget.Material3.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:touchscreenBlocksFocus">false</item>
+        <item name="android:keyboardNavigationCluster">false</item>
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Toolbar</item>
+        <item name="subtitleTextAppearance">?attr/textAppearanceTitleMedium</item>
+        <item name="titleTextAppearance">?attr/textAppearanceTitleLarge</item>
+    </style>
+    <style name="Widget.MaterialComponents.BottomAppBar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:minHeight">@dimen/mtrl_bottomappbar_height</item>
+        <item name="android:touchscreenBlocksFocus">false</item>
+        <item name="android:keyboardNavigationCluster">false</item>
+        <item name="addElevationShadow">true</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="elevation">8dp</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="fabAlignmentMode">center</item>
+        <item name="fabAnchorMode">cradle</item>
+        <item name="fabCradleMargin">@dimen/mtrl_bottomappbar_fab_cradle_margin</item>
+        <item name="fabCradleRoundedCornerRadius">@dimen/mtrl_bottomappbar_fab_cradle_rounded_corner_radius</item>
+        <item name="fabCradleVerticalOffset">@dimen/mtrl_bottomappbar_fab_cradle_vertical_offset</item>
+        <item name="maxButtonHeight">@dimen/mtrl_bottomappbar_height</item>
+        <item name="menuAlignmentMode">auto</item>
+        <item name="paddingBottomSystemWindowInsets">true</item>
+        <item name="paddingLeftSystemWindowInsets">true</item>
+        <item name="paddingRightSystemWindowInsets">true</item>
+    </style>
+    <style name="Widget.MaterialComponents.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:minHeight">@dimen/mtrl_toolbar_default_height</item>
+        <item name="android:touchscreenBlocksFocus">false</item>
+        <item name="android:keyboardNavigationCluster">false</item>
+        <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
+        <item name="subtitleTextAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="subtitleTextColor">?android:attr/textColorSecondary</item>
+        <item name="titleTextAppearance">?attr/textAppearanceHeadline6</item>
+        <item name="titleTextColor">?android:attr/textColorPrimary</item>
+    </style>
+</resources>

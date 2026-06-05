@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="advice_issues_deep_sleep_more">
+        <item>Assurez-vous que votre dispositif de suivi est suffisamment proche de votre corps pour suivre les mouvements de votre sommeil</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30 secondes</item>
+        <item>1 minute</item>
+        <item>3 minutes</item>
+        <item>6 minutes</item>
+        <item>9 minutes</item>
+        <item>12 minutes</item>
+        <item>18 minutes</item>
+        <item>24 minutes</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>1 heure</item>
+        <item>2 heures</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>Par défaut</item>
+        <item>Forcer la sortie casque</item>
+    </array>
+    <array name="alarm_set">
+        <item>Cette alarme sonnera dans moins d\'une minute à partir de maintenant</item>
+        <item>Cette alarme sonnera dans %1$s</item>
+        <item>Cette alarme sonnera dans %2$s</item>
+        <item>Cette alarme sonnera dans %1$s et %2$s</item>
+        <item>Cette alarme sonnera dans %3$s</item>
+        <item>Cette alarme sonnera dans %1$s et %3$s</item>
+        <item>Cette alarme sonnera dans %2$s et %3$s</item>
+        <item>Cette alarme sonnera dans %1$s,%2$s et %3$s</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>Beta (réveil rapide)</item>
+        <item>Gamma (très stimulant)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>Delta (sommeil profond)</item>
+        <item>Theta (détente)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>Très simple</item>
+        <item>Simple</item>
+        <item>Moyen</item>
+        <item>Difficile</item>
+        <item>Très difficile</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10 secondes</item>
+        <item>30 secondes</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>60 minutes</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>Annuler</item>
+        <item>6 mois</item>
+        <item>3 mois</item>
+        <item>2 mois</item>
+        <item>1 mois</item>
+        <item>2 semaines</item>
+        <item>Tout</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>Assombrir</item>
+        <item>Assombrir avec l\'horloge</item>
+        <item>Garder l\'horloge allumée</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>Publier auto. les graphiques de sommeil</item>
+        <item>Publier auto. les graphiques de sommeil et le statut</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>
+        <item>90 minutes</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>Accéléromètre</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>Sieste éclair (power nap)</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>50 minutes</item>
+        <item>1 heure</item>
+        <item>1 heure 30 min</item>
+        <item>2 heures</item>
+    </array>
+    <array name="period_array">
+        <item>Semaine</item>
+        <item>14 jours</item>
+        <item>Mois</item>
+        <item>Trimestre</item>
+        <item>Semestre</item>
+        <item>Année</item>
+        <item>Tous</item>
+    </array>
+    <array name="period_values">
+        <item>14 jours</item>
+        <item>1 mois</item>
+        <item>3 mois</item>
+        <item>6 mois</item>
+        <item>1 an</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10 secondes</item>
+        <item>30 secondes</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>Dernières durées utilisées</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>35 minutes</item>
+        <item>40 minutes</item>
+        <item>45 minutes</item>
+        <item>50 minutes</item>
+        <item>55 minutes</item>
+        <item>1 heure</item>
+        <item>90 minutes</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>Sans limite</item>
+        <item>1x</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>Plein volume</item>
+        <item>Volume faible</item>
+        <item>Alarme silencieuse</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5 minutes avant</item>
+        <item>15 minutes avant</item>
+        <item>30 minutes avant</item>
+        <item>45 minutes avant</item>
+        <item>1 heure avant</item>
+        <item>1 heure 30 min avant</item>
+        <item>2 heures avant</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>30 min</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>Répéter</item>
+        <item>Arrêter</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>Lorsque la batterie est &lt; 20%</item>
+        <item>Lorsque la batterie est &lt; 10%</item>
+        <item>Lorsque la batterie est &lt; 5%</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1 minute</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+    </array>
+</resources>

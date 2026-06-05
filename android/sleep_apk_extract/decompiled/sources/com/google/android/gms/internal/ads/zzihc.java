@@ -1,0 +1,20 @@
+package com.google.android.gms.internal.ads;
+
+import java.nio.charset.StandardCharsets;
+import okio.Utf8$$ExternalSyntheticBUOutline0;
+
+/* JADX INFO: loaded from: classes3.dex */
+abstract class zzihc {
+    public static final int zzb(String str, byte[] bArr, int i, int i2) {
+        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+        int length = bytes.length;
+        if (length - i <= i2) {
+            System.arraycopy(bytes, 0, bArr, i, length);
+            return i + length;
+        }
+        Utf8$$ExternalSyntheticBUOutline0.m$1("Not enough space in output buffer to encode UTF-8 string");
+        return 0;
+    }
+
+    public abstract boolean zza(byte[] bArr, int i, int i2);
+}

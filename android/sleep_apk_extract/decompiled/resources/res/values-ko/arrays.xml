@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="addons_entries">
+        <item>addons_backup</item>
+        <item>addons_lullaby</item>
+        <item>addons_captcha</item>
+        <item>addons_wearables</item>
+    </array>
+    <array name="advice_issues_deep_sleep_more">
+        <item>수면 중 움직임을 포착할 수 있도록 추적 장치를 몸 가까이 두세요</item>
+    </array>
+    <array name="alarm_increasing_volume_duration_entries">
+        <item>@string/disabled</item>
+        <item>30초</item>
+        <item>1분</item>
+        <item>3분</item>
+        <item>6분</item>
+        <item>9분</item>
+        <item>12분</item>
+        <item>18분</item>
+        <item>24분</item>
+    </array>
+    <array name="alarm_kill_time_entries">
+        <item>1분</item>
+        <item>2분</item>
+        <item>3분</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>20분</item>
+        <item>30분</item>
+        <item>40분</item>
+        <item>1시간</item>
+        <item>2시간</item>
+    </array>
+    <array name="alarm_output_entries">
+        <item>@string/device_default</item>
+        <item>@string/headphones_only</item>
+    </array>
+    <array name="alarm_set">
+        <item>알람이 1분 이내에 울리도록 설정되었습니다</item>
+        <item>%1$s(으)로 알람이 설정되었습니다</item>
+        <item>%2$s(으)로 알람이 설정되었습니다</item>
+        <item>%1$s(와)과 %2$s(으)로 알람이 설정되었습니다</item>
+        <item>%3$s(으)로 알람이 설정되었습니다</item>
+        <item>%1$s(와)과 %3$s(으)로 알람이 설정되었습니다</item>
+        <item>%2$s(와)과 %3$s(으)로 알람이 설정되었습니다</item>
+        <item>%1$s(와)과 %2$s, %3$s(으)로 알람이 설정되었습니다</item>
+    </array>
+    <array name="binaural_alarm_entries">
+        <item>@string/disabled</item>
+        <item>베타 (빠른 기상)</item>
+        <item>감마 (활력)</item>
+    </array>
+    <array name="binaural_entries">
+        <item>@string/disabled</item>
+        <item>델타 (숙면)</item>
+        <item>델타 (편안함)</item>
+    </array>
+    <array name="captcha_difficulty_entries">
+        <item>매우 쉬움</item>
+        <item>쉬움</item>
+        <item>중간</item>
+        <item>어려움</item>
+        <item>매우 어려움</item>
+    </array>
+    <array name="delay_tracking_entries">
+        <item>@string/disabled</item>
+        <item>10초</item>
+        <item>30초</item>
+        <item>1분</item>
+        <item>2분</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>30분</item>
+        <item>45분 전</item>
+        <item>60분</item>
+    </array>
+    <array name="delete_older_than_entries">
+        <item>취소</item>
+        <item>6개월</item>
+        <item>3개월</item>
+        <item>2개월</item>
+        <item>1개월</item>
+        <item>2주</item>
+        <item>전체</item>
+    </array>
+    <array name="dimm_entries">
+        <item>@string/disabled</item>
+        <item>꺼진 화면</item>
+        <item>꺼진 화면에 시간 표시</item>
+        <item>항상 시간 표시</item>
+    </array>
+    <array name="facebook_preference_entries">
+        <item>@string/manual_only</item>
+        <item>자동 게시 수면 그래프</item>
+        <item>자동 게시 그래프 및 상태</item>
+    </array>
+    <array name="media_decreasing_volume_after_entries">
+        <item>@string/disabled</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>25분</item>
+        <item>30분</item>
+        <item>60분</item>
+        <item>90분</item>
+    </array>
+    <array name="non_deep_sleep_method_entries">
+        <item>가속도계</item>
+        <item>@string/sensor_sonar</item>
+    </array>
+    <array name="non_deep_sleep_window_entries">
+        <item>@string/disabled</item>
+        <item>숙면</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>25분</item>
+        <item>30분</item>
+        <item>40분</item>
+        <item>50분</item>
+        <item>1시간</item>
+        <item>1시간 30분</item>
+        <item>2시간</item>
+    </array>
+    <array name="period_array">
+        <item>주</item>
+        <item>14일</item>
+        <item>1개월</item>
+        <item>3개월</item>
+        <item>6개월</item>
+        <item>1년</item>
+        <item>항상</item>
+    </array>
+    <array name="period_values">
+        <item>14일</item>
+        <item>1개월</item>
+        <item>3개월</item>
+        <item>6개월</item>
+        <item>1년</item>
+    </array>
+    <array name="smartlight_peelight_time_entries">
+        <item>@string/disabled</item>
+        <item>10초</item>
+        <item>30초</item>
+        <item>1분</item>
+        <item>2분</item>
+        <item>5분</item>
+        <item>@string/tracking_paused_title</item>
+    </array>
+    <array name="snooze_duration_entries">
+        <item>@string/disabled</item>
+        <item>최근 사용</item>
+        <item>3분</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>25분</item>
+        <item>30분</item>
+        <item>35분</item>
+        <item>40분</item>
+        <item>45분</item>
+        <item>50분</item>
+        <item>55분</item>
+        <item>1시간</item>
+        <item>90분</item>
+    </array>
+    <array name="snooze_limit_entries">
+        <item>제한 없음</item>
+        <item>1회</item>
+        <item>2회</item>
+        <item>3회</item>
+        <item>4회</item>
+        <item>5회</item>
+    </array>
+    <array name="suppress_alarm_mode_preference_entries">
+        <item>최대 알람 음량</item>
+        <item>최저 알람 음량</item>
+        <item>알람이 무음으로 설정되었습니다</item>
+    </array>
+    <array name="target_sleep_time_notify_entries">
+        <item>@string/disabled</item>
+        <item>5분 전</item>
+        <item>15분 전</item>
+        <item>30분 전</item>
+        <item>45분 전</item>
+        <item>1시간 전</item>
+        <item>1시간 30분 전</item>
+        <item>2시간 전</item>
+    </array>
+    <array name="time_to_bed_repeat_entries">
+        <item>@string/disabled</item>
+        <item>1분</item>
+        <item>2분</item>
+        <item>3분</item>
+        <item>4분</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>30분</item>
+    </array>
+    <array name="volume_button_setting_entries">
+        <item>@string/disabled</item>
+        <item>다시 울림</item>
+        <item>해제</item>
+    </array>
+    <array name="wake_lock_entries">
+        <item>@string/disabled</item>
+        <item>배터리가 20% 이하일 때</item>
+        <item>배터리가 10% 이하일 때</item>
+        <item>배터리가 5% 이하일 때</item>
+    </array>
+    <array name="wake_up_check_after_entries">
+        <item>1분</item>
+        <item>3분</item>
+        <item>5분</item>
+        <item>10분</item>
+        <item>15분</item>
+        <item>20분</item>
+        <item>25분</item>
+        <item>30분</item>
+    </array>
+</resources>

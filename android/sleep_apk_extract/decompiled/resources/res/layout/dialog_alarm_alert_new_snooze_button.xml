@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/snooze_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alarm_time"
+        app:cardBackgroundColor="@color/positive_dark"
+        app:cardCornerRadius="@dimen/card_corner">
+        <RelativeLayout
+            android:background="@drawable/card_outline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            style="@style/SelectableItemBackgroundDark">
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:id="@+id/snooze_option_text"
+                android:paddingLeft="24dp"
+                android:paddingTop="4dp"
+                android:paddingRight="24dp"
+                android:paddingBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

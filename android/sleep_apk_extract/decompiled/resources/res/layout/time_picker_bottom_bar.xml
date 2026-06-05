@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_cancel"
+        android:includeFontPadding="false"
+        style="@style/Widget.Material3.Button.TextButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        android:id="@+id/button_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="120dp"
+        android:text="@string/set_time"
+        android:lines="1"
+        android:includeFontPadding="false"
+        android:layout_marginEnd="3dp"
+        android:backgroundTint="@color/tint"
+        style="@style/Widget.Material3.Button.TextButton"/>
+</LinearLayout>

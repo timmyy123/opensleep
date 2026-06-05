@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:background="@drawable/bottom_bar"
+    android:paddingLeft="12dp"
+    android:paddingTop="10dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/secondary"
+        android:ellipsize="start"
+        android:id="@+id/cookie_warning_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cookie_warning_text"
+        android:singleLine="true"
+        android:layout_weight="1"/>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_ok"/>
+</LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="100dp"
+    android:width="300dp"
+    android:viewportWidth="300"
+    android:viewportHeight="100">
+    <path
+        android:fillColor="@color/deep_sleep"
+        android:pathData="M37.62,66.05L298.05,66.05L298.05,82.4L37.62,82.4Z"
+        android:strokeWidth="0.11"/>
+    <path
+        android:fillColor="@color/light_sleep"
+        android:pathData="M22.74,49.44L68.55,49.44L68.55,82.4L22.74,82.4Z"
+        android:strokeWidth="0.11"/>
+    <path
+        android:fillColor="@color/light_sleep"
+        android:pathData="m193.62,49.44l22.07,0L215.69,82.4l-22.07,0z"
+        android:strokeWidth="0.11"/>
+    <path
+        android:fillColor="@color/light_sleep"
+        android:pathData="m263.27,49.44l35.14,0L298.41,82.4l-35.14,0z"
+        android:strokeWidth="0.11"/>
+    <path
+        android:fillColor="@color/awake"
+        android:pathData="M1.08,29.28L28.19,29.28L28.19,82.4L1.08,82.4Z"
+        android:strokeWidth="0.11"/>
+    <path
+        android:fillColor="@color/awake"
+        android:pathData="M150.88,28.97L161.6,28.97L161.6,82.4L150.88,82.4Z"
+        android:strokeWidth="0.11"/>
+</vector>

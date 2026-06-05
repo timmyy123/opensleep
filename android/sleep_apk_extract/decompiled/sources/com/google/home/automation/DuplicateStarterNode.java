@@ -1,0 +1,35 @@
+package com.google.home.automation;
+
+import com.facebook.gamingservices.cloudgaming.internal.SDKConstants;
+import java.util.List;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+
+/* JADX INFO: loaded from: classes4.dex */
+@Metadata(d1 = {"\u00002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\b\u0003\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0006\u0018\u00002\u00020\u0001B%\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\u0006\u0010\u0005\u001a\u00020\u0004\u0012\f\u0010\u0007\u001a\b\u0012\u0004\u0012\u00020\u00020\u0006¢\u0006\u0004\b\b\u0010\tJ\u001a\u0010\r\u001a\u00020\f2\b\u0010\u000b\u001a\u0004\u0018\u00010\nH\u0096\u0002¢\u0006\u0004\b\r\u0010\u000eJ\u000f\u0010\u0010\u001a\u00020\u000fH\u0016¢\u0006\u0004\b\u0010\u0010\u0011R\u001d\u0010\u0007\u001a\b\u0012\u0004\u0012\u00020\u00020\u00068\u0006¢\u0006\f\n\u0004\b\u0007\u0010\u0012\u001a\u0004\b\u0013\u0010\u0014¨\u0006\u0015"}, d2 = {"Lcom/google/home/automation/DuplicateStarterNode;", "Lcom/google/home/automation/ValidationIssue;", "Lcom/google/home/automation/Node;", "node", "Lcom/google/home/automation/ValidationIssueSeverity;", SDKConstants.PARAM_DEBUG_MESSAGE_SEVERITY, "", "otherDuplicatedStarterNodes", "<init>", "(Lcom/google/home/automation/Node;Lcom/google/home/automation/ValidationIssueSeverity;Ljava/util/List;)V", "", "other", "", "equals", "(Ljava/lang/Object;)Z", "", "hashCode", "()I", "Ljava/util/List;", "getOtherDuplicatedStarterNodes", "()Ljava/util/List;", "java.com.google.nest.platform.mesh.semantic.src.com.google.home_public_api-android"}, k = 1, mv = {2, 0, 0}, xi = 48)
+public final class DuplicateStarterNode extends ValidationIssue {
+    private final List<Node> otherDuplicatedStarterNodes;
+
+    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+    /* JADX WARN: Multi-variable type inference failed */
+    public DuplicateStarterNode(Node node, ValidationIssueSeverity validationIssueSeverity, List<? extends Node> list) {
+        super(node, validationIssueSeverity, ValidationIssueType.DuplicateStarterNode, null);
+        node.getClass();
+        validationIssueSeverity.getClass();
+        list.getClass();
+        this.otherDuplicatedStarterNodes = list;
+    }
+
+    @Override // com.google.home.automation.ValidationIssue
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        return (other instanceof DuplicateStarterNode) && Intrinsics.areEqual(this.otherDuplicatedStarterNodes, ((DuplicateStarterNode) other).otherDuplicatedStarterNodes) && super.equals(other);
+    }
+
+    @Override // com.google.home.automation.ValidationIssue
+    public int hashCode() {
+        return this.otherDuplicatedStarterNodes.hashCode() + (super.hashCode() * 31);
+    }
+}
