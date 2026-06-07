@@ -238,7 +238,8 @@ class SleepStageAnalyzer {
         val apneaEvents  = mutableListOf<Long>()
 
         fun detect(data: FloatArray, nowMs: Long) {
-            if (data.size < 240) return
+            val minRequired = (24 * sampleRate).toInt()
+            if (data.size < minRequired) return
             if (firstCall) {
                 expectedDataSize = data.size
                 firstCall = false
@@ -595,7 +596,8 @@ class SleepStageAnalyzer {
         // ── RespiratoryDetectorV21 for this window ─────────────
         val respBreathsBefore = respDetector.breathEvents.size
         val respApneaBefore   = respDetector.apneaEvents.size
-        if (accelWindow.size >= 240) {
+        val minRequiredRespSamples = (24 * detectedSampleRate).toInt()
+        if (accelWindow.size >= minRequiredRespSamples) {
             val rawData = accelWindow.map { it.magnitude }.toFloatArray()
             respDetector.detect(rawData, endMs)
         }

@@ -271,7 +271,8 @@ class SleepStageAnalyzer {
         init(sampleRate: Float) { self.sampleRate = sampleRate }
 
         func detect(_ data: [Float], at now: Date) {
-            guard data.count >= 240 else { return }
+            let minRequired = Int(24 * sampleRate)
+            guard data.count >= minRequired else { return }
             if firstCall { expectedDataSize = data.count; firstCall = false }
             else if data.count != expectedDataSize { return }
             doProcess(data, now: now)
@@ -492,7 +493,8 @@ class SleepStageAnalyzer {
     // ──────────────────────────────────────────────────────────────
 
     func addSample(timestamp: Date, x: Double, y: Double, z: Double) {
-        let s = MotionSample(timestamp: timestamp, x: x, y: y, z: z)
+        let gravity: Double = 9.80665
+        let s = MotionSample(timestamp: timestamp, x: x * gravity, y: y * gravity, z: z * gravity)
         samples.append(s)
         let result = accelAggregator.update(Float(s.magnitude))
         accelResults.append((timestamp, result))
@@ -595,7 +597,8 @@ class SleepStageAnalyzer {
         // RespiratoryDetectorV21
         let breathsBefore = respDetector.breathEvents.count
         let apneaBefore   = respDetector.apneaEvents.count
-        if accelWindow.count >= 240 {
+        let minRequiredResp = Int(24 * detectedSampleRate)
+        if accelWindow.count >= minRequiredResp {
             let rawData = accelWindow.map { Float($0.magnitude) }
             respDetector.detect(rawData, at: end)
         }

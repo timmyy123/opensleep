@@ -166,11 +166,16 @@ class SleepTrackerService : Service(), SensorEventListener {
             startForeground(NOTIFICATION_ID, buildNotification())
         }
 
-        val accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        val gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
-        accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
-        gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US) }
-        Log.d(TAG, "Sensor listeners registered.")
+        // Register wake-up accelerometer and gyroscope with 10-second hardware batching latency to prevent background suspend.
+        val accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, true)
+            ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        val gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE, true)
+            ?: sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        
+        val maxReportLatencyUs = 10_000_000 // 10 seconds report latency
+        accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
+        gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
+        Log.d(TAG, "Sensor listeners registered (wake-up and hardware batched).")
         startAudioMonitoring()
 
         // Periodically flush stages to DB every 5 minutes
@@ -480,9 +485,16 @@ class SleepTrackerService : Service(), SensorEventListener {
                                 }
                             }
                         }
-                    } else if (read == AudioRecord.ERROR_INVALID_OPERATION || read == AudioRecord.ERROR_BAD_VALUE) {
-                        Log.e(TAG, "Error reading AudioRecord data: $read")
-                        break
+                    } else {
+                        Log.w(TAG, "AudioRecord read error or zero: $read. Retrying in 1s...")
+                        delay(1000L) // Prevent CPU spinning and allow resource recovery
+                        if (recorder.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
+                            try {
+                                recorder.startRecording()
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Failed to restart recording: ${e.message}")
+                            }
+                        }
                     }
                     yield()
                 }
