@@ -399,7 +399,11 @@ class SleepStageAnalyzer {
         private var heap: [Float] = []
         init(_ period: Int) { self.period = period; buf = FloatRingBuffer(period) }
         func apply(_ f: Float) -> Float {
-            if buf.isFull() { heap.removeAll { $0 == buf.first() } ; _ = heap.first }
+            if buf.isFull() {
+                if let idx = heap.firstIndex(of: buf.first()) {
+                    heap.remove(at: idx)
+                }
+            }
             buf.add(f)
             heap.append(f); heap.sort()
             return heap.first ?? f
@@ -607,8 +611,14 @@ class SleepStageAnalyzer {
         let breathCountInWindow = newBreaths.count + breathCount
         let apneaInWindow = !newApnea.isEmpty
 
-        let respiratoryRhythm = Float((newBreaths.isEmpty && breathCount == 0) ? 0 :
-            Double(newBreaths.count) / Double(max(1, newBreaths.count + gaspCount))).clamped(to: 0...1)
+        let respiratoryRhythmValue: Double
+        if newBreaths.isEmpty && breathCount == 0 {
+            respiratoryRhythmValue = 0.0
+        } else {
+            respiratoryRhythmValue = Double(newBreaths.count) / Double(max(1, newBreaths.count + gaspCount))
+        }
+        let respiratoryRhythm = Float(respiratoryRhythmValue).clamped(to: 0...1)
+
 
         if accelWindow.count < 2 {
             return WindowFeatures(

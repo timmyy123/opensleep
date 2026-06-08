@@ -24,6 +24,8 @@ class SleepTrackerService: ObservableObject {
     private var resultsObserver: ResultsObserver?
     private let analysisQueue = DispatchQueue(label: "tech.opensleep.analysisQueue", qos: .default)
     private var lastAudioLevelTime: Date = Date.distantPast
+    private var motionOpQueue: OperationQueue?
+    private var interruptionObserver: AnyObject?
 
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
@@ -72,47 +74,74 @@ class SleepTrackerService: ObservableObject {
         try? modelContext?.save()
         activeSession = session
 
-        analyzer.clear()
+        analysisQueue.async { [weak self] in
+            self?.analyzer.clear()
+        }
         isTracking = true
 
+        let queue = OperationQueue()
+        queue.name = "app.opensleep.motionQueue"
+        queue.maxConcurrentOperationCount = 1
+        motionOpQueue = queue
+
         motionManager.accelerometerUpdateInterval = sampleInterval
-        motionManager.startAccelerometerUpdates(to: .main) { [weak self] data, _ in
+        motionManager.startAccelerometerUpdates(to: queue) { [weak self] data, _ in
             guard let self, let data else { return }
-            self.analyzer.addSample(
-                timestamp: Date(),
-                x: data.acceleration.x,
-                y: data.acceleration.y,
-                z: data.acceleration.z
-            )
+            self.analysisQueue.async {
+                let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
+                let sampleDate = bootTime.addingTimeInterval(data.timestamp)
+                self.analyzer.addSample(
+                    timestamp: sampleDate,
+                    x: data.acceleration.x,
+                    y: data.acceleration.y,
+                    z: data.acceleration.z
+                )
+            }
         }
 
         if motionManager.isGyroAvailable {
             motionManager.gyroUpdateInterval = sampleInterval
-            motionManager.startGyroUpdates(to: .main) { [weak self] data, _ in
+            motionManager.startGyroUpdates(to: queue) { [weak self] data, _ in
                 guard let self, let data else { return }
-                self.analyzer.addGyroSample(
-                    timestamp: Date(),
-                    x: data.rotationRate.x,
-                    y: data.rotationRate.y,
-                    z: data.rotationRate.z
-                )
+                self.analysisQueue.async {
+                    let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
+                    let sampleDate = bootTime.addingTimeInterval(data.timestamp)
+                    self.analyzer.addGyroSample(
+                        timestamp: sampleDate,
+                        x: data.rotationRate.x,
+                        y: data.rotationRate.y,
+                        z: data.rotationRate.z
+                    )
+                }
             }
         }
 
         resultsObserver = ResultsObserver { [weak self] identifier, confidence in
             guard let self = self else { return }
             if confidence > 0.15, let event = self.mapIdentifierToEvent(identifier) {
-                DispatchQueue.main.async {
+                self.analysisQueue.async {
                     self.analyzer.addAudioEvent(timestamp: Date(), eventName: event, confidence: confidence)
                 }
             }
         }
+        
+        interruptionObserver = NotificationCenter.default.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            self?.handleAudioInterruption(notification)
+        }
+        
         startAudioMetering()
         scheduleBackgroundTask()
 
         // Flush stages every 5 minutes
         stageFlushTimer = Timer.scheduledTimer(withTimeInterval: 5 * 60, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.flushStages() }
+            guard let self = self else { return }
+            Task { @MainActor in
+                self.flushStages()
+            }
         }
     }
 
@@ -121,27 +150,50 @@ class SleepTrackerService: ObservableObject {
         guard isTracking else { return }
         motionManager.stopAccelerometerUpdates()
         motionManager.stopGyroUpdates()
+        motionOpQueue = nil
         stageFlushTimer?.invalidate()
         stageFlushTimer = nil
         stopAudioMetering()
         isTracking = false
+
+        if let observer = interruptionObserver {
+            NotificationCenter.default.removeObserver(observer)
+            interruptionObserver = nil
+        }
 
         // Deactivate background audio session
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 
         guard let session = activeSession else { return }
         session.endDate = Date()
-        session.stages = analyzer.computeStages(sleepStart: session.startDate)
-        try? modelContext?.save()
-
-        // HealthKit sync happens in HealthKitManager on app level
+        
+        let startDate = session.startDate
+        analysisQueue.async { [weak self] in
+            guard let self = self else { return }
+            let stages = self.analyzer.computeStages(sleepStart: startDate)
+            DispatchQueue.main.async {
+                if let active = self.activeSession {
+                    active.stages = stages
+                    try? self.modelContext?.save()
+                }
+            }
+        }
     }
 
     @MainActor
     private func flushStages() {
         guard let session = activeSession else { return }
-        session.stages = analyzer.computeStages(sleepStart: session.startDate)
-        try? modelContext?.save()
+        let startDate = session.startDate
+        analysisQueue.async { [weak self] in
+            guard let self = self else { return }
+            let stages = self.analyzer.computeStages(sleepStart: startDate)
+            DispatchQueue.main.async {
+                if let active = self.activeSession {
+                    active.stages = stages
+                    try? self.modelContext?.save()
+                }
+            }
+        }
         if isTracking {
             scheduleBackgroundTask()
         }
@@ -216,7 +268,7 @@ class SleepTrackerService: ObservableObject {
                 let now = Date()
                 if now.timeIntervalSince(self.lastAudioLevelTime) >= 4 {
                     self.lastAudioLevelTime = now
-                    DispatchQueue.main.async {
+                    self.analysisQueue.async {
                         self.analyzer.addAudioLevel(timestamp: now, levelDbfs: Double(dbfs), clipped: clipped)
                     }
                 }
@@ -239,6 +291,34 @@ class SleepTrackerService: ObservableObject {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         streamAnalyzer = nil
+    }
+
+    private func handleAudioInterruption(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+        
+        if type == .began {
+            print("Audio session interruption began. Stopping audio engine.")
+        } else if type == .ended {
+            print("Audio session interruption ended. Attempting to resume.")
+            if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+                let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+                if options.contains(.shouldResume) {
+                    do {
+                        try AVAudioSession.sharedInstance().setActive(true)
+                        if !self.audioEngine.isRunning {
+                            try self.audioEngine.start()
+                            print("Audio engine restarted successfully after interruption.")
+                        }
+                    } catch {
+                        print("Failed to restart audio engine after interruption: \(error)")
+                    }
+                }
+            }
+        }
     }
 
     private func registerBackgroundTask() {
