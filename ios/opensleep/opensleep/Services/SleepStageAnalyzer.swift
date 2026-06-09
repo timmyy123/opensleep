@@ -2,7 +2,7 @@ import Foundation
 import Accelerate
 
 /**
- * Phone-only actigraphy + respiratory analyzer.
+ * Phone-only Sleep as Android actigraphy phase analyzer.
  *
  * 100% faithful Swift port of Sleep as Android (com.urbandroid.sleep) decompiled logic:
  *
@@ -11,7 +11,7 @@ import Accelerate
  *  ├─ MovingQuantileScalable   — dual-heap O(log n) streaming quantile (Moving.quantileScalable)
  *  ├─ ActivityAggregatorAccel  — actigraph = abs(f − median6(f)), then HighActivity scoring
  *  ├─ HighActivityDetector     — normalize by 720-window median, score via log-power
- *  └─ RespiratoryDetectorV21   — removePeaks → FFT → quorum breath → apnea (SNR > 4.0)
+ *  └─ DeepSleepDetectorV8 + RemDetectorV1 — 10s activity frames → deep/light/REM phase state
  */
 class SleepStageAnalyzer {
 
@@ -181,6 +181,8 @@ class SleepStageAnalyzer {
         let actigraph: Float
         let isSomeActivity: Bool
         let isHighActivity: Bool
+
+        var hasNoData: Bool { rawActivity < 0 }
     }
 
     private final class ActivityAggregatorAccel {
@@ -230,6 +232,205 @@ class SleepStageAnalyzer {
             return HAResult(isSome: score > someThreshold, isHigh: score > highThreshold)
         }
     }
+
+    private final class MovingSum {
+        private let period: Int
+        private let buf: FloatRingBuffer
+        private var sum: Float = 0
+
+        init(_ period: Int) {
+            self.period = period
+            self.buf = FloatRingBuffer(period)
+        }
+
+        func apply(_ f: Float) -> Float {
+            if buf.isFull() { sum -= buf.first() }
+            buf.add(f)
+            sum += f
+            return sum
+        }
+    }
+
+    private enum SleepPhase {
+        case deepSleep
+        case lightSleep
+        case unknown
+    }
+
+    private final class RemDetectorV1 {
+        enum Status { case initState, deep, light, rem }
+
+        private(set) var status: Status = .initState
+        private var deepStart: Date = .distantPast
+        private var lightStart: Date = .distantPast
+
+        func handleAwake() {
+            reset()
+        }
+
+        func handleDeepSleep(now: Date) {
+            switch status {
+            case .initState:
+                deepStart = now.addingTimeInterval(-minutes(5))
+                status = .deep
+            case .deep:
+                break
+            default:
+                reset()
+            }
+        }
+
+        func handleLightSleep(now: Date) {
+            switch status {
+            case .deep:
+                if now.timeIntervalSince(deepStart) <= minutes(15) {
+                    reset()
+                } else {
+                    lightStart = now
+                    status = .light
+                }
+            case .light:
+                if now.timeIntervalSince(lightStart) > minutes(10) {
+                    status = .rem
+                }
+            case .rem:
+                if now.timeIntervalSince(lightStart) > minutes(20) {
+                    reset()
+                }
+            default:
+                reset()
+            }
+        }
+
+        private func reset() {
+            status = .initState
+        }
+
+        private func minutes(_ value: Int) -> TimeInterval {
+            TimeInterval(value * 60)
+        }
+    }
+
+    private final class MissingDataGuard {
+        private let missingDataCount5min = MovingSum(30)
+        private let missingDataCount10min = MovingSum(60)
+        private(set) var lastDataMissing = false
+        private var missingDataRatio5min: Float = 0
+        private var missingDataRatio10min: Float = 0
+
+        var ratio5min: Float { missingDataRatio5min }
+
+        func update(_ result: AccelResult) {
+            lastDataMissing = result.hasNoData
+            let missing: Float = lastDataMissing ? 1 : 0
+            missingDataRatio5min = missingDataCount5min.apply(missing) / 30
+            missingDataRatio10min = missingDataCount10min.apply(missing) / 60
+        }
+    }
+
+    private final class DeepSleepDetectorV8 {
+        private let deepSleepIndicator = DeepSleepIndicator(isSmartWatch: false)
+        private let sleepPhaseBroadcast = SleepPhaseBroadcast(isAwake: { false })
+
+        var sleepPhase: SleepPhase { deepSleepIndicator.sleepPhase }
+        var remStatus: RemDetectorV1.Status { sleepPhaseBroadcast.remStatus }
+
+        func update(timestamp: Date, result: AccelResult) {
+            sleepPhaseBroadcast.update(now: timestamp, result: result)
+            deepSleepIndicator.update(result)
+        }
+
+        private final class DeepSleepIndicator {
+            private let isSmartWatch: Bool
+            private var missingDataGuard = MissingDataGuard()
+            private var highActivityCountShortWindow: MovingSum
+            private var someActivityCountLongWindow = MovingSum(30)
+            private var pointsCount = 0
+            private(set) var sleepPhase: SleepPhase = .unknown
+
+            init(isSmartWatch: Bool) {
+                self.isSmartWatch = isSmartWatch
+                self.highActivityCountShortWindow = MovingSum(isSmartWatch ? 12 : 6)
+            }
+
+            func update(_ result: AccelResult) {
+                missingDataGuard.update(result)
+                if missingDataGuard.ratio5min > 0.9 {
+                    reset()
+                    return
+                }
+                if missingDataGuard.lastDataMissing { return }
+
+                let highActivity = highActivityCountShortWindow.apply(result.isHighActivity ? 1 : 0)
+                let someActivity = someActivityCountLongWindow.apply(result.isSomeActivity ? 1 : 0)
+                pointsCount += 1
+                if pointsCount < 12 {
+                    sleepPhase = .unknown
+                } else if highActivity.rounded() < 1 ||
+                            someActivity.rounded() < Float(smartWakeupSensitivityChecks) {
+                    sleepPhase = .deepSleep
+                } else {
+                    sleepPhase = .lightSleep
+                }
+            }
+
+            private func reset() {
+                missingDataGuard = MissingDataGuard()
+                highActivityCountShortWindow = MovingSum(isSmartWatch ? 12 : 6)
+                someActivityCountLongWindow = MovingSum(30)
+                sleepPhase = .unknown
+                pointsCount = 0
+            }
+        }
+
+        private final class SleepPhaseBroadcast {
+            private let isAwake: () -> Bool
+            private var deepSleepFrom: Date?
+            private var deepSleepReported = false
+            private var lastAwake: Date = .distantPast
+            private let missingDataGuard = MissingDataGuard()
+            private let someActivityCount = MovingSum(30)
+            private let highActivityCount = MovingSum(30)
+            private let remDetector = RemDetectorV1()
+
+            init(isAwake: @escaping () -> Bool) {
+                self.isAwake = isAwake
+            }
+
+            var remStatus: RemDetectorV1.Status { remDetector.status }
+
+            func update(now: Date, result: AccelResult) {
+                missingDataGuard.update(result)
+                if missingDataGuard.lastDataMissing { return }
+
+                let someActivity = Int(someActivityCount.apply(result.isSomeActivity ? 1 : 0).rounded())
+                let highActivity = Int(highActivityCount.apply(result.isHighActivity ? 1 : 0).rounded())
+
+                if highActivity < 1 || someActivity < smartWakeupSensitivityChecks {
+                    if deepSleepFrom == nil { deepSleepFrom = now }
+                    if let deepSleepFrom, now.timeIntervalSince(deepSleepFrom) > minutes(5) {
+                        deepSleepReported = true
+                        remDetector.handleDeepSleep(now: now)
+                    }
+                } else {
+                    deepSleepFrom = nil
+                    if deepSleepReported { deepSleepReported = false }
+                    remDetector.handleLightSleep(now: now)
+                }
+
+                if isAwake() { lastAwake = now }
+                if now.timeIntervalSince(lastAwake) < minutes(3) {
+                    remDetector.handleAwake()
+                }
+            }
+
+            private func minutes(_ value: Int) -> TimeInterval {
+                TimeInterval(value * 60)
+            }
+        }
+    }
+
+    private static let smartWakeupSensitivityChecks = 3
 
     // ──────────────────────────────────────────────────────────────
     //  RespiratoryDetectorV21  (exact port)
@@ -423,48 +624,6 @@ class SleepStageAnalyzer {
     //  Public data types
     // ──────────────────────────────────────────────────────────────
 
-    struct AudioEvent {
-        let timestamp: Date
-        let eventName: String
-        let confidence: Double
-    }
-
-    private struct AudioSampleItem {
-        let timestamp: Date
-        let levelDbfs: Double
-        let clipped: Bool
-    }
-
-    private struct WindowFeatures {
-        let startDate: Date
-        let endDate: Date
-        let actigraphMean: Float
-        let actigraphMax: Float
-        let isSomeActivity: Bool
-        let isHighActivity: Bool
-        let breathCountInWindow: Int
-        let apneaInWindow: Bool
-        let respiratoryRhythm: Float
-        let snoreCount: Int
-        let gaspCount: Int
-        let wakeSoundCount: Int
-        let silenceCount: Int
-        let rustleCount: Int
-        let hasMlAudio: Bool
-        let audioMean: Double
-        let audioEventsRatio: Double
-        let elapsed: TimeInterval
-        let artifact: Bool
-    }
-
-    private struct WindowPrediction {
-        let startDate: Date
-        let endDate: Date
-        var type: SleepStageType
-        let confidence: Double
-        let artifact: Bool
-    }
-
     // ──────────────────────────────────────────────────────────────
     //  State
     // ──────────────────────────────────────────────────────────────
@@ -477,20 +636,7 @@ class SleepStageAnalyzer {
 
     private var samples:      [MotionSample]     = []
     private var gyroSamples:  [(Date, Double)]   = []
-    private var audioSamples: [AudioSampleItem]  = []
-    private var audioEvents:  [AudioEvent]       = []
-
-    private let accelAggregator = ActivityAggregatorAccel()
-    private var accelResults:   [(Date, AccelResult)] = []
-
-    private var respiratoryDetector: RespiratoryDetectorV21?
-    private var detectedSampleRate: Float = 50
-
-    private let analysisWindowSec: TimeInterval = 30
-    private let minPartialWindowSec: TimeInterval = 15
-    private let remCycleSec: TimeInterval = 90 * 60
-    private let remWindowSec: TimeInterval = 22 * 60
-    private let minAccelSamples = 60
+    private let frameInterval: TimeInterval = 10
 
     // ──────────────────────────────────────────────────────────────
     //  Public API
@@ -500,8 +646,6 @@ class SleepStageAnalyzer {
         let gravity: Double = 9.80665
         let s = MotionSample(timestamp: timestamp, x: x * gravity, y: y * gravity, z: z * gravity)
         samples.append(s)
-        let result = accelAggregator.update(Float(s.magnitude))
-        accelResults.append((timestamp, result))
     }
 
     func addGyroSample(timestamp: Date, x: Double, y: Double, z: Double) {
@@ -509,257 +653,98 @@ class SleepStageAnalyzer {
     }
 
     func addAudioLevel(timestamp: Date, levelDbfs: Double, clipped: Bool = false) {
-        audioSamples.append(AudioSampleItem(timestamp: timestamp,
-                                            levelDbfs: min(0, max(-90, levelDbfs)),
-                                            clipped: clipped))
+        // Sleep as Android's extracted phase detector does not use audio events
+        // for deep/light/REM phase classification.
     }
 
     func addAudioEvent(timestamp: Date, eventName: String, confidence: Double) {
-        audioEvents.append(AudioEvent(timestamp: timestamp, eventName: eventName, confidence: confidence))
+        // Intentionally ignored; see addAudioLevel.
     }
 
     func computeStages(sleepStart: Date) -> [SleepStage] {
-        guard samples.count >= 2, let last = samples.last?.timestamp else { return [] }
+        guard samples.count >= 2 else { return [] }
 
-        estimateSampleRate()
-        let respDetector = getOrCreateRespiratoryDetector()
+        let frames = buildActivityFrames(sleepStart: sleepStart)
+        guard !frames.isEmpty else { return [] }
 
-        var predictions: [WindowPrediction] = []
-        var windowStart = sleepStart
+        let detector = DeepSleepDetectorV8()
+        var stages: [SleepStage] = []
 
-        while windowStart < last {
-            let windowEnd = min(windowStart.addingTimeInterval(analysisWindowSec), last)
-            guard windowEnd.timeIntervalSince(windowStart) >= minPartialWindowSec else { break }
-            if let features = buildFeatures(start: windowStart, end: windowEnd,
-                                            sleepStart: sleepStart, respDetector: respDetector) {
-                predictions.append(predict(features))
+        for frame in frames {
+            detector.update(timestamp: frame.startDate, result: frame.result)
+            let type: SleepStageType?
+            if detector.remStatus == .rem {
+                type = .rem
+            } else {
+                switch detector.sleepPhase {
+                case .deepSleep: type = .deep
+                case .lightSleep: type = .light
+                case .unknown: type = nil
+                }
             }
-            windowStart = windowStart.addingTimeInterval(analysisWindowSec)
+            if let type {
+                appendStage(&stages, type: type, startDate: frame.startDate, endDate: frame.endDate)
+            }
         }
-        return smoothAndMerge(predictions)
+
+        return stages
     }
 
     func clear() {
         samples.removeAll(); gyroSamples.removeAll()
-        audioSamples.removeAll(); audioEvents.removeAll()
-        accelResults.removeAll(); respiratoryDetector = nil
     }
 
-    // ──────────────────────────────────────────────────────────────
-    //  Internal pipeline
-    // ──────────────────────────────────────────────────────────────
-
-    private func estimateSampleRate() {
-        guard samples.count >= 10 else { return }
-        let recent = Array(samples.suffix(min(200, samples.count)))
-        let diffs = zip(recent.dropFirst(), recent).map { Float($0.timestamp.timeIntervalSince($1.timestamp)) }
-        let avgInterval = diffs.reduce(0, +) / Float(diffs.count)
-        if avgInterval > 0 { detectedSampleRate = 1 / avgInterval }
+    private struct ActivityFrame {
+        let startDate: Date
+        let endDate: Date
+        let result: AccelResult
     }
 
-    private func getOrCreateRespiratoryDetector() -> RespiratoryDetectorV21 {
-        if let det = respiratoryDetector { det.reset(); return det }
-        let det = RespiratoryDetectorV21(sampleRate: detectedSampleRate)
-        respiratoryDetector = det
-        return det
-    }
+    private func buildActivityFrames(sleepStart: Date) -> [ActivityFrame] {
+        let sortedSamples = samples.sorted { $0.timestamp < $1.timestamp }
+        guard let sessionEnd = sortedSamples.last?.timestamp else { return [] }
 
-    private func buildFeatures(start: Date, end: Date,
-                                sleepStart: Date,
-                                respDetector: RespiratoryDetectorV21) -> WindowFeatures? {
+        let aggregator = ActivityAggregatorAccel()
+        var frames: [ActivityFrame] = []
+        var previousSample: MotionSample?
+        var frameStart = sleepStart
 
-        let accelWindow  = samples.filter { $0.timestamp >= start && $0.timestamp < end }
-        let audioWindow  = audioSamples.filter { $0.timestamp >= start && $0.timestamp < end }
-        let windowEvts   = audioEvents.filter { $0.timestamp >= start && $0.timestamp < end }
-        let accelResWin  = accelResults.filter { $0.0 >= start && $0.0 < end }
+        while frameStart.addingTimeInterval(frameInterval) <= sessionEnd {
+            let frameEnd = frameStart.addingTimeInterval(frameInterval)
+            let frameSamples = sortedSamples.filter { $0.timestamp >= frameStart && $0.timestamp < frameEnd }
+            var maxRawChange: Float = 0
 
-        // Audio ML event counts
-        let hasMlAudio   = !windowEvts.isEmpty
-        let snoreCount   = windowEvts.filter { $0.eventName == "snoring" || $0.eventName == "snort" }.count
-        let breathCount  = windowEvts.filter { $0.eventName == "breathing" }.count
-        let rustleCount  = windowEvts.filter { $0.eventName == "rustle" }.count
-        let gaspCount    = windowEvts.filter { $0.eventName == "gasp" || $0.eventName == "sigh" || $0.eventName == "cough" }.count
-        let wakeCount    = windowEvts.filter { $0.eventName == "speech" || $0.eventName == "laughter" }.count
-        let silenceCount = windowEvts.filter { $0.eventName == "silence" }.count
+            for sample in frameSamples {
+                let rawChange: Float = previousSample == nil ? 0 : Float(sample.magnitude)
+                if rawChange > maxRawChange { maxRawChange = rawChange }
+                previousSample = sample
+            }
 
-        let audioMeanDb  = audioWindow.isEmpty ? -65.0 : audioWindow.map { $0.levelDbfs }.reduce(0,+) / Double(audioWindow.count)
-        let audioEvRatio = Double(audioWindow.filter { $0.levelDbfs > -38 || $0.clipped }.count) / Double(max(1, audioWindow.count))
-        let audioMean    = normalizeLinear(audioMeanDb, low: -62, high: -30)
-
-        // ActivityAggregatorAccel results
-        let actigraphs      = accelResWin.map { $0.1.actigraph }
-        let actigraphMean   = actigraphs.isEmpty ? 0 : actigraphs.reduce(0,+) / Float(actigraphs.count)
-        let actigraphMax    = actigraphs.max() ?? 0
-        let isSomeActivity  = accelResWin.contains { $0.1.isSomeActivity }
-        let isHighActivity  = accelResWin.contains { $0.1.isHighActivity }
-
-        let magnitudes = accelWindow.map { Float($0.magnitude) }
-        let range = (magnitudes.max() ?? 0) - (magnitudes.min() ?? 0)
-        let artifact = accelWindow.count < minAccelSamples || range > 3.5 ||
-                       isHighActivity || audioEvRatio > 0.75
-
-        // RespiratoryDetectorV21
-        let breathsBefore = respDetector.breathEvents.count
-        let apneaBefore   = respDetector.apneaEvents.count
-        let minRequiredResp = Int(24 * detectedSampleRate)
-        if accelWindow.count >= minRequiredResp {
-            let rawData = accelWindow.map { Float($0.magnitude) }
-            respDetector.detect(rawData, at: end)
+            let result = frameSamples.isEmpty
+                ? AccelResult(rawActivity: -0.001, actigraph: -0.001, isSomeActivity: false, isHighActivity: false)
+                : aggregator.update(maxRawChange)
+            frames.append(ActivityFrame(startDate: frameStart, endDate: frameEnd, result: result))
+            frameStart = frameEnd
         }
-        let newBreaths = respDetector.breathEvents.dropFirst(breathsBefore)
-        let newApnea   = respDetector.apneaEvents.dropFirst(apneaBefore)
-        let breathCountInWindow = newBreaths.count + breathCount
-        let apneaInWindow = !newApnea.isEmpty
 
-        let respiratoryRhythmValue: Double
-        if newBreaths.isEmpty && breathCount == 0 {
-            respiratoryRhythmValue = 0.0
+        return frames
+    }
+
+    private func appendStage(
+        _ stages: inout [SleepStage],
+        type: SleepStageType,
+        startDate: Date,
+        endDate: Date
+    ) {
+        if let last = stages.last,
+           last.type == type,
+           last.endDate == startDate {
+            stages[stages.count - 1] = SleepStage(type: type, startDate: last.startDate, endDate: endDate)
         } else {
-            respiratoryRhythmValue = Double(newBreaths.count) / Double(max(1, newBreaths.count + gaspCount))
+            stages.append(SleepStage(type: type, startDate: startDate, endDate: endDate))
         }
-        let respiratoryRhythm = Float(respiratoryRhythmValue).clamped(to: 0...1)
-
-
-        if accelWindow.count < 2 {
-            return WindowFeatures(
-                startDate: start, endDate: end,
-                actigraphMean: 0, actigraphMax: 0,
-                isSomeActivity: false, isHighActivity: false,
-                breathCountInWindow: breathCountInWindow,
-                apneaInWindow: apneaInWindow,
-                respiratoryRhythm: respiratoryRhythm,
-                snoreCount: 0, gaspCount: 0, wakeSoundCount: 0,
-                silenceCount: 0, rustleCount: 0, hasMlAudio: false,
-                audioMean: audioMean, audioEventsRatio: audioEvRatio,
-                elapsed: start.timeIntervalSince(sleepStart), artifact: false
-            )
-        }
-
-        return WindowFeatures(
-            startDate: start, endDate: end,
-            actigraphMean: actigraphMean, actigraphMax: actigraphMax,
-            isSomeActivity: isSomeActivity, isHighActivity: isHighActivity,
-            breathCountInWindow: breathCountInWindow, apneaInWindow: apneaInWindow,
-            respiratoryRhythm: respiratoryRhythm,
-            snoreCount: snoreCount, gaspCount: gaspCount, wakeSoundCount: wakeCount,
-            silenceCount: silenceCount, rustleCount: rustleCount,
-            hasMlAudio: hasMlAudio, audioMean: audioMean, audioEventsRatio: audioEvRatio,
-            elapsed: start.timeIntervalSince(sleepStart), artifact: artifact
-        )
     }
 
-    private func predict(_ f: WindowFeatures) -> WindowPrediction {
-        if f.artifact || f.isHighActivity {
-            return WindowPrediction(startDate: f.startDate, endDate: f.endDate,
-                                    type: .awake, confidence: 0.55, artifact: true)
-        }
-
-        if f.hasMlAudio {
-            let actigraphNorm = normalizeLog(Double(f.actigraphMean), low: 0.00001, high: 0.06)
-            let movement = actigraphNorm
-
-            let stage: SleepStageType
-            if movement >= 0.08 && (f.rustleCount > 0 || f.breathCountInWindow > 0 ||
-                f.wakeSoundCount > 0 || f.snoreCount > 0 || f.gaspCount > 0) {
-                stage = .awake
-            } else if movement > 0.01 && movement < 0.08 &&
-                (f.rustleCount > 0 || f.snoreCount > 0 || f.gaspCount > 0 || f.silenceCount > 0) {
-                stage = .light
-            } else if f.apneaInWindow && movement <= 0.01 {
-                stage = .rem
-            } else if movement <= 0.01 &&
-                (Double(f.respiratoryRhythm) >= 0.6 || f.breathCountInWindow >= 3 || f.silenceCount >= 5) &&
-                f.gaspCount == 0 && f.rustleCount == 0 && f.wakeSoundCount == 0 {
-                stage = .deep
-            } else if movement <= 0.01 &&
-                (f.gaspCount > 0 || (1...2).contains(f.breathCountInWindow) ||
-                 (0.1...0.5).contains(Double(f.respiratoryRhythm))) {
-                stage = .rem
-            } else {
-                if movement >= 0.08 { stage = .awake }
-                else if movement > 0.01 { stage = .light }
-                else if Double(f.respiratoryRhythm) >= 0.5 || f.breathCountInWindow > 0 { stage = .deep }
-                else { stage = .light }
-            }
-            return WindowPrediction(startDate: f.startDate, endDate: f.endDate,
-                                    type: stage, confidence: 0.85, artifact: false)
-        }
-
-        // Actigraphy-only fallback
-        let elapsedHours  = f.elapsed / 3600
-        let earlyNight    = min(1, max(0, 1 - elapsedHours / 3))
-        let lateNight     = min(1, max(0, (elapsedHours - 3) / 4))
-        let remCycle      = remCycleAffinity(f.elapsed)
-        let actigraphNorm = normalizeLog(Double(f.actigraphMean), low: 0.00001, high: 0.06)
-        let isSome        = f.isSomeActivity ? 1.0 : 0.0
-        let motionWake    = min(1, actigraphNorm * 0.7 + isSome * 0.3)
-        let stillness     = 1 - motionWake
-        let sleepCont     = f.elapsed < 10 * 60 ? 0.25 : 1.0
-
-        let awakeScore = -0.9 + motionWake * 3.1 + f.audioEventsRatio * 1.4 + f.audioMean * 0.45
-        let deepScore  = (-0.2 + stillness * 1.9 + earlyNight * 1.0 - remCycle * 0.55 -
-                          motionWake * 1.8 - lateNight * 0.8) * sleepCont
-        var remScore   = (-1.15 + stillness * 1.25 + remCycle * 1.7 + lateNight * 0.85 -
-                          motionWake * 1.1 - earlyNight * 0.35) * sleepCont
-        if f.elapsed < 45 * 60 { remScore -= 0.9 }
-        let lightScore = 0.25 + stillness * 0.85 + motionWake * 0.45 - f.audioEventsRatio * 0.3
-
-        let scores: [(SleepStageType, Double)] = [(.awake, awakeScore), (.light, lightScore),
-                                                   (.deep, deepScore),  (.rem, remScore)]
-        let ranked = scores.sorted { $0.1 > $1.1 }
-        let conf   = softmaxConfidence(winner: ranked[0].1, scores: scores.map { $0.1 })
-        return WindowPrediction(startDate: f.startDate, endDate: f.endDate,
-                                type: ranked[0].0, confidence: conf, artifact: false)
-    }
-
-    private func smoothAndMerge(_ predictions: [WindowPrediction]) -> [SleepStage] {
-        guard !predictions.isEmpty else { return [] }
-        var smoothed = predictions
-        for i in smoothed.indices {
-            guard i > smoothed.startIndex, i < smoothed.index(before: smoothed.endIndex) else { continue }
-            let prev = smoothed[smoothed.index(before: i)]
-            let cur  = smoothed[i]
-            let next = smoothed[smoothed.index(after: i)]
-            if prev.type == next.type && cur.type != prev.type &&
-               cur.confidence < 0.60 && !cur.artifact {
-                smoothed[i].type = prev.type
-            }
-        }
-        var stages: [SleepStage] = []
-        for p in smoothed {
-            if let last = stages.last, last.type == p.type {
-                stages[stages.count - 1] = SleepStage(type: p.type,
-                    startDate: last.startDate, endDate: p.endDate)
-            } else {
-                stages.append(SleepStage(type: p.type, startDate: p.startDate, endDate: p.endDate))
-            }
-        }
-        return stages
-    }
-
-    private func remCycleAffinity(_ elapsed: TimeInterval) -> Double {
-        guard elapsed >= 45 * 60 else { return 0 }
-        let modulo   = elapsed.truncatingRemainder(dividingBy: remCycleSec)
-        let distance = min(modulo, remCycleSec - modulo)
-        return min(1, max(0, 1 - distance / remWindowSec))
-    }
-
-    private func normalizeLinear(_ v: Double, low: Double, high: Double) -> Double {
-        min(1, max(0, (v - low) / (high - low)))
-    }
-
-    private func normalizeLog(_ v: Double, low: Double, high: Double) -> Double {
-        let sv = max(v, low)
-        return min(1, max(0, (log(sv) - log(low)) / (log(high) - log(low))))
-    }
-
-    private func softmaxConfidence(winner: Double, scores: [Double]) -> Double {
-        let mx = scores.max() ?? winner
-        let exps = scores.map { Foundation.exp($0 - mx) }
-        let denom = exps.reduce(0, +)
-        guard denom > 0 else { return 0.25 }
-        return min(0.98, max(0.25, Foundation.exp(winner - mx) / denom))
-    }
 }
 
 // MARK: - Comparable clamped helper

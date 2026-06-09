@@ -3,7 +3,6 @@ package app.opensleep.domain
 import app.opensleep.data.local.SleepStage
 import app.opensleep.data.local.SleepStageType
 import kotlin.math.abs
-import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.log10
 import kotlin.math.max
@@ -12,7 +11,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * Phone-only actigraphy + respiratory analyzer.
+ * Phone-only Sleep as Android actigraphy phase analyzer.
  *
  * 100% faithful port of Sleep as Android (com.urbandroid.sleep) decompiled logic:
  *
@@ -21,7 +20,7 @@ import kotlin.math.sqrt
  *  ├─ MovingQuantileScalable   — dual-heap O(log n) streaming quantile (Moving.quantileScalable)
  *  ├─ ActivityAggregatorAccel  — actigraph = abs(f − median6(f)), then HighActivity scoring
  *  ├─ HighActivity.NormalizedAmplitudeBased — normalize by 720-window median, score via log-power
- *  └─ RespiratoryDetectorV21   — removePeaks → FFT → quorum breath → apnea (SNR > 4.0)
+ *  └─ DeepSleepDetectorV8 + RemDetectorV1 — 10s activity frames → deep/light/REM phase state
  */
 class SleepStageAnalyzer {
 
@@ -138,7 +137,9 @@ class SleepStageAnalyzer {
             val actigraph: Float,
             val isSomeActivity: Boolean,
             val isHighActivity: Boolean
-        )
+        ) {
+            fun hasNoData(): Boolean = rawActivity < 0f
+        }
 
         fun update(f: Float): Result {
             val actigraph = abs(f - baseline.apply(f))
@@ -191,6 +192,195 @@ class SleepStageAnalyzer {
                 .pow(1.0 / log10(amplitude.toDouble()))
                 .toFloat()
             return Result(score > someThreshold, score > highThreshold)
+        }
+    }
+
+    private class MovingSum(private val period: Int) {
+        private val buf = FloatRingBuffer(period)
+        private var sum = 0f
+
+        fun apply(f: Float): Float {
+            if (buf.isFull()) sum -= buf.first()
+            buf.add(f)
+            sum += f
+            return sum
+        }
+    }
+
+    private enum class SleepPhase {
+        DEEP_SLEEP,
+        LIGHT_SLEEP,
+        UNKNOWN
+    }
+
+    private class RemDetectorV1 {
+        enum class Status { INIT, DEEP, LIGHT, REM }
+
+        var status: Status = Status.INIT
+            private set
+        private var deepStart = 0L
+        private var lightStart = 0L
+
+        private fun reset() {
+            status = Status.INIT
+        }
+
+        fun handleAwake() {
+            reset()
+        }
+
+        fun handleDeepSleep(nowMs: Long) {
+            when (status) {
+                Status.INIT -> {
+                    deepStart = nowMs - minutes(5)
+                    status = Status.DEEP
+                }
+                Status.DEEP -> Unit
+                else -> reset()
+            }
+        }
+
+        fun handleLightSleep(nowMs: Long) {
+            when (status) {
+                Status.DEEP -> {
+                    if (nowMs - deepStart <= minutes(15)) {
+                        reset()
+                    } else {
+                        lightStart = nowMs
+                        status = Status.LIGHT
+                    }
+                }
+                Status.LIGHT -> {
+                    if (nowMs - lightStart > minutes(10)) {
+                        status = Status.REM
+                    }
+                }
+                Status.REM -> {
+                    if (nowMs - lightStart > minutes(20)) {
+                        reset()
+                    }
+                }
+                else -> reset()
+            }
+        }
+
+        private fun minutes(value: Int): Long = value * 60_000L
+    }
+
+    private class MissingDataGuard {
+        private val missingDataCount5min = MovingSum(30)
+        private val missingDataCount10min = MovingSum(60)
+        private var missingDataRatio5min = 0f
+        private var missingDataRatio10min = 0f
+        var lastDataMissing = false
+            private set
+
+        fun getMissingDataRatio5min(): Float = missingDataRatio5min
+
+        fun update(result: ActivityAggregatorAccel.Result) {
+            lastDataMissing = result.hasNoData()
+            val missing = if (lastDataMissing) 1f else 0f
+            missingDataRatio5min = missingDataCount5min.apply(missing) / 30f
+            missingDataRatio10min = missingDataCount10min.apply(missing) / 60f
+        }
+    }
+
+    private class DeepSleepDetectorV8(
+        private val isSmartWatch: Boolean = false,
+        private val isAwake: () -> Boolean = { false }
+    ) {
+        private val deepSleepIndicator = DeepSleepIndicator(isSmartWatch)
+        private val sleepPhaseBroadcast = SleepPhaseBroadcast(isAwake)
+
+        val sleepPhase: SleepPhase
+            get() = deepSleepIndicator.sleepPhase
+        val remStatus: RemDetectorV1.Status
+            get() = sleepPhaseBroadcast.remStatus
+
+        fun update(timestampMs: Long, result: ActivityAggregatorAccel.Result) {
+            sleepPhaseBroadcast.update(timestampMs, result)
+            deepSleepIndicator.update(result)
+        }
+
+        private class DeepSleepIndicator(private val isSmartWatch: Boolean) {
+            private var missingDataGuard = MissingDataGuard()
+            private var highActivityCountShortWindow = MovingSum(if (isSmartWatch) 12 else 6)
+            private var someActivityCountLongWindow = MovingSum(30)
+            private var pointsCount = 0
+            var sleepPhase = SleepPhase.UNKNOWN
+                private set
+
+            fun update(result: ActivityAggregatorAccel.Result) {
+                missingDataGuard.update(result)
+                if (missingDataGuard.getMissingDataRatio5min() > 0.9f) {
+                    reset()
+                    return
+                }
+                if (missingDataGuard.lastDataMissing) return
+
+                val highActivity = highActivityCountShortWindow.apply(if (result.isHighActivity) 1f else 0f)
+                val someActivity = someActivityCountLongWindow.apply(if (result.isSomeActivity) 1f else 0f)
+                pointsCount += 1
+                sleepPhase = if (pointsCount < 12) {
+                    SleepPhase.UNKNOWN
+                } else if (Math.round(highActivity) < 1 || Math.round(someActivity) < SMART_WAKEUP_SENSITIVITY_CHECKS) {
+                    SleepPhase.DEEP_SLEEP
+                } else {
+                    SleepPhase.LIGHT_SLEEP
+                }
+            }
+
+            private fun reset() {
+                missingDataGuard = MissingDataGuard()
+                highActivityCountShortWindow = MovingSum(if (isSmartWatch) 12 else 6)
+                someActivityCountLongWindow = MovingSum(30)
+                sleepPhase = SleepPhase.UNKNOWN
+                pointsCount = 0
+            }
+        }
+
+        private class SleepPhaseBroadcast(private val isAwake: () -> Boolean) {
+            private var deepSleepFrom = -1L
+            private var deepSleepReported = false
+            private var lastAwake = 0L
+            private val missingDataGuard = MissingDataGuard()
+            private val someActivityCount = MovingSum(30)
+            private val highActivityCount = MovingSum(30)
+            private val remDetector = RemDetectorV1()
+
+            val remStatus: RemDetectorV1.Status
+                get() = remDetector.status
+
+            fun update(nowMs: Long, result: ActivityAggregatorAccel.Result) {
+                missingDataGuard.update(result)
+                if (missingDataGuard.lastDataMissing) return
+
+                val someActivity = Math.round(someActivityCount.apply(if (result.isSomeActivity) 1f else 0f))
+                val highActivity = Math.round(highActivityCount.apply(if (result.isHighActivity) 1f else 0f))
+
+                if (highActivity < 1 || someActivity < SMART_WAKEUP_SENSITIVITY_CHECKS) {
+                    if (deepSleepFrom == -1L) deepSleepFrom = nowMs
+                    if (deepSleepFrom > 0 && nowMs - deepSleepFrom > minutes(5)) {
+                        deepSleepReported = true
+                        remDetector.handleDeepSleep(nowMs)
+                    }
+                } else {
+                    deepSleepFrom = -1L
+                    if (deepSleepReported) deepSleepReported = false
+                    remDetector.handleLightSleep(nowMs)
+                }
+
+                if (isAwake()) lastAwake = nowMs
+                if (nowMs - lastAwake < minutes(3)) {
+                    remDetector.handleAwake()
+                }
+            }
+
+            private fun minutes(value: Int): Long = value * 60_000L
+        }
+
+        private companion object {
+            private const val SMART_WAKEUP_SENSITIVITY_CHECKS = 3
         }
     }
 
@@ -406,71 +596,15 @@ class SleepStageAnalyzer {
         val magnitude get() = sqrt(x * x + y * y + z * z)
     }
 
-    data class AudioSample(val timestampMs: Long, val levelDbfs: Float, val clipped: Boolean = false)
-
-    data class AudioEvent(val timestampMs: Long, val eventName: String, val confidence: Float)
-
-    // ──────────────────────────────────────────────────────────────
-    //  Internal window types
-    // ──────────────────────────────────────────────────────────────
-
-    private data class WindowFeatures(
-        val startMs: Long,
-        val endMs: Long,
-        // ActivityAggregatorAccel results
-        val actigraphMean: Float,
-        val actigraphMax: Float,
-        val isSomeActivity: Boolean,
-        val isHighActivity: Boolean,
-        // Respiratory
-        val breathCountInWindow: Int,
-        val apneaInWindow: Boolean,
-        val respiratoryRhythm: Float,   // 0..1, from quorum scoring
-        // Audio ML events
-        val snoreCount: Int,
-        val gaspCount: Int,
-        val wakeSoundCount: Int,
-        val silenceCount: Int,
-        val rustleCount: Int,
-        val hasMlAudio: Boolean,
-        // Raw audio
-        val audioMean: Float,
-        val audioEventsRatio: Float,
-        // Timing
-        val elapsedMs: Long,
-        val artifact: Boolean
-    )
-
-    private data class WindowPrediction(
-        val startMs: Long, val endMs: Long,
-        val type: SleepStageType,
-        val confidence: Float,
-        val artifact: Boolean
-    )
-
     // ──────────────────────────────────────────────────────────────
     //  Sensor data stores
     // ──────────────────────────────────────────────────────────────
 
     private val samples      = mutableListOf<MotionSample>()
     private val gyroSamples  = mutableListOf<Pair<Long, Float>>()
-    private val audioSamples = mutableListOf<AudioSample>()
-    private val audioEvents  = mutableListOf<AudioEvent>()
-
-    // One aggregator that runs per-sample continuously (mirrors SleepService flow)
-    private val accelAggregator = ActivityAggregatorAccel()
-    private val accelResults    = mutableListOf<Pair<Long, ActivityAggregatorAccel.Result>>()
-
-    // Respiratory detector — sampleRate will be set on first window
-    private var respiratoryDetector: RespiratoryDetectorV21? = null
-    private var detectedSampleRate = 50f  // default Hz; recalculated from actual data
 
     companion object {
-        private const val ANALYSIS_WINDOW_MS    = 30 * 1000L
-        private const val MIN_PARTIAL_WINDOW_MS = 15 * 1000L
-        private const val REM_CYCLE_MS          = 90 * 60 * 1000L
-        private const val REM_WINDOW_MS         = 22 * 60 * 1000L
-        private const val MIN_ACCEL_SAMPLES     = 60
+        private const val FRAME_MS = 10 * 1000L
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -478,11 +612,7 @@ class SleepStageAnalyzer {
     // ──────────────────────────────────────────────────────────────
 
     fun addSample(timestampMs: Long, x: Float, y: Float, z: Float) {
-        val s = MotionSample(timestampMs, x, y, z)
-        samples.add(s)
-        // Feed into the continuous aggregator (mirrors SleepService real-time pipeline)
-        val result = accelAggregator.update(s.magnitude)
-        accelResults.add(timestampMs to result)
+        samples.add(MotionSample(timestampMs, x, y, z))
     }
 
     fun addGyroSample(timestampMs: Long, x: Float, y: Float, z: Float) {
@@ -491,286 +621,94 @@ class SleepStageAnalyzer {
     }
 
     fun addAudioLevel(timestampMs: Long, levelDbfs: Float, clipped: Boolean = false) {
-        audioSamples.add(AudioSample(timestampMs, levelDbfs.coerceIn(-90f, 0f), clipped))
+        // Sleep as Android's extracted phase detector does not use audio events
+        // for deep/light/REM phase classification.
     }
 
     fun addAudioEvent(timestampMs: Long, eventName: String, confidence: Float) {
-        audioEvents.add(AudioEvent(timestampMs, eventName, confidence))
+        // Intentionally ignored; see addAudioLevel.
     }
 
     fun computeStages(sleepStartMs: Long): List<SleepStage> {
         if (samples.size < 2) return emptyList()
 
-        // Estimate sample rate from actual data
-        estimateSampleRate()
+        val frames = buildActivityFrames(sleepStartMs)
+        if (frames.isEmpty()) return emptyList()
 
-        val predictions = mutableListOf<WindowPrediction>()
-        val windowEnd = samples.last().timestampMs
-        var windowStart = sleepStartMs
+        val detector = DeepSleepDetectorV8(isSmartWatch = false)
+        val stages = mutableListOf<SleepStage>()
 
-        // Re-run respiratory detector over all windows sequentially
-        val respDetector = getOrCreateRespiratoryDetector()
-
-        while (windowStart < windowEnd) {
-            val candidateEnd = min(windowStart + ANALYSIS_WINDOW_MS, windowEnd)
-            if (candidateEnd - windowStart < MIN_PARTIAL_WINDOW_MS) break
-
-            buildFeatures(windowStart, candidateEnd, sleepStartMs, respDetector)?.let {
-                predictions.add(predict(it))
+        frames.forEach { frame ->
+            detector.update(frame.startMs, frame.result)
+            val type = when {
+                detector.remStatus == RemDetectorV1.Status.REM -> SleepStageType.REM
+                detector.sleepPhase == SleepPhase.DEEP_SLEEP -> SleepStageType.DEEP
+                detector.sleepPhase == SleepPhase.LIGHT_SLEEP -> SleepStageType.LIGHT
+                else -> null
             }
-            windowStart += ANALYSIS_WINDOW_MS
+            if (type != null) appendStage(stages, type, frame.startMs, frame.endMs)
         }
 
-        return smoothAndMerge(predictions)
+        return stages
     }
 
     fun clear() {
         samples.clear(); gyroSamples.clear()
-        audioSamples.clear(); audioEvents.clear()
-        accelResults.clear()
-        respiratoryDetector = null
     }
 
-    // ──────────────────────────────────────────────────────────────
-    //  Internal pipeline
-    // ──────────────────────────────────────────────────────────────
+    private data class ActivityFrame(
+        val startMs: Long,
+        val endMs: Long,
+        val result: ActivityAggregatorAccel.Result
+    )
 
-    private fun estimateSampleRate() {
-        if (samples.size < 10) return
-        val recent = samples.takeLast(min(200, samples.size))
-        val diffs = recent.zipWithNext { a, b -> (b.timestampMs - a.timestampMs).toFloat() }
-        val avgMs = diffs.average().toFloat()
-        if (avgMs > 0) detectedSampleRate = 1000f / avgMs
-    }
+    private fun buildActivityFrames(sleepStartMs: Long): List<ActivityFrame> {
+        val sortedSamples = samples.sortedBy { it.timestampMs }
+        val sessionEndMs = sortedSamples.lastOrNull()?.timestampMs ?: return emptyList()
+        val aggregator = ActivityAggregatorAccel()
+        val frames = mutableListOf<ActivityFrame>()
+        var previousSample: MotionSample? = null
+        var frameStartMs = sleepStartMs
 
-    private fun getOrCreateRespiratoryDetector(): RespiratoryDetectorV21 {
-        val det = respiratoryDetector
-        return if (det != null) {
-            det.reset(); det
-        } else {
-            RespiratoryDetectorV21(detectedSampleRate).also { respiratoryDetector = it }
-        }
-    }
+        while (frameStartMs + FRAME_MS <= sessionEndMs) {
+            val frameEndMs = frameStartMs + FRAME_MS
+            val frameSamples = sortedSamples.filter { it.timestampMs in frameStartMs until frameEndMs }
+            var maxRawChange = 0f
 
-    private fun buildFeatures(
-        startMs: Long, endMs: Long, sleepStartMs: Long,
-        respDetector: RespiratoryDetectorV21
-    ): WindowFeatures? {
-
-        val accelWindow = samples.filter { it.timestampMs in startMs until endMs }
-        val audioWindow = audioSamples.filter { it.timestampMs in startMs until endMs }
-        val windowEvts  = audioEvents.filter { it.timestampMs in startMs until endMs }
-        val accelResultWindow = accelResults.filter { it.first in startMs until endMs }
-
-        // ── Audio ML event counts ──────────────────────────────
-        val hasMlAudio    = windowEvts.isNotEmpty()
-        val snoreCount    = windowEvts.count { it.eventName == "snoring" || it.eventName == "snort" }
-        val breathCount   = windowEvts.count { it.eventName == "breathing" }
-        val rustleCount   = windowEvts.count { it.eventName == "rustle" }
-        val gaspCount     = windowEvts.count { it.eventName in listOf("gasp","sigh","cough") }
-        val wakeCount     = windowEvts.count { it.eventName == "speech" || it.eventName == "laughter" }
-        val silenceCount  = windowEvts.count { it.eventName == "silence" }
-
-        // Raw audio
-        val audioMeanDb  = if (audioWindow.isEmpty()) -65f
-                           else audioWindow.map { it.levelDbfs }.average().toFloat()
-        val audioEvRatio = audioWindow.count { it.levelDbfs > -38f || it.clipped }.toFloat() /
-                           max(1, audioWindow.size)
-        val audioMean    = normalizeLinear(audioMeanDb, -62f, -30f)
-
-        // ── ActivityAggregatorAccel results for this window ────
-        val actigraphs = accelResultWindow.map { it.second.actigraph }
-        val actigraphMean = if (actigraphs.isEmpty()) 0f else actigraphs.average().toFloat()
-        val actigraphMax  = actigraphs.maxOrNull() ?: 0f
-        val isSomeActivity = accelResultWindow.any { it.second.isSomeActivity }
-        val isHighActivity = accelResultWindow.any { it.second.isHighActivity }
-
-        // Artifact: too few samples, extreme range, or extreme audio ratio
-        val magnitudes = accelWindow.map { it.magnitude }
-        val range = (magnitudes.maxOrNull() ?: 0f) - (magnitudes.minOrNull() ?: 0f)
-        val artifact = accelWindow.size < MIN_ACCEL_SAMPLES ||
-                       range > 3.5f ||
-                       isHighActivity ||
-                       audioEvRatio > 0.75f
-
-        // ── RespiratoryDetectorV21 for this window ─────────────
-        val respBreathsBefore = respDetector.breathEvents.size
-        val respApneaBefore   = respDetector.apneaEvents.size
-        val minRequiredRespSamples = (24 * detectedSampleRate).toInt()
-        if (accelWindow.size >= minRequiredRespSamples) {
-            val rawData = accelWindow.map { it.magnitude }.toFloatArray()
-            respDetector.detect(rawData, endMs)
-        }
-        val newBreaths = respDetector.breathEvents.drop(respBreathsBefore)
-        val newApnea   = respDetector.apneaEvents.drop(respApneaBefore)
-        val breathCountInWindow = newBreaths.size + breathCount   // combine FFT + ML events
-        val apneaInWindow = newApnea.isNotEmpty()
-
-        // Respiratory rhythm quality: quorum fraction of FFT breath events
-        // (mirrors how RespiratoryDetectorV21 marks events resolvedAsBreath)
-        val respiratoryRhythm = if (newBreaths.isEmpty() && breathCount == 0) 0f
-                                else (newBreaths.size.toFloat() / max(1, newBreaths.size + gaspCount))
-                                    .coerceIn(0f, 1f)
-
-        // Synthesize still window when phone was throttled (Doze mode)
-        if (accelWindow.size < 2) {
-            return WindowFeatures(
-                startMs, endMs,
-                actigraphMean = 0f, actigraphMax = 0f,
-                isSomeActivity = false, isHighActivity = false,
-                breathCountInWindow = breathCountInWindow,
-                apneaInWindow = apneaInWindow,
-                respiratoryRhythm = respiratoryRhythm,
-                snoreCount = 0, gaspCount = 0, wakeSoundCount = 0,
-                silenceCount = 0, rustleCount = 0, hasMlAudio = false,
-                audioMean = audioMean, audioEventsRatio = audioEvRatio,
-                elapsedMs = startMs - sleepStartMs,
-                artifact = false
-            )
-        }
-
-        return WindowFeatures(
-            startMs, endMs,
-            actigraphMean, actigraphMax,
-            isSomeActivity, isHighActivity,
-            breathCountInWindow, apneaInWindow, respiratoryRhythm,
-            snoreCount, gaspCount, wakeCount, silenceCount, rustleCount,
-            hasMlAudio, audioMean, audioEvRatio,
-            elapsedMs = startMs - sleepStartMs,
-            artifact
-        )
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    //  predict() — 4-stage classification
-    //
-    //  Priority order (matches Urban Android's logic seen in SleepService):
-    //   1. Artifact / high-activity → AWAKE
-    //   2. ML audio events present → rule-based ML matrix
-    //   3. Actigraphy-only fallback → linear score model
-    // ──────────────────────────────────────────────────────────────
-    private fun predict(f: WindowFeatures): WindowPrediction {
-
-        if (f.artifact || f.isHighActivity) {
-            return WindowPrediction(f.startMs, f.endMs, SleepStageType.AWAKE, 0.55f, true)
-        }
-
-        if (f.hasMlAudio) {
-            // ── ML path: Urban Android 4-stage matrix ─────────────
-            val actigraphNorm = normalizeLog(f.actigraphMean, 0.00001f, 0.06f)
-            val movement = actigraphNorm  // normalized actigraph IS the movement signal
-
-            val stage = when {
-                // Large movement + any sound → AWAKE
-                movement >= 0.08f &&
-                    (f.rustleCount > 0 || f.breathCountInWindow > 0 ||
-                     f.wakeSoundCount > 0 || f.snoreCount > 0 || f.gaspCount > 0) ->
-                    SleepStageType.AWAKE
-
-                // Micro-movement + rustle/snore/gasp → LIGHT
-                movement in 0.01f..0.08f &&
-                    (f.rustleCount > 0 || f.snoreCount > 0 || f.gaspCount > 0 || f.silenceCount > 0) ->
-                    SleepStageType.LIGHT
-
-                // Apnea suspected + still → REM (muscle atonia + breath disruption)
-                f.apneaInWindow && movement <= 0.01f ->
-                    SleepStageType.REM
-
-                // Absolute stillness + high rhythmic breathing → DEEP
-                movement <= 0.01f &&
-                    (f.respiratoryRhythm >= 0.6f || f.breathCountInWindow >= 3 || f.silenceCount >= 5) &&
-                    f.gaspCount == 0 && f.rustleCount == 0 && f.wakeSoundCount == 0 ->
-                    SleepStageType.DEEP
-
-                // Absolute stillness + irregular breath or gasps → REM
-                movement <= 0.01f &&
-                    (f.gaspCount > 0 ||
-                    (f.breathCountInWindow in 1..2) ||
-                    (f.respiratoryRhythm in 0.1f..0.5f)) ->
-                    SleepStageType.REM
-
-                // Fallback
-                else -> when {
-                    movement >= 0.08f -> SleepStageType.AWAKE
-                    movement > 0.01f  -> SleepStageType.LIGHT
-                    f.respiratoryRhythm >= 0.5f || f.breathCountInWindow > 0 -> SleepStageType.DEEP
-                    else -> SleepStageType.LIGHT
+            frameSamples.forEach { sample ->
+                val previous = previousSample
+                val rawChange = if (previous == null) {
+                    0f
+                } else {
+                    sample.magnitude
                 }
+                if (rawChange > maxRawChange) maxRawChange = rawChange
+                previousSample = sample
             }
-            return WindowPrediction(f.startMs, f.endMs, stage, 0.85f, false)
-        }
 
-        // ── Actigraphy-only path ───────────────────────────────────
-        // Uses normalized actigraph deviation (Urban Android style) as primary motion signal.
-        val elapsedHours    = f.elapsedMs / 3_600_000f
-        val earlyNight      = (1f - (elapsedHours / 3f)).coerceIn(0f, 1f)
-        val lateNight       = ((elapsedHours - 3f) / 4f).coerceIn(0f, 1f)
-        val remCycle        = remCycleAffinity(f.elapsedMs)
-        val actigraphNorm   = normalizeLog(f.actigraphMean, 0.00001f, 0.06f)
-        val isSome          = if (f.isSomeActivity) 1f else 0f
-        // Combine: actigraph norm weighted highest, then isSomeActivity, then audio
-        val motionWake      = (actigraphNorm * 0.7f + isSome * 0.3f).coerceIn(0f, 1f)
-        val stillness       = 1f - motionWake
-        val sleepContinuity = if (f.elapsedMs < 10 * 60 * 1000L) 0.25f else 1f
-
-        val awakeScore = -0.9f + motionWake * 3.1f + f.audioEventsRatio * 1.4f + f.audioMean * 0.45f
-        val deepScore  = (-0.2f + stillness * 1.9f + earlyNight * 1.0f - remCycle * 0.55f -
-                          motionWake * 1.8f - lateNight * 0.8f) * sleepContinuity
-        val remScore   = (-1.15f + stillness * 1.25f + remCycle * 1.7f + lateNight * 0.85f -
-                          motionWake * 1.1f - earlyNight * 0.35f) * sleepContinuity -
-                          (if (f.elapsedMs < 45 * 60 * 1000L) 0.9f else 0f)
-        val lightScore = 0.25f + stillness * 0.85f + motionWake * 0.45f - f.audioEventsRatio * 0.3f
-
-        val scores = mapOf(
-            SleepStageType.AWAKE to awakeScore,
-            SleepStageType.LIGHT to lightScore,
-            SleepStageType.DEEP  to deepScore,
-            SleepStageType.REM   to remScore
-        )
-        val ranked = scores.entries.sortedByDescending { it.value }
-        val conf   = softmaxConfidence(ranked[0].value, ranked.map { it.value })
-        return WindowPrediction(f.startMs, f.endMs, ranked[0].key, conf, false)
-    }
-
-    private fun smoothAndMerge(predictions: List<WindowPrediction>): List<SleepStage> {
-        if (predictions.isEmpty()) return emptyList()
-        val smoothed = predictions.mapIndexed { i, cur ->
-            val prev = predictions.getOrNull(i - 1)
-            val next = predictions.getOrNull(i + 1)
-            if (prev != null && next != null &&
-                prev.type == next.type &&
-                cur.type != prev.type &&
-                cur.confidence < 0.60f && !cur.artifact)
-                cur.copy(type = prev.type)
-            else cur
-        }
-        return smoothed.fold(mutableListOf()) { stages, p ->
-            if (stages.isNotEmpty() && stages.last().type == p.type) {
-                val last = stages.removeAt(stages.lastIndex)
-                stages.add(last.copy(endMs = p.endMs))
+            val result = if (frameSamples.isEmpty()) {
+                ActivityAggregatorAccel.Result(-0.001f, -0.001f, false, false)
             } else {
-                stages.add(SleepStage(p.type, p.startMs, p.endMs))
+                aggregator.update(maxRawChange)
             }
-            stages
+            frames.add(ActivityFrame(frameStartMs, frameEndMs, result))
+            frameStartMs = frameEndMs
         }
+
+        return frames
     }
 
-    private fun remCycleAffinity(elapsedMs: Long): Float {
-        if (elapsedMs < 45 * 60 * 1000L) return 0f
-        val modulo   = elapsedMs % REM_CYCLE_MS
-        val distance = min(modulo, REM_CYCLE_MS - modulo).toFloat()
-        return (1f - distance / REM_WINDOW_MS).coerceIn(0f, 1f)
-    }
-
-    private fun normalizeLinear(v: Float, low: Float, high: Float) = ((v - low) / (high - low)).coerceIn(0f, 1f)
-    private fun normalizeLog(v: Float, low: Float, high: Float): Float {
-        val sv = max(v, low)
-        return ((ln(sv) - ln(low)) / (ln(high) - ln(low))).coerceIn(0f, 1f)
-    }
-    private fun softmaxConfidence(winner: Float, scores: List<Float>): Float {
-        val mx = scores.maxOrNull() ?: winner
-        val exps = scores.map { exp((it - mx).toDouble()) }
-        val denom = exps.sum().takeIf { it > 0.0 } ?: return 0.25f
-        return (exp((winner - mx).toDouble()) / denom).toFloat().coerceIn(0.25f, 0.98f)
+    private fun appendStage(
+        stages: MutableList<SleepStage>,
+        type: SleepStageType,
+        startMs: Long,
+        endMs: Long
+    ) {
+        val last = stages.lastOrNull()
+        if (last != null && last.type == type && last.endMs == startMs) {
+            stages[stages.lastIndex] = last.copy(endMs = endMs)
+        } else {
+            stages.add(SleepStage(type, startMs, endMs))
+        }
     }
 }

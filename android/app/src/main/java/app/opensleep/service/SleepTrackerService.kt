@@ -18,6 +18,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.IBinder
 import android.os.PowerManager
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.content.ContextCompat
 import app.opensleep.MainActivity
@@ -289,20 +290,26 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
+        val timestampMs = eventWallClockMs(event)
         when (event.sensor.type) {
             Sensor.TYPE_ACCELEROMETER -> {
                 analyzer.addSample(
-                    System.currentTimeMillis(),
+                    timestampMs,
                     event.values[0], event.values[1], event.values[2]
                 )
             }
             Sensor.TYPE_GYROSCOPE -> {
                 analyzer.addGyroSample(
-                    System.currentTimeMillis(),
+                    timestampMs,
                     event.values[0], event.values[1], event.values[2]
                 )
             }
         }
+    }
+
+    private fun eventWallClockMs(event: SensorEvent): Long {
+        val ageMs = (SystemClock.elapsedRealtimeNanos() - event.timestamp) / 1_000_000L
+        return System.currentTimeMillis() - ageMs.coerceAtLeast(0L)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
