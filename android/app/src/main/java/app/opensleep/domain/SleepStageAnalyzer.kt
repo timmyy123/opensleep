@@ -602,6 +602,8 @@ class SleepStageAnalyzer {
 
     private val samples      = mutableListOf<MotionSample>()
     private val gyroSamples  = mutableListOf<Pair<Long, Float>>()
+    private val sonarSamples = mutableListOf<Pair<Long, Float>>()
+    private val awakeIntervals = mutableListOf<Pair<Long, Long>>()
 
     companion object {
         private const val FRAME_MS = 10 * 1000L
@@ -620,6 +622,14 @@ class SleepStageAnalyzer {
         gyroSamples.add(timestampMs to magnitude)
     }
 
+    fun addSonarSample(timestampMs: Long, activity: Float) {
+        sonarSamples.add(timestampMs to activity)
+    }
+
+    fun addAwakeInterval(startMs: Long, endMs: Long) {
+        awakeIntervals.add(startMs to endMs)
+    }
+
     fun addAudioLevel(timestampMs: Long, levelDbfs: Float, clipped: Boolean = false) {
         // Sleep as Android's extracted phase detector does not use audio events
         // for deep/light/REM phase classification.
@@ -630,7 +640,7 @@ class SleepStageAnalyzer {
     }
 
     fun computeStages(sleepStartMs: Long): List<SleepStage> {
-        if (samples.size < 2) return emptyList()
+        if (samples.size < 2 && sonarSamples.isEmpty()) return emptyList()
 
         val frames = buildActivityFrames(sleepStartMs)
         if (frames.isEmpty()) return emptyList()
@@ -649,11 +659,14 @@ class SleepStageAnalyzer {
             if (type != null) appendStage(stages, type, frame.startMs, frame.endMs)
         }
 
-        return stages
+        return overlayAwakeIntervals(stages)
     }
 
     fun clear() {
-        samples.clear(); gyroSamples.clear()
+        samples.clear()
+        gyroSamples.clear()
+        sonarSamples.clear()
+        awakeIntervals.clear()
     }
 
     private data class ActivityFrame(
@@ -663,6 +676,31 @@ class SleepStageAnalyzer {
     )
 
     private fun buildActivityFrames(sleepStartMs: Long): List<ActivityFrame> {
+        if (sonarSamples.isNotEmpty()) {
+            val sorted = sonarSamples.sortedBy { it.first }
+            val sessionEndMs = sorted.last().first
+            var frameStartMs = sleepStartMs
+            val aggregator = ActivityAggregatorAccel()
+            val frames = mutableListOf<ActivityFrame>()
+            while (frameStartMs + FRAME_MS <= sessionEndMs) {
+                val frameEndMs = frameStartMs + FRAME_MS
+                val frameSamples = sorted.filter { it.first in frameStartMs until frameEndMs }
+                val value = if (frameSamples.isEmpty()) {
+                    -0.001f
+                } else {
+                    frameSamples.maxOf { it.second }
+                }
+                val result = if (value < 0f) {
+                    ActivityAggregatorAccel.Result(-0.001f, -0.001f, false, false)
+                } else {
+                    aggregator.update(value)
+                }
+                frames.add(ActivityFrame(frameStartMs, frameEndMs, result))
+                frameStartMs = frameEndMs
+            }
+            return frames
+        }
+
         val sortedSamples = samples.sortedBy { it.timestampMs }
         val sessionEndMs = sortedSamples.lastOrNull()?.timestampMs ?: return emptyList()
         val aggregator = ActivityAggregatorAccel()
@@ -710,5 +748,54 @@ class SleepStageAnalyzer {
         } else {
             stages.add(SleepStage(type, startMs, endMs))
         }
+    }
+
+    private fun overlayAwakeIntervals(stages: List<SleepStage>): List<SleepStage> {
+        if (awakeIntervals.isEmpty()) return stages
+
+        val sortedIntervals = awakeIntervals.sortedBy { it.first }
+        val mergedIntervals = mutableListOf<Pair<Long, Long>>()
+        for (interval in sortedIntervals) {
+            if (mergedIntervals.isEmpty()) {
+                mergedIntervals.add(interval)
+            } else {
+                val last = mergedIntervals.last()
+                if (interval.first <= last.second + 1000) {
+                    mergedIntervals[mergedIntervals.lastIndex] = last.first to maxOf(last.second, interval.second)
+                } else {
+                    mergedIntervals.add(interval)
+                }
+            }
+        }
+
+        var currentStages = stages
+        for (awake in mergedIntervals) {
+            val nextStages = mutableListOf<SleepStage>()
+            for (stage in currentStages) {
+                if (stage.endMs <= awake.first || stage.startMs >= awake.second) {
+                    nextStages.add(stage)
+                } else {
+                    if (stage.startMs < awake.first) {
+                        nextStages.add(SleepStage(stage.type, stage.startMs, awake.first))
+                    }
+                    if (stage.endMs > awake.second) {
+                        nextStages.add(SleepStage(stage.type, awake.second, stage.endMs))
+                    }
+                }
+            }
+            nextStages.add(SleepStage(SleepStageType.AWAKE, awake.first, awake.second))
+            currentStages = nextStages.sortedBy { it.startMs }
+        }
+
+        val finalStages = mutableListOf<SleepStage>()
+        for (stage in currentStages) {
+            val last = finalStages.lastOrNull()
+            if (last != null && last.type == stage.type && last.endMs == stage.startMs) {
+                finalStages[finalStages.lastIndex] = SleepStage(last.type, last.startMs, stage.endMs)
+            } else {
+                finalStages.add(stage)
+            }
+        }
+        return finalStages
     }
 }

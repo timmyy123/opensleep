@@ -26,12 +26,11 @@ import app.opensleep.R
 import app.opensleep.data.local.SleepDatabase
 import app.opensleep.data.repository.SleepRepository
 import app.opensleep.domain.SleepStageAnalyzer
+import app.opensleep.domain.sonar.ChirpProducer
+import app.opensleep.domain.sonar.DiffSonarConsumer
+import app.opensleep.domain.sonar.LowLevelActivityAggregator
+import app.opensleep.domain.sonar.AwakeWhenUsingPhoneDetector
 import kotlinx.coroutines.*
-import org.tensorflow.lite.Interpreter
-import java.io.FileInputStream
-import java.nio.channels.FileChannel
-import kotlin.math.log10
-import kotlin.math.sqrt
 
 class SleepTrackerService : Service(), SensorEventListener {
 
@@ -44,7 +43,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         private const val CHANNEL_ID = "sleep_tracking"
         // Sample at 4 Hz (250 ms delay)
         private const val SENSOR_DELAY_US = 250_000
-        private const val AUDIO_SAMPLE_RATE = 16_000
+        private const val AUDIO_SAMPLE_RATE = 48_000
 
         @Volatile
         var isRunning = false
@@ -63,35 +62,17 @@ class SleepTrackerService : Service(), SensorEventListener {
     private var flushJob: Job? = null
     private var audioJob: Job? = null
     private var audioRecord: AudioRecord? = null
-    private var tflite: Interpreter? = null
 
-    private fun mapIndexToEvent(index: Int): String? {
-        return when (index) {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 -> "speech"
-            13, 14, 15, 16, 17, 18 -> "laughter"
-            23 -> "sigh"
-            36 -> "breathing"
-            38 -> "snoring"
-            39 -> "gasp"
-            41 -> "snort"
-            42, 43 -> "cough"
-            484 -> "rustle"
-            497 -> "silence"
-            else -> null
-        }
-    }
+    private lateinit var phoneAwakeDetector: AwakeWhenUsingPhoneDetector
+    private val chirpProducer = ChirpProducer(AUDIO_SAMPLE_RATE)
+    private var watcherJob: Job? = null
 
-    private fun loadModelFile(): java.nio.MappedByteBuffer? {
-        return try {
-            val fileDescriptor = assets.openFd("yamnet.tflite")
-            val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-            val fileChannel = inputStream.channel
-            val startOffset = fileDescriptor.startOffset
-            val declaredLength = fileDescriptor.declaredLength
-            fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to map model file: ${e.message}", e)
-            null
+    private val screenReceiver = object : android.content.BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.action) {
+                Intent.ACTION_SCREEN_ON -> phoneAwakeDetector.onScreenOn()
+                Intent.ACTION_SCREEN_OFF -> phoneAwakeDetector.onScreenOff()
+            }
         }
     }
 
@@ -103,6 +84,19 @@ class SleepTrackerService : Service(), SensorEventListener {
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "opensleep::tracking")
         repository = SleepRepository(SleepDatabase.getInstance(applicationContext).sleepSessionDao())
+        
+        phoneAwakeDetector = AwakeWhenUsingPhoneDetector(sensorManager)
+        if (pm.isInteractive) {
+            phoneAwakeDetector.onScreenOn()
+        } else {
+            phoneAwakeDetector.onScreenOff()
+        }
+        val filter = android.content.IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_SCREEN_OFF)
+        }
+        registerReceiver(screenReceiver, filter)
+        
         createNotificationChannel()
     }
 
@@ -130,17 +124,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         if (!isTracking) {
             analyzer.clear()
             isTracking = true
-        }
-        if (tflite == null) {
-            val modelBuffer = loadModelFile()
-            if (modelBuffer != null) {
-                try {
-                    tflite = Interpreter(modelBuffer)
-                    Log.i(TAG, "YAMNet TFLite interpreter initialized successfully.")
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to initialize YAMNet interpreter: ${e.message}", e)
-                }
-            }
         }
         if (!wakeLock.isHeld) {
             wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
@@ -179,6 +162,19 @@ class SleepTrackerService : Service(), SensorEventListener {
         Log.d(TAG, "Sensor listeners registered (wake-up and hardware batched).")
         startAudioMonitoring()
 
+        // 30-second awake watcher timer
+        watcherJob?.cancel()
+        watcherJob = serviceScope.launch {
+            while (isActive) {
+                delay(30000L)
+                if (phoneAwakeDetector.isAwake()) {
+                    val now = System.currentTimeMillis()
+                    analyzer.addAwakeInterval(now - 30000L, now)
+                    Log.d(TAG, "Phone awake detected; added awake interval.")
+                }
+            }
+        }
+
         // Periodically flush stages to DB every 5 minutes
         flushJob?.cancel()
         flushJob = serviceScope.launch {
@@ -202,6 +198,9 @@ class SleepTrackerService : Service(), SensorEventListener {
         }
         isTracking = false
         sensorManager.unregisterListener(this)
+        watcherJob?.cancel()
+        watcherJob = null
+        phoneAwakeDetector.stop()
         flushJob?.cancel()
         stopAudioMonitoring()
         
@@ -318,9 +317,11 @@ class SleepTrackerService : Service(), SensorEventListener {
         Log.d(TAG, "onDestroy() called. Setting isRunning to false.")
         isRunning = false
         sensorManager.unregisterListener(this)
+        watcherJob?.cancel()
+        watcherJob = null
+        phoneAwakeDetector.stop()
+        runCatching { unregisterReceiver(screenReceiver) }
         stopAudioMonitoring()
-        tflite?.close()
-        tflite = null
         serviceScope.cancel()
         if (wakeLock.isHeld) wakeLock.release()
         super.onDestroy()
@@ -388,7 +389,7 @@ class SleepTrackerService : Service(), SensorEventListener {
             return
         }
 
-        val bufferSize = minBuffer * 2
+        val bufferSize = Math.max(minBuffer, 8192)
         val recorder = AudioRecord(
             MediaRecorder.AudioSource.UNPROCESSED,
             AUDIO_SAMPLE_RATE,
@@ -409,92 +410,35 @@ class SleepTrackerService : Service(), SensorEventListener {
             return
         }
 
+        val diffSonar = DiffSonarConsumer(AUDIO_SAMPLE_RATE)
+        val aggregator = LowLevelActivityAggregator(AUDIO_SAMPLE_RATE)
+
         audioRecord = recorder
+        chirpProducer.play()
+
         audioJob?.cancel()
         audioJob = serviceScope.launch {
-            val readBuffer = ShortArray(1024)
-            val yamnetInputSize = 15600
-            val audioWindow = FloatArray(yamnetInputSize)
-            
-            var dbfsSum = 0.0
-            var dbfsCount = 0
-            var windowClipped = false
-            var samplesForDbfs = 0
-            var samplesSinceLastInference = 0
+            val readBuffer = ShortArray(2048)
+            var lastSonarSampleTime = System.currentTimeMillis()
 
             try {
                 recorder.startRecording()
                 while (isActive) {
                     val read = recorder.read(readBuffer, 0, readBuffer.size)
                     if (read > 0) {
-                        // 1. Calculate short-term RMS for DBFS fallback
-                        var sumSquares = 0.0
-                        var blockClipped = false
-                        for (i in 0 until read) {
-                            val sample = readBuffer[i].toDouble()
-                            sumSquares += sample * sample
-                            blockClipped = blockClipped || kotlin.math.abs(readBuffer[i].toInt()) > 32_000
-                        }
-                        val rms = sqrt(sumSquares / read) / Short.MAX_VALUE.toDouble()
-                        val dbfs = (20.0 * log10(rms.coerceAtLeast(0.000_001))).toFloat()
-                        
-                        dbfsSum += dbfs
-                        dbfsCount++
-                        windowClipped = windowClipped || blockClipped
-                        
-                        // 2. Slide new samples into audioWindow
-                        if (read < yamnetInputSize) {
-                            System.arraycopy(audioWindow, read, audioWindow, 0, yamnetInputSize - read)
-                            for (i in 0 until read) {
-                                audioWindow[yamnetInputSize - read + i] = readBuffer[i] / 32768.0f
-                            }
-                        } else {
-                            for (i in 0 until yamnetInputSize) {
-                                audioWindow[i] = readBuffer[read - yamnetInputSize + i] / 32768.0f
-                            }
-                        }
-                        
-                        samplesForDbfs += read
-                        samplesSinceLastInference += read
-                        
-                        // Call addAudioLevel every 4 seconds (64,000 samples at 16kHz)
-                        if (samplesForDbfs >= AUDIO_SAMPLE_RATE * 4) {
-                            val avgDbfs = if (dbfsCount > 0) (dbfsSum / dbfsCount).toFloat() else -65f
-                            analyzer.addAudioLevel(System.currentTimeMillis(), avgDbfs, windowClipped)
-                            dbfsSum = 0.0
-                            dbfsCount = 0
-                            windowClipped = false
-                            samplesForDbfs = 0
-                        }
-                        
-                        // Run YAMNet inference every 1 second (16,000 samples)
-                        if (samplesSinceLastInference >= AUDIO_SAMPLE_RATE) {
-                            samplesSinceLastInference = 0
-                            
-                            tflite?.let { interpreter ->
-                                val output = Array(1) { FloatArray(521) }
-                                interpreter.run(audioWindow, output)
-                                
-                                val scores = output[0]
-                                var maxVal = -1f
-                                var maxIdx = -1
-                                for (i in scores.indices) {
-                                    if (scores[i] > maxVal) {
-                                        maxVal = scores[i]
-                                        maxIdx = i
-                                    }
-                                }
-                                if (maxIdx != -1 && maxVal > 0.15f) {
-                                    val eventName = mapIndexToEvent(maxIdx)
-                                    if (eventName != null) {
-                                        analyzer.addAudioEvent(System.currentTimeMillis(), eventName, maxVal)
-                                    }
-                                }
-                            }
+                        val floatArr = FloatArray(read) { readBuffer[it] / 32767.0f }
+                        val consumerRes = diffSonar.processAndGetResult(floatArr)
+                        aggregator.update(consumerRes.activity)
+
+                        val now = System.currentTimeMillis()
+                        if (now - lastSonarSampleTime >= 10000) {
+                            val act = aggregator.getAggregatedActivity()
+                            analyzer.addSonarSample(now, act)
+                            lastSonarSampleTime = now
                         }
                     } else {
-                        Log.w(TAG, "AudioRecord read error or zero: $read. Retrying in 1s...")
-                        delay(1000L) // Prevent CPU spinning and allow resource recovery
+                        Log.w(TAG, "AudioRecord read error: $read. Retrying in 1s...")
+                        delay(1000L)
                         if (recorder.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
                             try {
                                 recorder.startRecording()
@@ -511,6 +455,7 @@ class SleepTrackerService : Service(), SensorEventListener {
                 runCatching { recorder.stop() }
                 recorder.release()
                 audioRecord = null
+                chirpProducer.stop()
             }
         }
     }
@@ -524,6 +469,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         serviceScope.launch {
             job?.cancel()
             runCatching { rec?.stop() }
+            chirpProducer.stop()
         }
     }
 }

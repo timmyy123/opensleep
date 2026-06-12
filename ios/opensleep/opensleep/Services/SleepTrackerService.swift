@@ -4,7 +4,16 @@ import CoreMotion
 import BackgroundTasks
 import SwiftData
 import AVFoundation
-import SoundAnalysis
+import Darwin
+
+@_silgen_name("notify_register_check")
+@discardableResult
+func notify_register_check(_ name: UnsafePointer<CChar>, _ out_token: UnsafeMutablePointer<Int32>) -> UInt32
+
+@_silgen_name("notify_get_state")
+@discardableResult
+func notify_get_state(_ token: Int32, _ state: UnsafeMutablePointer<UInt64>) -> UInt32
+
 
 /// Manages sleep tracking: starts/stops CMMotionManager, runs stage analysis,
 /// persists results to SwiftData via MainActor. Uses BGProcessingTask to
@@ -20,12 +29,15 @@ class SleepTrackerService: ObservableObject {
     private let analyzer = SleepStageAnalyzer()
     private var modelContext: ModelContext?
     private let audioEngine = AVAudioEngine()
-    private var streamAnalyzer: SNAudioStreamAnalyzer?
-    private var resultsObserver: ResultsObserver?
     private let analysisQueue = DispatchQueue(label: "tech.opensleep.analysisQueue", qos: .default)
-    private var lastAudioLevelTime: Date = Date.distantPast
     private var motionOpQueue: OperationQueue?
     private var interruptionObserver: AnyObject?
+
+    // Phone usage awake detector and Sonar components
+    private let phoneAwakeDetector = AwakeWhenUsingPhoneDetector()
+    private let chirpProducer = ChirpProducer(sampleRate: 48000)
+    private var watcherTimer: Timer?
+    private var lockStateToken: Int32 = 0
 
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
@@ -64,6 +76,7 @@ class SleepTrackerService: ObservableObject {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .defaultToSpeaker])
+            try audioSession.setPreferredSampleRate(48000.0)
             try audioSession.setActive(true)
         } catch {
             print("Failed to configure background audio session: \(error)")
@@ -87,6 +100,14 @@ class SleepTrackerService: ObservableObject {
         motionManager.accelerometerUpdateInterval = sampleInterval
         motionManager.startAccelerometerUpdates(to: queue) { [weak self] data, _ in
             guard let self, let data else { return }
+            
+            // Feed to phone awake detector in units of m/s^2 (G * 9.80665)
+            self.phoneAwakeDetector.updateMotion(
+                x: data.acceleration.x * 9.80665,
+                y: data.acceleration.y * 9.80665,
+                z: data.acceleration.z * 9.80665
+            )
+            
             self.analysisQueue.async {
                 let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
                 let sampleDate = bootTime.addingTimeInterval(data.timestamp)
@@ -116,15 +137,6 @@ class SleepTrackerService: ObservableObject {
             }
         }
 
-        resultsObserver = ResultsObserver { [weak self] identifier, confidence in
-            guard let self = self else { return }
-            if confidence > 0.15, let event = self.mapIdentifierToEvent(identifier) {
-                self.analysisQueue.async {
-                    self.analyzer.addAudioEvent(timestamp: Date(), eventName: event, confidence: confidence)
-                }
-            }
-        }
-        
         interruptionObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.interruptionNotification,
             object: nil,
@@ -133,8 +145,21 @@ class SleepTrackerService: ObservableObject {
             self?.handleAudioInterruption(notification)
         }
         
+        registerLockStateObserver()
         startAudioMetering()
         scheduleBackgroundTask()
+
+        // 30-second awake watcher timer
+        watcherTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.phoneAwakeDetector.isAwake() {
+                let now = Date()
+                self.analysisQueue.async {
+                    self.analyzer.addAwakeInterval(start: now.addingTimeInterval(-30.0), end: now)
+                }
+                print("iOS: Phone awake detected; added awake interval.")
+            }
+        }
 
         // Flush stages every 5 minutes
         stageFlushTimer = Timer.scheduledTimer(withTimeInterval: 5 * 60, repeats: true) { [weak self] _ in
@@ -153,6 +178,12 @@ class SleepTrackerService: ObservableObject {
         motionOpQueue = nil
         stageFlushTimer?.invalidate()
         stageFlushTimer = nil
+        
+        watcherTimer?.invalidate()
+        watcherTimer = nil
+        phoneAwakeDetector.stop()
+        unregisterLockStateObserver()
+        
         stopAudioMetering()
         isTracking = false
 
@@ -199,84 +230,37 @@ class SleepTrackerService: ObservableObject {
         }
     }
 
-    private func mapIdentifierToEvent(_ identifier: String) -> String? {
-        let lower = identifier.lowercased()
-        if lower.contains("speech") || lower.contains("talk") || lower.contains("whisper") || lower.contains("convers") {
-            return "speech"
-        }
-        if lower.contains("laughter") || lower.contains("giggle") || lower.contains("chuckle") {
-            return "laughter"
-        }
-        if lower.contains("sigh") {
-            return "sigh"
-        }
-        if lower.contains("breathing") {
-            return "breathing"
-        }
-        if lower.contains("snore") || lower.contains("snoring") {
-            return "snoring"
-        }
-        if lower.contains("gasp") {
-            return "gasp"
-        }
-        if lower.contains("snort") {
-            return "snort"
-        }
-        if lower.contains("cough") || lower.contains("throat_clearing") || lower.contains("throat clearing") {
-            return "cough"
-        }
-        if lower.contains("rustl") {
-            return "rustle"
-        }
-        if lower.contains("silence") || lower.contains("quiet") {
-            return "silence"
-        }
-        return nil
-    }
-
     private func startAudioMetering() {
         let inputNode = audioEngine.inputNode
-        let inputFormat = inputNode.inputFormat(forBus: 0)
         
-        streamAnalyzer = SNAudioStreamAnalyzer(format: inputFormat)
-        
-        do {
-            let request = try SNClassifySoundRequest(classifierIdentifier: .version1)
-            try streamAnalyzer?.add(request, withObserver: resultsObserver!)
-        } catch {
-            print("Failed to add SoundAnalysis request: \(error)")
+        guard let recordingFormat = AVAudioFormat(standardFormatWithSampleRate: 48000.0, channels: 1) else {
+            print("Failed to create mono 48kHz audio format")
+            return
         }
         
-        inputNode.installTap(onBus: 0, bufferSize: 8192, format: inputFormat) { [weak self] buffer, time in
+        let diffSonar = DiffSonarConsumer(sampleRate: 48000)
+        let aggregator = LowLevelActivityAggregator(sampleRate: 48000)
+        var lastSonarSampleTime = Date()
+        
+        chirpProducer.play()
+        
+        inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { [weak self] buffer, time in
             guard let self = self else { return }
             
-            // 1. Calculate RMS and DBFS for fallback
-            if let channelData = buffer.floatChannelData?[0] {
-                let frameLength = UInt32(buffer.frameLength)
-                var sumSquares: Float = 0.0
-                var clipped = false
-                for i in 0..<Int(frameLength) {
-                    let sample = channelData[i]
-                    sumSquares += sample * sample
-                    if abs(sample) > 0.98 {
-                        clipped = true
-                    }
-                }
-                let rms = sqrt(sumSquares / Float(frameLength))
-                let dbfs = 20.0 * log10(max(0.000001, rms))
-                
-                let now = Date()
-                if now.timeIntervalSince(self.lastAudioLevelTime) >= 4 {
-                    self.lastAudioLevelTime = now
-                    self.analysisQueue.async {
-                        self.analyzer.addAudioLevel(timestamp: now, levelDbfs: Double(dbfs), clipped: clipped)
-                    }
-                }
-            }
+            guard let channelData = buffer.floatChannelData?[0] else { return }
+            let frameLength = Int(buffer.frameLength)
+            let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
             
-            // 2. Feed buffer to SNAudioStreamAnalyzer
-            self.analysisQueue.async {
-                self.streamAnalyzer?.analyze(buffer, atAudioFramePosition: time.sampleTime)
+            let consumerRes = diffSonar.processAndGetResult(floatArr)
+            _ = aggregator.update(consumerRes.activity)
+            
+            let now = Date()
+            if now.timeIntervalSince(lastSonarSampleTime) >= 10.0 {
+                let act = aggregator.getAggregatedActivity()
+                self.analysisQueue.async {
+                    self.analyzer.addSonarSample(timestamp: now, activity: act)
+                }
+                lastSonarSampleTime = now
             }
         }
         
@@ -290,7 +274,7 @@ class SleepTrackerService: ObservableObject {
     private func stopAudioMetering() {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
-        streamAnalyzer = nil
+        chirpProducer.stop()
     }
 
     private func handleAudioInterruption(_ notification: Notification) {
@@ -321,6 +305,53 @@ class SleepTrackerService: ObservableObject {
         }
     }
 
+    // MARK: - Screen Lock State Darwin Observer
+
+    private func registerLockStateObserver() {
+        let name = "com.apple.springboard.lockstate" as CFString
+        let center = CFNotificationCenterGetDarwinNotifyCenter()
+        
+        notify_register_check("com.apple.springboard.lockstate", &lockStateToken)
+        
+        CFNotificationCenterAddObserver(
+            center,
+            Unmanaged.passUnretained(self).toOpaque(),
+            { (_, observer, _, _, _) in
+                if let observer = observer {
+                    let service = Unmanaged<SleepTrackerService>.fromOpaque(observer).takeUnretainedValue()
+                    service.updateLockState()
+                }
+            },
+            name,
+            nil,
+            .deliverImmediately
+        )
+        updateLockState()
+    }
+
+    private func unregisterLockStateObserver() {
+        let center = CFNotificationCenterGetDarwinNotifyCenter()
+        CFNotificationCenterRemoveObserver(
+            center,
+            Unmanaged.passUnretained(self).toOpaque(),
+            CFNotificationName("com.apple.springboard.lockstate" as CFString),
+            nil
+        )
+    }
+
+    private func updateLockState() {
+        var state: UInt64 = 0
+        notify_get_state(lockStateToken, &state)
+        let isLocked = (state != 0)
+        if isLocked {
+            phoneAwakeDetector.onScreenOff()
+        } else {
+            phoneAwakeDetector.onScreenOn()
+        }
+    }
+
+    // MARK: - Background Tasks
+
     private func registerBackgroundTask() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.bgTaskId, using: nil) { [weak self] task in
             self?.handleBackgroundTask(task)
@@ -347,23 +378,5 @@ class SleepTrackerService: ObservableObject {
             self.flushStages()
             task.setTaskCompleted(success: true)
         }
-    }
-}
-
-class ResultsObserver: NSObject, SNResultsObserving {
-    private let onEvent: (String, Double) -> Void
-
-    init(onEvent: @escaping (String, Double) -> Void) {
-        self.onEvent = onEvent
-    }
-
-    func request(_ request: SNRequest, didProduce result: SNResult) {
-        guard let classificationResult = result as? SNClassificationResult,
-              let topResult = classificationResult.classifications.first else { return }
-        onEvent(topResult.identifier, topResult.confidence)
-    }
-
-    func request(_ request: SNRequest, didFailWithError error: Error) {
-        print("Sound analysis request failed: \(error)")
     }
 }

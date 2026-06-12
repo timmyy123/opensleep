@@ -570,7 +570,7 @@ class SleepStageAnalyzer {
 
         private func percentile50(_ arr: [Float]) -> Float {
             guard !arr.isEmpty else { return 0 }
-            var sorted = arr.sorted()
+            let sorted = arr.sorted()
             let n = sorted.count
             return n % 2 == 1 ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2
         }
@@ -634,8 +634,10 @@ class SleepStageAnalyzer {
         var magnitude: Double { (x*x + y*y + z*z).squareRoot() }
     }
 
-    private var samples:      [MotionSample]     = []
-    private var gyroSamples:  [(Date, Double)]   = []
+    private var samples:        [MotionSample]     = []
+    private var gyroSamples:    [(Date, Double)]   = []
+    private var sonarSamples:   [(Date, Float)]    = []
+    private var awakeIntervals: [(Date, Date)]     = []
     private let frameInterval: TimeInterval = 10
 
     // ──────────────────────────────────────────────────────────────
@@ -652,6 +654,14 @@ class SleepStageAnalyzer {
         gyroSamples.append((timestamp, (x*x + y*y + z*z).squareRoot()))
     }
 
+    func addSonarSample(timestamp: Date, activity: Float) {
+        sonarSamples.append((timestamp, activity))
+    }
+
+    func addAwakeInterval(start: Date, end: Date) {
+        awakeIntervals.append((start, end))
+    }
+
     func addAudioLevel(timestamp: Date, levelDbfs: Double, clipped: Bool = false) {
         // Sleep as Android's extracted phase detector does not use audio events
         // for deep/light/REM phase classification.
@@ -662,7 +672,7 @@ class SleepStageAnalyzer {
     }
 
     func computeStages(sleepStart: Date) -> [SleepStage] {
-        guard samples.count >= 2 else { return [] }
+        if samples.count < 2 && sonarSamples.isEmpty { return [] }
 
         let frames = buildActivityFrames(sleepStart: sleepStart)
         guard !frames.isEmpty else { return [] }
@@ -687,11 +697,14 @@ class SleepStageAnalyzer {
             }
         }
 
-        return stages
+        return overlayAwakeIntervals(stages)
     }
 
     func clear() {
-        samples.removeAll(); gyroSamples.removeAll()
+        samples.removeAll()
+        gyroSamples.removeAll()
+        sonarSamples.removeAll()
+        awakeIntervals.removeAll()
     }
 
     private struct ActivityFrame {
@@ -701,6 +714,30 @@ class SleepStageAnalyzer {
     }
 
     private func buildActivityFrames(sleepStart: Date) -> [ActivityFrame] {
+        if !sonarSamples.isEmpty {
+            let sorted = sonarSamples.sorted { $0.0 < $1.0 }
+            guard let sessionEnd = sorted.last?.0 else { return [] }
+            var frameStart = sleepStart
+            let aggregator = ActivityAggregatorAccel()
+            var frames: [ActivityFrame] = []
+            while frameStart.addingTimeInterval(frameInterval) <= sessionEnd {
+                let frameEnd = frameStart.addingTimeInterval(frameInterval)
+                let frameSamples = sorted.filter { $0.0 >= frameStart && $0.0 < frameEnd }
+                let value: Float
+                if frameSamples.isEmpty {
+                    value = -0.001
+                } else {
+                    value = frameSamples.map { $0.1 }.max() ?? -0.001
+                }
+                let result = value < 0
+                    ? AccelResult(rawActivity: -0.001, actigraph: -0.001, isSomeActivity: false, isHighActivity: false)
+                    : aggregator.update(value)
+                frames.append(ActivityFrame(startDate: frameStart, endDate: frameEnd, result: result))
+                frameStart = frameEnd
+            }
+            return frames
+        }
+
         let sortedSamples = samples.sorted { $0.timestamp < $1.timestamp }
         guard let sessionEnd = sortedSamples.last?.timestamp else { return [] }
 
@@ -743,6 +780,54 @@ class SleepStageAnalyzer {
         } else {
             stages.append(SleepStage(type: type, startDate: startDate, endDate: endDate))
         }
+    }
+
+    private func overlayAwakeIntervals(_ stages: [SleepStage]) -> [SleepStage] {
+        if awakeIntervals.isEmpty { return stages }
+        
+        let sortedIntervals = awakeIntervals.sorted { $0.0 < $1.0 }
+        var mergedIntervals: [(Date, Date)] = []
+        for interval in sortedIntervals {
+            if mergedIntervals.isEmpty {
+                mergedIntervals.append(interval)
+            } else {
+                let last = mergedIntervals[mergedIntervals.count - 1]
+                if interval.0 <= last.1.addingTimeInterval(1.0) {
+                    mergedIntervals[mergedIntervals.count - 1] = (last.0, max(last.1, interval.1))
+                } else {
+                    mergedIntervals.append(interval)
+                }
+            }
+        }
+        
+        var currentStages = stages
+        for awake in mergedIntervals {
+            var nextStages: [SleepStage] = []
+            for stage in currentStages {
+                if stage.endDate <= awake.0 || stage.startDate >= awake.1 {
+                    nextStages.append(stage)
+                } else {
+                    if stage.startDate < awake.0 {
+                        nextStages.append(SleepStage(type: stage.type, startDate: stage.startDate, endDate: awake.0))
+                    }
+                    if stage.endDate > awake.1 {
+                        nextStages.append(SleepStage(type: stage.type, startDate: awake.1, endDate: stage.endDate))
+                    }
+                }
+            }
+            nextStages.append(SleepStage(type: .awake, startDate: awake.0, endDate: awake.1))
+            currentStages = nextStages.sorted { $0.startDate < $1.startDate }
+        }
+        
+        var finalStages: [SleepStage] = []
+        for stage in currentStages {
+            if let last = finalStages.last, last.type == stage.type, last.endDate == stage.startDate {
+                finalStages[finalStages.count - 1] = SleepStage(type: last.type, startDate: last.startDate, endDate: stage.endDate)
+            } else {
+                finalStages.append(stage)
+            }
+        }
+        return finalStages
     }
 
 }
