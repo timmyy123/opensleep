@@ -18,6 +18,13 @@ func notify_get_state(_ token: Int32, _ state: UnsafeMutablePointer<UInt64>) -> 
 /// Manages sleep tracking: starts/stops CMMotionManager, runs stage analysis,
 /// persists results to SwiftData via MainActor. Uses BGProcessingTask to
 /// extend background runtime.
+///
+/// ROOT CAUSE OF "KILLED WHEN PLUGGED IN":
+/// When a charger is connected, iOS fires AVAudioSession.routeChangeNotification.
+/// AVAudioEngine's inputNode outputFormat changes to match the new hardware
+/// (sample rate may change). The existing tap installed at the old format causes
+/// an NSException that kills the process. Fix: listen for routeChangeNotification
+/// and fully tear down / rebuild the audio engine when this happens.
 class SleepTrackerService: ObservableObject {
 
     static let bgTaskId = "app.opensleep.sleepanalysis"
@@ -28,10 +35,15 @@ class SleepTrackerService: ObservableObject {
     private let motionManager = CMMotionManager()
     private let analyzer = SleepStageAnalyzer()
     private var modelContext: ModelContext?
-    private let audioEngine = AVAudioEngine()
+
+    // Audio engine is recreated on every route change to avoid stale-format crashes
+    private var audioEngine: AVAudioEngine?
+    private let chirpProducer = ChirpProducer(sampleRate: 48000)
+
     private let analysisQueue = DispatchQueue(label: "tech.opensleep.analysisQueue", qos: .default)
     private var motionOpQueue: OperationQueue?
     private var interruptionObserver: AnyObject?
+    private var routeChangeObserver: AnyObject?  // KEY FIX: observe route changes
 
     // Phone usage awake detector and Sonar components
     private let phoneAwakeDetector = AwakeWhenUsingPhoneDetector()
@@ -39,7 +51,6 @@ class SleepTrackerService: ObservableObject {
     private var activityBroadcasterTimer: DispatchSourceTimer?
     private var recentAccelMagnitudes: [Float] = []
     private let accelLock = NSLock()
-    private let chirpProducer = ChirpProducer(sampleRate: 48000)
     private var watcherTimer: DispatchSourceTimer?
     private var activeAwakeIntervalStart: Date?
     private var lockStateToken: Int32 = 0
@@ -47,7 +58,13 @@ class SleepTrackerService: ObservableObject {
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
     private var stageFlushTimer: DispatchSourceTimer?
-    private var audioWatchdogTimer: DispatchSourceTimer?
+
+    // Sonar processing state — persists across engine rebuilds
+    private let diffSonar = DiffSonarConsumer(sampleRate: 48000)
+    private let activityAggregator = LowLevelActivityAggregator(sampleRate: 48000)
+    private var lastSonarSampleTime = Date.distantPast
+    private var isAudioRunning = false
+    private let audioRebuildQueue = DispatchQueue(label: "tech.opensleep.audioRebuild", qos: .userInitiated)
 
     init() {
         registerBackgroundTask()
@@ -60,17 +77,12 @@ class SleepTrackerService: ObservableObject {
 
     /// Explicitly request required microphone and motion permissions for tracking
     func requestPermissions() {
-        // Request Microphone permission
         AVAudioApplication.requestRecordPermission { granted in
             print("Microphone permission granted: \(granted)")
         }
-
-        // Request Motion permission by querying CMMotionActivityManager
         let activityManager = CMMotionActivityManager()
         let today = Date()
-        activityManager.queryActivityStarting(from: today, to: today, to: .main) { _, _ in
-            // Triggers the system "Motion & Fitness" dialog
-        }
+        activityManager.queryActivityStarting(from: today, to: today, to: .main) { _, _ in }
     }
 
     @MainActor
@@ -78,14 +90,18 @@ class SleepTrackerService: ObservableObject {
         guard !isTracking else { return }
         guard motionManager.isAccelerometerAvailable else { return }
 
-        // Start AVAudioSession to keep app alive in background
+        // Configure AVAudioSession.
+        // .playAndRecord keeps the app alive in background with microphone access.
+        // .mixWithOthers: don't kill user's music.
+        // .allowBluetooth: avoid routing fights if BT device connected.
+        // NOTE: do NOT set preferredSampleRate — let the system pick the route's
+        // native rate. Forcing a rate is what causes crashes on route changes.
         do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .defaultToSpeaker])
-            try audioSession.setPreferredSampleRate(48000.0)
-            try audioSession.setActive(true)
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
+            try session.setActive(true)
         } catch {
-            print("Failed to configure background audio session: \(error)")
+            print("iOS: Failed to configure audio session: \(error)")
         }
 
         let session = SleepSession(startDate: Date())
@@ -107,14 +123,11 @@ class SleepTrackerService: ObservableObject {
         motionManager.accelerometerUpdateInterval = sampleInterval
         motionManager.startAccelerometerUpdates(to: queue) { [weak self] data, _ in
             guard let self, let data else { return }
-            
-            // Feed to phone awake detector in units of m/s^2 (G * 9.80665)
             self.phoneAwakeDetector.updateMotion(
                 x: data.acceleration.x * 9.80665,
                 y: data.acceleration.y * 9.80665,
                 z: data.acceleration.z * 9.80665
             )
-            
             let x = Float(data.acceleration.x)
             let y = Float(data.acceleration.y)
             let z = Float(data.acceleration.z)
@@ -122,16 +135,10 @@ class SleepTrackerService: ObservableObject {
             self.accelLock.lock()
             self.recentAccelMagnitudes.append(mag)
             self.accelLock.unlock()
-            
             self.analysisQueue.async {
                 let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
                 let sampleDate = bootTime.addingTimeInterval(data.timestamp)
-                self.analyzer.addSample(
-                    timestamp: sampleDate,
-                    x: data.acceleration.x,
-                    y: data.acceleration.y,
-                    z: data.acceleration.z
-                )
+                self.analyzer.addSample(timestamp: sampleDate, x: data.acceleration.x, y: data.acceleration.y, z: data.acceleration.z)
             }
         }
 
@@ -142,45 +149,47 @@ class SleepTrackerService: ObservableObject {
                 self.analysisQueue.async {
                     let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
                     let sampleDate = bootTime.addingTimeInterval(data.timestamp)
-                    self.analyzer.addGyroSample(
-                        timestamp: sampleDate,
-                        x: data.rotationRate.x,
-                        y: data.rotationRate.y,
-                        z: data.rotationRate.z
-                    )
+                    self.analyzer.addGyroSample(timestamp: sampleDate, x: data.rotationRate.x, y: data.rotationRate.y, z: data.rotationRate.z)
                 }
             }
         }
 
+        // Listen for audio interruptions (phone calls, Siri, etc.)
         interruptionObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.interruptionNotification,
             object: nil,
-            queue: .main
+            queue: nil
         ) { [weak self] notification in
             self?.handleAudioInterruption(notification)
         }
-        
-        registerLockStateObserver()
-        startAudioMetering()
-        scheduleBackgroundTask()
 
+        // KEY FIX: Listen for route changes (charger plug-in/out, headphones, etc.)
+        // When the audio route changes the inputNode format changes — we MUST
+        // tear down and rebuild the engine or it crashes with a stale-format exception.
+        routeChangeObserver = NotificationCenter.default.addObserver(
+            forName: AVAudioSession.routeChangeNotification,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            self?.handleAudioRouteChange(notification)
+        }
+
+        registerLockStateObserver()
         highActivityAwakeDetector = AwakeWhenHighActivity()
 
-        // 10-second activity broadcaster timer
+        // 10-second accelerometer activity broadcaster
         let broadcaster = DispatchSource.makeTimerSource(queue: analysisQueue)
         broadcaster.schedule(deadline: .now() + 10.0, repeating: 10.0)
         let accelAggregator = AccelActivityAggregator()
         broadcaster.setEventHandler { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.accelLock.lock()
             let magnitudes = self.recentAccelMagnitudes
             self.recentAccelMagnitudes.removeAll()
             self.accelLock.unlock()
-            
             if !magnitudes.isEmpty {
                 let maxMag = magnitudes.max() ?? 0.0
                 let actigraph = accelAggregator.update(maxMag)
-                print("iOS: Broadcaster posting raw accelerometer activity: \(actigraph) (samples count: \(magnitudes.count))")
                 NotificationCenter.default.post(
                     name: NSNotification.Name("action_raw_activity"),
                     object: nil,
@@ -191,119 +200,204 @@ class SleepTrackerService: ObservableObject {
         broadcaster.resume()
         activityBroadcasterTimer = broadcaster
 
-        // 30-second awake watcher timer (DispatchSourceTimer fires in background)
+        // 30-second awake watcher
         let watcher = DispatchSource.makeTimerSource(queue: analysisQueue)
         watcher.schedule(deadline: .now() + 30.0, repeating: 30.0)
         watcher.setEventHandler { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             let highActivityAwake = self.highActivityAwakeDetector?.isAwake() ?? false
             let now = Date()
             let awake = self.phoneAwakeDetector.isAwake() || highActivityAwake
             self.recordAwakeState(now: now, awake: awake, lookback: 30.0)
-            if awake {
-                print("iOS: Phone awake detected (phone or high activity); added awake interval.")
-            }
+            if awake { print("iOS: Awake detected.") }
         }
         watcher.resume()
         watcherTimer = watcher
 
-        // Flush stages every 1 minute (DispatchSourceTimer fires in background)
+        // 1-minute stage flush to SwiftData
         let flush = DispatchSource.makeTimerSource(queue: analysisQueue)
         flush.schedule(deadline: .now() + 60, repeating: 60)
         flush.setEventHandler { [weak self] in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.flushStages()
-            }
+            DispatchQueue.main.async { self?.flushStages() }
         }
         flush.resume()
         stageFlushTimer = flush
 
-        // Audio engine health watchdog — every 30s check if engine stopped and restart
-        let watchdog = DispatchSource.makeTimerSource(queue: analysisQueue)
-        watchdog.schedule(deadline: .now() + 30, repeating: 30)
-        watchdog.setEventHandler { [weak self] in
-            guard let self = self else { return }
-            if !self.audioEngine.isRunning {
-                print("iOS: Audio engine stopped unexpectedly. Restarting...")
-                do {
-                    try AVAudioSession.sharedInstance().setActive(true)
-                    try self.audioEngine.start()
-                    print("iOS: Audio engine restarted successfully.")
-                } catch {
-                    print("iOS: Failed to restart audio engine: \(error)")
-                }
-            }
-        }
-        watchdog.resume()
-        audioWatchdogTimer = watchdog
+        scheduleBackgroundTask()
+        buildAndStartAudioEngine()
     }
 
     @MainActor
     func stopTracking() {
         guard isTracking else { return }
-        analysisQueue.sync {
-            recordAwakeState(now: Date(), awake: false)
-        }
+        analysisQueue.sync { recordAwakeState(now: Date(), awake: false) }
         motionManager.stopAccelerometerUpdates()
         motionManager.stopGyroUpdates()
         motionOpQueue = nil
-        stageFlushTimer?.cancel()
-        stageFlushTimer = nil
-        
-        watcherTimer?.cancel()
-        watcherTimer = nil
-        activityBroadcasterTimer?.cancel()
-        activityBroadcasterTimer = nil
-        audioWatchdogTimer?.cancel()
-        audioWatchdogTimer = nil
+        stageFlushTimer?.cancel(); stageFlushTimer = nil
+        watcherTimer?.cancel(); watcherTimer = nil
+        activityBroadcasterTimer?.cancel(); activityBroadcasterTimer = nil
         phoneAwakeDetector.stop()
-        highActivityAwakeDetector?.stop()
-        highActivityAwakeDetector = nil
+        highActivityAwakeDetector?.stop(); highActivityAwakeDetector = nil
         activeAwakeIntervalStart = nil
         unregisterLockStateObserver()
-        
-        stopAudioMetering()
+
+        teardownAudioEngine()
         isTracking = false
 
-        if let observer = interruptionObserver {
-            NotificationCenter.default.removeObserver(observer)
-            interruptionObserver = nil
-        }
+        if let obs = interruptionObserver { NotificationCenter.default.removeObserver(obs); interruptionObserver = nil }
+        if let obs = routeChangeObserver { NotificationCenter.default.removeObserver(obs); routeChangeObserver = nil }
 
-        // Deactivate background audio session
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 
         guard let session = activeSession else { return }
         session.endDate = Date()
-        
-        // Capture strong references to prevent deallocation during async save
         let startDate = session.startDate
         let analyzer = self.analyzer
         let modelContext = self.modelContext
         let activeSession = self.activeSession
-        
         analysisQueue.async {
             let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
                 if let active = activeSession {
                     active.stages = stages
                     try? modelContext?.save()
-                    print("iOS: Saved \(stages.count) stages to session.")
+                    print("iOS: Saved \(stages.count) stages.")
                 }
             }
         }
     }
+
+    // MARK: - Audio Engine (Build / Teardown / Rebuild)
+
+    /// Builds a fresh AVAudioEngine, installs the Sonar input tap, and starts playback.
+    /// Called on first start and every time the audio route changes.
+    private func buildAndStartAudioEngine() {
+        // Always run on dedicated queue to avoid re-entrant rebuilds
+        audioRebuildQueue.async { [weak self] in
+            guard let self else { return }
+            self.teardownAudioEngine()
+
+            let engine = AVAudioEngine()
+            self.audioEngine = engine
+
+            let inputNode = engine.inputNode
+            // Re-query the format AFTER assigning the engine — this is the native
+            // format for the currently active route. Using a stale cached format
+            // is what causes the crash when the charger is plugged in.
+            let recordingFormat = inputNode.outputFormat(forBus: 0)
+            guard recordingFormat.sampleRate > 0 else {
+                print("iOS: Invalid input format, skipping audio engine start.")
+                return
+            }
+
+            inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
+                guard let self else { return }
+                guard let channelData = buffer.floatChannelData?[0] else { return }
+                let frameLength = Int(buffer.frameLength)
+                let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
+
+                let consumerRes = self.diffSonar.processAndGetResult(floatArr)
+                let activityResult = self.activityAggregator.update(consumerRes.activity)
+                if activityResult.isHighActivity {
+                    self.analysisQueue.async {
+                        self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
+                    }
+                }
+
+                let now = Date()
+                if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
+                    let act = self.activityAggregator.getAggregatedActivity()
+                    self.analysisQueue.async {
+                        self.analyzer.addSonarSample(timestamp: now, activity: act)
+                    }
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name("action_raw_activity"),
+                        object: nil,
+                        userInfo: ["sensor": "SONAR", "data": act]
+                    )
+                    self.lastSonarSampleTime = now
+                }
+            }
+
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                try engine.start()
+                self.isAudioRunning = true
+                self.chirpProducer.play()
+                print("iOS: Audio engine started with format: \(recordingFormat)")
+            } catch {
+                print("iOS: Failed to start audio engine: \(error)")
+                inputNode.removeTap(onBus: 0)
+                self.audioEngine = nil
+            }
+        }
+    }
+
+    /// Tears down the current audio engine safely. Must be called before rebuilding.
+    private func teardownAudioEngine() {
+        chirpProducer.stop()
+        if let engine = audioEngine {
+            engine.inputNode.removeTap(onBus: 0)
+            engine.stop()
+        }
+        audioEngine = nil
+        isAudioRunning = false
+    }
+
+    // MARK: - Audio Session Notifications
+
+    /// Handles interruptions (phone call, Siri, alarm, etc.)
+    private func handleAudioInterruption(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else { return }
+
+        if type == .began {
+            print("iOS: Audio interruption began — stopping engine.")
+            audioRebuildQueue.async { [weak self] in self?.teardownAudioEngine() }
+        } else if type == .ended {
+            if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+                let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+                if options.contains(.shouldResume) {
+                    print("iOS: Audio interruption ended — rebuilding engine.")
+                    buildAndStartAudioEngine()
+                }
+            }
+        }
+    }
+
+    /// Handles route changes: charger plugged in/out, headphones, Bluetooth.
+    /// This is the ROOT CAUSE fix for "app killed when phone plugged in".
+    /// The charger triggers a route change → inputNode format changes →
+    /// stale tap format causes NSException → iOS kills the app.
+    private func handleAudioRouteChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else { return }
+
+        switch reason {
+        case .newDeviceAvailable, .oldDeviceUnavailable, .categoryChange, .override:
+            print("iOS: Audio route changed (reason: \(reason.rawValue)) — rebuilding engine.")
+            // Small delay to let the system finish route reconfiguration before we attach
+            audioRebuildQueue.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self, self.isTracking else { return }
+                self.buildAndStartAudioEngine()
+            }
+        default:
+            break
+        }
+    }
+
+    // MARK: - Stage Flushing
 
     @MainActor
     private func flushStages() {
         guard let session = activeSession else { return }
-        // Capture strong references
         let startDate = session.startDate
         let analyzer = self.analyzer
         let modelContext = self.modelContext
         let activeSession = self.activeSession
-        
         analysisQueue.async {
             let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
@@ -313,73 +407,10 @@ class SleepTrackerService: ObservableObject {
                 }
             }
         }
-        if isTracking {
-            scheduleBackgroundTask()
-        }
+        if isTracking { scheduleBackgroundTask() }
     }
 
-    private func startAudioMetering() {
-        let inputNode = audioEngine.inputNode
-        
-        let recordingFormat = inputNode.outputFormat(forBus: 0)
-        let inputSampleRate = Int(recordingFormat.sampleRate.rounded())
-        guard inputSampleRate > 0 else {
-            print("Failed to get valid input audio format")
-            return
-        }
-        
-        let diffSonar = DiffSonarConsumer(sampleRate: inputSampleRate)
-        let aggregator = LowLevelActivityAggregator(sampleRate: inputSampleRate)
-        var lastSonarSampleTime = Date()
-        
-        chirpProducer.play()
-        
-        inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { [weak self] buffer, time in
-            guard let self = self else { return }
-            
-            guard let channelData = buffer.floatChannelData?[0] else { return }
-            let frameLength = Int(buffer.frameLength)
-            let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
-            
-            let consumerRes = diffSonar.processAndGetResult(floatArr)
-            let activityResult = aggregator.update(consumerRes.activity)
-            if activityResult.isHighActivity {
-                self.analysisQueue.async {
-                    self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
-                }
-            }
-            
-            let now = Date()
-            if now.timeIntervalSince(lastSonarSampleTime) >= 10.0 {
-                let act = aggregator.getAggregatedActivity()
-                self.analysisQueue.async {
-                    self.analyzer.addSonarSample(timestamp: now, activity: act)
-                }
-                
-                // Broadcast Sonar activity
-                print("iOS: Broadcaster posting raw Sonar activity: \(act)")
-                NotificationCenter.default.post(
-                    name: NSNotification.Name("action_raw_activity"),
-                    object: nil,
-                    userInfo: ["sensor": "SONAR", "data": act]
-                )
-                
-                lastSonarSampleTime = now
-            }
-        }
-        
-        do {
-            try audioEngine.start()
-        } catch {
-            print("Failed to start AVAudioEngine: \(error)")
-        }
-    }
-
-    private func stopAudioMetering() {
-        audioEngine.inputNode.removeTap(onBus: 0)
-        audioEngine.stop()
-        chirpProducer.stop()
-    }
+    // MARK: - Awake State Recording
 
     private func recordAwakeState(now: Date, awake: Bool, lookback: TimeInterval = 0) {
         if awake {
@@ -394,54 +425,21 @@ class SleepTrackerService: ObservableObject {
         }
     }
 
-    private func handleAudioInterruption(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-            return
-        }
-        
-        if type == .began {
-            print("Audio session interruption began. Stopping audio engine.")
-        } else if type == .ended {
-            print("Audio session interruption ended. Attempting to resume.")
-            if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
-                let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-                if options.contains(.shouldResume) {
-                    do {
-                        try AVAudioSession.sharedInstance().setActive(true)
-                        if !self.audioEngine.isRunning {
-                            try self.audioEngine.start()
-                            print("Audio engine restarted successfully after interruption.")
-                        }
-                    } catch {
-                        print("Failed to restart audio engine after interruption: \(error)")
-                    }
-                }
-            }
-        }
-    }
-
     // MARK: - Screen Lock State Darwin Observer
 
     private func registerLockStateObserver() {
         let name = "com.apple.springboard.lockstate" as CFString
         let center = CFNotificationCenterGetDarwinNotifyCenter()
-        
         notify_register_check("com.apple.springboard.lockstate", &lockStateToken)
-        
         CFNotificationCenterAddObserver(
             center,
             Unmanaged.passUnretained(self).toOpaque(),
             { (_, observer, _, _, _) in
                 if let observer = observer {
-                    let service = Unmanaged<SleepTrackerService>.fromOpaque(observer).takeUnretainedValue()
-                    service.updateLockState()
+                    Unmanaged<SleepTrackerService>.fromOpaque(observer).takeUnretainedValue().updateLockState()
                 }
             },
-            name,
-            nil,
-            .deliverImmediately
+            name, nil, .deliverImmediately
         )
         updateLockState()
     }
@@ -459,12 +457,7 @@ class SleepTrackerService: ObservableObject {
     private func updateLockState() {
         var state: UInt64 = 0
         notify_get_state(lockStateToken, &state)
-        let isLocked = (state != 0)
-        if isLocked {
-            phoneAwakeDetector.onScreenOff()
-        } else {
-            phoneAwakeDetector.onScreenOn()
-        }
+        if state != 0 { phoneAwakeDetector.onScreenOff() } else { phoneAwakeDetector.onScreenOn() }
     }
 
     // MARK: - Background Tasks
@@ -486,15 +479,9 @@ class SleepTrackerService: ObservableObject {
     private func handleBackgroundTask(_ task: BGTask) {
         scheduleBackgroundTask()
         task.expirationHandler = { [weak self] in
-            Task { @MainActor in
-                self?.flushStages()
-                task.setTaskCompleted(success: true)
-            }
+            Task { @MainActor in self?.flushStages(); task.setTaskCompleted(success: true) }
         }
-        Task { @MainActor in
-            self.flushStages()
-            task.setTaskCompleted(success: true)
-        }
+        Task { @MainActor in self.flushStages(); task.setTaskCompleted(success: true) }
     }
 }
 
@@ -510,12 +497,9 @@ class AccelActivityAggregator {
             baselineIndex = (baselineIndex + 1) % 6
         }
         let sorted = baselineBuffer.sorted()
-        let median: Float
-        if sorted.count % 2 == 1 {
-            median = sorted[sorted.count / 2]
-        } else {
-            median = (sorted[sorted.count / 2 - 1] + sorted[sorted.count / 2]) / 2.0
-        }
+        let median: Float = sorted.count % 2 == 1
+            ? sorted[sorted.count / 2]
+            : (sorted[sorted.count / 2 - 1] + sorted[sorted.count / 2]) / 2.0
         return abs(f - median)
     }
 }

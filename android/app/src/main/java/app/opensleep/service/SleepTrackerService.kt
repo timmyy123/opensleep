@@ -64,6 +64,7 @@ class SleepTrackerService : Service(), SensorEventListener {
     private lateinit var repository: SleepRepository
     private var flushJob: Job? = null
     private var audioJob: Job? = null
+    private var audioDutyCycleJob: Job? = null  // orchestrates 30s-ON/90s-OFF audio duty cycle
     // Separate scope for the final save — must NOT be cancelled in onDestroy
     private var saveScope: CoroutineScope? = null
     private var isSaving = false
@@ -171,7 +172,9 @@ class SleepTrackerService : Service(), SensorEventListener {
         accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
         gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
         Log.d(TAG, "Sensor listeners registered (wake-up and hardware batched).")
-        startAudioMonitoring()
+        // Start audio in duty-cycle mode: 30s ON, 90s OFF, repeat.
+        // This reduces average audio CPU/memory by 75%, preventing Android OOM kills.
+        startAudioDutyCycle()
 
         highActivityAwakeDetector = AwakeWhenHighActivity(applicationContext)
 
@@ -251,6 +254,8 @@ class SleepTrackerService : Service(), SensorEventListener {
         activityBroadcasterJob?.cancel()
         activityBroadcasterJob = null
         flushJob?.cancel()
+        audioDutyCycleJob?.cancel()
+        audioDutyCycleJob = null
         stopAudioMonitoring()
         
         Log.d(TAG, "Showing user-noticeable syncing notification...")
@@ -427,6 +432,8 @@ class SleepTrackerService : Service(), SensorEventListener {
         highActivityAwakeDetector = null
         activityBroadcasterJob?.cancel()
         activityBroadcasterJob = null
+        audioDutyCycleJob?.cancel()
+        audioDutyCycleJob = null
         runCatching { unregisterReceiver(screenReceiver) }
         stopAudioMonitoring()
         // Cancel the main service scope but NOT the saveScope
@@ -476,6 +483,29 @@ class SleepTrackerService : Service(), SensorEventListener {
                 ).build()
             )
             .build()
+    }
+
+    /**
+     * Starts the audio duty-cycle coroutine.
+     * Pattern: run audio for 30 seconds, pause for 90 seconds, repeat.
+     * This cuts average audio CPU/RAM to 25% of continuous operation,
+     * preventing the Android OOM killer from targeting this foreground service.
+     */
+    private fun startAudioDutyCycle() {
+        audioDutyCycleJob?.cancel()
+        audioDutyCycleJob = serviceScope.launch {
+            while (isActive) {
+                // --- ON phase: 30 seconds ---
+                Log.d(TAG, "Audio duty cycle: ON phase starting")
+                startAudioMonitoring()
+                delay(30_000L)
+
+                // --- OFF phase: 90 seconds ---
+                Log.d(TAG, "Audio duty cycle: OFF phase starting")
+                stopAudioMonitoring()
+                delay(90_000L)
+            }
+        }
     }
 
     @Suppress("MissingPermission")

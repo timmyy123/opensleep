@@ -14,6 +14,11 @@
     <!-- Keep CPU alive while tracking -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- Allow app to request exclusion from battery optimization.
+         Without this, OEM battery savers (Samsung, Xiaomi, Oppo, OnePlus, etc.)
+         will kill the foreground service during the night. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <!-- Foreground service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
