@@ -80,10 +80,10 @@ class AwakeWhenUsingPhoneDetector {
 
     func isAwake() -> Bool {
         lock.lock(); defer { lock.unlock() }
-        // sensitivity = 2 check:
+        // Sleep as Android's sensitivity 3 branch:
         // isScreenOn() && (awakeOrientation || sensitivity >= 3) && (awakeAcceleration || sensitivity >= 2)
-        // -> isScreenOn() && awakeOrientation
-        return ts != nil && awakeOrientation
+        // -> screen-on is enough, even if the phone is lying flat.
+        return ts != nil
     }
 
     func updateMotion(x: Double, y: Double, z: Double) {

@@ -645,10 +645,14 @@ class SleepStageAnalyzer {
         val frames = buildActivityFrames(sleepStartMs)
         if (frames.isEmpty()) return emptyList()
 
-        val detector = DeepSleepDetectorV8(isSmartWatch = false)
+        var detectorTimestampMs = sleepStartMs
+        val detector = DeepSleepDetectorV8(isSmartWatch = false) {
+            isAwakeAt(detectorTimestampMs)
+        }
         val stages = mutableListOf<SleepStage>()
 
         frames.forEach { frame ->
+            detectorTimestampMs = frame.startMs
             detector.update(frame.startMs, frame.result)
             val type = when {
                 detector.remStatus == RemDetectorV1.Status.REM -> SleepStageType.REM
@@ -659,7 +663,7 @@ class SleepStageAnalyzer {
             if (type != null) appendStage(stages, type, frame.startMs, frame.endMs)
         }
 
-        return overlayAwakeIntervals(stages)
+        return overlayAwakeIntervals(stages, sleepStartMs, frames.last().endMs)
     }
 
     fun clear() {
@@ -750,10 +754,26 @@ class SleepStageAnalyzer {
         }
     }
 
-    private fun overlayAwakeIntervals(stages: List<SleepStage>): List<SleepStage> {
+    private fun isAwakeAt(timestampMs: Long): Boolean {
+        return awakeIntervals.any { timestampMs >= it.first && timestampMs < it.second }
+    }
+
+    private fun overlayAwakeIntervals(
+        stages: List<SleepStage>,
+        sessionStartMs: Long,
+        sessionEndMs: Long
+    ): List<SleepStage> {
         if (awakeIntervals.isEmpty()) return stages
 
-        val sortedIntervals = awakeIntervals.sortedBy { it.first }
+        val sortedIntervals = awakeIntervals
+            .mapNotNull { interval ->
+                val start = maxOf(interval.first, sessionStartMs)
+                val end = minOf(interval.second, sessionEndMs)
+                if (end > start) start to end else null
+            }
+            .sortedBy { it.first }
+        if (sortedIntervals.isEmpty()) return stages
+
         val mergedIntervals = mutableListOf<Pair<Long, Long>>()
         for (interval in sortedIntervals) {
             if (mergedIntervals.isEmpty()) {

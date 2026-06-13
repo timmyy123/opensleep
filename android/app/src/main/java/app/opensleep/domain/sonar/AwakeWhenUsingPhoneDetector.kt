@@ -41,15 +41,10 @@ class AwakeWhenUsingPhoneDetector(private val sensorManager: SensorManager) : Se
     }
     
     fun isAwake(): Boolean {
-        // formula: isScreenOn && awakeOrientation && awakeAcceleration
-        // matching the decompiled check (with sensitivity = 2):
-        // (awakeOrientation || sensitivity >= 3) && (awakeAcceleration || sensitivity >= 2)
-        // -> awakeOrientation && (awakeAcceleration || true)
-        // -> awakeOrientation && true
-        // -> awakeOrientation
-        // Wait, to be perfectly safe, let's allow orientation or acceleration updates to govern.
-        // Let's implement the exact decompiled check for sensitivity = 2:
-        val sensitivity = 2
+        // Sleep as Android's sensitivity 3 branch:
+        // isScreenOn && (awakeOrientation || sensitivity >= 3) && (awakeAcceleration || sensitivity >= 2)
+        // -> screen-on is enough, even if the phone is lying flat.
+        val sensitivity = 3
         val orientOk = awakeOrientation || (sensitivity >= 3)
         val accelOk = awakeAcceleration || (sensitivity >= 2)
         return isScreenOn() && orientOk && accelOk

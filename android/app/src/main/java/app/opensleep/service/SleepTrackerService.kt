@@ -30,7 +30,10 @@ import app.opensleep.domain.sonar.ChirpProducer
 import app.opensleep.domain.sonar.DiffSonarConsumer
 import app.opensleep.domain.sonar.LowLevelActivityAggregator
 import app.opensleep.domain.sonar.AwakeWhenUsingPhoneDetector
+import app.opensleep.domain.sonar.AwakeWhenHighActivity
 import kotlinx.coroutines.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 class SleepTrackerService : Service(), SensorEventListener {
 
@@ -61,11 +64,18 @@ class SleepTrackerService : Service(), SensorEventListener {
     private lateinit var repository: SleepRepository
     private var flushJob: Job? = null
     private var audioJob: Job? = null
+    // Separate scope for the final save — must NOT be cancelled in onDestroy
+    private var saveScope: CoroutineScope? = null
+    private var isSaving = false
     private var audioRecord: AudioRecord? = null
 
     private lateinit var phoneAwakeDetector: AwakeWhenUsingPhoneDetector
+    private var highActivityAwakeDetector: AwakeWhenHighActivity? = null
     private val chirpProducer = ChirpProducer(AUDIO_SAMPLE_RATE)
     private var watcherJob: Job? = null
+    private var activityBroadcasterJob: Job? = null
+    private var activeAwakeIntervalStartMs: Long? = null
+    private val recentAccelMagnitudes = mutableListOf<Float>()
 
     private val screenReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -123,6 +133,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         Log.d(TAG, "startTracking() entering. isTracking: $isTracking, isSystemRestart: $isSystemRestart")
         if (!isTracking) {
             analyzer.clear()
+            activeAwakeIntervalStartMs = null
             isTracking = true
         }
         if (!wakeLock.isHeld) {
@@ -162,27 +173,58 @@ class SleepTrackerService : Service(), SensorEventListener {
         Log.d(TAG, "Sensor listeners registered (wake-up and hardware batched).")
         startAudioMonitoring()
 
+        highActivityAwakeDetector = AwakeWhenHighActivity(applicationContext)
+
+        // 10-second activity broadcaster loop
+        activityBroadcasterJob?.cancel()
+        val accelAggregator = AccelActivityAggregator()
+        activityBroadcasterJob = serviceScope.launch {
+            var lastTime = System.currentTimeMillis()
+            while (isActive) {
+                delay(10000L)
+                val now = System.currentTimeMillis()
+                val magnitudes = synchronized(recentAccelMagnitudes) {
+                    val copy = recentAccelMagnitudes.toList()
+                    recentAccelMagnitudes.clear()
+                    copy
+                }
+                if (magnitudes.isNotEmpty()) {
+                    val maxMagnitude = magnitudes.maxOrNull() ?: 0f
+                    val actigraph = accelAggregator.update(maxMagnitude)
+                    
+                    val intent = Intent("action_raw_activity").apply {
+                        setPackage(packageName)
+                        putExtra("action_raw_activity_sensor", "PHONE_ACCEL")
+                        putExtra("action_raw_activity_data", actigraph)
+                    }
+                    sendBroadcast(intent)
+                }
+            }
+        }
+
         // 30-second awake watcher timer
         watcherJob?.cancel()
         watcherJob = serviceScope.launch {
             while (isActive) {
                 delay(30000L)
-                if (phoneAwakeDetector.isAwake()) {
-                    val now = System.currentTimeMillis()
-                    analyzer.addAwakeInterval(now - 30000L, now)
-                    Log.d(TAG, "Phone awake detected; added awake interval.")
+                val highActivityAwake = highActivityAwakeDetector?.isAwake() ?: false
+                val now = System.currentTimeMillis()
+                val awake = phoneAwakeDetector.isAwake() || highActivityAwake
+                recordAwakeState(now, awake, 30000L)
+                if (awake) {
+                    Log.d(TAG, "Phone awake detected (phone or high activity); added awake interval.")
                 }
             }
         }
 
-        // Periodically flush stages to DB every 5 minutes
+        // Periodically flush stages to DB every 1 minute
         flushJob?.cancel()
         flushJob = serviceScope.launch {
             val sid = sessionId ?: return@launch
             val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
             while (isActive) {
-                delay(5 * 60 * 1000L)
-                Log.d(TAG, "Performing periodic 5-minute database flush...")
+                delay(60 * 1000L)
+                Log.d(TAG, "Performing periodic 1-minute database flush...")
                 val stages = analyzer.computeStages(startTime)
                 repository.updateStages(sid, stages)
                 Log.d(TAG, "Periodic database flush complete.")
@@ -191,25 +233,36 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     private fun stopTracking() {
-        Log.d(TAG, "stopTracking() called. isTracking: $isTracking. Unregistering sensor listener...")
-        if (!isTracking) {
-            Log.d(TAG, "Service was not actively tracking. Skipping redundant stop.")
+        Log.d(TAG, "stopTracking() called. isTracking: $isTracking, isSaving: $isSaving")
+        if (!isTracking || isSaving) {
+            Log.d(TAG, "Service was not actively tracking or already saving. Skipping redundant stop.")
             return
         }
         isTracking = false
+        isSaving = true
+        recordAwakeState(System.currentTimeMillis(), false)
         sensorManager.unregisterListener(this)
         watcherJob?.cancel()
         watcherJob = null
         phoneAwakeDetector.stop()
+        highActivityAwakeDetector?.stop()
+        highActivityAwakeDetector = null
+        activeAwakeIntervalStartMs = null
+        activityBroadcasterJob?.cancel()
+        activityBroadcasterJob = null
         flushJob?.cancel()
         stopAudioMonitoring()
         
         Log.d(TAG, "Showing user-noticeable syncing notification...")
         updateNotificationToSyncing()
 
-        serviceScope.launch {
+        // Use a SEPARATE scope that is NOT cancelled by onDestroy.
+        // This ensures stages are fully written before the service dies.
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO + exceptionHandler)
+        saveScope = scope
+        scope.launch {
             try {
-                Log.d(TAG, "Coroutine started. Resolving session ID...")
+                Log.d(TAG, "Save coroutine started. Resolving session ID...")
                 val sid = sessionId ?: repository.getActiveSessionOneShot()?.id
                 Log.d(TAG, "Resolved session ID: $sid")
                 if (sid != null) {
@@ -255,9 +308,9 @@ class SleepTrackerService : Service(), SensorEventListener {
             } catch (e: Exception) {
                 Log.e(TAG, "Error during sleep session finalization & sync: ${e.message}", e)
             } finally {
-                // Add a small artificial delay of 1.5 seconds so the user can visually witness the "Syncing..." status
                 Log.d(TAG, "Finalizing service stop tracking...")
                 delay(1500L)
+                isSaving = false
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Terminating foreground service...")
                     if (wakeLock.isHeld) wakeLock.release()
@@ -292,9 +345,16 @@ class SleepTrackerService : Service(), SensorEventListener {
         val timestampMs = eventWallClockMs(event)
         when (event.sensor.type) {
             Sensor.TYPE_ACCELEROMETER -> {
+                val x = event.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+                val mag = kotlin.math.sqrt(x * x + y * y + z * z)
+                synchronized(recentAccelMagnitudes) {
+                    recentAccelMagnitudes.add(mag)
+                }
                 analyzer.addSample(
                     timestampMs,
-                    event.values[0], event.values[1], event.values[2]
+                    x, y, z
                 )
             }
             Sensor.TYPE_GYROSCOPE -> {
@@ -311,7 +371,50 @@ class SleepTrackerService : Service(), SensorEventListener {
         return System.currentTimeMillis() - ageMs.coerceAtLeast(0L)
     }
 
+    private fun recordAwakeState(nowMs: Long, awake: Boolean, lookbackMs: Long = 0L) {
+        if (awake) {
+            val start = activeAwakeIntervalStartMs ?: (nowMs - lookbackMs).coerceAtLeast(0L)
+            activeAwakeIntervalStartMs = start
+            analyzer.addAwakeInterval(start, nowMs)
+        } else {
+            val start = activeAwakeIntervalStartMs
+            if (start != null && nowMs > start) {
+                analyzer.addAwakeInterval(start, nowMs)
+            }
+            activeAwakeIntervalStartMs = null
+        }
+    }
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        Log.w(TAG, "onTaskRemoved() — app swiped away. Emergency flushing stages...")
+        // Synchronously flush stages on current thread before Android kills us
+        val sid = sessionId
+        if (sid != null && isTracking) {
+            try {
+                val latch = CountDownLatch(1)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val session = repository.getSessionById(sid)
+                        if (session != null) {
+                            val stages = analyzer.computeStages(session.startTimeMs)
+                            repository.endSession(sid, stages)
+                            Log.d(TAG, "Emergency flush completed: ${stages.size} stages saved.")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Emergency flush failed: ${e.message}", e)
+                    } finally {
+                        latch.countDown()
+                    }
+                }
+                latch.await(5, TimeUnit.SECONDS)
+            } catch (e: Exception) {
+                Log.e(TAG, "Emergency flush interrupted: ${e.message}", e)
+            }
+        }
+        super.onTaskRemoved(rootIntent)
+    }
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy() called. Setting isRunning to false.")
@@ -320,10 +423,16 @@ class SleepTrackerService : Service(), SensorEventListener {
         watcherJob?.cancel()
         watcherJob = null
         phoneAwakeDetector.stop()
+        highActivityAwakeDetector?.stop()
+        highActivityAwakeDetector = null
+        activityBroadcasterJob?.cancel()
+        activityBroadcasterJob = null
         runCatching { unregisterReceiver(screenReceiver) }
         stopAudioMonitoring()
+        // Cancel the main service scope but NOT the saveScope
         serviceScope.cancel()
-        if (wakeLock.isHeld) wakeLock.release()
+        // Only release wake lock if save is not in progress
+        if (!isSaving && wakeLock.isHeld) wakeLock.release()
         super.onDestroy()
     }
 
@@ -434,6 +543,14 @@ class SleepTrackerService : Service(), SensorEventListener {
                         if (now - lastSonarSampleTime >= 10000) {
                             val act = aggregator.getAggregatedActivity()
                             analyzer.addSonarSample(now, act)
+                            
+                            val intent = Intent("action_raw_activity").apply {
+                                setPackage(packageName)
+                                putExtra("action_raw_activity_sensor", "SONAR")
+                                putExtra("action_raw_activity_data", act)
+                            }
+                            sendBroadcast(intent)
+                            
                             lastSonarSampleTime = now
                         }
                     } else {
@@ -471,5 +588,28 @@ class SleepTrackerService : Service(), SensorEventListener {
             runCatching { rec?.stop() }
             chirpProducer.stop()
         }
+    }
+}
+
+class AccelActivityAggregator {
+    private val baselineBuffer = FloatArray(6)
+    private var baselineSize = 0
+    private var baselineIndex = 0
+
+    fun update(f: Float): Float {
+        if (baselineSize < 6) {
+            baselineBuffer[baselineSize] = f
+            baselineSize++
+        } else {
+            baselineBuffer[baselineIndex] = f
+            baselineIndex = (baselineIndex + 1) % 6
+        }
+        val sorted = baselineBuffer.copyOfRange(0, baselineSize).apply { sort() }
+        val median = if (baselineSize % 2 == 1) {
+            sorted[baselineSize / 2]
+        } else {
+            (sorted[baselineSize / 2 - 1] + sorted[baselineSize / 2]) / 2f
+        }
+        return kotlin.math.abs(f - median)
     }
 }

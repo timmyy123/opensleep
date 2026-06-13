@@ -330,7 +330,11 @@ class SleepStageAnalyzer {
 
     private final class DeepSleepDetectorV8 {
         private let deepSleepIndicator = DeepSleepIndicator(isSmartWatch: false)
-        private let sleepPhaseBroadcast = SleepPhaseBroadcast(isAwake: { false })
+        private let sleepPhaseBroadcast: SleepPhaseBroadcast
+
+        init(isAwake: @escaping () -> Bool = { false }) {
+            self.sleepPhaseBroadcast = SleepPhaseBroadcast(isAwake: isAwake)
+        }
 
         var sleepPhase: SleepPhase { deepSleepIndicator.sleepPhase }
         var remStatus: RemDetectorV1.Status { sleepPhaseBroadcast.remStatus }
@@ -677,10 +681,14 @@ class SleepStageAnalyzer {
         let frames = buildActivityFrames(sleepStart: sleepStart)
         guard !frames.isEmpty else { return [] }
 
-        let detector = DeepSleepDetectorV8()
+        var detectorTimestamp = sleepStart
+        let detector = DeepSleepDetectorV8 {
+            self.isAwake(at: detectorTimestamp)
+        }
         var stages: [SleepStage] = []
 
         for frame in frames {
+            detectorTimestamp = frame.startDate
             detector.update(timestamp: frame.startDate, result: frame.result)
             let type: SleepStageType?
             if detector.remStatus == .rem {
@@ -697,7 +705,7 @@ class SleepStageAnalyzer {
             }
         }
 
-        return overlayAwakeIntervals(stages)
+        return overlayAwakeIntervals(stages, sessionStart: sleepStart, sessionEnd: frames[frames.count - 1].endDate)
     }
 
     func clear() {
@@ -782,10 +790,24 @@ class SleepStageAnalyzer {
         }
     }
 
-    private func overlayAwakeIntervals(_ stages: [SleepStage]) -> [SleepStage] {
+    private func isAwake(at timestamp: Date) -> Bool {
+        awakeIntervals.contains { timestamp >= $0.0 && timestamp < $0.1 }
+    }
+
+    private func overlayAwakeIntervals(
+        _ stages: [SleepStage],
+        sessionStart: Date,
+        sessionEnd: Date
+    ) -> [SleepStage] {
         if awakeIntervals.isEmpty { return stages }
         
-        let sortedIntervals = awakeIntervals.sorted { $0.0 < $1.0 }
+        let sortedIntervals = awakeIntervals.compactMap { interval -> (Date, Date)? in
+            let start = max(interval.0, sessionStart)
+            let end = min(interval.1, sessionEnd)
+            return end > start ? (start, end) : nil
+        }.sorted { $0.0 < $1.0 }
+        if sortedIntervals.isEmpty { return stages }
+
         var mergedIntervals: [(Date, Date)] = []
         for interval in sortedIntervals {
             if mergedIntervals.isEmpty {

@@ -115,6 +115,7 @@ struct SleepHistoryView: View {
                         }
                         .listStyle(.plain)
                         .scrollContentBackground(.hidden)
+                        .scrollIndicators(.hidden)
                         
                         if isMultiSelectActive {
                             multiSelectActionBar()

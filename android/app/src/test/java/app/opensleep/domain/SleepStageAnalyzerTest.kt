@@ -35,6 +35,21 @@ class SleepStageAnalyzerTest {
         assertTrue("REM should come from RemDetectorV1 deep-to-light timing, not a clock heuristic", stages.any { it.type == SleepStageType.REM })
     }
 
+    @Test
+    fun awakeIntervalsOverrideQuietActigraphy() {
+        val analyzer = SleepStageAnalyzer()
+        val start = 3_000_000L
+
+        addFrames(analyzer, start, frameCount = 60) { 1f }
+        analyzer.addAwakeInterval(start, start + 60 * FRAME_MS)
+
+        val stages = analyzer.computeStages(start)
+        val types = stages.map { it.type }.toSet()
+
+        assertTrue("Known-awake time must not be classified as deep sleep", SleepStageType.DEEP !in types)
+        assertTrue("Known-awake time should be preserved in history", SleepStageType.AWAKE in types)
+    }
+
     private fun addFrames(
         analyzer: SleepStageAnalyzer,
         startMs: Long,

@@ -73,7 +73,9 @@ struct SleepHomeView: View {
 
                     Spacer(minLength: 32)
                 }
+                .safeAreaPadding(.top)  // Keeps content below the status bar
             }
+            .scrollIndicators(.hidden)
         }
         .onAppear { updateTimer() }
         .onDisappear { timer?.invalidate() }

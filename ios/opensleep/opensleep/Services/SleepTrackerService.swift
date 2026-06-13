@@ -35,13 +35,19 @@ class SleepTrackerService: ObservableObject {
 
     // Phone usage awake detector and Sonar components
     private let phoneAwakeDetector = AwakeWhenUsingPhoneDetector()
+    private var highActivityAwakeDetector: AwakeWhenHighActivity?
+    private var activityBroadcasterTimer: DispatchSourceTimer?
+    private var recentAccelMagnitudes: [Float] = []
+    private let accelLock = NSLock()
     private let chirpProducer = ChirpProducer(sampleRate: 48000)
-    private var watcherTimer: Timer?
+    private var watcherTimer: DispatchSourceTimer?
+    private var activeAwakeIntervalStart: Date?
     private var lockStateToken: Int32 = 0
 
     // Sample at ~4 Hz
     private let sampleInterval: TimeInterval = 0.25
-    private var stageFlushTimer: Timer?
+    private var stageFlushTimer: DispatchSourceTimer?
+    private var audioWatchdogTimer: DispatchSourceTimer?
 
     init() {
         registerBackgroundTask()
@@ -87,8 +93,9 @@ class SleepTrackerService: ObservableObject {
         try? modelContext?.save()
         activeSession = session
 
-        analysisQueue.async { [weak self] in
+        analysisQueue.sync { [weak self] in
             self?.analyzer.clear()
+            self?.activeAwakeIntervalStart = nil
         }
         isTracking = true
 
@@ -107,6 +114,14 @@ class SleepTrackerService: ObservableObject {
                 y: data.acceleration.y * 9.80665,
                 z: data.acceleration.z * 9.80665
             )
+            
+            let x = Float(data.acceleration.x)
+            let y = Float(data.acceleration.y)
+            let z = Float(data.acceleration.z)
+            let mag = sqrt(x*x + y*y + z*z)
+            self.accelLock.lock()
+            self.recentAccelMagnitudes.append(mag)
+            self.accelLock.unlock()
             
             self.analysisQueue.async {
                 let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
@@ -149,39 +164,103 @@ class SleepTrackerService: ObservableObject {
         startAudioMetering()
         scheduleBackgroundTask()
 
-        // 30-second awake watcher timer
-        watcherTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+        highActivityAwakeDetector = AwakeWhenHighActivity()
+
+        // 10-second activity broadcaster timer
+        let broadcaster = DispatchSource.makeTimerSource(queue: analysisQueue)
+        broadcaster.schedule(deadline: .now() + 10.0, repeating: 10.0)
+        let accelAggregator = AccelActivityAggregator()
+        broadcaster.setEventHandler { [weak self] in
             guard let self = self else { return }
-            if self.phoneAwakeDetector.isAwake() {
-                let now = Date()
-                self.analysisQueue.async {
-                    self.analyzer.addAwakeInterval(start: now.addingTimeInterval(-30.0), end: now)
-                }
-                print("iOS: Phone awake detected; added awake interval.")
+            self.accelLock.lock()
+            let magnitudes = self.recentAccelMagnitudes
+            self.recentAccelMagnitudes.removeAll()
+            self.accelLock.unlock()
+            
+            if !magnitudes.isEmpty {
+                let maxMag = magnitudes.max() ?? 0.0
+                let actigraph = accelAggregator.update(maxMag)
+                print("iOS: Broadcaster posting raw accelerometer activity: \(actigraph) (samples count: \(magnitudes.count))")
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("action_raw_activity"),
+                    object: nil,
+                    userInfo: ["sensor": "PHONE_ACCEL", "data": actigraph]
+                )
             }
         }
+        broadcaster.resume()
+        activityBroadcasterTimer = broadcaster
 
-        // Flush stages every 5 minutes
-        stageFlushTimer = Timer.scheduledTimer(withTimeInterval: 5 * 60, repeats: true) { [weak self] _ in
+        // 30-second awake watcher timer (DispatchSourceTimer fires in background)
+        let watcher = DispatchSource.makeTimerSource(queue: analysisQueue)
+        watcher.schedule(deadline: .now() + 30.0, repeating: 30.0)
+        watcher.setEventHandler { [weak self] in
             guard let self = self else { return }
-            Task { @MainActor in
+            let highActivityAwake = self.highActivityAwakeDetector?.isAwake() ?? false
+            let now = Date()
+            let awake = self.phoneAwakeDetector.isAwake() || highActivityAwake
+            self.recordAwakeState(now: now, awake: awake, lookback: 30.0)
+            if awake {
+                print("iOS: Phone awake detected (phone or high activity); added awake interval.")
+            }
+        }
+        watcher.resume()
+        watcherTimer = watcher
+
+        // Flush stages every 1 minute (DispatchSourceTimer fires in background)
+        let flush = DispatchSource.makeTimerSource(queue: analysisQueue)
+        flush.schedule(deadline: .now() + 60, repeating: 60)
+        flush.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
                 self.flushStages()
             }
         }
+        flush.resume()
+        stageFlushTimer = flush
+
+        // Audio engine health watchdog — every 30s check if engine stopped and restart
+        let watchdog = DispatchSource.makeTimerSource(queue: analysisQueue)
+        watchdog.schedule(deadline: .now() + 30, repeating: 30)
+        watchdog.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            if !self.audioEngine.isRunning {
+                print("iOS: Audio engine stopped unexpectedly. Restarting...")
+                do {
+                    try AVAudioSession.sharedInstance().setActive(true)
+                    try self.audioEngine.start()
+                    print("iOS: Audio engine restarted successfully.")
+                } catch {
+                    print("iOS: Failed to restart audio engine: \(error)")
+                }
+            }
+        }
+        watchdog.resume()
+        audioWatchdogTimer = watchdog
     }
 
     @MainActor
     func stopTracking() {
         guard isTracking else { return }
+        analysisQueue.sync {
+            recordAwakeState(now: Date(), awake: false)
+        }
         motionManager.stopAccelerometerUpdates()
         motionManager.stopGyroUpdates()
         motionOpQueue = nil
-        stageFlushTimer?.invalidate()
+        stageFlushTimer?.cancel()
         stageFlushTimer = nil
         
-        watcherTimer?.invalidate()
+        watcherTimer?.cancel()
         watcherTimer = nil
+        activityBroadcasterTimer?.cancel()
+        activityBroadcasterTimer = nil
+        audioWatchdogTimer?.cancel()
+        audioWatchdogTimer = nil
         phoneAwakeDetector.stop()
+        highActivityAwakeDetector?.stop()
+        highActivityAwakeDetector = nil
+        activeAwakeIntervalStart = nil
         unregisterLockStateObserver()
         
         stopAudioMetering()
@@ -198,14 +277,19 @@ class SleepTrackerService: ObservableObject {
         guard let session = activeSession else { return }
         session.endDate = Date()
         
+        // Capture strong references to prevent deallocation during async save
         let startDate = session.startDate
-        analysisQueue.async { [weak self] in
-            guard let self = self else { return }
-            let stages = self.analyzer.computeStages(sleepStart: startDate)
+        let analyzer = self.analyzer
+        let modelContext = self.modelContext
+        let activeSession = self.activeSession
+        
+        analysisQueue.async {
+            let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
-                if let active = self.activeSession {
+                if let active = activeSession {
                     active.stages = stages
-                    try? self.modelContext?.save()
+                    try? modelContext?.save()
+                    print("iOS: Saved \(stages.count) stages to session.")
                 }
             }
         }
@@ -214,14 +298,18 @@ class SleepTrackerService: ObservableObject {
     @MainActor
     private func flushStages() {
         guard let session = activeSession else { return }
+        // Capture strong references
         let startDate = session.startDate
-        analysisQueue.async { [weak self] in
-            guard let self = self else { return }
-            let stages = self.analyzer.computeStages(sleepStart: startDate)
+        let analyzer = self.analyzer
+        let modelContext = self.modelContext
+        let activeSession = self.activeSession
+        
+        analysisQueue.async {
+            let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
-                if let active = self.activeSession {
+                if let active = activeSession {
                     active.stages = stages
-                    try? self.modelContext?.save()
+                    try? modelContext?.save()
                 }
             }
         }
@@ -233,13 +321,15 @@ class SleepTrackerService: ObservableObject {
     private func startAudioMetering() {
         let inputNode = audioEngine.inputNode
         
-        guard let recordingFormat = AVAudioFormat(standardFormatWithSampleRate: 48000.0, channels: 1) else {
-            print("Failed to create mono 48kHz audio format")
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        let inputSampleRate = Int(recordingFormat.sampleRate.rounded())
+        guard inputSampleRate > 0 else {
+            print("Failed to get valid input audio format")
             return
         }
         
-        let diffSonar = DiffSonarConsumer(sampleRate: 48000)
-        let aggregator = LowLevelActivityAggregator(sampleRate: 48000)
+        let diffSonar = DiffSonarConsumer(sampleRate: inputSampleRate)
+        let aggregator = LowLevelActivityAggregator(sampleRate: inputSampleRate)
         var lastSonarSampleTime = Date()
         
         chirpProducer.play()
@@ -252,7 +342,12 @@ class SleepTrackerService: ObservableObject {
             let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
             
             let consumerRes = diffSonar.processAndGetResult(floatArr)
-            _ = aggregator.update(consumerRes.activity)
+            let activityResult = aggregator.update(consumerRes.activity)
+            if activityResult.isHighActivity {
+                self.analysisQueue.async {
+                    self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
+                }
+            }
             
             let now = Date()
             if now.timeIntervalSince(lastSonarSampleTime) >= 10.0 {
@@ -260,6 +355,15 @@ class SleepTrackerService: ObservableObject {
                 self.analysisQueue.async {
                     self.analyzer.addSonarSample(timestamp: now, activity: act)
                 }
+                
+                // Broadcast Sonar activity
+                print("iOS: Broadcaster posting raw Sonar activity: \(act)")
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("action_raw_activity"),
+                    object: nil,
+                    userInfo: ["sensor": "SONAR", "data": act]
+                )
+                
                 lastSonarSampleTime = now
             }
         }
@@ -275,6 +379,19 @@ class SleepTrackerService: ObservableObject {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         chirpProducer.stop()
+    }
+
+    private func recordAwakeState(now: Date, awake: Bool, lookback: TimeInterval = 0) {
+        if awake {
+            let start = activeAwakeIntervalStart ?? now.addingTimeInterval(-lookback)
+            activeAwakeIntervalStart = start
+            analyzer.addAwakeInterval(start: start, end: now)
+        } else {
+            if let start = activeAwakeIntervalStart, now > start {
+                analyzer.addAwakeInterval(start: start, end: now)
+            }
+            activeAwakeIntervalStart = nil
+        }
     }
 
     private func handleAudioInterruption(_ notification: Notification) {
@@ -378,5 +495,27 @@ class SleepTrackerService: ObservableObject {
             self.flushStages()
             task.setTaskCompleted(success: true)
         }
+    }
+}
+
+class AccelActivityAggregator {
+    private var baselineBuffer: [Float] = []
+    private var baselineIndex = 0
+
+    func update(_ f: Float) -> Float {
+        if baselineBuffer.count < 6 {
+            baselineBuffer.append(f)
+        } else {
+            baselineBuffer[baselineIndex] = f
+            baselineIndex = (baselineIndex + 1) % 6
+        }
+        let sorted = baselineBuffer.sorted()
+        let median: Float
+        if sorted.count % 2 == 1 {
+            median = sorted[sorted.count / 2]
+        } else {
+            median = (sorted[sorted.count / 2 - 1] + sorted[sorted.count / 2]) / 2.0
+        }
+        return abs(f - median)
     }
 }
