@@ -27,7 +27,7 @@ import app.opensleep.data.local.SleepDatabase
 import app.opensleep.data.repository.SleepRepository
 import app.opensleep.domain.SleepStageAnalyzer
 import app.opensleep.domain.sonar.ChirpProducer
-import app.opensleep.domain.sonar.DiffSonarConsumer
+import app.opensleep.domain.sonar.FftSonarConsumer
 import app.opensleep.domain.sonar.LowLevelActivityAggregator
 import app.opensleep.domain.sonar.AwakeWhenUsingPhoneDetector
 import app.opensleep.domain.sonar.AwakeWhenHighActivity
@@ -64,7 +64,6 @@ class SleepTrackerService : Service(), SensorEventListener {
     private lateinit var repository: SleepRepository
     private var flushJob: Job? = null
     private var audioJob: Job? = null
-    private var audioDutyCycleJob: Job? = null  // orchestrates 30s-ON/90s-OFF audio duty cycle
     // Separate scope for the final save — must NOT be cancelled in onDestroy
     private var saveScope: CoroutineScope? = null
     private var isSaving = false
@@ -172,9 +171,8 @@ class SleepTrackerService : Service(), SensorEventListener {
         accel?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
         gyro?.let { sensorManager.registerListener(this, it, SENSOR_DELAY_US, maxReportLatencyUs) }
         Log.d(TAG, "Sensor listeners registered (wake-up and hardware batched).")
-        // Start audio in duty-cycle mode: 30s ON, 90s OFF, repeat.
-        // This reduces average audio CPU/memory by 75%, preventing Android OOM kills.
-        startAudioDutyCycle()
+        // Start audio monitoring continuously.
+        startAudioMonitoring()
 
         highActivityAwakeDetector = AwakeWhenHighActivity(applicationContext)
 
@@ -254,8 +252,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         activityBroadcasterJob?.cancel()
         activityBroadcasterJob = null
         flushJob?.cancel()
-        audioDutyCycleJob?.cancel()
-        audioDutyCycleJob = null
         stopAudioMonitoring()
         
         Log.d(TAG, "Showing user-noticeable syncing notification...")
@@ -432,8 +428,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         highActivityAwakeDetector = null
         activityBroadcasterJob?.cancel()
         activityBroadcasterJob = null
-        audioDutyCycleJob?.cancel()
-        audioDutyCycleJob = null
         runCatching { unregisterReceiver(screenReceiver) }
         stopAudioMonitoring()
         // Cancel the main service scope but NOT the saveScope
@@ -485,29 +479,6 @@ class SleepTrackerService : Service(), SensorEventListener {
             .build()
     }
 
-    /**
-     * Starts the audio duty-cycle coroutine.
-     * Pattern: run audio for 30 seconds, pause for 90 seconds, repeat.
-     * This cuts average audio CPU/RAM to 25% of continuous operation,
-     * preventing the Android OOM killer from targeting this foreground service.
-     */
-    private fun startAudioDutyCycle() {
-        audioDutyCycleJob?.cancel()
-        audioDutyCycleJob = serviceScope.launch {
-            while (isActive) {
-                // --- ON phase: 30 seconds ---
-                Log.d(TAG, "Audio duty cycle: ON phase starting")
-                startAudioMonitoring()
-                delay(30_000L)
-
-                // --- OFF phase: 90 seconds ---
-                Log.d(TAG, "Audio duty cycle: OFF phase starting")
-                stopAudioMonitoring()
-                delay(90_000L)
-            }
-        }
-    }
-
     @Suppress("MissingPermission")
     private fun startAudioMonitoring() {
         if (
@@ -549,7 +520,7 @@ class SleepTrackerService : Service(), SensorEventListener {
             return
         }
 
-        val diffSonar = DiffSonarConsumer(AUDIO_SAMPLE_RATE)
+        val fftSonar = FftSonarConsumer(AUDIO_SAMPLE_RATE)
         val aggregator = LowLevelActivityAggregator(AUDIO_SAMPLE_RATE)
 
         audioRecord = recorder
@@ -558,6 +529,8 @@ class SleepTrackerService : Service(), SensorEventListener {
         audioJob?.cancel()
         audioJob = serviceScope.launch {
             val readBuffer = ShortArray(2048)
+            val chunkBuffer = FloatArray(8192)
+            var chunkCount = 0
             var lastSonarSampleTime = System.currentTimeMillis()
 
             try {
@@ -566,22 +539,34 @@ class SleepTrackerService : Service(), SensorEventListener {
                     val read = recorder.read(readBuffer, 0, readBuffer.size)
                     if (read > 0) {
                         val floatArr = FloatArray(read) { readBuffer[it] / 32767.0f }
-                        val consumerRes = diffSonar.processAndGetResult(floatArr)
-                        aggregator.update(consumerRes.activity)
+                        var i = 0
+                        while (i < floatArr.size) {
+                            val limit = Math.min(floatArr.size - i, 8192 - chunkCount)
+                            System.arraycopy(floatArr, i, chunkBuffer, chunkCount, limit)
+                            chunkCount += limit
+                            i += limit
 
-                        val now = System.currentTimeMillis()
-                        if (now - lastSonarSampleTime >= 10000) {
-                            val act = aggregator.getAggregatedActivity()
-                            analyzer.addSonarSample(now, act)
-                            
-                            val intent = Intent("action_raw_activity").apply {
-                                setPackage(packageName)
-                                putExtra("action_raw_activity_sensor", "SONAR")
-                                putExtra("action_raw_activity_data", act)
+                            if (chunkCount == 8192) {
+                                val consumerRes = fftSonar.processAndGetResult(chunkBuffer)
+                                aggregator.update(consumerRes.activity)
+
+                                val now = System.currentTimeMillis()
+                                if (now - lastSonarSampleTime >= 10000) {
+                                    val act = aggregator.getAggregatedActivity()
+                                    analyzer.addSonarSample(now, act)
+
+                                    val intent = Intent("action_raw_activity").apply {
+                                        setPackage(packageName)
+                                        putExtra("action_raw_activity_sensor", "SONAR")
+                                        putExtra("action_raw_activity_data", act)
+                                    }
+                                    sendBroadcast(intent)
+
+                                    lastSonarSampleTime = now
+                                }
+
+                                chunkCount = 0
                             }
-                            sendBroadcast(intent)
-                            
-                            lastSonarSampleTime = now
                         }
                     } else {
                         Log.w(TAG, "AudioRecord read error: $read. Retrying in 1s...")
@@ -612,7 +597,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         audioJob = null
         val rec = audioRecord
         audioRecord = null
-        
+
         serviceScope.launch {
             job?.cancel()
             runCatching { rec?.stop() }

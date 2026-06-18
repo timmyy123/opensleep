@@ -78,4 +78,12 @@
     <string name="section_ai_settings">AI Chat Settings</string>
     <string name="setting_use_gpu">Use GPU Acceleration</string>
     <string name="setting_use_gpu_desc">Use phone\'s GPU for faster AI responses. Disable to use CPU.</string>
+    <string name="guide_title">Sleep Tracking Guide</string>
+    <string name="guide_sonar_title">Sonar (Contactless)</string>
+    <string name="guide_sonar_desc">Place phone on a stable nightstand next to the bed. Point the bottom (speaker/mic) towards your body/chest.</string>
+    <string name="guide_accel_title">Accelerometer (Mattress)</string>
+    <string name="guide_accel_desc">Place phone flat on the mattress next to your pillow or under the sheet to track physical movement.</string>
+    <string name="guide_charger_tip">Tip: Keep the phone plugged into a charger to prevent battery drain from the tracking sensors.</string>
+    <string name="battery_optimization_title">Battery Optimization Active</string>
+    <string name="battery_optimization_desc">OpenSleep may be killed in the background by system battery savers. Tap here to disable battery optimization in system settings.</string>
 </resources>

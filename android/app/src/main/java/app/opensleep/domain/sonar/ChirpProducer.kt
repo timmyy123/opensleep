@@ -43,18 +43,22 @@ class ChirpProducer(val sampleRate: Int) {
                 audioTrack?.play()
                 Log.d(TAG, "Ultrasound play loop started.")
 
-                val sArr = ShortArray(1024)
-                var sampleIndex = 0L
+                val chirp = ShortArray(BUFFER_SIZE_SAMPLES)
+                val f0 = 18000.0
+                val f1 = 22000.0
+                val T = BUFFER_SIZE_SAMPLES.toDouble()
+                val Fs = sampleRate.toDouble()
+                for (t in 0 until BUFFER_SIZE_SAMPLES) {
+                    val phase = (2.0 * Math.PI / Fs) * (f0 * t + ((f1 - f0) / (2.0 * T)) * t * t)
+                    val window = Math.sin(Math.PI * t / T)
+                    val sampleVal = Math.cos(phase) * window
+                    chirp[t] = (32767.0 * sampleVal).toInt().toShort()
+                }
 
                 while (isPlaying) {
                     val track = audioTrack ?: break
                     if (track.playState == AudioTrack.PLAYSTATE_PLAYING) {
-                        for (i in sArr.indices) {
-                            val angle = sampleIndex * 2.0 * Math.PI * 20000.0 / sampleRate
-                            sArr[i] = (32767.0 * Math.cos(angle)).toInt().toShort()
-                            sampleIndex++
-                        }
-                        val written = track.write(sArr, 0, sArr.size)
+                        val written = track.write(chirp, 0, chirp.size)
                         if (written <= 0) {
                             Log.e(TAG, "AudioTrack write error: $written")
                             Thread.sleep(10)

@@ -60,11 +60,13 @@ class SleepTrackerService: ObservableObject {
     private var stageFlushTimer: DispatchSourceTimer?
 
     // Sonar processing state — persists across engine rebuilds
-    private let diffSonar = DiffSonarConsumer(sampleRate: 48000)
+    private let fftSonar = FftSonarConsumer(sampleRate: 48000)
     private let activityAggregator = LowLevelActivityAggregator(sampleRate: 48000)
     private var lastSonarSampleTime = Date.distantPast
     private var isAudioRunning = false
     private let audioRebuildQueue = DispatchQueue(label: "tech.opensleep.audioRebuild", qos: .userInitiated)
+    private var audioChunkBuffer: [Float] = []
+    private let audioChunkLock = NSLock()
 
     init() {
         registerBackgroundTask()
@@ -73,6 +75,18 @@ class SleepTrackerService: ObservableObject {
     @MainActor
     func configure(modelContext: ModelContext) {
         self.modelContext = modelContext
+        
+        let descriptor = FetchDescriptor<SleepSession>()
+        if let sessions = try? modelContext.fetch(descriptor) {
+            let orphaned = sessions.filter { $0.endDate == nil }
+            if !orphaned.isEmpty {
+                for session in orphaned {
+                    print("iOS: Found orphaned active session: \(session.id). Closing it.")
+                    session.endDate = Date()
+                }
+                try? modelContext.save()
+            }
+        }
     }
 
     /// Explicitly request required microphone and motion permissions for tracking
@@ -112,6 +126,9 @@ class SleepTrackerService: ObservableObject {
         analysisQueue.sync { [weak self] in
             self?.analyzer.clear()
             self?.activeAwakeIntervalStart = nil
+            self?.audioChunkLock.lock()
+            self?.audioChunkBuffer.removeAll()
+            self?.audioChunkLock.unlock()
         }
         isTracking = true
 
@@ -292,31 +309,43 @@ class SleepTrackerService: ObservableObject {
             }
 
             inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
-                guard let self else { return }
+                guard let self = self else { return }
                 guard let channelData = buffer.floatChannelData?[0] else { return }
                 let frameLength = Int(buffer.frameLength)
                 let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
 
-                let consumerRes = self.diffSonar.processAndGetResult(floatArr)
-                let activityResult = self.activityAggregator.update(consumerRes.activity)
-                if activityResult.isHighActivity {
-                    self.analysisQueue.async {
-                        self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
-                    }
+                self.audioChunkLock.lock()
+                self.audioChunkBuffer.append(contentsOf: floatArr)
+                var chunksToProcess: [[Float]] = []
+                while self.audioChunkBuffer.count >= 8192 {
+                    let chunk = Array(self.audioChunkBuffer.prefix(8192))
+                    self.audioChunkBuffer.removeFirst(8192)
+                    chunksToProcess.append(chunk)
                 }
+                self.audioChunkLock.unlock()
 
-                let now = Date()
-                if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
-                    let act = self.activityAggregator.getAggregatedActivity()
-                    self.analysisQueue.async {
-                        self.analyzer.addSonarSample(timestamp: now, activity: act)
+                for chunk in chunksToProcess {
+                    let consumerRes = self.fftSonar.processAndGetResult(chunk)
+                    let activityResult = self.activityAggregator.update(consumerRes.activity)
+                    if activityResult.isHighActivity {
+                        self.analysisQueue.async {
+                            self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
+                        }
                     }
-                    NotificationCenter.default.post(
-                        name: NSNotification.Name("action_raw_activity"),
-                        object: nil,
-                        userInfo: ["sensor": "SONAR", "data": act]
-                    )
-                    self.lastSonarSampleTime = now
+
+                    let now = Date()
+                    if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
+                        let act = self.activityAggregator.getAggregatedActivity()
+                        self.analysisQueue.async {
+                            self.analyzer.addSonarSample(timestamp: now, activity: act)
+                        }
+                        NotificationCenter.default.post(
+                            name: NSNotification.Name("action_raw_activity"),
+                            object: nil,
+                            userInfo: ["sensor": "SONAR", "data": act]
+                        )
+                        self.lastSonarSampleTime = now
+                    }
                 }
             }
 

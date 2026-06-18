@@ -25,12 +25,35 @@ class SleepRepository(private val dao: SleepSessionDao) {
         return session
     }
 
+    private fun mergeStages(existingStages: List<SleepStage>, newStages: List<SleepStage>): List<SleepStage> {
+        if (newStages.isEmpty()) return existingStages
+        if (existingStages.isEmpty()) return newStages
+        
+        val firstNewStart = newStages.first().startMs
+        val keepStages = existingStages.filter { it.endMs <= firstNewStart }.toMutableList()
+        
+        return if (keepStages.isEmpty()) {
+            newStages
+        } else {
+            val lastKeep = keepStages.last()
+            val firstNew = newStages.first()
+            if (lastKeep.type == firstNew.type && lastKeep.endMs >= firstNew.startMs) {
+                keepStages[keepStages.lastIndex] = lastKeep.copy(endMs = firstNew.endMs)
+                keepStages.addAll(newStages.drop(1))
+            } else {
+                keepStages.addAll(newStages)
+            }
+            keepStages
+        }
+    }
+
     suspend fun endSession(sessionId: String, stages: List<SleepStage>) {
         val session = dao.getSessionById(sessionId) ?: return
+        val merged = mergeStages(session.stages(), stages)
         dao.update(
             session.copy(
                 endTimeMs = System.currentTimeMillis(),
-                stagesJson = stages.encodeToString()
+                stagesJson = merged.encodeToString()
             )
         )
     }
@@ -38,31 +61,8 @@ class SleepRepository(private val dao: SleepSessionDao) {
     suspend fun updateStages(sessionId: String, newStages: List<SleepStage>) {
         val session = dao.getSessionById(sessionId) ?: return
         if (newStages.isEmpty()) return
-        
-        val existingStages = session.stages()
-        val mergedStages = if (existingStages.isEmpty()) {
-            newStages
-        } else {
-            val firstNewStart = newStages.first().startMs
-            // Keep existing stages that end before or at the start of new stages
-            val keepStages = existingStages.filter { it.endMs <= firstNewStart }.toMutableList()
-            
-            if (keepStages.isEmpty()) {
-                newStages
-            } else {
-                val lastKeep = keepStages.last()
-                val firstNew = newStages.first()
-                if (lastKeep.type == firstNew.type && lastKeep.endMs >= firstNew.startMs) {
-                    // Merge adjacent stages of same type at boundary
-                    keepStages[keepStages.lastIndex] = lastKeep.copy(endMs = firstNew.endMs)
-                    keepStages.addAll(newStages.drop(1))
-                } else {
-                    keepStages.addAll(newStages)
-                }
-                keepStages
-            }
-        }
-        dao.update(session.copy(stagesJson = mergedStages.encodeToString()))
+        val merged = mergeStages(session.stages(), newStages)
+        dao.update(session.copy(stagesJson = merged.encodeToString()))
     }
 
     suspend fun markSynced(sessionId: String) {

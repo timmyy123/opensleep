@@ -77,4 +77,12 @@
     <string name="section_ai_settings">Paramètres du chat IA</string>
     <string name="setting_use_gpu">Utiliser l\'accélération GPU</string>
     <string name="setting_use_gpu_desc">Utilisez le GPU du téléphone pour des réponses IA plus rapides. Désactivez pour utiliser le processeur (CPU).</string>
+    <string name="guide_title">Guide de suivi du sommeil</string>
+    <string name="guide_sonar_title">Sonar (Sans contact)</string>
+    <string name="guide_sonar_desc">Placez le téléphone sur une surface stable (comme une table de chevet) à côté du lit. Orientez le bas (haut-parleur/micro) vers votre corps/poitrine.</string>
+    <string name="guide_accel_title">Accéléromètre (Matelas)</string>
+    <string name="guide_accel_desc">Placez le téléphone à plat sur le matelas près de votre oreiller ou sous le drap pour enregistrer les mouvements physiques.</string>
+    <string name="guide_charger_tip">Conseil : Laissez le téléphone branché à un chargeur pour éviter de décharger la batterie avec les capteurs.</string>
+    <string name="battery_optimization_title">Optimisation de la batterie active</string>
+    <string name="battery_optimization_desc">OpenSleep peut être arrêté en arrière-plan par l\'économiseur de batterie. Appuyez ici pour désactiver l\'optimisation de la batterie dans les paramètres du système.</string>
 </resources>

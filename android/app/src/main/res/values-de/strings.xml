@@ -77,4 +77,12 @@
     <string name="section_ai_settings">KI-Chat-Einstellungen</string>
     <string name="setting_use_gpu">GPU-Beschleunigung verwenden</string>
     <string name="setting_use_gpu_desc">Verwenden Sie die GPU des Telefons für schnellere KI-Antworten. Deaktivieren Sie dies, um die CPU zu verwenden.</string>
+    <string name="guide_title">Schlafaufzeichnungs-Anleitung</string>
+    <string name="guide_sonar_title">Sonar (Kontaktlos)</string>
+    <string name="guide_sonar_desc">Lege das Telefon auf eine stabile Oberfläche (wie einen Nachttisch) neben dem Bett. Richte die Unterseite (Lautsprecher/Mikrofon) auf deinen Körper/Brustbereich aus.</string>
+    <string name="guide_accel_title">Beschleunigungsmesser (Matratze)</string>
+    <string name="guide_accel_desc">Lege das Telefon direkt auf die Matratze in die Nähe deines Kissens oder unter das Laken, um körperliche Bewegungen aufzuzeichnen.</string>
+    <string name="guide_charger_tip">Tipp: Schließe das Telefon an ein Ladegerät an, um Batterieverbrauch durch die Sensoren zu vermeiden.</string>
+    <string name="battery_optimization_title">Akku-Optimierung aktiv</string>
+    <string name="battery_optimization_desc">OpenSleep kann im Hintergrund durch den System-Energiesparmodus beendet werden. Tippe hier, um die Akku-Optimierung in den Systemeinstellungen zu deaktivieren.</string>
 </resources>

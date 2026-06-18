@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -50,6 +51,11 @@ fun HomeScreen(viewModel: HomeViewModel) {
         mutableStateOf(androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled())
     }
 
+    val powerManager = remember { context.getSystemService(android.content.Context.POWER_SERVICE) as android.os.PowerManager }
+    var isIgnoringBatteryOptimizations by remember {
+        mutableStateOf(powerManager.isIgnoringBatteryOptimizations(context.packageName))
+    }
+
     val healthPermissionLauncher = rememberLauncherForActivityResult(
         PermissionController.createRequestPermissionResultContract()
     ) {
@@ -61,6 +67,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
         val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
             if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
                 areNotificationsEnabled = androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()
+                isIgnoringBatteryOptimizations = powerManager.isIgnoringBatteryOptimizations(context.packageName)
                 viewModel.refreshHealthPermissions()
             }
         }
@@ -151,6 +158,46 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         Spacer(Modifier.height(4.dp))
                         Text(
                             text = stringResource(R.string.notifications_disabled_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextSecondary
+                        )
+                    }
+                }
+            }
+        }
+
+        if (!isIgnoringBatteryOptimizations) {
+            Spacer(Modifier.height(16.dp))
+            GlassCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        val intent = android.content.Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                            data = android.net.Uri.parse("package:${context.packageName}")
+                        }
+                        context.startActivity(intent)
+                    }
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Warning,
+                        contentDescription = null,
+                        tint = Color(0xFFFBBF24),
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Spacer(Modifier.width(16.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.battery_optimization_title),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            color = TextPrimary
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.battery_optimization_desc),
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextSecondary
                         )
@@ -311,6 +358,76 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         Spacer(Modifier.height(16.dp))
                         SleepStageLegend(stageDurations = stages)
                     }
+                }
+            }
+        }
+
+        // User-Facing Tracking Guide
+        Spacer(Modifier.height(24.dp))
+        GlassCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = stringResource(R.string.guide_title),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    color = TextPrimary
+                )
+                Spacer(Modifier.height(16.dp))
+                
+                // Sonar
+                Row(verticalAlignment = Alignment.Top) {
+                    Column {
+                        Text(
+                            text = stringResource(R.string.guide_sonar_title),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            color = IndigoLight
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.guide_sonar_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextSecondary
+                        )
+                    }
+                }
+                
+                Spacer(Modifier.height(20.dp))
+                
+                // Accelerometer
+                Row(verticalAlignment = Alignment.Top) {
+                    Column {
+                        Text(
+                            text = stringResource(R.string.guide_accel_title),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            color = IndigoLight
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.guide_accel_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextSecondary
+                        )
+                    }
+                }
+                
+                Spacer(Modifier.height(20.dp))
+                
+                // Charger Tip
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(IndigoLight.copy(alpha = 0.08f), shape = RoundedCornerShape(8.dp))
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.guide_charger_tip),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextSecondary,
+                        modifier = Modifier.weight(1f)
+                    )
                 }
             }
         }
