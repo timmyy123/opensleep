@@ -47,13 +47,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val healthConnectAvailable by viewModel.isHealthConnectAvailable.collectAsState()
     val hasHealthPermissions by viewModel.hasHealthPermissions.collectAsState()
  
+
     var areNotificationsEnabled by remember {
         mutableStateOf(androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled())
-    }
-
-    val powerManager = remember { context.getSystemService(android.content.Context.POWER_SERVICE) as android.os.PowerManager }
-    var isIgnoringBatteryOptimizations by remember {
-        mutableStateOf(powerManager.isIgnoringBatteryOptimizations(context.packageName))
     }
 
     val healthPermissionLauncher = rememberLauncherForActivityResult(
@@ -67,7 +63,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
         val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
             if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
                 areNotificationsEnabled = androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()
-                isIgnoringBatteryOptimizations = powerManager.isIgnoringBatteryOptimizations(context.packageName)
                 viewModel.refreshHealthPermissions()
             }
         }
@@ -158,46 +153,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         Spacer(Modifier.height(4.dp))
                         Text(
                             text = stringResource(R.string.notifications_disabled_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary
-                        )
-                    }
-                }
-            }
-        }
-
-        if (!isIgnoringBatteryOptimizations) {
-            Spacer(Modifier.height(16.dp))
-            GlassCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        val intent = android.content.Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
-                            data = android.net.Uri.parse("package:${context.packageName}")
-                        }
-                        context.startActivity(intent)
-                    }
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Warning,
-                        contentDescription = null,
-                        tint = Color(0xFFFBBF24),
-                        modifier = Modifier.size(32.dp)
-                    )
-                    Spacer(Modifier.width(16.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.battery_optimization_title),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = TextPrimary
-                        )
-                        Spacer(Modifier.height(4.dp))
-                        Text(
-                            text = stringResource(R.string.battery_optimization_desc),
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextSecondary
                         )
@@ -336,27 +291,29 @@ fun HomeScreen(viewModel: HomeViewModel) {
             }
         }
 
-        // Show live stage breakdown if active
-        activeSession?.let { session ->
-            val stages = session.stageDurations()
-            if (stages.values.any { it > 0 }) {
-                Spacer(Modifier.height(24.dp))
-                GlassCard(modifier = Modifier.fillMaxWidth()) {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.live_stages),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = TextPrimary
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        SleepRingChart(
-                            stageDurations = stages,
-                            modifier = Modifier
-                                .size(160.dp)
-                                .align(Alignment.CenterHorizontally)
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        SleepStageLegend(stageDurations = stages)
+        // Show live stage breakdown only while actively tracking
+        if (isSleeping) {
+            activeSession?.let { session ->
+                val stages = session.stageDurations()
+                if (stages.values.any { it > 0 }) {
+                    Spacer(Modifier.height(24.dp))
+                    GlassCard(modifier = Modifier.fillMaxWidth()) {
+                        Column {
+                            Text(
+                                text = stringResource(R.string.live_stages),
+                                style = MaterialTheme.typography.titleLarge,
+                                color = TextPrimary
+                            )
+                            Spacer(Modifier.height(16.dp))
+                            SleepRingChart(
+                                stageDurations = stages,
+                                modifier = Modifier
+                                    .size(160.dp)
+                                    .align(Alignment.CenterHorizontally)
+                            )
+                            Spacer(Modifier.height(16.dp))
+                            SleepStageLegend(stageDurations = stages)
+                        }
                     }
                 }
             }

@@ -680,63 +680,78 @@ class SleepStageAnalyzer {
     )
 
     private fun buildActivityFrames(sleepStartMs: Long): List<ActivityFrame> {
-        if (sonarSamples.isNotEmpty()) {
-            val sorted = sonarSamples.sortedBy { it.first }
-            val sessionEndMs = sorted.last().first
-            var frameStartMs = sleepStartMs
-            val aggregator = ActivityAggregatorAccel()
-            val frames = mutableListOf<ActivityFrame>()
-            while (frameStartMs + FRAME_MS <= sessionEndMs) {
-                val frameEndMs = frameStartMs + FRAME_MS
-                val frameSamples = sorted.filter { it.first in frameStartMs until frameEndMs }
-                val value = if (frameSamples.isEmpty()) {
-                    -0.001f
-                } else {
-                    frameSamples.maxOf { it.second }
-                }
-                val result = if (value < 0f) {
-                    ActivityAggregatorAccel.Result(-0.001f, -0.001f, false, false)
-                } else {
-                    aggregator.update(value)
-                }
-                frames.add(ActivityFrame(frameStartMs, frameEndMs, result))
-                frameStartMs = frameEndMs
-            }
-            return frames
-        }
+        val hasSonar = sonarSamples.isNotEmpty()
+        val hasAccel = samples.size >= 2
+        if (!hasSonar && !hasAccel) return emptyList()
 
-        val sortedSamples = samples.sortedBy { it.timestampMs }
-        val sessionEndMs = sortedSamples.lastOrNull()?.timestampMs ?: return emptyList()
-        val aggregator = ActivityAggregatorAccel()
-        val frames = mutableListOf<ActivityFrame>()
+        val sortedSonar = if (hasSonar) sonarSamples.sortedBy { it.first } else emptyList()
+        val sortedAccel = if (hasAccel) samples.sortedBy { it.timestampMs } else emptyList()
+
+        val sonarEndMs  = sortedSonar.lastOrNull()?.first ?: Long.MIN_VALUE
+        val accelEndMs  = sortedAccel.lastOrNull()?.timestampMs ?: Long.MIN_VALUE
+        val sessionEndMs = maxOf(sonarEndMs, accelEndMs)
+
+        val accelAggregator = ActivityAggregatorAccel()
         var previousSample: MotionSample? = null
+        val frames = mutableListOf<ActivityFrame>()
         var frameStartMs = sleepStartMs
 
         while (frameStartMs + FRAME_MS <= sessionEndMs) {
             val frameEndMs = frameStartMs + FRAME_MS
-            val frameSamples = sortedSamples.filter { it.timestampMs in frameStartMs until frameEndMs }
-            var maxRawChange = 0f
 
-            frameSamples.forEach { sample ->
-                val previous = previousSample
-                val rawChange = if (previous == null) {
-                    0f
-                } else {
-                    sample.magnitude
+            // ── Sonar result ─────────────────────────────────────────────────────────
+            // LowLevelActivityAggregator already performs the full normalization pipeline
+            // (almostMax → deviation-baseline → deviation-median → rolling max).
+            // Feeding its output through ActivityAggregatorAccel again would apply a
+            // second abs(f-median6(f)) pass; on a consistently quiet signal this delta
+            // stays near zero so HighActivityDetector's amplitude≤1 guard always fires
+            // → every frame scores as deep sleep → 0 min REM.
+            // Sleep as Android bypasses ActivityAggregatorAccel for sonar and constructs
+            // AccelResult directly using LowLevelActivityAggregator's own thresholds:
+            //   isSomeActivity  → f2 > 1.5  (AverageActivityOverThreshold SONAR threshold)
+            //   isHighActivity  → f2 > 24.0 (LowLevelActivityAggregator.Result.isHighActivity)
+            val sonarResult: ActivityAggregatorAccel.Result? = if (hasSonar) {
+                val fs = sortedSonar.filter { it.first in frameStartMs until frameEndMs }
+                if (fs.isEmpty()) null
+                else {
+                    val v = fs.maxOf { it.second }
+                    ActivityAggregatorAccel.Result(
+                        rawActivity    = v,
+                        actigraph      = v,
+                        isSomeActivity = v > 1.5f,
+                        isHighActivity = v > 24.0f
+                    )
                 }
-                if (rawChange > maxRawChange) maxRawChange = rawChange
-                previousSample = sample
+            } else null
+
+            // ── Accel result ──────────────────────────────────────────────────────────
+            val accelResult: ActivityAggregatorAccel.Result? = if (hasAccel) {
+                val fa = sortedAccel.filter { it.timestampMs in frameStartMs until frameEndMs }
+                var maxRawChange = 0f
+                for (sample in fa) {
+                    val rawChange = if (previousSample == null) 0f else sample.magnitude
+                    if (rawChange > maxRawChange) maxRawChange = rawChange
+                    previousSample = sample
+                }
+                if (fa.isEmpty()) null else accelAggregator.update(maxRawChange)
+            } else null
+
+            // ── Combine: take the result showing more activity ────────────────────────
+            val result = when {
+                sonarResult != null && accelResult != null -> ActivityAggregatorAccel.Result(
+                    rawActivity    = maxOf(sonarResult.rawActivity,  accelResult.rawActivity),
+                    actigraph      = maxOf(sonarResult.actigraph,    accelResult.actigraph),
+                    isSomeActivity = sonarResult.isSomeActivity || accelResult.isSomeActivity,
+                    isHighActivity = sonarResult.isHighActivity || accelResult.isHighActivity
+                )
+                sonarResult != null -> sonarResult
+                accelResult != null -> accelResult
+                else -> ActivityAggregatorAccel.Result(-0.001f, -0.001f, false, false)
             }
 
-            val result = if (frameSamples.isEmpty()) {
-                ActivityAggregatorAccel.Result(-0.001f, -0.001f, false, false)
-            } else {
-                aggregator.update(maxRawChange)
-            }
             frames.add(ActivityFrame(frameStartMs, frameEndMs, result))
             frameStartMs = frameEndMs
         }
-
         return frames
     }
 

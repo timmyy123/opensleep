@@ -40,6 +40,10 @@ class SleepTrackerService: ObservableObject {
     private var audioEngine: AVAudioEngine?
     private let chirpProducer = ChirpProducer(sampleRate: 48000)
 
+    // Sonar processing state — recreated with correct sample rate on each engine build
+    private var fftSonar = FftSonarConsumer(sampleRate: 48000)
+    private var activityAggregator = LowLevelActivityAggregator(sampleRate: 48000)
+
     private let analysisQueue = DispatchQueue(label: "tech.opensleep.analysisQueue", qos: .default)
     private var motionOpQueue: OperationQueue?
     private var interruptionObserver: AnyObject?
@@ -59,9 +63,7 @@ class SleepTrackerService: ObservableObject {
     private let sampleInterval: TimeInterval = 0.25
     private var stageFlushTimer: DispatchSourceTimer?
 
-    // Sonar processing state — persists across engine rebuilds
-    private let fftSonar = FftSonarConsumer(sampleRate: 48000)
-    private let activityAggregator = LowLevelActivityAggregator(sampleRate: 48000)
+
     private var lastSonarSampleTime = Date.distantPast
     private var isAudioRunning = false
     private let audioRebuildQueue = DispatchQueue(label: "tech.opensleep.audioRebuild", qos: .userInitiated)
@@ -272,15 +274,17 @@ class SleepTrackerService: ObservableObject {
         let startDate = session.startDate
         let analyzer = self.analyzer
         let modelContext = self.modelContext
-        let activeSession = self.activeSession
+        let capturedSession = self.activeSession
         analysisQueue.async {
             let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
-                if let active = activeSession {
+                if let active = capturedSession {
                     active.stages = stages
                     try? modelContext?.save()
                     print("iOS: Saved \(stages.count) stages.")
                 }
+                // Clear activeSession so the live stages card disappears
+                self.activeSession = nil
             }
         }
     }
@@ -307,6 +311,15 @@ class SleepTrackerService: ObservableObject {
                 print("iOS: Invalid input format, skipping audio engine start.")
                 return
             }
+
+            // KEY FIX FOR REM: Recreate sonar components with the ACTUAL sample rate
+            // from the current audio route. If we used hardcoded 48000 but iOS picked
+            // 44100, the 20kHz chirp FFT bins would point at wrong frequencies →
+            // sonar always detects zero movement → all frames = deepSleep → 0m REM.
+            let actualRate = Int(recordingFormat.sampleRate)
+            self.fftSonar = FftSonarConsumer(sampleRate: actualRate)
+            self.activityAggregator = LowLevelActivityAggregator(sampleRate: actualRate)
+            print("iOS: Audio engine using sample rate \(actualRate) Hz")
 
             inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
                 guard let self = self else { return }

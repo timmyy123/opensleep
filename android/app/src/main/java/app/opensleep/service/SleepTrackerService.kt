@@ -548,7 +548,16 @@ class SleepTrackerService : Service(), SensorEventListener {
 
                             if (chunkCount == 8192) {
                                 val consumerRes = fftSonar.processAndGetResult(chunkBuffer)
-                                aggregator.update(consumerRes.activity)
+                                val actResult = aggregator.update(consumerRes.activity)
+
+                                // Record awake in real-time on every high-activity chunk,
+                                // exactly as iOS / Sleep as Android do — don't wait 30s.
+                                if (actResult.isHighActivity) {
+                                    val nowAwake = System.currentTimeMillis()
+                                    synchronized(this@SleepTrackerService) {
+                                        recordAwakeState(nowAwake, true, 10_000L)
+                                    }
+                                }
 
                                 val now = System.currentTimeMillis()
                                 if (now - lastSonarSampleTime >= 10000) {

@@ -52,8 +52,8 @@ struct SleepHomeView: View {
                         .padding(.horizontal, 16)
                     }
 
-                    // Live stage ring
-                    if let session = tracker.activeSession {
+                    // Live stage ring — only shown while actively tracking
+                    if isSleeping, let session = tracker.activeSession {
                         let durations = session.stageDurations
                         if durations.values.reduce(0, +) > 0 {
                             GlassCard {
@@ -67,6 +67,7 @@ struct SleepHomeView: View {
                                     SleepStageLegend(stageDurations: durations)
                                 }
                             }
+                            .padding(.horizontal, 16)
                         }
                     }
 

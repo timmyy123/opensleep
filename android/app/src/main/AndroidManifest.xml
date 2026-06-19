@@ -86,6 +86,7 @@
         <service
             android:name=".service.SleepTrackerService"
             android:exported="false"
+            android:stopWithTask="false"
             android:foregroundServiceType="dataSync|health|microphone" />
 
     </application>
