@@ -8,9 +8,9 @@
 </p>
 
 <p align="center">
-  <a href="https://apps.apple.com/us/app/open-sleep/id6775201826"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" height="40" style="vertical-align: middle;" /></a>
+  <a href="https://apps.apple.com/us/app/open-sleep/id6775201826"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" height="40" /></a>
   &nbsp;&nbsp;
-  <a href="https://play.google.com/store/apps/details?id=tech.opensleep"><img src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg" alt="Get it on Google Play" height="60" style="vertical-align: middle;" /></a>
+  <a href="https://play.google.com/store/apps/details?id=tech.opensleep"><img src="./google-play-badge.svg" alt="Get it on Google Play" height="40" /></a>
 </p>
 
 ---
