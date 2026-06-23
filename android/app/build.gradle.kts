@@ -13,7 +13,7 @@ android {
         applicationId = "tech.opensleep"
         minSdk = 28
         targetSdk = 36
-        versionCode = 7
+        versionCode = 9
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +43,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
         jniLibs {
-            useLegacyPackaging = true
+            useLegacyPackaging = false
         }
     }
 

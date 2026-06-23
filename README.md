@@ -7,6 +7,16 @@
   <img src="https://img.shields.io/badge/Source-Open%20Source-2563eb?style=for-the-badge&logo=github&logoColor=white" alt="Open Source" />
 </p>
 
+<p align="center">
+  <a href="https://apps.apple.com/us/app/open-sleep/id6775201826">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" height="40" />
+  </a>
+  &nbsp;
+  <a href="https://play.google.com/store/apps/details?id=tech.opensleep">
+    <img src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg" alt="Get it on Google Play" height="40" />
+  </a>
+</p>
+
 ---
 
 ### **OpenSleep** is a next-generation, premium sleep tracking application that redefines personal sleep science through a uncompromising **100% on-device, private-first architecture**. 
