@@ -101,8 +101,12 @@ class SleepTrackerService: ObservableObject {
         activityManager.queryActivityStarting(from: today, to: today, to: .main) { _, _ in }
     }
 
+    private var accelSampleCount = 0
+    private var gyroSampleCount = 0
+
     @MainActor
     func startTracking() {
+        print("[SleepTracker] SleepTrackerService.startTracking() called. isTracking=\(isTracking)")
         guard !isTracking else { return }
         guard motionManager.isAccelerometerAvailable else { return }
 
@@ -116,14 +120,16 @@ class SleepTrackerService: ObservableObject {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
             try session.setActive(true)
+            print("[SleepTracker] AVAudioSession activated successfully.")
         } catch {
-            print("iOS: Failed to configure audio session: \(error)")
+            print("[SleepTracker] iOS: Failed to configure audio session: \(error)")
         }
 
         let session = SleepSession(startDate: Date())
         modelContext?.insert(session)
         try? modelContext?.save()
         activeSession = session
+        print("[SleepTracker] Created and inserted new SleepSession: \(session.id)")
 
         analysisQueue.sync { [weak self] in
             self?.analyzer.clear()
@@ -154,6 +160,10 @@ class SleepTrackerService: ObservableObject {
             self.accelLock.lock()
             self.recentAccelMagnitudes.append(mag)
             self.accelLock.unlock()
+            self.accelSampleCount += 1
+            if self.accelSampleCount % 120 == 0 {
+                print("[SleepTracker] iOS Accelerometer count=\(self.accelSampleCount), sample: x=\(x), y=\(y), z=\(z), mag=\(mag)")
+            }
             self.analysisQueue.async {
                 let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
                 let sampleDate = bootTime.addingTimeInterval(data.timestamp)
@@ -165,6 +175,10 @@ class SleepTrackerService: ObservableObject {
             motionManager.gyroUpdateInterval = sampleInterval
             motionManager.startGyroUpdates(to: queue) { [weak self] data, _ in
                 guard let self, let data else { return }
+                self.gyroSampleCount += 1
+                if self.gyroSampleCount % 120 == 0 {
+                    print("[SleepTracker] iOS Gyroscope count=\(self.gyroSampleCount), sample: x=\(data.rotationRate.x), y=\(data.rotationRate.y), z=\(data.rotationRate.z)")
+                }
                 self.analysisQueue.async {
                     let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
                     let sampleDate = bootTime.addingTimeInterval(data.timestamp)
@@ -248,6 +262,7 @@ class SleepTrackerService: ObservableObject {
 
     @MainActor
     func stopTracking() {
+        print("[SleepTracker] SleepTrackerService.stopTracking() called. isTracking=\(isTracking)")
         guard isTracking else { return }
         analysisQueue.sync { recordAwakeState(now: Date(), awake: false) }
         motionManager.stopAccelerometerUpdates()
@@ -275,13 +290,14 @@ class SleepTrackerService: ObservableObject {
         let analyzer = self.analyzer
         let modelContext = self.modelContext
         let capturedSession = self.activeSession
+        print("[SleepTracker] Computing final stages for session: \(session.id)")
         analysisQueue.async {
             let stages = analyzer.computeStages(sleepStart: startDate)
             DispatchQueue.main.async {
                 if let active = capturedSession {
                     active.stages = stages
                     try? modelContext?.save()
-                    print("iOS: Saved \(stages.count) stages.")
+                    print("[SleepTracker] iOS: Saved \(stages.count) stages for stopped session.")
                 }
                 // Clear activeSession so the live stages card disappears
                 self.activeSession = nil
@@ -308,7 +324,7 @@ class SleepTrackerService: ObservableObject {
             // is what causes the crash when the charger is plugged in.
             let recordingFormat = inputNode.outputFormat(forBus: 0)
             guard recordingFormat.sampleRate > 0 else {
-                print("iOS: Invalid input format, skipping audio engine start.")
+                print("[SleepTracker] iOS: Invalid input format, skipping audio engine start.")
                 return
             }
 
@@ -319,7 +335,7 @@ class SleepTrackerService: ObservableObject {
             let actualRate = Int(recordingFormat.sampleRate)
             self.fftSonar = FftSonarConsumer(sampleRate: actualRate)
             self.activityAggregator = LowLevelActivityAggregator(sampleRate: actualRate)
-            print("iOS: Audio engine using sample rate \(actualRate) Hz")
+            print("[SleepTracker] iOS: Audio engine using sample rate \(actualRate) Hz")
 
             inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
                 guard let self = self else { return }
@@ -341,6 +357,7 @@ class SleepTrackerService: ObservableObject {
                     let consumerRes = self.fftSonar.processAndGetResult(chunk)
                     let activityResult = self.activityAggregator.update(consumerRes.activity)
                     if activityResult.isHighActivity {
+                        print("[SleepTracker] Sonar detected high activity (\(consumerRes.activity)) -> recording awake state.")
                         self.analysisQueue.async {
                             self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
                         }
@@ -349,6 +366,7 @@ class SleepTrackerService: ObservableObject {
                     let now = Date()
                     if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
                         let act = self.activityAggregator.getAggregatedActivity()
+                        print("[SleepTracker] Sonar sample added: activity=\(act) at \(now)")
                         self.analysisQueue.async {
                             self.analyzer.addSonarSample(timestamp: now, activity: act)
                         }
@@ -367,9 +385,9 @@ class SleepTrackerService: ObservableObject {
                 try engine.start()
                 self.isAudioRunning = true
                 self.chirpProducer.play()
-                print("iOS: Audio engine started with format: \(recordingFormat)")
+                print("[SleepTracker] iOS: Audio engine started with format: \(recordingFormat)")
             } catch {
-                print("iOS: Failed to start audio engine: \(error)")
+                print("[SleepTracker] iOS: Failed to start audio engine: \(error)")
                 inputNode.removeTap(onBus: 0)
                 self.audioEngine = nil
             }
@@ -455,12 +473,15 @@ class SleepTrackerService: ObservableObject {
     // MARK: - Awake State Recording
 
     private func recordAwakeState(now: Date, awake: Bool, lookback: TimeInterval = 0) {
+        print("[SleepTracker] recordAwakeState: now=\(now), awake=\(awake), lookback=\(lookback). Current activeAwakeIntervalStart=\(String(describing: activeAwakeIntervalStart))")
         if awake {
             let start = activeAwakeIntervalStart ?? now.addingTimeInterval(-lookback)
             activeAwakeIntervalStart = start
+            print("[SleepTracker]   Adding awake interval start=\(start), end=\(now)")
             analyzer.addAwakeInterval(start: start, end: now)
         } else {
             if let start = activeAwakeIntervalStart, now > start {
+                print("[SleepTracker]   Closing awake interval: start=\(start), end=\(now)")
                 analyzer.addAwakeInterval(start: start, end: now)
             }
             activeAwakeIntervalStart = nil
@@ -499,6 +520,7 @@ class SleepTrackerService: ObservableObject {
     private func updateLockState() {
         var state: UInt64 = 0
         notify_get_state(lockStateToken, &state)
+        print("[SleepTracker] updateLockState: springboard lockstate updated to state = \(state)")
         if state != 0 { phoneAwakeDetector.onScreenOff() } else { phoneAwakeDetector.onScreenOn() }
     }
 
@@ -519,11 +541,17 @@ class SleepTrackerService: ObservableObject {
     }
 
     private func handleBackgroundTask(_ task: BGTask) {
+        print("[SleepTracker] handleBackgroundTask() called.")
         scheduleBackgroundTask()
         task.expirationHandler = { [weak self] in
+            print("[SleepTracker] handleBackgroundTask expired, flushing stages...")
             Task { @MainActor in self?.flushStages(); task.setTaskCompleted(success: true) }
         }
-        Task { @MainActor in self.flushStages(); task.setTaskCompleted(success: true) }
+        Task { @MainActor in
+            self.flushStages()
+            print("[SleepTracker] handleBackgroundTask finished stage flushing.")
+            task.setTaskCompleted(success: true)
+        }
     }
 }
 

@@ -88,7 +88,15 @@ class SleepTrackerService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "onCreate() called.")
+        Log.d("SleepTracker", "SleepTrackerService.onCreate() called. Thread: ${Thread.currentThread().name}")
+        
+        // Setup uncaught exception handler for early crash diagnostics
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Log.e("SleepTracker", "FATAL UNCAUGHT EXCEPTION in thread ${thread.name}: ${throwable.message}", throwable)
+            // Call the system's default exception handler to log to Play Console/System
+            System.exit(1)
+        }
+
         isRunning = true
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         val pm = getSystemService(POWER_SERVICE) as PowerManager
@@ -114,15 +122,15 @@ class SleepTrackerService : Service(), SensorEventListener {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val isSystemRestart = (flags and START_FLAG_REDELIVERY) != 0
-        Log.d(TAG, "onStartCommand() intent Action: ${intent?.action}, flags: $flags, isSystemRestart: $isSystemRestart")
+        Log.d("SleepTracker", "SleepTrackerService.onStartCommand() Action: ${intent?.action}, flags: $flags, isSystemRestart: $isSystemRestart")
         when (intent?.action) {
             ACTION_START -> {
                 sessionId = intent.getStringExtra(EXTRA_SESSION_ID)
-                Log.d(TAG, "Starting tracking for session: $sessionId")
+                Log.d("SleepTracker", "SleepTrackerService ACTION_START: sessionId=$sessionId")
                 startTracking(isSystemRestart)
             }
             ACTION_STOP -> {
-                Log.d(TAG, "Stopping tracking command received.")
+                Log.d("SleepTracker", "SleepTrackerService ACTION_STOP received.")
                 stopTracking()
             }
         }
@@ -130,7 +138,7 @@ class SleepTrackerService : Service(), SensorEventListener {
     }
 
     private fun startTracking(isSystemRestart: Boolean) {
-        Log.d(TAG, "startTracking() entering. isTracking: $isTracking, isSystemRestart: $isSystemRestart")
+        Log.d("SleepTracker", "SleepTrackerService.startTracking() enters. isTracking: $isTracking, isSystemRestart: $isSystemRestart")
         if (!isTracking) {
             analyzer.clear()
             activeAwakeIntervalStartMs = null
@@ -138,7 +146,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         }
         if (!wakeLock.isHeld) {
             wakeLock.acquire(12 * 60 * 60 * 1000L) // 12h max
-            Log.d(TAG, "WakeLock acquired.")
+            Log.d("SleepTracker", "SleepTrackerService: WakeLock acquired.")
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val foregroundTypes =
@@ -342,6 +350,9 @@ class SleepTrackerService : Service(), SensorEventListener {
         Log.d(TAG, "updateNotificationToSyncing() finished and posted notification.")
     }
 
+    private var accelSampleCount = 0
+    private var gyroSampleCount = 0
+
     override fun onSensorChanged(event: SensorEvent) {
         val timestampMs = eventWallClockMs(event)
         when (event.sensor.type) {
@@ -353,15 +364,27 @@ class SleepTrackerService : Service(), SensorEventListener {
                 synchronized(recentAccelMagnitudes) {
                     recentAccelMagnitudes.add(mag)
                 }
+                accelSampleCount++
+                if (accelSampleCount % 120 == 0) { // roughly every 30 seconds
+                    Log.d("SleepTracker", "Sensor TYPE_ACCELEROMETER count=$accelSampleCount: x=$x, y=$y, z=$z, mag=$mag")
+                }
                 analyzer.addSample(
                     timestampMs,
                     x, y, z
                 )
             }
             Sensor.TYPE_GYROSCOPE -> {
+                val x = event.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+                val mag = kotlin.math.sqrt(x * x + y * y + z * z)
+                gyroSampleCount++
+                if (gyroSampleCount % 120 == 0) {
+                    Log.d("SleepTracker", "Sensor TYPE_GYROSCOPE count=$gyroSampleCount: x=$x, y=$y, z=$z, mag=$mag")
+                }
                 analyzer.addGyroSample(
                     timestampMs,
-                    event.values[0], event.values[1], event.values[2]
+                    x, y, z
                 )
             }
         }
@@ -372,14 +395,18 @@ class SleepTrackerService : Service(), SensorEventListener {
         return System.currentTimeMillis() - ageMs.coerceAtLeast(0L)
     }
 
+    @Synchronized
     private fun recordAwakeState(nowMs: Long, awake: Boolean, lookbackMs: Long = 0L) {
+        Log.d("SleepTracker", "recordAwakeState: nowMs=$nowMs, awake=$awake, lookbackMs=$lookbackMs. Current activeAwakeIntervalStartMs=$activeAwakeIntervalStartMs")
         if (awake) {
             val start = activeAwakeIntervalStartMs ?: (nowMs - lookbackMs).coerceAtLeast(0L)
             activeAwakeIntervalStartMs = start
+            Log.d("SleepTracker", "  Adding awake interval start=$start, end=$nowMs")
             analyzer.addAwakeInterval(start, nowMs)
         } else {
             val start = activeAwakeIntervalStartMs
             if (start != null && nowMs > start) {
+                Log.d("SleepTracker", "  Closing awake interval start=$start, end=$nowMs")
                 analyzer.addAwakeInterval(start, nowMs)
             }
             activeAwakeIntervalStartMs = null
@@ -389,7 +416,7 @@ class SleepTrackerService : Service(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        Log.w(TAG, "onTaskRemoved() — app swiped away. Emergency flushing stages...")
+        Log.w("SleepTracker", "SleepTrackerService.onTaskRemoved() — app swiped away! Emergency flushing stages...")
         // Synchronously flush stages on current thread before Android kills us
         val sid = sessionId
         if (sid != null && isTracking) {
@@ -401,24 +428,24 @@ class SleepTrackerService : Service(), SensorEventListener {
                         if (session != null) {
                             val stages = analyzer.computeStages(session.startTimeMs)
                             repository.endSession(sid, stages)
-                            Log.d(TAG, "Emergency flush completed: ${stages.size} stages saved.")
+                            Log.d("SleepTracker", "Emergency flush completed: ${stages.size} stages saved.")
                         }
                     } catch (e: Exception) {
-                        Log.e(TAG, "Emergency flush failed: ${e.message}", e)
+                        Log.e("SleepTracker", "Emergency flush failed: ${e.message}", e)
                     } finally {
                         latch.countDown()
                     }
                 }
                 latch.await(5, TimeUnit.SECONDS)
             } catch (e: Exception) {
-                Log.e(TAG, "Emergency flush interrupted: ${e.message}", e)
+                Log.e("SleepTracker", "Emergency flush interrupted: ${e.message}", e)
             }
         }
         super.onTaskRemoved(rootIntent)
     }
 
     override fun onDestroy() {
-        Log.d(TAG, "onDestroy() called. Setting isRunning to false.")
+        Log.d("SleepTracker", "SleepTrackerService.onDestroy() called. Setting isRunning to false.")
         isRunning = false
         sensorManager.unregisterListener(this)
         watcherJob?.cancel()
@@ -433,7 +460,10 @@ class SleepTrackerService : Service(), SensorEventListener {
         // Cancel the main service scope but NOT the saveScope
         serviceScope.cancel()
         // Only release wake lock if save is not in progress
-        if (!isSaving && wakeLock.isHeld) wakeLock.release()
+        if (!isSaving && wakeLock.isHeld) {
+            wakeLock.release()
+            Log.d("SleepTracker", "SleepTrackerService onDestroy: wakeLock released.")
+        }
         super.onDestroy()
     }
 

@@ -94,30 +94,35 @@ class SleepStageAnalyzer {
     //  quantile=0.5 → median; 0.995 → near-max.
     // ──────────────────────────────────────────────────────────────
     private class MovingQuantileScalable(private val period: Int, private val quantile: Float) {
-        // history size = period so we track exactly `period` oldest values for eviction
-        private val history = FloatRingBuffer(period)
-        // low = max-heap (stores values ≤ quantile boundary, negated for PriorityQueue)
+        private val history = FloatRingBuffer(period + 1)
         private val low = java.util.PriorityQueue<Float>(compareByDescending { it })
-        // high = min-heap (stores values > quantile boundary)
         private val high = java.util.PriorityQueue<Float>()
 
+        private fun isEmpty(): Boolean = size() == 0
         private fun peek(): Float = (if (low.isEmpty()) high else low).peek()!!
-        private fun heapSize() = low.size + high.size
+        private fun size(): Int = low.size + high.size
 
         fun apply(f: Float): Float {
-            // Evict oldest if window is full BEFORE adding the new value
+            if (isEmpty() || f <= peek()) {
+                low.add(f)
+            } else {
+                high.add(f)
+            }
+            history.add(f)
             if (history.isFull()) {
                 val oldest = history.first()
-                if (!low.remove(oldest)) high.remove(oldest)
+                if (!low.remove(oldest)) {
+                    high.remove(oldest)
+                }
             }
-            // Insert new value into the correct heap
-            if (heapSize() == 0 || f <= peek()) low.add(f) else high.add(f)
-            history.add(f)
-            // Rebalance: low should hold exactly round(quantile * total) elements
-            val target = Math.round(quantile * heapSize())
-            while (low.isNotEmpty() && low.size > target) high.add(low.poll()!!)
-            while (high.isNotEmpty() && low.size < target) low.add(high.poll()!!)
-            return if (heapSize() == 0) 0f else peek()
+            val target = Math.round(quantile * size())
+            while (low.isNotEmpty() && low.size > target) {
+                high.add(low.poll()!!)
+            }
+            while (high.isNotEmpty() && low.size < target) {
+                low.add(high.poll()!!)
+            }
+            return peek()
         }
     }
 
@@ -185,25 +190,39 @@ class SleepStageAnalyzer {
             // Normalize: if median is 0 don't divide
             val normalized = if (med != 0f) fAbs / med else fAbs
             var amplitude = max720.apply(normalized)
-            if (amplitude <= 1f) return RESULT_NONE
+            if (amplitude <= 1f) {
+                if (callCount % 100 == 0) {
+                    android.util.Log.d("SleepTracker", "HighActivityDetector: callCount=$callCount, fAbs=$fAbs, med=$med, normalized=$normalized, amplitude=$amplitude <= 1 -> RESULT_NONE")
+                }
+                return RESULT_NONE
+            }
             // Warmup: first 360 calls clamp amplitude to at least 100
             if (callCount < 360) amplitude = max(100f, amplitude)
             val score = min(amplitude, normalized).toDouble()
                 .pow(1.0 / log10(amplitude.toDouble()))
                 .toFloat()
-            return Result(score > someThreshold, score > highThreshold)
+            val res = Result(score > someThreshold, score > highThreshold)
+            if (res.isSomeActivity || res.isHighActivity || callCount % 100 == 0) {
+                android.util.Log.d("SleepTracker", "HighActivityDetector: callCount=$callCount, fAbs=$fAbs, med=$med, normalized=$normalized, amplitude=$amplitude, score=$score. Thresholds: some=$someThreshold, high=$highThreshold -> Result: isSome=${res.isSomeActivity}, isHigh=${res.isHighActivity}")
+            }
+            return res
         }
     }
 
     private class MovingSum(private val period: Int) {
-        private val buf = FloatRingBuffer(period)
-        private var sum = 0f
+        private val history = FloatRingBuffer(period + 1)
+        private var prevResult = 0f
 
         fun apply(f: Float): Float {
-            if (buf.isFull()) sum -= buf.first()
-            buf.add(f)
-            sum += f
-            return sum
+            history.add(f)
+            val size = history.size()
+            val fLast = if (size <= period) {
+                history.last() + prevResult
+            } else {
+                (history.last() + prevResult) - history.first()
+            }
+            prevResult = fLast
+            return fLast
         }
     }
 
@@ -222,45 +241,69 @@ class SleepStageAnalyzer {
         private var lightStart = 0L
 
         private fun reset() {
-            status = Status.INIT
+            val oldStatus = status
+            if (oldStatus != Status.INIT) {
+                android.util.Log.d("SleepTracker", "RemDetectorV1: reset status $oldStatus -> INIT")
+                status = Status.INIT
+            }
         }
 
         fun handleAwake() {
+            android.util.Log.d("SleepTracker", "RemDetectorV1: handleAwake() called, resetting")
             reset()
         }
 
         fun handleDeepSleep(nowMs: Long) {
+            android.util.Log.d("SleepTracker", "RemDetectorV1: handleDeepSleep(nowMs=$nowMs) called. Current status: $status")
             when (status) {
                 Status.INIT -> {
                     deepStart = nowMs - minutes(5)
                     status = Status.DEEP
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: status INIT -> DEEP. deepStart set to $deepStart")
                 }
                 Status.DEEP -> Unit
-                else -> reset()
+                else -> {
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: handleDeepSleep in status $status -> resetting")
+                    reset()
+                }
             }
         }
 
         fun handleLightSleep(nowMs: Long) {
+            android.util.Log.d("SleepTracker", "RemDetectorV1: handleLightSleep(nowMs=$nowMs) called. Current status: $status")
             when (status) {
                 Status.DEEP -> {
+                    val diffMin = (nowMs - deepStart) / 60000.0
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: DEEP -> LIGHT check. diff: $diffMin min (threshold: 15 min)")
                     if (nowMs - deepStart <= minutes(15)) {
+                        android.util.Log.d("SleepTracker", "RemDetectorV1: diff <= 15 min -> resetting")
                         reset()
                     } else {
                         lightStart = nowMs
                         status = Status.LIGHT
+                        android.util.Log.d("SleepTracker", "RemDetectorV1: status DEEP -> LIGHT. lightStart set to $lightStart")
                     }
                 }
                 Status.LIGHT -> {
+                    val diffMin = (nowMs - lightStart) / 60000.0
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: LIGHT -> REM check. diff: $diffMin min (threshold: 10 min)")
                     if (nowMs - lightStart > minutes(10)) {
                         status = Status.REM
+                        android.util.Log.d("SleepTracker", "RemDetectorV1: status LIGHT -> REM")
                     }
                 }
                 Status.REM -> {
+                    val diffMin = (nowMs - lightStart) / 60000.0
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: REM -> INIT check. diff: $diffMin min (threshold: 20 min)")
                     if (nowMs - lightStart > minutes(20)) {
+                        android.util.Log.d("SleepTracker", "RemDetectorV1: diff > 20 min -> resetting")
                         reset()
                     }
                 }
-                else -> reset()
+                else -> {
+                    android.util.Log.d("SleepTracker", "RemDetectorV1: handleLightSleep in status $status -> resetting")
+                    reset()
+                }
             }
         }
 
@@ -300,6 +343,7 @@ class SleepStageAnalyzer {
         fun update(timestampMs: Long, result: ActivityAggregatorAccel.Result) {
             sleepPhaseBroadcast.update(timestampMs, result)
             deepSleepIndicator.update(result)
+            android.util.Log.d("SleepTracker", "DeepSleepDetectorV8.update: time=$timestampMs, sleepPhase=${sleepPhase}, remStatus=${remStatus}")
         }
 
         private class DeepSleepIndicator(private val isSmartWatch: Boolean) {
@@ -313,14 +357,19 @@ class SleepStageAnalyzer {
             fun update(result: ActivityAggregatorAccel.Result) {
                 missingDataGuard.update(result)
                 if (missingDataGuard.getMissingDataRatio5min() > 0.9f) {
+                    android.util.Log.d("SleepTracker", "DeepSleepIndicator: reset due to too much missing data (>90%)")
                     reset()
                     return
                 }
-                if (missingDataGuard.lastDataMissing) return
+                if (missingDataGuard.lastDataMissing) {
+                    android.util.Log.d("SleepTracker", "DeepSleepIndicator: skip update due to missing data")
+                    return
+                }
 
                 val highActivity = highActivityCountShortWindow.apply(if (result.isHighActivity) 1f else 0f)
                 val someActivity = someActivityCountLongWindow.apply(if (result.isSomeActivity) 1f else 0f)
                 pointsCount += 1
+                val oldPhase = sleepPhase
                 sleepPhase = if (pointsCount < 12) {
                     SleepPhase.UNKNOWN
                 } else if (Math.round(highActivity) < 1 || Math.round(someActivity) < SMART_WAKEUP_SENSITIVITY_CHECKS) {
@@ -328,6 +377,7 @@ class SleepStageAnalyzer {
                 } else {
                     SleepPhase.LIGHT_SLEEP
                 }
+                android.util.Log.d("SleepTracker", "DeepSleepIndicator update: points=$pointsCount, highActivitySum=$highActivity, someActivitySum=$someActivity. Phase: $oldPhase -> $sleepPhase (result: isHigh=${result.isHighActivity}, isSome=${result.isSomeActivity})")
             }
 
             private fun reset() {
@@ -353,11 +403,16 @@ class SleepStageAnalyzer {
 
             fun update(nowMs: Long, result: ActivityAggregatorAccel.Result) {
                 missingDataGuard.update(result)
-                if (missingDataGuard.lastDataMissing) return
+                if (missingDataGuard.lastDataMissing) {
+                    android.util.Log.d("SleepTracker", "SleepPhaseBroadcast: skip update due to missing data")
+                    return
+                }
 
                 val someActivity = Math.round(someActivityCount.apply(if (result.isSomeActivity) 1f else 0f))
                 val highActivity = Math.round(highActivityCount.apply(if (result.isHighActivity) 1f else 0f))
 
+                val oldDeepSleepFrom = deepSleepFrom
+                val oldDeepSleepReported = deepSleepReported
                 if (highActivity < 1 || someActivity < SMART_WAKEUP_SENSITIVITY_CHECKS) {
                     if (deepSleepFrom == -1L) deepSleepFrom = nowMs
                     if (deepSleepFrom > 0 && nowMs - deepSleepFrom > minutes(5)) {
@@ -370,10 +425,14 @@ class SleepStageAnalyzer {
                     remDetector.handleLightSleep(nowMs)
                 }
 
-                if (isAwake()) lastAwake = nowMs
-                if (nowMs - lastAwake < minutes(3)) {
+                val awakeState = isAwake()
+                if (awakeState) lastAwake = nowMs
+                val timeSinceLastAwake = nowMs - lastAwake
+                if (timeSinceLastAwake < minutes(3)) {
                     remDetector.handleAwake()
                 }
+
+                android.util.Log.d("SleepTracker", "SleepPhaseBroadcast update: highActivity=$highActivity, someActivity=$someActivity. deepSleepFrom: $oldDeepSleepFrom -> $deepSleepFrom, deepSleepReported: $oldDeepSleepReported -> $deepSleepReported, isAwake=$awakeState, timeSinceLastAwake=${timeSinceLastAwake/1000}s. REM Status: ${remDetector.status}")
             }
 
             private fun minutes(value: Int): Long = value * 60_000L
@@ -553,19 +612,18 @@ class SleepStageAnalyzer {
     // ──────────────────────────────────────────────────────────────
 
     private class MovingAvg(private val period: Int) {
-        // Buffer holds period+1 so we can read both first() and last() when full
-        private val buf = FloatRingBuffer(period + 1)
+        private val history = FloatRingBuffer(period + 1)
         private var sum = 0f
+
         fun apply(f: Float): Float {
-            if (buf.isFull()) {
-                // Evict oldest from sum before adding new
-                sum -= buf.first()
+            history.add(f)
+            if (history.size() <= period) {
+                sum += f
+                return sum / history.size()
             }
-            buf.add(f)
-            sum += f
-            // When not yet full buf.size() is the actual count; divide by that
-            val n = if (buf.size() <= period) buf.size() else period
-            return if (n == 0) f else sum / n
+            val fFirst = (sum - history.first()) + history.last()
+            sum = fFirst
+            return fFirst / (history.size() - 1)
         }
     }
 
@@ -640,9 +698,14 @@ class SleepStageAnalyzer {
     }
 
     fun computeStages(sleepStartMs: Long): List<SleepStage> {
-        if (samples.size < 2 && sonarSamples.isEmpty()) return emptyList()
+        android.util.Log.d("SleepTracker", "SleepStageAnalyzer.computeStages(sleepStartMs=$sleepStartMs) started. samples=${samples.size}, sonarSamples=${sonarSamples.size}, awakeIntervals=${awakeIntervals.size}")
+        if (samples.size < 2 && sonarSamples.isEmpty()) {
+            android.util.Log.d("SleepTracker", "SleepStageAnalyzer.computeStages: returning empty list because not enough samples")
+            return emptyList()
+        }
 
         val frames = buildActivityFrames(sleepStartMs)
+        android.util.Log.d("SleepTracker", "SleepStageAnalyzer.computeStages: buildActivityFrames returned ${frames.size} frames")
         if (frames.isEmpty()) return emptyList()
 
         var detectorTimestampMs = sleepStartMs
@@ -651,7 +714,7 @@ class SleepStageAnalyzer {
         }
         val stages = mutableListOf<SleepStage>()
 
-        frames.forEach { frame ->
+        frames.forEachIndexed { index, frame ->
             detectorTimestampMs = frame.startMs
             detector.update(frame.startMs, frame.result)
             val type = when {
@@ -660,10 +723,16 @@ class SleepStageAnalyzer {
                 detector.sleepPhase == SleepPhase.LIGHT_SLEEP -> SleepStageType.LIGHT
                 else -> null
             }
+            android.util.Log.d("SleepTracker", "Frame $index: [${frame.startMs} - ${frame.endMs}] raw=${frame.result.rawActivity}, actigraph=${frame.result.actigraph}, isSome=${frame.result.isSomeActivity}, isHigh=${frame.result.isHighActivity} -> Stage: $type (remStatus=${detector.remStatus}, sleepPhase=${detector.sleepPhase})")
             if (type != null) appendStage(stages, type, frame.startMs, frame.endMs)
         }
 
-        return overlayAwakeIntervals(stages, sleepStartMs, frames.last().endMs)
+        val finalStages = overlayAwakeIntervals(stages, sleepStartMs, frames.last().endMs)
+        android.util.Log.d("SleepTracker", "SleepStageAnalyzer.computeStages completed. Result: ${finalStages.size} stages")
+        finalStages.forEachIndexed { index, stage ->
+            android.util.Log.d("SleepTracker", "  Stage $index: ${stage.type} from ${stage.startMs} to ${stage.endMs} (duration: ${(stage.endMs - stage.startMs)/60000.0} min)")
+        }
+        return finalStages
     }
 
     fun clear() {
@@ -682,6 +751,7 @@ class SleepStageAnalyzer {
     private fun buildActivityFrames(sleepStartMs: Long): List<ActivityFrame> {
         val hasSonar = sonarSamples.isNotEmpty()
         val hasAccel = samples.size >= 2
+        android.util.Log.d("SleepTracker", "buildActivityFrames: sleepStartMs=$sleepStartMs, hasSonar=$hasSonar (${sonarSamples.size} samples), hasAccel=$hasAccel (${samples.size} samples)")
         if (!hasSonar && !hasAccel) return emptyList()
 
         val sortedSonar = if (hasSonar) sonarSamples.sortedBy { it.first } else emptyList()
@@ -690,6 +760,7 @@ class SleepStageAnalyzer {
         val sonarEndMs  = sortedSonar.lastOrNull()?.first ?: Long.MIN_VALUE
         val accelEndMs  = sortedAccel.lastOrNull()?.timestampMs ?: Long.MIN_VALUE
         val sessionEndMs = maxOf(sonarEndMs, accelEndMs)
+        android.util.Log.d("SleepTracker", "buildActivityFrames: sessionEndMs=$sessionEndMs. Total duration to process: ${(sessionEndMs - sleepStartMs)/60000.0} min")
 
         val accelAggregator = ActivityAggregatorAccel()
         var previousSample: MotionSample? = null
@@ -752,6 +823,7 @@ class SleepStageAnalyzer {
             frames.add(ActivityFrame(frameStartMs, frameEndMs, result))
             frameStartMs = frameEndMs
         }
+        android.util.Log.d("SleepTracker", "buildActivityFrames: built ${frames.size} frames")
         return frames
     }
 
