@@ -13,9 +13,13 @@ android {
         applicationId = "tech.opensleep"
         minSdk = 28
         targetSdk = 36
-        versionCode = 9
-        versionName = "1.0"
+        versionCode = 13
+        versionName = "1.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a"))
+        }
     }
 
     buildTypes {
