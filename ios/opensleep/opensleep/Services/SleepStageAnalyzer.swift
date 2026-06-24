@@ -693,6 +693,8 @@ class SleepStageAnalyzer {
     private var sonarSamples:   [(Date, Float)]    = []
     private var awakeIntervals: [(Date, Date)]     = []
     private let frameInterval: TimeInterval = 10
+    private let retentionWindow: TimeInterval = 24 * 60 * 60
+    private var nextPruneDate = Date.distantPast
 
     // ──────────────────────────────────────────────────────────────
     //  Public API
@@ -702,18 +704,22 @@ class SleepStageAnalyzer {
         let gravity: Double = 9.80665
         let s = MotionSample(timestamp: timestamp, x: x * gravity, y: y * gravity, z: z * gravity)
         samples.append(s)
+        pruneState(keepingSamplesThrough: timestamp)
     }
 
     func addGyroSample(timestamp: Date, x: Double, y: Double, z: Double) {
         gyroSamples.append((timestamp, (x*x + y*y + z*z).squareRoot()))
+        pruneState(keepingSamplesThrough: timestamp)
     }
 
     func addSonarSample(timestamp: Date, activity: Float) {
         sonarSamples.append((timestamp, activity))
+        pruneState(keepingSamplesThrough: timestamp)
     }
 
     func addAwakeInterval(start: Date, end: Date) {
         awakeIntervals.append((start, end))
+        pruneState(keepingSamplesThrough: end)
     }
 
     func addAudioLevel(timestamp: Date, levelDbfs: Double, clipped: Bool = false) {
@@ -774,6 +780,17 @@ class SleepStageAnalyzer {
         gyroSamples.removeAll()
         sonarSamples.removeAll()
         awakeIntervals.removeAll()
+        nextPruneDate = .distantPast
+    }
+
+    private func pruneState(keepingSamplesThrough latestTimestamp: Date) {
+        guard latestTimestamp >= nextPruneDate else { return }
+        nextPruneDate = latestTimestamp.addingTimeInterval(60)
+        let cutoff = latestTimestamp.addingTimeInterval(-retentionWindow)
+        samples.removeAll { $0.timestamp < cutoff }
+        gyroSamples.removeAll { $0.0 < cutoff }
+        sonarSamples.removeAll { $0.0 < cutoff }
+        awakeIntervals.removeAll { $0.1 < cutoff }
     }
 
     private struct ActivityFrame {
