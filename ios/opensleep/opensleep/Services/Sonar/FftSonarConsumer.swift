@@ -7,15 +7,21 @@ class FftSonarConsumer {
 
     init(sampleRate: Int) {
         self.sampleRate = sampleRate
-        let coefs = IirFilterDesignFisher.design(
-            filterPassType: .highpass,
-            filterCharacteristicsType: .butterworth,
-            order: 18,
-            ripple: -1.0,
-            fcf1: 17000.0 / Double(sampleRate),
-            fcf2: -1.0
-        )
-        self.iirFilter = IirFilter(coefficients: coefs)
+        let fcf1 = 17000.0 / Double(sampleRate)
+        if fcf1 > 0.0 && fcf1 < 0.5 {
+            let coefs = IirFilterDesignFisher.design(
+                filterPassType: .highpass,
+                filterCharacteristicsType: .butterworth,
+                order: 18,
+                ripple: -1.0,
+                fcf1: fcf1,
+                fcf2: -1.0
+            )
+            self.iirFilter = IirFilter(coefficients: coefs)
+        } else {
+            print("[SleepTracker] Warning: Invalid fcf1 (\(fcf1)) for sampleRate \(sampleRate). Sonar filter disabled.")
+            self.iirFilter = nil
+        }
     }
 
     struct ConsumerResult {
@@ -68,14 +74,20 @@ class FftSonarConsumer {
 
     func reset() {
         prevMags = nil
-        let coefs = IirFilterDesignFisher.design(
-            filterPassType: .highpass,
-            filterCharacteristicsType: .butterworth,
-            order: 18,
-            ripple: -1.0,
-            fcf1: 17000.0 / Double(sampleRate),
-            fcf2: -1.0
-        )
-        self.iirFilter = IirFilter(coefficients: coefs)
+        let fcf1 = 17000.0 / Double(sampleRate)
+        if fcf1 > 0.0 && fcf1 < 0.5 {
+            let coefs = IirFilterDesignFisher.design(
+                filterPassType: .highpass,
+                filterCharacteristicsType: .butterworth,
+                order: 18,
+                ripple: -1.0,
+                fcf1: fcf1,
+                fcf2: -1.0
+            )
+            self.iirFilter = IirFilter(coefficients: coefs)
+        } else {
+            print("[SleepTracker] Warning: Invalid fcf1 (\(fcf1)) for sampleRate \(sampleRate). Sonar filter disabled.")
+            self.iirFilter = nil
+        }
     }
 }

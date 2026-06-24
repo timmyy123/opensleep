@@ -38,7 +38,7 @@ class SleepTrackerService: ObservableObject {
 
     // Audio engine is recreated on every route change to avoid stale-format crashes
     private var audioEngine: AVAudioEngine?
-    private let chirpProducer = ChirpProducer(sampleRate: 48000)
+    private var chirpProducer = ChirpProducer(sampleRate: 48000)
 
     // Sonar processing state — recreated with correct sample rate on each engine build
     private var fftSonar = FftSonarConsumer(sampleRate: 48000)
@@ -118,7 +118,7 @@ class SleepTrackerService: ObservableObject {
         // native rate. Forcing a rate is what causes crashes on route changes.
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
+            try session.setCategory(.playAndRecord, mode: .measurement, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
             try session.setActive(true)
             print("[SleepTracker] AVAudioSession activated successfully.")
         } catch {
@@ -335,6 +335,7 @@ class SleepTrackerService: ObservableObject {
             let actualRate = Int(recordingFormat.sampleRate)
             self.fftSonar = FftSonarConsumer(sampleRate: actualRate)
             self.activityAggregator = LowLevelActivityAggregator(sampleRate: actualRate)
+            self.chirpProducer = ChirpProducer(sampleRate: actualRate)
             print("[SleepTracker] iOS: Audio engine using sample rate \(actualRate) Hz")
 
             inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
@@ -343,40 +344,8 @@ class SleepTrackerService: ObservableObject {
                 let frameLength = Int(buffer.frameLength)
                 let floatArr = Array(UnsafeBufferPointer(start: channelData, count: frameLength))
 
-                self.audioChunkLock.lock()
-                self.audioChunkBuffer.append(contentsOf: floatArr)
-                var chunksToProcess: [[Float]] = []
-                while self.audioChunkBuffer.count >= 8192 {
-                    let chunk = Array(self.audioChunkBuffer.prefix(8192))
-                    self.audioChunkBuffer.removeFirst(8192)
-                    chunksToProcess.append(chunk)
-                }
-                self.audioChunkLock.unlock()
-
-                for chunk in chunksToProcess {
-                    let consumerRes = self.fftSonar.processAndGetResult(chunk)
-                    let activityResult = self.activityAggregator.update(consumerRes.activity)
-                    if activityResult.isHighActivity {
-                        print("[SleepTracker] Sonar detected high activity (\(consumerRes.activity)) -> recording awake state.")
-                        self.analysisQueue.async {
-                            self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
-                        }
-                    }
-
-                    let now = Date()
-                    if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
-                        let act = self.activityAggregator.getAggregatedActivity()
-                        print("[SleepTracker] Sonar sample added: activity=\(act) at \(now)")
-                        self.analysisQueue.async {
-                            self.analyzer.addSonarSample(timestamp: now, activity: act)
-                        }
-                        NotificationCenter.default.post(
-                            name: NSNotification.Name("action_raw_activity"),
-                            object: nil,
-                            userInfo: ["sensor": "SONAR", "data": act]
-                        )
-                        self.lastSonarSampleTime = now
-                    }
+                self.analysisQueue.async { [weak self] in
+                    self?.processAudioFrames(floatArr)
                 }
             }
 
@@ -403,6 +372,40 @@ class SleepTrackerService: ObservableObject {
         }
         audioEngine = nil
         isAudioRunning = false
+    }
+
+    private func processAudioFrames(_ floatArr: [Float]) {
+        self.audioChunkLock.lock()
+        self.audioChunkBuffer.append(contentsOf: floatArr)
+        var chunksToProcess: [[Float]] = []
+        while self.audioChunkBuffer.count >= 8192 {
+            let chunk = Array(self.audioChunkBuffer.prefix(8192))
+            self.audioChunkBuffer.removeFirst(8192)
+            chunksToProcess.append(chunk)
+        }
+        self.audioChunkLock.unlock()
+
+        for chunk in chunksToProcess {
+            let consumerRes = self.fftSonar.processAndGetResult(chunk)
+            let activityResult = self.activityAggregator.update(consumerRes.activity)
+            if activityResult.isHighActivity {
+                print("[SleepTracker] Sonar detected high activity (\(consumerRes.activity)) -> recording awake state.")
+                self.recordAwakeState(now: Date(), awake: true, lookback: 10.0)
+            }
+
+            let now = Date()
+            if now.timeIntervalSince(self.lastSonarSampleTime) >= 10.0 {
+                let act = self.activityAggregator.getAggregatedActivity()
+                print("[SleepTracker] Sonar sample added: activity=\(act) at \(now)")
+                self.analyzer.addSonarSample(timestamp: now, activity: act)
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("action_raw_activity"),
+                    object: nil,
+                    userInfo: ["sensor": "SONAR", "data": act]
+                )
+                self.lastSonarSampleTime = now
+            }
+        }
     }
 
     // MARK: - Audio Session Notifications

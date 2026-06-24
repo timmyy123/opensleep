@@ -8,6 +8,20 @@ import Accelerate
  * Power spectrum output: energy[k] for bins k = 0 .. N/2.
  */
 enum UrbandroidFFT {
+    private static var setups: [vDSP_Length: FFTSetup] = [:]
+    private static let lock = NSLock()
+
+    private static func getSetup(log2n: vDSP_Length) -> FFTSetup? {
+        lock.lock(); defer { lock.unlock() }
+        if let setup = setups[log2n] {
+            return setup
+        }
+        if let setup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2)) {
+            setups[log2n] = setup
+            return setup
+        }
+        return nil
+    }
 
     /// Real forward FFT. Input must be power-of-two length.
     /// Returns power spectrum as [Float] of length n/2 + 1.
@@ -15,8 +29,7 @@ enum UrbandroidFFT {
         let n = input.count
         precondition(n > 0 && (n & (n - 1)) == 0, "FFT size must be power of two")
         let log2n = vDSP_Length(log2(Float(n)))
-        guard let setup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2)) else { return [] }
-        defer { vDSP_destroy_fftsetup(setup) }
+        guard let setup = getSetup(log2n: log2n) else { return [] }
 
         var realP = [Float](input)
         var imagP = [Float](repeating: 0, count: n)

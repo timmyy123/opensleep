@@ -103,7 +103,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "opensleep::tracking")
         repository = SleepRepository(SleepDatabase.getInstance(applicationContext).sleepSessionDao())
         
-        phoneAwakeDetector = AwakeWhenUsingPhoneDetector(sensorManager)
+        phoneAwakeDetector = AwakeWhenUsingPhoneDetector(applicationContext)
         if (pm.isInteractive) {
             phoneAwakeDetector.onScreenOn()
         } else {

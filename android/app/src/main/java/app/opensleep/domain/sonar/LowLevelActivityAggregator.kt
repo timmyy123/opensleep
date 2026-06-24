@@ -73,24 +73,35 @@ class LowLevelActivityAggregator(sampleRate: Int) {
     }
 
     private class MovingQuantileScalable(private val period: Int, private val quantile: Float) {
-        private val history = FloatRingBuffer(period)
+        private val history = FloatRingBuffer(period + 1)
         private val low = java.util.PriorityQueue<Float>(compareByDescending { it })
         private val high = java.util.PriorityQueue<Float>()
 
+        private fun isEmpty(): Boolean = size() == 0
         private fun peek(): Float = (if (low.isEmpty()) high else low).peek()!!
-        private fun heapSize() = low.size + high.size
+        private fun size(): Int = low.size + high.size
 
         fun apply(f: Float): Float {
+            if (isEmpty() || f <= peek()) {
+                low.add(f)
+            } else {
+                high.add(f)
+            }
+            history.add(f)
             if (history.isFull()) {
                 val oldest = history.first()
-                if (!low.remove(oldest)) high.remove(oldest)
+                if (!low.remove(oldest)) {
+                    high.remove(oldest)
+                }
             }
-            if (heapSize() == 0 || f <= peek()) low.add(f) else high.add(f)
-            history.add(f)
-            val target = Math.round(quantile * heapSize())
-            while (low.isNotEmpty() && low.size > target) high.add(low.poll()!!)
-            while (high.isNotEmpty() && low.size < target) low.add(high.poll()!!)
-            return if (heapSize() == 0) f else peek()
+            val target = Math.round(quantile * size())
+            while (low.isNotEmpty() && low.size > target) {
+                high.add(low.poll()!!)
+            }
+            while (high.isNotEmpty() && low.size < target) {
+                low.add(high.poll()!!)
+            }
+            return peek()
         }
     }
 

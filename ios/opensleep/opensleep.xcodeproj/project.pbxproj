@@ -18,8 +18,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		240EF6242FCB0FDB0003B07B /* opensleep */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = opensleep;
 			sourceTree = "<group>";
 		};
@@ -110,7 +108,7 @@
 			mainGroup = 240EF6192FCB0FDB0003B07B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LiteRT-LM" */,
+				78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LocalPackages/LiteRT-LM" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 240EF6232FCB0FDB0003B07B /* Products */;
@@ -370,7 +368,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LiteRT-LM" */ = {
+		78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LocalPackages/LiteRT-LM" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "LocalPackages/LiteRT-LM";
 		};
@@ -395,7 +393,7 @@
 		};
 		C8136270E0EFF6933486C03A /* LiteRTLM */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LiteRT-LM" */;
+			package = 78F1026D94404CC69B3F8BDB /* XCLocalSwiftPackageReference "LocalPackages/LiteRT-LM" */;
 			productName = LiteRTLM;
 		};
 /* End XCSwiftPackageProductDependency section */

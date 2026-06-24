@@ -90,33 +90,38 @@ class LowLevelActivityAggregator {
         private let period: Int
         private let quantile: Float
         private let history: FloatRingBuffer
-        private var low: [Float] = []
-        private var high: [Float] = []
+        private var low:  [Float] = []   // min-heap on -v, so top = max(low)
+        private var high: [Float] = []   // min-heap
 
         init(_ period: Int, _ quantile: Float) {
-            self.period = period
-            self.quantile = quantile
-            self.history = FloatRingBuffer(period)
+            self.period = period; self.quantile = quantile
+            self.history = FloatRingBuffer(period + 1)
         }
 
-        private func peekLow()  -> Float { -low[0] }
-        private func peekHigh() -> Float {  high[0] }
+        private func isEmpty() -> Bool { size() == 0 }
+        private func peekLow()  -> Float { -low[0] }   // root of max-heap
+        private func peekHigh() -> Float {  high[0] }  // root of min-heap
         private func peek()     -> Float { low.isEmpty ? peekHigh() : peekLow() }
-        private var heapSize: Int { low.count + high.count }
+        private func size() -> Int { low.count + high.count }
 
         func apply(_ f: Float) -> Float {
+            if isEmpty() || f <= peek() {
+                insertLow(f)
+            } else {
+                insertHigh(f)
+            }
+            history.add(f)
             if history.isFull() {
                 let oldest = history.first()
                 if !removeLow(oldest) { removeHigh(oldest) }
             }
-            if heapSize == 0 || f <= peek() { insertLow(f) } else { insertHigh(f) }
-            history.add(f)
-            let target = Int((quantile * Float(heapSize)).rounded())
+            let target = Int((quantile * Float(size())).rounded())
             while !low.isEmpty  && low.count  > target { insertHigh(pollLow()) }
             while !high.isEmpty && low.count  < target { insertLow(pollHigh()) }
-            return heapSize == 0 ? f : peek()
+            return peek()
         }
 
+        // ── Heap operations ──
         private func insertLow(_ v: Float)  { low.append(-v);  heapifyUp(&low,  low.count  - 1) }
         private func insertHigh(_ v: Float) { high.append(v);  heapifyUp(&high, high.count - 1) }
 
@@ -131,12 +136,14 @@ class LowLevelActivityAggregator {
             return val
         }
 
+        @discardableResult
         private func removeLow(_ v: Float) -> Bool {
             guard let i = low.firstIndex(of: -v) else { return false }
             low[i] = low[low.count - 1]; low.removeLast()
             if i < low.count { heapifyDown(&low, i); heapifyUp(&low, i) }
             return true
         }
+        @discardableResult
         private func removeHigh(_ v: Float) -> Bool {
             guard let i = high.firstIndex(of: v) else { return false }
             high[i] = high[high.count - 1]; high.removeLast()

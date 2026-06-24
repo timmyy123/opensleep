@@ -1,7 +1,7 @@
 import Foundation
 
 class AwakeWhenHighActivity {
-    private var isActivityOverThreshold: AverageActivityOverThreshold?
+    private var classifiers: [String: AverageActivityOverThreshold] = [:]
     private var lastAwakeDetected: Date = Date.distantPast
     private let lock = NSLock()
     private var notificationObserver: Any?
@@ -22,12 +22,19 @@ class AwakeWhenHighActivity {
               let sensorType = userInfo["sensor"] as? String,
               let value = userInfo["data"] as? Float else { return }
 
-        if isActivityOverThreshold == nil {
-            let threshold: Float = (sensorType == "SMARTWATCH" || sensorType == "BLE_ACCEL") ? 2.5 : 1.5
-            isActivityOverThreshold = AverageActivityOverThreshold(threshold: threshold)
+        // Ignore non-accelerometer/watch sensors (such as SONAR) to prevent noise from triggering false awake intervals
+        guard sensorType == "PHONE_ACCEL" || sensorType == "SMARTWATCH" || sensorType == "BLE_ACCEL" else {
+            return
         }
 
-        if let updater = isActivityOverThreshold, updater.update(activity: value) {
+        let classifier = classifiers[sensorType] ?? {
+            let threshold: Float = (sensorType == "SMARTWATCH" || sensorType == "BLE_ACCEL") ? 2.5 : 1.5
+            let newClassifier = AverageActivityOverThreshold(threshold: threshold)
+            classifiers[sensorType] = newClassifier
+            return newClassifier
+        }()
+
+        if classifier.update(activity: value) {
             lastAwakeDetected = Date()
         }
     }
@@ -43,7 +50,7 @@ class AwakeWhenHighActivity {
             NotificationCenter.default.removeObserver(observer)
             notificationObserver = nil
         }
-        isActivityOverThreshold = nil
+        classifiers.removeAll()
         lastAwakeDetected = Date.distantPast
     }
 

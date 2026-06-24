@@ -1,11 +1,15 @@
 package app.opensleep.domain.sonar
 
+import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.PowerManager
 
-class AwakeWhenUsingPhoneDetector(private val sensorManager: SensorManager) : SensorEventListener {
+class AwakeWhenUsingPhoneDetector(private val context: Context) : SensorEventListener {
+    private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    private val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
     private val accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
     private var axisThresholdGuard: AxisThresholdGuard? = null
     
@@ -37,7 +41,7 @@ class AwakeWhenUsingPhoneDetector(private val sensorManager: SensorManager) : Se
     }
     
     fun isScreenOn(): Boolean {
-        return ts != -1L
+        return powerManager.isInteractive
     }
     
     fun isAwake(): Boolean {

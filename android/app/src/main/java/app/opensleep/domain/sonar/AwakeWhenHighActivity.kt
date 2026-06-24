@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import androidx.core.content.ContextCompat
 
 class AwakeWhenHighActivity(private val context: Context) {
-    private var isActivityOverThreshold: AverageActivityOverThreshold? = null
+    private val classifiers = mutableMapOf<String, AverageActivityOverThreshold>()
     private var lastAwakeDetected = 0L
 
     private val receiver = object : BroadcastReceiver() {
@@ -16,16 +16,21 @@ class AwakeWhenHighActivity(private val context: Context) {
             val sensorType = intent.getStringExtra("action_raw_activity_sensor") ?: return
             val value = intent.getFloatExtra("action_raw_activity_data", 0f)
 
-            if (isActivityOverThreshold == null) {
+            // Ignore non-accelerometer/watch sensors (such as SONAR) to prevent noise from triggering false awake intervals
+            if (sensorType != "PHONE_ACCEL" && sensorType != "SMARTWATCH" && sensorType != "BLE_ACCEL") {
+                return
+            }
+
+            val classifier = classifiers.getOrPut(sensorType) {
                 val threshold = if (sensorType == "SMARTWATCH" || sensorType == "BLE_ACCEL") {
                     2.5f
                 } else {
                     1.5f
                 }
-                isActivityOverThreshold = AverageActivityOverThreshold(threshold)
+                AverageActivityOverThreshold(threshold)
             }
 
-            if (isActivityOverThreshold?.update(value) == true) {
+            if (classifier.update(value)) {
                 lastAwakeDetected = System.currentTimeMillis()
             }
         }
@@ -46,7 +51,7 @@ class AwakeWhenHighActivity(private val context: Context) {
 
     fun stop() {
         context.unregisterReceiver(receiver)
-        isActivityOverThreshold = null
+        classifiers.clear()
         lastAwakeDetected = 0L
     }
 }
