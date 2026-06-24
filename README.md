@@ -24,7 +24,7 @@ Unlike standard trackers that transmit your personal bio-data to remote servers,
 ## 🚀 Key Pillars
 
 ### 1. 🛡️ 100% On-Device & Zero-Server Privacy
-* **Phone-Only Actigraphy**: Accelerometer, gyroscope, and microphone-derived sound-level features are analyzed completely on-device. Raw audio is not stored.
+* **Local Active Telemetry**: Ultrasonic sonar echo processing and motion actigraphy are analyzed completely on-device. Raw audio is processed in memory and never stored or transmitted.
 * **No External Servers**: Zero analytics endpoints, zero tracking SDKs, and zero database synchronization in the cloud. Your data belongs to you alone.
 * **Health Integration**: Syncs directly and securely with native system aggregates (**Apple Health** on iOS, **Google Health Connect** on Android) through highly secure local APIs.
 
@@ -33,24 +33,46 @@ Unlike standard trackers that transmit your personal bio-data to remote servers,
 * **Smart Sleep Analytics**: The AI coach reads your sleep patterns locally to offer customized tips for improving sleep hygiene, tracking circadian rhythm, and managing daytime sleepiness.
 * **Dynamic Chat Interface**: A gorgeous, reactive conversation dashboard supporting markdown rendering, tabular sleep summaries, and granular context window controls.
 
-### 3. 📊 Interactive Analytics & Insights
-* **Sleep Stage Breakdowns**: Phone-on-mattress actigraphy estimates for Deep, Light, REM, and Awake periods, with local Health sync support.
-* **Adaptive Calendars**: Toggle sleep history metrics seamlessly across daily, weekly, monthly, and yearly intervals.
-* **Swipe-to-Manage Control**: Securely delete historical sleep sessions instantly with intuitive swipe-left triggers or bulk selection controls.
+### 3. 📊 High-Precision Dual-Mode Sleep Tracking
+* **Contactless Sonar (Active Ultrasonic)**: Uses the device speaker to emit inaudible high-frequency sound chirps (~18 kHz - 22 kHz) and records the reflected echo via the microphone. An on-device DSP pipeline (high-pass Butterworth filtering, FFT power spectrum analysis, and correlation mapping) detects respiration rates and body movement contactless from a nightstand.
+* **Mattress Actigraphy (3-Axis Motion)**: Uses low-latency accelerometer and gyroscope updates to record physical body movement when the phone is placed flat on the mattress.
+* **Scientific Sleep Staging**: Combines actigraphy and sonar activity to compute precise Deep, Light, REM, and Awake sleep stages through aligned heuristic models.
 
 ---
 
 ## 🏗️ Architecture & Data Flow
 
-Below is the design of the on-device environment showing the isolation from external cloud services:
+Below is the design of the on-device environment showing the active tracking loops and cloud isolation:
 
 ```mermaid
 graph TD
     subgraph Device ["User Device (iOS & Android)"]
-        Sensors["Phone Motion & Sound-Level Sensors<br>(Accelerometer, Gyro, Mic Metering)"] -->|Local Features| Processor["On-Device Actigraphy Engine"]
-        Processor -->|Local Sleep Stages| Storage["Local DB & Sync<br>(Apple Health / Health Connect)"]
+        subgraph Sensors ["Sensor Layer"]
+            Speaker["Ultrasound Chirps<br>(18 - 22 kHz)"]
+            Mic["Microphone Echo Input"]
+            Motion["3-Axis Motion Sensors<br>(Accel & Gyro)"]
+        end
+
+        subgraph DSP ["On-Device DSP Pipeline"]
+            IIR["Butterworth IIR Filter"]
+            FFT["Real FFT Power Spectrum<br>(vDSP / JTransforms)"]
+            Aggregator["Low-Level Activity Aggregator"]
+        end
+
+        subgraph Staging ["Sleep Staging & Sync"]
+            Analyzer["Sleep Stage Analyzer"]
+            Storage["Local DB & Sync<br>(Apple Health / Health Connect)"]
+        end
+
+        Speaker -.->|Acoustic Echo| Mic
+        Mic -->|Raw PCM Buffer| IIR
+        IIR -->|Filtered Signal| FFT
+        FFT -->|Correlation & Spectrum| Aggregator
+        Motion -->|Direct Actigraphy| Aggregator
+        Aggregator -->|Normalized Activity| Analyzer
+        Analyzer -->|Sleep Stages| Storage
         
-        Storage -->|Contextual Sleep Data| AI["Local Gemma 4 AI Coach<br>(On-Device LiteRT-LM / LLM Component)"]
+        Storage -->|Contextual Sleep Data| AI["Local Gemma 4 AI Coach<br>(On-Device LiteRT-LM)"]
         User["User Interaction"] <-->|Chat Interface| AI
     end
     
@@ -62,8 +84,8 @@ graph TD
     style Device fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
     style Cloud fill:#1e293b,stroke:#f43f5e,stroke-width:1px,stroke-dasharray: 5 5,color:#cbd5e1
     style Sensors fill:#1e293b,stroke:#10b981,stroke-width:1px,color:#fff
-    style Processor fill:#1e293b,stroke:#8b5cf6,stroke-width:1px,color:#fff
-    style Storage fill:#1e293b,stroke:#3b82f6,stroke-width:1px,color:#fff
+    style DSP fill:#1e293b,stroke:#8b5cf6,stroke-width:1px,color:#fff
+    style Staging fill:#1e293b,stroke:#3b82f6,stroke-width:1px,color:#fff
     style AI fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#fff
     style User fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#fff
     style Server fill:#1e293b,stroke:#f43f5e,stroke-width:1px,color:#94a3b8
@@ -77,8 +99,6 @@ graph TD
 | :--- | :--- | :--- | :--- |
 | **iOS** | Swift & SwiftUI (Premium UI Design) | SwiftData & Apple HealthKit | LiteRT-LM (Swift Package) |
 | **Android** | Kotlin & Jetpack Compose (Material 3) | Room & Google Health Connect | LiteRT-LM (Kotlin Library) |
-
----
 
 > [!IMPORTANT]
 > **OpenSleep does not connect to the internet.**

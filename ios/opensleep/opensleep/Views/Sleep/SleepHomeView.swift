@@ -71,48 +71,7 @@ struct SleepHomeView: View {
                         }
                     }
 
-                    // User-Facing Tracking Guide
-                    GlassCard {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("guide_title")
-                                .font(AppTextStyle.titleLarge)
-                                .fontWeight(.bold)
-                                .foregroundStyle(Color.textPrimary)
-                            
-                            // Sonar
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("guide_sonar_title")
-                                    .font(AppTextStyle.bodyLarge)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.indigoLight)
-                                Text("guide_sonar_desc")
-                                    .font(AppTextStyle.bodyMedium)
-                                    .foregroundStyle(Color.textSecondary)
-                            }
-                            
-                            // Accelerometer
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("guide_accel_title")
-                                    .font(AppTextStyle.bodyLarge)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.indigoLight)
-                                Text("guide_accel_desc")
-                                    .font(AppTextStyle.bodyMedium)
-                                    .foregroundStyle(Color.textSecondary)
-                            }
-                            
-                            // Charger Tip
-                            Text("guide_charger_tip")
-                                .font(AppTextStyle.labelSmall)
-                                .foregroundStyle(Color.textSecondary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(12)
-                                .background(Color.indigoLight.opacity(0.08))
-                                .cornerRadius(8)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding(.horizontal, 16)
+
 
                     Spacer(minLength: 32)
                 }
