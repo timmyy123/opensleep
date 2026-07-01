@@ -62,6 +62,13 @@ class SleepTrackerService: ObservableObject {
     private let audioChunkLock = NSLock()
     private var isAudioDrainScheduled = false
     private var maxBufferedAudioSamples = 96_000
+    private let sonarAnalysisChunkSize = 4_096
+    private let minSonarAnalysisInterval: TimeInterval = 0.75
+    private var lastAudioAnalysisEnqueueTime = Date.distantPast
+    private let sonarOutputGain: Float = 0.08
+    private let sonarPulseSilenceMultiplier = 5
+    /// Tracks last poll time for background accelerometer fallback in drainAudioFrames.
+    private var lastBackgroundAccelPollTime = Date.distantPast
 
     init() {
         registerBackgroundTask()
@@ -128,6 +135,7 @@ class SleepTrackerService: ObservableObject {
             self?.audioChunkLock.lock()
             self?.audioChunkBuffer.removeAll()
             self?.isAudioDrainScheduled = false
+            self?.lastAudioAnalysisEnqueueTime = .distantPast
             self?.audioChunkLock.unlock()
         }
         isTracking = true
@@ -157,9 +165,7 @@ class SleepTrackerService: ObservableObject {
                 print("[SleepTracker] iOS Accelerometer count=\(self.accelSampleCount), sample: x=\(x), y=\(y), z=\(z), mag=\(mag)")
             }
             self.analysisQueue.async {
-                let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
-                let sampleDate = bootTime.addingTimeInterval(data.timestamp)
-                self.analyzer.addSample(timestamp: sampleDate, x: data.acceleration.x, y: data.acceleration.y, z: data.acceleration.z)
+                self.analyzer.addSample(timestamp: Date(), x: data.acceleration.x, y: data.acceleration.y, z: data.acceleration.z)
             }
         }
 
@@ -172,9 +178,7 @@ class SleepTrackerService: ObservableObject {
                     print("[SleepTracker] iOS Gyroscope count=\(self.gyroSampleCount), sample: x=\(data.rotationRate.x), y=\(data.rotationRate.y), z=\(data.rotationRate.z)")
                 }
                 self.analysisQueue.async {
-                    let bootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
-                    let sampleDate = bootTime.addingTimeInterval(data.timestamp)
-                    self.analyzer.addGyroSample(timestamp: sampleDate, x: data.rotationRate.x, y: data.rotationRate.y, z: data.rotationRate.z)
+                    self.analyzer.addGyroSample(timestamp: Date(), x: data.rotationRate.x, y: data.rotationRate.y, z: data.rotationRate.z)
                 }
             }
         }
@@ -354,31 +358,52 @@ class SleepTrackerService: ObservableObject {
                 self.activityAggregator = LowLevelActivityAggregator(sampleRate: actualRate)
                 self.audioChunkLock.lock()
                 self.audioChunkBuffer.removeAll(keepingCapacity: true)
-                self.maxBufferedAudioSamples = actualRate * 2
+                self.maxBufferedAudioSamples = actualRate
+                self.lastAudioAnalysisEnqueueTime = .distantPast
                 self.audioChunkLock.unlock()
             }
             print("[SleepTracker] iOS: Audio engine using sample rate \(actualRate) Hz")
 
-            inputNode.installTap(onBus: 0, bufferSize: 4096, format: recordingFormat) { [weak self] buffer, _ in
+            inputNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(self.sonarAnalysisChunkSize), format: recordingFormat) { [weak self] buffer, _ in
                 guard let self = self else { return }
                 guard let channelData = buffer.floatChannelData?[0] else { return }
+                let now = Date()
+                var shouldAnalyze = false
+                self.audioChunkLock.lock()
+                if now.timeIntervalSince(self.lastAudioAnalysisEnqueueTime) >= self.minSonarAnalysisInterval {
+                    self.lastAudioAnalysisEnqueueTime = now
+                    shouldAnalyze = true
+                }
+                self.audioChunkLock.unlock()
+                guard shouldAnalyze else { return }
                 let frames = Array(UnsafeBufferPointer(start: channelData, count: Int(buffer.frameLength)))
                 self.enqueueAudioFrames(frames)
             }
 
-            // Playback using AVAudioSourceNode on the same engine!
+            // Playback using AVAudioSourceNode on the same engine. The sonar pulse is
+            // deliberately low-gain and duty-cycled; continuous full-scale ultrasound
+            // is expensive and can push iOS into thermal/jetsam kills during long runs.
             let chirpData = self.chirpProducer.chirpData
             var chirpIndex = 0
+            var pulseFrameIndex = 0
+            let chirpFrameCount = chirpData.count
+            let pulseCycleFrameCount = chirpFrameCount * (1 + self.sonarPulseSilenceMultiplier)
+            let gain = self.sonarOutputGain
             let sourceNode = AVAudioSourceNode { (_, _, frameCount, audioBufferList) -> OSStatus in
                 let abl = UnsafeMutableAudioBufferListPointer(audioBufferList)
                 for buffer in abl {
                     if let ptr = buffer.mData?.assumingMemoryBound(to: Float.self) {
                         for frame in 0..<Int(frameCount) {
-                            ptr[frame] = chirpData[(chirpIndex + frame) % 8192]
+                            if pulseFrameIndex < chirpFrameCount {
+                                ptr[frame] = chirpData[chirpIndex] * gain
+                                chirpIndex = (chirpIndex + 1) % chirpFrameCount
+                            } else {
+                                ptr[frame] = 0
+                            }
+                            pulseFrameIndex = (pulseFrameIndex + 1) % pulseCycleFrameCount
                         }
                     }
                 }
-                chirpIndex = (chirpIndex + Int(frameCount)) % 8192
                 return noErr
             }
             self.sourceNode = sourceNode
@@ -445,14 +470,34 @@ class SleepTrackerService: ObservableObject {
         // Yield after a small batch so motion, awake-state, and persistence work on
         // the same serial queue cannot be starved by a continuous audio stream.
         for _ in 0..<4 {
+            // ── Background accelerometer poll ─────────────────────────────────────────
+            // iOS throttles CMMotionManager push-callbacks when the app is backgrounded,
+            // often delivering far fewer samples than the requested 4 Hz. The audio
+            // engine IS kept alive by AVAudioSession, so we piggyback here to collect
+            // accelerometer data at ~4 Hz regardless of foreground/background state.
+            let pollNow = Date()
+            if pollNow.timeIntervalSince(lastBackgroundAccelPollTime) >= 0.25,
+               let accelData = motionManager.accelerometerData {
+                // Convert CMTimeInterval (seconds since boot) to wall-clock Date
+                let bootOffset = ProcessInfo.processInfo.systemUptime - accelData.timestamp
+                let accelDate = Date(timeIntervalSinceNow: -bootOffset)
+                analyzer.addSample(
+                    timestamp: accelDate,
+                    x: accelData.acceleration.x,
+                    y: accelData.acceleration.y,
+                    z: accelData.acceleration.z
+                )
+                lastBackgroundAccelPollTime = pollNow
+            }
+
             audioChunkLock.lock()
-            guard audioChunkBuffer.count >= 8192 else {
+            guard audioChunkBuffer.count >= sonarAnalysisChunkSize else {
                 isAudioDrainScheduled = false
                 audioChunkLock.unlock()
                 return
             }
-            let chunk = Array(audioChunkBuffer.prefix(8192))
-            audioChunkBuffer.removeFirst(8192)
+            let chunk = Array(audioChunkBuffer.prefix(sonarAnalysisChunkSize))
+            audioChunkBuffer.removeFirst(sonarAnalysisChunkSize)
             audioChunkLock.unlock()
 
             let consumerRes = fftSonar.processAndGetResult(chunk)

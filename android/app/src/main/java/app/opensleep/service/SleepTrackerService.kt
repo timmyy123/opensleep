@@ -235,8 +235,14 @@ class SleepTrackerService : Service(), SensorEventListener {
                 delay(60 * 1000L)
                 Log.d(TAG, "Performing periodic 1-minute database flush...")
                 val stages = analyzer.computeStages(startTime)
-                repository.updateStages(sid, stages)
-                Log.d(TAG, "Periodic database flush complete.")
+                // Only write if we actually computed something — an empty list on restart
+                // would otherwise overwrite the last valid stages already in the DB.
+                if (stages.isNotEmpty()) {
+                    repository.updateStages(sid, stages)
+                    Log.d(TAG, "Periodic database flush complete: ${stages.size} stages written.")
+                } else {
+                    Log.d(TAG, "Periodic database flush skipped: no stages computed yet (in-memory analyzer empty).")
+                }
             }
         }
     }
@@ -555,6 +561,7 @@ class SleepTrackerService : Service(), SensorEventListener {
 
         audioRecord = recorder
         chirpProducer.play()
+        Log.d("SleepTracker", "Sonar audio monitoring started: sampleRate=$AUDIO_SAMPLE_RATE, bufferSize=$bufferSize")
 
         audioJob?.cancel()
         audioJob = serviceScope.launch {
@@ -593,6 +600,7 @@ class SleepTrackerService : Service(), SensorEventListener {
                                 if (now - lastSonarSampleTime >= 10000) {
                                     val act = aggregator.getAggregatedActivity()
                                     analyzer.addSonarSample(now, act)
+                                    Log.d("SleepTracker", "Sonar sample added: activity=$act at $now")
 
                                     val intent = Intent("action_raw_activity").apply {
                                         setPackage(packageName)

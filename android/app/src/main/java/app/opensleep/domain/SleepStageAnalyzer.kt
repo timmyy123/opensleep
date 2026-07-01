@@ -153,6 +153,24 @@ class SleepStageAnalyzer {
         }
     }
 
+    // Sleep as Android uses ActivityAggregatorSonar for the sonar accel manager:
+    // raw sonar activity goes through HighActivity.normalizedAmplitudeBased(1.0),
+    // and the result is stored directly as raw/actigraph without the accel median6
+    // baseline pass.
+    private class ActivityAggregatorSonar {
+        private val highActivity = HighActivityDetector(1.0f)
+
+        fun update(f: Float): ActivityAggregatorAccel.Result {
+            val ha = highActivity.update(f)
+            return ActivityAggregatorAccel.Result(
+                rawActivity = f,
+                actigraph = f,
+                isSomeActivity = ha.isSomeActivity,
+                isHighActivity = ha.isHighActivity
+            )
+        }
+    }
+
     // ──────────────────────────────────────────────────────────────
     //  HighActivity.NormalizedAmplitudeBased  (exact port)
     //
@@ -717,13 +735,18 @@ class SleepStageAnalyzer {
         frames.forEachIndexed { index, frame ->
             detectorTimestampMs = frame.startMs
             detector.update(frame.startMs, frame.result)
-            val type = when {
-                detector.remStatus == RemDetectorV1.Status.REM -> SleepStageType.REM
-                detector.sleepPhase == SleepPhase.DEEP_SLEEP -> SleepStageType.DEEP
-                detector.sleepPhase == SleepPhase.LIGHT_SLEEP -> SleepStageType.LIGHT
-                else -> null
+            val awake = isAwakeAt(frame.startMs)
+            val type = if (awake) {
+                SleepStageType.AWAKE
+            } else {
+                when {
+                    detector.remStatus == RemDetectorV1.Status.REM -> SleepStageType.REM
+                    detector.sleepPhase == SleepPhase.DEEP_SLEEP -> SleepStageType.DEEP
+                    detector.sleepPhase == SleepPhase.LIGHT_SLEEP -> SleepStageType.LIGHT
+                    else -> null
+                }
             }
-            android.util.Log.d("SleepTracker", "Frame $index: [${frame.startMs} - ${frame.endMs}] raw=${frame.result.rawActivity}, actigraph=${frame.result.actigraph}, isSome=${frame.result.isSomeActivity}, isHigh=${frame.result.isHighActivity} -> Stage: $type (remStatus=${detector.remStatus}, sleepPhase=${detector.sleepPhase})")
+            android.util.Log.d("SleepTracker", "Frame $index: [${frame.startMs} - ${frame.endMs}] raw=${frame.result.rawActivity}, actigraph=${frame.result.actigraph}, isSome=${frame.result.isSomeActivity}, isHigh=${frame.result.isHighActivity}, awake=$awake -> Stage: $type (remStatus=${detector.remStatus}, sleepPhase=${detector.sleepPhase})")
             if (type != null) appendStage(stages, type, frame.startMs, frame.endMs)
         }
 
@@ -763,48 +786,52 @@ class SleepStageAnalyzer {
         android.util.Log.d("SleepTracker", "buildActivityFrames: sessionEndMs=$sessionEndMs. Total duration to process: ${(sessionEndMs - sleepStartMs)/60000.0} min")
 
         val accelAggregator = ActivityAggregatorAccel()
+        val sonarAggregator = ActivityAggregatorSonar()
         var previousSample: MotionSample? = null
         val frames = mutableListOf<ActivityFrame>()
         var frameStartMs = sleepStartMs
 
+        // Two-pointer indices — advance monotonically through sorted arrays O(N+M)
+        // instead of the old per-frame .filter which was O(N×M).
+        var sonarIdx = 0
+        var accelIdx = 0
+
         while (frameStartMs + FRAME_MS <= sessionEndMs) {
             val frameEndMs = frameStartMs + FRAME_MS
 
-            // ── Sonar result ─────────────────────────────────────────────────────────
-            // LowLevelActivityAggregator already performs the full normalization pipeline
-            // (almostMax → deviation-baseline → deviation-median → rolling max).
-            // Feeding its output through ActivityAggregatorAccel again would apply a
-            // second abs(f-median6(f)) pass; on a consistently quiet signal this delta
-            // stays near zero so HighActivityDetector's amplitude≤1 guard always fires
-            // → every frame scores as deep sleep → 0 min REM.
-            // Sleep as Android bypasses ActivityAggregatorAccel for sonar and constructs
-            // AccelResult directly using LowLevelActivityAggregator's own thresholds:
-            //   isSomeActivity  → f2 > 1.5  (AverageActivityOverThreshold SONAR threshold)
-            //   isHighActivity  → f2 > 24.0 (LowLevelActivityAggregator.Result.isHighActivity)
+            // ── Sonar result — two-pointer O(N+M) ────────────────────────────────────
+            // Sleep as Android uses ActivityAggregatorSonar here: do not run sonar
+            // through ActivityAggregatorAccel's median6 baseline, but do run it through
+            // HighActivity.normalizedAmplitudeBased(1.0).
             val sonarResult: ActivityAggregatorAccel.Result? = if (hasSonar) {
-                val fs = sortedSonar.filter { it.first in frameStartMs until frameEndMs }
-                if (fs.isEmpty()) null
-                else {
-                    val v = fs.maxOf { it.second }
-                    ActivityAggregatorAccel.Result(
-                        rawActivity    = v,
-                        actigraph      = v,
-                        isSomeActivity = v > 1.5f,
-                        isHighActivity = v > 24.0f
-                    )
+                // Advance main pointer past samples that belong to earlier frames
+                while (sonarIdx < sortedSonar.size && sortedSonar[sonarIdx].first < frameStartMs) sonarIdx++
+                // Scan ahead with a local index to collect this frame's max activity
+                var maxSonar: Float? = null
+                var si = sonarIdx
+                while (si < sortedSonar.size && sortedSonar[si].first < frameEndMs) {
+                    val v = sortedSonar[si].second
+                    if (maxSonar == null || v > maxSonar) maxSonar = v
+                    si++
                 }
+                maxSonar?.let { sonarAggregator.update(it) }
             } else null
 
-            // ── Accel result ──────────────────────────────────────────────────────────
+            // ── Accel result — two-pointer O(N+M) ─────────────────────────────────────
             val accelResult: ActivityAggregatorAccel.Result? = if (hasAccel) {
-                val fa = sortedAccel.filter { it.timestampMs in frameStartMs until frameEndMs }
+                while (accelIdx < sortedAccel.size && sortedAccel[accelIdx].timestampMs < frameStartMs) accelIdx++
                 var maxRawChange = 0f
-                for (sample in fa) {
+                var hasData = false
+                var ai = accelIdx
+                while (ai < sortedAccel.size && sortedAccel[ai].timestampMs < frameEndMs) {
+                    val sample = sortedAccel[ai]
                     val rawChange = if (previousSample == null) 0f else sample.magnitude
                     if (rawChange > maxRawChange) maxRawChange = rawChange
                     previousSample = sample
+                    hasData = true
+                    ai++
                 }
-                if (fa.isEmpty()) null else accelAggregator.update(maxRawChange)
+                if (hasData) accelAggregator.update(maxRawChange) else null
             } else null
 
             // ── Combine: take the result showing more activity ────────────────────────

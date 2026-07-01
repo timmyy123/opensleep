@@ -196,6 +196,24 @@ class SleepStageAnalyzer {
         }
     }
 
+    // Sleep as Android uses ActivityAggregatorSonar for the sonar accel manager:
+    // raw sonar activity goes through HighActivity.normalizedAmplitudeBased(1.0),
+    // and the result is stored directly as raw/actigraph without the accel median6
+    // baseline pass.
+    private final class ActivityAggregatorSonar {
+        private let highActivity = HighActivityDetector(multiplier: 1.0)
+
+        func update(_ f: Float) -> AccelResult {
+            let ha = highActivity.update(f)
+            return AccelResult(
+                rawActivity: f,
+                actigraph: f,
+                isSomeActivity: ha.isSome,
+                isHighActivity: ha.isHigh
+            )
+        }
+    }
+
     // ──────────────────────────────────────────────────────────────
     //  HighActivity.NormalizedAmplitudeBased  (exact port)
     //  medium sensitivity defaults:
@@ -751,8 +769,11 @@ class SleepStageAnalyzer {
         for (index, frame) in frames.enumerated() {
             detectorTimestamp = frame.startDate
             detector.update(timestamp: frame.startDate, result: frame.result)
+            let awake = isAwake(at: frame.startDate)
             let type: SleepStageType?
-            if detector.remStatus == .rem {
+            if awake {
+                type = .awake
+            } else if detector.remStatus == .rem {
                 type = .rem
             } else {
                 switch detector.sleepPhase {
@@ -761,7 +782,7 @@ class SleepStageAnalyzer {
                 case .unknown: type = nil
                 }
             }
-            print("[SleepTracker] Frame \(index): [\(frame.startDate) - \(frame.endDate)] raw=\(frame.result.rawActivity), actigraph=\(frame.result.actigraph), isSome=\(frame.result.isSomeActivity), isHigh=\(frame.result.isHighActivity) -> Stage: \(String(describing: type)) (remStatus=\(detector.remStatus), sleepPhase=\(detector.sleepPhase))")
+            print("[SleepTracker] Frame \(index): [\(frame.startDate) - \(frame.endDate)] raw=\(frame.result.rawActivity), actigraph=\(frame.result.actigraph), isSome=\(frame.result.isSomeActivity), isHigh=\(frame.result.isHighActivity), awake=\(awake) -> Stage: \(String(describing: type)) (remStatus=\(detector.remStatus), sleepPhase=\(detector.sleepPhase))")
             if let type {
                 appendStage(&stages, type: type, startDate: frame.startDate, endDate: frame.endDate)
             }
@@ -814,46 +835,60 @@ class SleepStageAnalyzer {
         print("[SleepTracker] buildActivityFrames: sessionEnd=\(sessionEnd). Total duration to process: \(sessionEnd.timeIntervalSince(sleepStart)/60.0) min")
 
         let accelAggregator = ActivityAggregatorAccel()
+        let sonarAggregator = ActivityAggregatorSonar()
         var previousSample: MotionSample?
         var frames: [ActivityFrame] = []
         var frameStart = sleepStart
 
+        // Two-pointer indices — O(N+M) instead of O(N×M) per-frame .filter
+        var sonarPtr = 0
+        var accelPtr = 0
+
         while frameStart.addingTimeInterval(frameInterval) <= sessionEnd {
             let frameEnd = frameStart.addingTimeInterval(frameInterval)
 
-            // ── Sonar result ──────────────────────────────────────────────────────
-            // LowLevelActivityAggregator already performs the full normalization
-            // pipeline (almostMax → deviation-baseline → deviation-median → rolling
-            // max). Feeding its output through ActivityAggregatorAccel again applies
-            // a second abs(f-median6(f)) pass. On a consistently quiet signal this
-            // delta ≈ 0, so HighActivityDetector's amplitude≤1 guard fires every
-            // frame → everything scores as deep sleep → 0 min REM.
-            // Sleep as Android bypasses ActivityAggregatorAccel for sonar and
-            // constructs AccelResult directly with LowLevelActivityAggregator's
-            // own thresholds:
-            //   isSomeActivity → f2 > 1.5   (AverageActivityOverThreshold SONAR)
-            //   isHighActivity → f2 > 24.0  (LowLevelActivityAggregator threshold)
+            // ── Sonar result — two-pointer ────────────────────────────────────────────
+            // Sleep as Android uses ActivityAggregatorSonar here: do not run sonar
+            // through ActivityAggregatorAccel's median6 baseline, but do run it through
+            // HighActivity.normalizedAmplitudeBased(1.0).
             let sonarResult: AccelResult? = hasSonar ? {
-                let fs = sortedSonar.filter { $0.0 >= frameStart && $0.0 < frameEnd }
-                guard let v = fs.map({ $0.1 }).max() else { return nil }
-                return AccelResult(rawActivity: v, actigraph: v,
-                                   isSomeActivity: v > 1.5, isHighActivity: v > 24.0)
+                // Advance main pointer past samples that belong to earlier frames
+                while sonarPtr < sortedSonar.count && sortedSonar[sonarPtr].0 < frameStart {
+                    sonarPtr += 1
+                }
+                // Scan ahead with a local index (main pointer stays put until next frame)
+                var maxSonarActivity: Float? = nil
+                var si = sonarPtr
+                while si < sortedSonar.count && sortedSonar[si].0 < frameEnd {
+                    let v = sortedSonar[si].1
+                    maxSonarActivity = maxSonarActivity.map { max($0, v) } ?? v
+                    si += 1
+                }
+                guard let v = maxSonarActivity else { return nil }
+                return sonarAggregator.update(v)
             }() : nil
 
-            // ── Accel result ───────────────────────────────────────────────────────
+            // ── Accel result — two-pointer ────────────────────────────────────────────
             let accelResult: AccelResult? = hasAccel ? {
-                let fa = sortedAccel.filter { $0.timestamp >= frameStart && $0.timestamp < frameEnd }
-                guard !fa.isEmpty else { return nil }
+                while accelPtr < sortedAccel.count && sortedAccel[accelPtr].timestamp < frameStart {
+                    accelPtr += 1
+                }
                 var maxRawChange: Float = 0
-                for sample in fa {
+                var hasAccelInFrame = false
+                var ai = accelPtr
+                while ai < sortedAccel.count && sortedAccel[ai].timestamp < frameEnd {
+                    let sample = sortedAccel[ai]
                     let rawChange: Float = previousSample == nil ? 0 : Float(sample.magnitude)
                     if rawChange > maxRawChange { maxRawChange = rawChange }
                     previousSample = sample
+                    hasAccelInFrame = true
+                    ai += 1
                 }
+                guard hasAccelInFrame else { return nil }
                 return accelAggregator.update(maxRawChange)
             }() : nil
 
-            // ── Combine: take the result showing more activity ─────────────────────
+            // ── Combine: take the result showing more activity ─────────────────────────
             let result: AccelResult
             switch (sonarResult, accelResult) {
             case let (s?, a?):
