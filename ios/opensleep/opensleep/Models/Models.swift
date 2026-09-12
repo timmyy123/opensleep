@@ -2,6 +2,29 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+// MARK: - Tracking Sensor Mode
+
+enum TrackingSensorMode: String, Codable, CaseIterable, Identifiable {
+    case sonar = "sonar"
+    case accelerometer = "accelerometer"
+
+    var id: String { rawValue }
+
+    var titleKey: LocalizedStringKey {
+        switch self {
+        case .sonar: return "sensor_sonar"
+        case .accelerometer: return "sensor_accelerometer"
+        }
+    }
+
+    var descKey: LocalizedStringKey {
+        switch self {
+        case .sonar: return "sensor_sonar_desc"
+        case .accelerometer: return "sensor_accelerometer_desc"
+        }
+    }
+}
+
 // MARK: - Sleep Stage
 
 enum SleepStageType: String, Codable, CaseIterable {

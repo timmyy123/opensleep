@@ -86,4 +86,10 @@
     <string name="guide_charger_tip">Tip: Keep the phone plugged into a charger to prevent battery drain from the tracking sensors.</string>
     <string name="battery_optimization_title">Battery Optimization Active</string>
     <string name="battery_optimization_desc">OpenSleep may be killed in the background by system battery savers. Tap here to disable battery optimization in system settings.</string>
+
+    <string name="section_sensor">Tracking Sensor</string>
+    <string name="sensor_sonar">Sonar (Contactless)</string>
+    <string name="sensor_sonar_desc">Place phone on nightstand pointing towards your chest. Uses ultrasound.</string>
+    <string name="sensor_accelerometer">Accelerometer (Mattress)</string>
+    <string name="sensor_accelerometer_desc">Place phone flat on the mattress next to your pillow.</string>
 </resources>

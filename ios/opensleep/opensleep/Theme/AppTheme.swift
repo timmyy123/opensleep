@@ -41,6 +41,7 @@ struct AppTextStyle {
     static let titleLarge = Font.system(size: 22, weight: .medium)
     static let bodyLarge = Font.system(size: 16, weight: .regular)
     static let bodyMedium = Font.system(size: 14, weight: .regular)
+    static let bodySmall = Font.system(size: 12, weight: .regular)
     static let labelLarge = Font.system(size: 14, weight: .medium)
     static let labelSmall = Font.system(size: 11, weight: .medium)
 }

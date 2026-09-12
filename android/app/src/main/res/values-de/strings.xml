@@ -85,4 +85,11 @@
     <string name="guide_charger_tip">Tipp: Schließe das Telefon an ein Ladegerät an, um Batterieverbrauch durch die Sensoren zu vermeiden.</string>
     <string name="battery_optimization_title">Akku-Optimierung aktiv</string>
     <string name="battery_optimization_desc">OpenSleep kann im Hintergrund durch den System-Energiesparmodus beendet werden. Tippe hier, um die Akku-Optimierung in den Systemeinstellungen zu deaktivieren.</string>
+
+    <string name="section_sensor">Schlafsensor</string>
+    <string name="sensor_sonar">Sonar (Kontaktlos)</string>
+    <string name="sensor_sonar_desc">Auf den Nachttisch legen, Unterseite zum Körper gerichtet. Verwendet Ultraschall.</string>
+    <string name="sensor_accelerometer">Beschleunigungsmesser (Matratze)</string>
+    <string name="sensor_accelerometer_desc">Das Telefon flach auf die Matratze neben das Kissen legen.</string>
+    <string name="saving">Speichern…</string>
 </resources>

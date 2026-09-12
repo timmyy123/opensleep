@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var tracker: SleepTrackerService
     @ObservedObject var downloadManager: ModelDownloadManager
     @AppStorage("app_language") private var selectedLanguage = "en"
     @State private var showPrivacySheet = false
@@ -38,6 +39,35 @@ struct SettingsView: View {
                             }
                             .pickerStyle(.menu)
                             .tint(Color.indigoLight)
+                        }
+                    }
+
+                    // Tracking Sensor Mode Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("section_sensor")
+                            .font(AppTextStyle.titleLarge)
+                            .foregroundStyle(Color.indigoLight)
+
+                        GlassCard(padding: 14) {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Picker("section_sensor", selection: Binding(
+                                    get: { tracker.trackingMode },
+                                    set: { tracker.setTrackingMode($0) }
+                                )) {
+                                    Text("sensor_sonar").tag(TrackingSensorMode.sonar)
+                                    Text("sensor_accelerometer").tag(TrackingSensorMode.accelerometer)
+                                }
+                                .pickerStyle(.segmented)
+
+                                HStack(spacing: 8) {
+                                    Image(systemName: tracker.trackingMode == .sonar ? "wave.3.forward" : "bed.double.fill")
+                                        .foregroundStyle(Color.indigoLight)
+                                    Text(tracker.trackingMode.descKey)
+                                        .font(AppTextStyle.bodySmall)
+                                        .foregroundStyle(Color.textSecondary)
+                                }
+                                .padding(.top, 4)
+                            }
                         }
                     }
 

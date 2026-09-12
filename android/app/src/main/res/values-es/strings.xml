@@ -85,4 +85,11 @@
     <string name="guide_charger_tip">Consejo: Mantén el teléfono conectado a un cargador para evitar que se agote la batería por los sensores de seguimiento.</string>
     <string name="battery_optimization_title">Optimización de batería activa</string>
     <string name="battery_optimization_desc">OpenSleep puede cerrarse en segundo plano por el economizador de batería. Toca aquí para desactivar la optimización en los Ajustes del sistema.</string>
+
+    <string name="section_sensor">Sensor de seguimiento</string>
+    <string name="sensor_sonar">Sonar (Sin contacto)</string>
+    <string name="sensor_sonar_desc">Coloca el teléfono en la mesita de noche apuntando a tu pecho. Usa ultrasonido.</string>
+    <string name="sensor_accelerometer">Acelerómetro (Colchón)</string>
+    <string name="sensor_accelerometer_desc">Coloca el teléfono plano sobre el colchón junto a tu almohada.</string>
+    <string name="saving">Guardando…</string>
 </resources>

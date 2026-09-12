@@ -112,6 +112,63 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 
         Spacer(Modifier.height(32.dp))
 
+        // Tracking Sensor Section
+        Text(
+            text = stringResource(R.string.section_sensor),
+            style = MaterialTheme.typography.titleMedium,
+            color = IndigoLight,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        val trackingMode by viewModel.trackingMode.collectAsState()
+
+        GlassCard(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    FilterChip(
+                        selected = trackingMode == app.opensleep.domain.TrackingSensorMode.SONAR,
+                        onClick = { viewModel.setTrackingMode(app.opensleep.domain.TrackingSensorMode.SONAR) },
+                        label = { Text(stringResource(R.string.sensor_sonar)) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = IndigoAccent,
+                            selectedLabelColor = Color.White,
+                            containerColor = NavySurface,
+                            labelColor = TextSecondary
+                        ),
+                        modifier = Modifier.weight(1f)
+                    )
+                    FilterChip(
+                        selected = trackingMode == app.opensleep.domain.TrackingSensorMode.ACCELEROMETER,
+                        onClick = { viewModel.setTrackingMode(app.opensleep.domain.TrackingSensorMode.ACCELEROMETER) },
+                        label = { Text(stringResource(R.string.sensor_accelerometer)) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = IndigoAccent,
+                            selectedLabelColor = Color.White,
+                            containerColor = NavySurface,
+                            labelColor = TextSecondary
+                        ),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = stringResource(
+                        if (trackingMode == app.opensleep.domain.TrackingSensorMode.SONAR)
+                            R.string.sensor_sonar_desc
+                        else
+                            R.string.sensor_accelerometer_desc
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TextSecondary
+                )
+            }
+        }
+
+        Spacer(Modifier.height(32.dp))
+
         // AI Settings Section
         Text(
             text = stringResource(R.string.section_ai_settings),

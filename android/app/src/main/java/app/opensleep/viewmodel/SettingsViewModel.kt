@@ -30,9 +30,22 @@ class SettingsViewModel(
     private val _currentLanguage = MutableStateFlow(getPersistedLanguage())
     val currentLanguage = _currentLanguage.asStateFlow()
 
+    private val _trackingMode = MutableStateFlow(getPersistedTrackingMode())
+    val trackingMode = _trackingMode.asStateFlow()
+
     init {
         // Apply the persisted locale on launch
         applyLocale(getPersistedLanguage())
+    }
+
+    fun setTrackingMode(mode: app.opensleep.domain.TrackingSensorMode) {
+        _trackingMode.value = mode
+        sharedPrefs.edit().putString("tracking_sensor_mode", mode.key).apply()
+    }
+
+    private fun getPersistedTrackingMode(): app.opensleep.domain.TrackingSensorMode {
+        val key = sharedPrefs.getString("tracking_sensor_mode", app.opensleep.domain.TrackingSensorMode.SONAR.key)
+        return app.opensleep.domain.TrackingSensorMode.fromKey(key)
     }
 
     fun downloadModel(variant: ModelVariant) {

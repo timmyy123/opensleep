@@ -1,999 +1,157 @@
 import Foundation
-import Accelerate
 
 /**
- * Phone-only Sleep as Android actigraphy phase analyzer.
- *
- * 100% faithful Swift port of Sleep as Android (com.urbandroid.sleep) decompiled logic:
- *
- *  ┌─ FloatRingBuffer          — exact circular buffer (FloatRingBuffer.java)
- *  ├─ MovingQuantilePrecise    — 6-window percentile baseline (Moving.quantilePrecise)
- *  ├─ MovingQuantileScalable   — dual-heap O(log n) streaming quantile (Moving.quantileScalable)
- *  ├─ ActivityAggregatorAccel  — actigraph = abs(f − median6(f)), then HighActivity scoring
- *  ├─ HighActivityDetector     — normalize by 720-window median, score via log-power
- *  └─ DeepSleepDetectorV8 + RemDetectorV1 — 10s activity frames → deep/light/REM phase state
+ * High-level Sleep Stage Analyzer for phone-only tracking on iOS.
+ * Connects 10-second accelerometer sampling to HypnogramEngine based on
+ * Sleep as Android (com.urbandroid.sleep) reference logic.
  */
-class SleepStageAnalyzer {
+final class SleepStageAnalyzer {
 
-    // ──────────────────────────────────────────────────────────────
-    //  FloatRingBuffer  (exact port of FloatRingBuffer.java)
-    // ──────────────────────────────────────────────────────────────
-    private final class FloatRingBuffer {
-        let maxSize: Int
-        private var values: [Float]
-        private var size = 0
-        private var lastIndex = -1
+    static let epochDuration: TimeInterval = HypnogramEngine.framerateSec // 10.0 seconds
 
-        init(_ maxSize: Int) {
-            precondition(maxSize > 0)
-            self.maxSize = maxSize
-            self.values = [Float](repeating: 0, count: maxSize)
-        }
+    private let lock = NSLock()
 
-        func add(_ f: Float) {
-            lastIndex += 1
-            if lastIndex >= maxSize { lastIndex = 0 }
-            values[lastIndex] = f
-            if size < maxSize { size += 1 }
-        }
+    // 10-second epoch peak accumulator
+    private var currentEpochStartDate: Date?
+    private var currentEpochMaxMagnitude: Float = 0.0
+    private var hasSampleInEpoch = false
 
-        func get(_ i: Int) -> Float {
-            precondition(i >= 0 && i < size)
-            return values[(lastIndex - size + 1 + i + maxSize * 2) % maxSize]
-        }
+    // Actigraphy history (10s actigraph values)
+    private var rawActigraphHistory: [Float] = []
 
-        func first() -> Float { get(0) }
-        func last()  -> Float { precondition(size > 0); return values[lastIndex] }
-        func count()  -> Int  { size }
-        func isFull() -> Bool { size == maxSize }
+    // Real-time components
+    private let activityAggregator = HypnogramEngine.ActivityAggregator()
+    private let awakeDetector = HypnogramEngine.AwakeDetector()
+    private let livePhaseDetector = HypnogramEngine.LivePhaseDetector()
 
-        func toArray() -> [Float] { (0..<size).map { get($0) } }
+    // Tracked awake intervals
+    private var awakeIntervals: [(Date, Date)] = []
+
+    private(set) var currentStage: SleepStageType = .light
+
+    init() {}
+
+    func clear() {
+        lock.lock()
+        defer { lock.unlock() }
+        currentEpochStartDate = nil
+        currentEpochMaxMagnitude = 0.0
+        hasSampleInEpoch = false
+        rawActigraphHistory.removeAll()
+        awakeIntervals.removeAll()
+        currentStage = .light
     }
 
-    // ──────────────────────────────────────────────────────────────
-    //  Moving.quantilePrecise(period=6, quantile=0.5)
-    //  6-window rolling median used as actigraphy baseline.
-    // ──────────────────────────────────────────────────────────────
-    private final class MovingQuantilePrecise {
-        private let period: Int
-        private let quantile: Float
-        private let history: FloatRingBuffer
-        init(_ period: Int, _ quantile: Float) {
-            self.period = period; self.quantile = quantile
-            self.history = FloatRingBuffer(period)
+    func addSample(timestamp: Date = Date(), x: Double, y: Double, z: Double) {
+        addSample(timestamp: timestamp, x: Float(x), y: Float(y), z: Float(z))
+    }
+
+    func addSample(timestamp: Date = Date(), x: Float, y: Float, z: Float) {
+        let magnitude = sqrt(x * x + y * y + z * z)
+
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard let start = currentEpochStartDate else {
+            currentEpochStartDate = timestamp
+            currentEpochMaxMagnitude = magnitude
+            hasSampleInEpoch = true
+            return
         }
-        func apply(_ f: Float) -> Float {
-            history.add(f)
-            var sorted = history.toArray().sorted()
-            return percentile(&sorted, p: quantile * 100)
-        }
-        // Apache Commons Math linear-interpolation percentile (C=1 variant)
-        private func percentile(_ sorted: inout [Float], p: Float) -> Float {
-            guard !sorted.isEmpty else { return 0 }
-            if sorted.count == 1 { return sorted[0] }
-            let n = sorted.count
-            let rank = (p / 100) * Float(n + 1)
-            if rank < 1 { return sorted[0] }
-            if rank >= Float(n) { return sorted[n - 1] }
-            let lower = Int(rank) - 1
-            let frac = rank - Float(Int(rank))
-            return sorted[lower] + frac * (sorted[lower + 1] - sorted[lower])
+
+        if timestamp.timeIntervalSince(start) >= Self.epochDuration {
+            flushEpoch()
+            currentEpochStartDate = timestamp
+            currentEpochMaxMagnitude = magnitude
+            hasSampleInEpoch = true
+        } else {
+            currentEpochMaxMagnitude = max(currentEpochMaxMagnitude, magnitude)
+            hasSampleInEpoch = true
         }
     }
 
-    // ──────────────────────────────────────────────────────────────
-    //  Moving.quantileScalable(period, quantile)
-    //  Dual max-heap/min-heap O(log n) streaming quantile.
-    //  period=720 → ≈2 hours at 10s frame rate.
-    // ──────────────────────────────────────────────────────────────
-    private final class MovingQuantileScalable {
-        private let period: Int
-        private let quantile: Float
-        private let history: FloatRingBuffer
-        private var low:  [Float] = []   // min-heap on -v, so top = max(low)
-        private var high: [Float] = []   // min-heap
-
-        init(_ period: Int, _ quantile: Float) {
-            self.period = period; self.quantile = quantile
-            self.history = FloatRingBuffer(period + 1)
-        }
-
-        private func isEmpty() -> Bool { size() == 0 }
-        private func peekLow()  -> Float { -low[0] }   // root of max-heap
-        private func peekHigh() -> Float {  high[0] }  // root of min-heap
-        private func peek()     -> Float { low.isEmpty ? peekHigh() : peekLow() }
-        private func size() -> Int { low.count + high.count }
-
-        func apply(_ f: Float) -> Float {
-            if isEmpty() || f <= peek() {
-                insertLow(f)
-            } else {
-                insertHigh(f)
-            }
-            history.add(f)
-            if history.isFull() {
-                let oldest = history.first()
-                if !removeLow(oldest) { removeHigh(oldest) }
-            }
-            let target = Int((quantile * Float(size())).rounded())
-            while !low.isEmpty  && low.count  > target { insertHigh(pollLow()) }
-            while !high.isEmpty && low.count  < target { insertLow(pollHigh()) }
-            return peek()
-        }
-
-        // ── Heap operations ──
-        private func insertLow(_ v: Float)  { low.append(-v);  heapifyUp(&low,  low.count  - 1) }
-        private func insertHigh(_ v: Float) { high.append(v);  heapifyUp(&high, high.count - 1) }
-
-        private func pollLow() -> Float {
-            let val = -low[0]; low[0] = low[low.count - 1]; low.removeLast()
-            if !low.isEmpty { heapifyDown(&low, 0) }
-            return val
-        }
-        private func pollHigh() -> Float {
-            let val = high[0]; high[0] = high[high.count - 1]; high.removeLast()
-            if !high.isEmpty { heapifyDown(&high, 0) }
-            return val
-        }
-
-        @discardableResult
-        private func removeLow(_ v: Float) -> Bool {
-            guard let i = low.firstIndex(of: -v) else { return false }
-            low[i] = low[low.count - 1]; low.removeLast()
-            if i < low.count { heapifyDown(&low, i); heapifyUp(&low, i) }
-            return true
-        }
-        @discardableResult
-        private func removeHigh(_ v: Float) -> Bool {
-            guard let i = high.firstIndex(of: v) else { return false }
-            high[i] = high[high.count - 1]; high.removeLast()
-            if i < high.count { heapifyDown(&high, i); heapifyUp(&high, i) }
-            return true
-        }
-
-        private func heapifyUp(_ h: inout [Float], _ idx: Int) {
-            var i = idx
-            while i > 0 {
-                let p = (i - 1) / 2
-                if h[p] > h[i] { h.swapAt(p, i); i = p } else { break }
-            }
-        }
-        private func heapifyDown(_ h: inout [Float], _ idx: Int) {
-            var i = idx
-            while true {
-                var s = i
-                let l = 2*i+1, r = 2*i+2
-                if l < h.count && h[l] < h[s] { s = l }
-                if r < h.count && h[r] < h[s] { s = r }
-                if s == i { break }
-                h.swapAt(i, s); i = s
-            }
-        }
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    //  ActivityAggregatorAccel  (exact port)
-    //  actigraph = abs(magnitude − movingMedian6(magnitude))
-    // ──────────────────────────────────────────────────────────────
-    private struct AccelResult {
-        let rawActivity: Float
-        let actigraph: Float
-        let isSomeActivity: Bool
-        let isHighActivity: Bool
-
-        var hasNoData: Bool { rawActivity < 0 }
-    }
-
-    private final class ActivityAggregatorAccel {
-        private let baseline = MovingQuantilePrecise(6, 0.5)
-        private let highActivity = HighActivityDetector(multiplier: 1.1)
-
-        func update(_ f: Float) -> AccelResult {
-            let actigraph = abs(f - baseline.apply(f))
-            let ha = highActivity.update(actigraph)
-            return AccelResult(rawActivity: f, actigraph: actigraph,
-                               isSomeActivity: ha.isSome, isHighActivity: ha.isHigh)
-        }
-    }
-
-    // Sleep as Android uses ActivityAggregatorSonar for the sonar accel manager:
-    // raw sonar activity goes through HighActivity.normalizedAmplitudeBased(1.0),
-    // and the result is stored directly as raw/actigraph without the accel median6
-    // baseline pass.
-    private final class ActivityAggregatorSonar {
-        private let highActivity = HighActivityDetector(multiplier: 1.0)
-
-        func update(_ f: Float) -> AccelResult {
-            let ha = highActivity.update(f)
-            return AccelResult(
-                rawActivity: f,
-                actigraph: f,
-                isSomeActivity: ha.isSome,
-                isHighActivity: ha.isHigh
-            )
-        }
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    //  HighActivity.NormalizedAmplitudeBased  (exact port)
-    //  medium sensitivity defaults:
-    //    someThreshold = 3.0 × multiplier
-    //    highThreshold = 4.5 × multiplier
-    // ──────────────────────────────────────────────────────────────
-    private final class HighActivityDetector {
-        private let someThreshold: Float
-        private let highThreshold: Float
-        private let median720 = MovingQuantileScalable(720, 0.5)
-        private let max720    = MovingQuantileScalable(720, 0.995)
-        private var callCount = 0
-
-        struct HAResult { let isSome: Bool; let isHigh: Bool }
-        private static let none = HAResult(isSome: false, isHigh: false)
-
-        init(multiplier: Float) {
-            someThreshold = 3.0 * multiplier
-            highThreshold = 4.5 * multiplier
-        }
-
-        func update(_ f: Float) -> HAResult {
-            callCount += 1
-            guard callCount >= 30 else { return Self.none }
-            let fAbs = abs(f)
-            let med  = median720.apply(fAbs)
-            let normalized = med != 0 ? fAbs / med : fAbs
-            var amplitude  = max720.apply(normalized)
-            guard amplitude > 1 else {
-                if callCount % 100 == 0 {
-                    print("[SleepTracker] HighActivityDetector: callCount=\(callCount), fAbs=\(fAbs), med=\(med), normalized=\(normalized), amplitude=\(amplitude) <= 1 -> Self.none")
-                }
-                return Self.none
-            }
-            if callCount < 360 { amplitude = max(100, amplitude) }
-            let score = Float(pow(Double(min(amplitude, normalized)),
-                                  1.0 / log10(Double(amplitude))))
-            let res = HAResult(isSome: score > someThreshold, isHigh: score > highThreshold)
-            if res.isSome || res.isHigh || callCount % 100 == 0 {
-                print("[SleepTracker] HighActivityDetector: callCount=\(callCount), fAbs=\(fAbs), med=\(med), normalized=\(normalized), amplitude=\(amplitude), score=\(score). Thresholds: some=\(someThreshold), high=\(highThreshold) -> Result: isSome=\(res.isSome), isHigh=\(res.isHigh)")
-            }
-            return res
-        }
-    }
-
-    private final class MovingSum {
-        private let period: Int
-        private let history: FloatRingBuffer
-        private var prevResult: Float = 0
-
-        init(_ period: Int) {
-            self.period = period
-            self.history = FloatRingBuffer(period + 1)
-        }
-
-        func apply(_ f: Float) -> Float {
-            history.add(f)
-            let size = history.count()
-            let fLast = size <= period
-                ? history.last() + prevResult
-                : (history.last() + prevResult) - history.first()
-            prevResult = fLast
-            return fLast
-        }
-    }
-
-    private enum SleepPhase {
-        case deepSleep
-        case lightSleep
-        case unknown
-    }
-
-    private final class RemDetectorV1 {
-        enum Status { case initState, deep, light, rem }
-
-        private(set) var status: Status = .initState
-        private var deepStart: Date = .distantPast
-        private var lightStart: Date = .distantPast
-
-        func handleAwake() {
-            print("[SleepTracker] RemDetectorV1: handleAwake() called, resetting")
-            reset()
-        }
-
-        func handleDeepSleep(now: Date) {
-            print("[SleepTracker] RemDetectorV1: handleDeepSleep(now=\(now)) called. Current status: \(status)")
-            switch status {
-            case .initState:
-                deepStart = now.addingTimeInterval(-minutes(5))
-                status = .deep
-                print("[SleepTracker] RemDetectorV1: status INIT -> DEEP. deepStart set to \(deepStart)")
-            case .deep:
-                break
-            default:
-                print("[SleepTracker] RemDetectorV1: handleDeepSleep in status \(status) -> resetting")
-                reset()
-            }
-        }
-
-        func handleLightSleep(now: Date) {
-            print("[SleepTracker] RemDetectorV1: handleLightSleep(now=\(now)) called. Current status: \(status)")
-            switch status {
-            case .deep:
-                let diffMin = now.timeIntervalSince(deepStart) / 60.0
-                print("[SleepTracker] RemDetectorV1: DEEP -> LIGHT check. diff: \(diffMin) min (threshold: 15 min)")
-                if now.timeIntervalSince(deepStart) <= minutes(15) {
-                    print("[SleepTracker] RemDetectorV1: diff <= 15 min -> resetting")
-                    reset()
-                } else {
-                    lightStart = now
-                    status = .light
-                    print("[SleepTracker] RemDetectorV1: status DEEP -> LIGHT. lightStart set to \(lightStart)")
-                }
-            case .light:
-                let diffMin = now.timeIntervalSince(lightStart) / 60.0
-                print("[SleepTracker] RemDetectorV1: LIGHT -> REM check. diff: \(diffMin) min (threshold: 10 min)")
-                if now.timeIntervalSince(lightStart) > minutes(10) {
-                    status = .rem
-                    print("[SleepTracker] RemDetectorV1: status LIGHT -> REM")
-                }
-            case .rem:
-                let diffMin = now.timeIntervalSince(lightStart) / 60.0
-                print("[SleepTracker] RemDetectorV1: REM -> INIT check. diff: \(diffMin) min (threshold: 20 min)")
-                if now.timeIntervalSince(lightStart) > minutes(20) {
-                    print("[SleepTracker] RemDetectorV1: diff > 20 min -> resetting")
-                    reset()
-                }
-            default:
-                print("[SleepTracker] RemDetectorV1: handleLightSleep in status \(status) -> resetting")
-                reset()
-            }
-        }
-
-        private func reset() {
-            let oldStatus = status
-            if oldStatus != .initState {
-                print("[SleepTracker] RemDetectorV1: reset status \(oldStatus) -> INIT")
-                status = .initState
-            }
-        }
-
-        private func minutes(_ value: Int) -> TimeInterval {
-            TimeInterval(value * 60)
-        }
-    }
-
-    private final class MissingDataGuard {
-        private let missingDataCount5min = MovingSum(30)
-        private let missingDataCount10min = MovingSum(60)
-        private(set) var lastDataMissing = false
-        private var missingDataRatio5min: Float = 0
-        private var missingDataRatio10min: Float = 0
-
-        var ratio5min: Float { missingDataRatio5min }
-
-        func update(_ result: AccelResult) {
-            lastDataMissing = result.hasNoData
-            let missing: Float = lastDataMissing ? 1 : 0
-            missingDataRatio5min = missingDataCount5min.apply(missing) / 30
-            missingDataRatio10min = missingDataCount10min.apply(missing) / 60
-        }
-    }
-
-    private final class DeepSleepDetectorV8 {
-        private let deepSleepIndicator = DeepSleepIndicator(isSmartWatch: false)
-        private let sleepPhaseBroadcast: SleepPhaseBroadcast
-
-        init(isAwake: @escaping () -> Bool = { false }) {
-            self.sleepPhaseBroadcast = SleepPhaseBroadcast(isAwake: isAwake)
-        }
-
-        var sleepPhase: SleepPhase { deepSleepIndicator.sleepPhase }
-        var remStatus: RemDetectorV1.Status { sleepPhaseBroadcast.remStatus }
-
-        func update(timestamp: Date, result: AccelResult) {
-            sleepPhaseBroadcast.update(now: timestamp, result: result)
-            deepSleepIndicator.update(result)
-            print("[SleepTracker] DeepSleepDetectorV8.update: time=\(timestamp), sleepPhase=\(sleepPhase), remStatus=\(remStatus)")
-        }
-
-        private final class DeepSleepIndicator {
-            private let isSmartWatch: Bool
-            private var missingDataGuard = MissingDataGuard()
-            private var highActivityCountShortWindow: MovingSum
-            private var someActivityCountLongWindow = MovingSum(30)
-            private var pointsCount = 0
-            private(set) var sleepPhase: SleepPhase = .unknown
-
-            init(isSmartWatch: Bool) {
-                self.isSmartWatch = isSmartWatch
-                self.highActivityCountShortWindow = MovingSum(isSmartWatch ? 12 : 6)
-            }
-
-            func update(_ result: AccelResult) {
-                missingDataGuard.update(result)
-                if missingDataGuard.ratio5min > 0.9 {
-                    print("[SleepTracker] DeepSleepIndicator: reset due to too much missing data (>90%)")
-                    reset()
-                    return
-                }
-                if missingDataGuard.lastDataMissing {
-                    print("[SleepTracker] DeepSleepIndicator: skip update due to missing data")
-                    return
-                }
-
-                let highActivity = highActivityCountShortWindow.apply(result.isHighActivity ? 1 : 0)
-                let someActivity = someActivityCountLongWindow.apply(result.isSomeActivity ? 1 : 0)
-                pointsCount += 1
-                let oldPhase = sleepPhase
-                if pointsCount < 12 {
-                    sleepPhase = .unknown
-                } else if highActivity.rounded() < 1 ||
-                            someActivity.rounded() < Float(smartWakeupSensitivityChecks) {
-                    sleepPhase = .deepSleep
-                } else {
-                    sleepPhase = .lightSleep
-                }
-                print("[SleepTracker] DeepSleepIndicator update: points=\(pointsCount), highActivitySum=\(highActivity), someActivitySum=\(someActivity). Phase: \(oldPhase) -> \(sleepPhase) (result: isHigh=\(result.isHighActivity), isSome=\(result.isSomeActivity))")
-            }
-
-            private func reset() {
-                missingDataGuard = MissingDataGuard()
-                highActivityCountShortWindow = MovingSum(isSmartWatch ? 12 : 6)
-                someActivityCountLongWindow = MovingSum(30)
-                sleepPhase = .unknown
-                pointsCount = 0
-            }
-        }
-
-        private final class SleepPhaseBroadcast {
-            private let isAwake: () -> Bool
-            private var deepSleepFrom: Date?
-            private var deepSleepReported = false
-            private var lastAwake: Date = .distantPast
-            private let missingDataGuard = MissingDataGuard()
-            private let someActivityCount = MovingSum(30)
-            private let highActivityCount = MovingSum(30)
-            private let remDetector = RemDetectorV1()
-
-            init(isAwake: @escaping () -> Bool) {
-                self.isAwake = isAwake
-            }
-
-            var remStatus: RemDetectorV1.Status { remDetector.status }
-
-            func update(now: Date, result: AccelResult) {
-                missingDataGuard.update(result)
-                if missingDataGuard.lastDataMissing {
-                    print("[SleepTracker] SleepPhaseBroadcast: skip update due to missing data")
-                    return
-                }
-
-                let someActivity = Int(someActivityCount.apply(result.isSomeActivity ? 1 : 0).rounded())
-                let highActivity = Int(highActivityCount.apply(result.isHighActivity ? 1 : 0).rounded())
-
-                let oldDeepSleepFrom = deepSleepFrom
-                let oldDeepSleepReported = deepSleepReported
-                if highActivity < 1 || someActivity < smartWakeupSensitivityChecks {
-                    if deepSleepFrom == nil { deepSleepFrom = now }
-                    if let deepSleepFrom, now.timeIntervalSince(deepSleepFrom) > minutes(5) {
-                        deepSleepReported = true
-                        remDetector.handleDeepSleep(now: now)
-                    }
-                } else {
-                    deepSleepFrom = nil
-                    if deepSleepReported { deepSleepReported = false }
-                    remDetector.handleLightSleep(now: now)
-                }
-
-                let awakeState = isAwake()
-                if awakeState { lastAwake = now }
-                let timeSinceLastAwake = now.timeIntervalSince(lastAwake)
-                if timeSinceLastAwake < minutes(3) {
-                    remDetector.handleAwake()
-                }
-
-                print("[SleepTracker] SleepPhaseBroadcast update: highActivity=\(highActivity), someActivity=\(someActivity). deepSleepFrom: \(String(describing: oldDeepSleepFrom)) -> \(String(describing: deepSleepFrom)), deepSleepReported: \(oldDeepSleepReported) -> \(deepSleepReported), isAwake=\(awakeState), timeSinceLastAwake=\(timeSinceLastAwake)s. REM Status: \(remDetector.status)")
-            }
-
-            private func minutes(_ value: Int) -> TimeInterval {
-                TimeInterval(value * 60)
-            }
-        }
-    }
-
-    private static let smartWakeupSensitivityChecks = 3
-
-    // ──────────────────────────────────────────────────────────────
-    //  RespiratoryDetectorV21  (exact port)
-    // ──────────────────────────────────────────────────────────────
-    private final class RespiratoryDetectorV21 {
-        private let sampleRate: Float
-        // Constants from constructor
-        private let RESP_RATE_FROM  = 8
-        private let RESP_RATE_TO    = 20
-        private let BREATH_HISTORY  = 10
-        private let BREATH_QUORUM_1 = 6
-        private let BREATH_QUORUM_2 = 6
-        private let APNEA_HISTORY   = 20
-        private let APNEA_QUORUM    = 15
-        private var maxHistory: Int { max(BREATH_HISTORY, APNEA_HISTORY) }
-
-        final class BreathEvent {
-            let timestamp: Date
-            let respRate: Int
-            var isHighActivity  = false
-            var resolvedAsBreath = false
-            var resolvedAsApnea  = false
-            init(_ ts: Date, _ rate: Int) { timestamp = ts; respRate = rate }
-            var isValidRespRate: Bool { respRate > 0 }
-        }
-
-        private var history: [BreathEvent] = []
-        private let avgSNR    = MovingAvg(10)
-        private let lowActivity = MovingMin(5)
-        private var currentAvgSNR: Float = 0
-        private var medianBuffer   = RollingFloatList(maxSize: 10_000)
-        private var thresholdBuffer = RollingFloatList(maxSize: 10_000)
-        private var firstCall = true
-        private var expectedDataSize = 0
-
-        var breathEvents: [(Date, Int)] = []
-        var apneaEvents:  [Date]        = []
-
-        init(sampleRate: Float) { self.sampleRate = sampleRate }
-
-        func detect(_ data: [Float], at now: Date) {
-            let minRequired = Int(24 * sampleRate)
-            guard data.count >= minRequired else { return }
-            if firstCall { expectedDataSize = data.count; firstCall = false }
-            else if data.count != expectedDataSize { return }
-            doProcess(data, now: now)
-        }
-
-        func reset() {
-            history.removeAll(); firstCall = true
-            medianBuffer.clear(); thresholdBuffer.clear()
-            breathEvents.removeAll(); apneaEvents.removeAll()
-        }
-
-        private func doProcess(_ data: [Float], now: Date) {
-            let cleaned = removePeaks(data)
-            let padded  = UrbandroidFFT.padToPow2(cleaned)
-            let power   = UrbandroidFFT.powerSpectrum(padded)
-
-            let freqFrom = Double(RESP_RATE_FROM) / 60.0 * 0.5
-            let freqTo   = Double(RESP_RATE_TO)   / 60.0 * 4.0
-            let fftSize  = UrbandroidFFT.nextPow2(data.count)
-
-            let maxBin = UrbandroidFFT.maxEnergyBin(power, sampleRate: sampleRate,
-                                                    freqFrom: freqFrom, freqTo: freqTo)
-            var respRate = Int((UrbandroidFFT.binFrequency(maxBin, fftSize: fftSize,
-                                                           sampleRate: sampleRate) * 60).rounded())
-            if respRate > RESP_RATE_TO { respRate /= 2 }
-            let valid = RESP_RATE_FROM <= respRate && respRate <= RESP_RATE_TO
-
-            let event = BreathEvent(now, valid ? respRate : 0)
-            detectHighActivity(event, data: data)
-            history.append(event)
-            while history.count > maxHistory { history.removeFirst() }
-            detectBreath()
-
-            let snr: Float
-            if event.resolvedAsBreath {
-                let eSum  = UrbandroidFFT.energySum(power, sampleRate: sampleRate,
-                                                    freqFrom: freqFrom, freqTo: freqTo)
-                let nBins = UrbandroidFFT.binCount(power, sampleRate: sampleRate,
-                                                   freqFrom: freqFrom, freqTo: freqTo)
-                let peak  = Double(power[maxBin])
-                snr = eSum > 0 ? Float(peak / (eSum / Double(nBins))) : 2
-            } else {
-                snr = 2
-            }
-            currentAvgSNR = avgSNR.apply(snr)
-            detectApnea()
-        }
-
-        // Step 1 – removePeaks
-        private func removePeaks(_ data: [Float]) -> [Float] {
-            medianBuffer.addAll(data)
-            let globalMedian = percentile50(medianBuffer.toArray())
-            let thresh = data.map { globalMedian - $0 }
-            thresholdBuffer.addAll(thresh)
-            let maxDev = max(1, percentile50(thresholdBuffer.toArray()))
-            return data.map { min(max($0 - globalMedian, -maxDev), maxDev) }
-        }
-
-        // Step 3 – detectHighActivity
-        private func detectHighActivity(_ event: BreathEvent, data: [Float]) {
-            let localMedian = percentile50(data)
-            let sumDev = data.reduce(0) { $0 + abs($1 - localMedian) }
-            event.isHighActivity = sumDev > lowActivity.apply(sumDev) * 1.75
-        }
-
-        // Step 4 – detectBreath (quorum)
-        private func detectBreath() {
-            guard history.count >= BREATH_HISTORY else { return }
-            let slice = Array(history.suffix(BREATH_HISTORY))
-            let validRates = slice.filter { $0.isValidRespRate }.map { Float($0.respRate) }
-            guard validRates.count >= BREATH_QUORUM_1 else { return }
-            let medRate = Int(percentile50(validRates).rounded())
-            let inWindow = slice.filter { abs($0.respRate - medRate) <= 1 }
-            guard inWindow.count >= BREATH_QUORUM_2 else { return }
-            for e in inWindow where !e.resolvedAsBreath {
-                e.resolvedAsBreath = true
-                breathEvents.append((e.timestamp, e.respRate))
-            }
-        }
-
-        // Step 5 – detectApnea
-        private func detectApnea() {
-            guard history.count >= APNEA_HISTORY else { return }
-            let window = Array(history.suffix(APNEA_HISTORY))
-            let last1 = window[window.count - 2]
-            let last2 = window[window.count - 3]
-            guard last1.resolvedAsBreath && !last2.resolvedAsBreath && !last2.isHighActivity else { return }
-            let breathCount = window.filter { $0.resolvedAsBreath }.count
-            if breathCount > APNEA_QUORUM && currentAvgSNR > 4.0 {
-                last2.resolvedAsApnea = true
-                apneaEvents.append(last2.timestamp)
-            }
-        }
-
-        private func percentile50(_ arr: [Float]) -> Float {
-            guard !arr.isEmpty else { return 0 }
-            let sorted = arr.sorted()
-            let n = sorted.count
-            return n % 2 == 1 ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2
-        }
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    //  Stat helpers
-    // ──────────────────────────────────────────────────────────────
-
-    private final class MovingAvg {
-        private let period: Int
-        private let history: FloatRingBuffer
-        private var sum: Float = 0
-        init(_ period: Int) { self.period = period; history = FloatRingBuffer(period + 1) }
-        func apply(_ f: Float) -> Float {
-            history.add(f)
-            if history.count() <= period {
-                sum += f
-                return sum / Float(history.count())
-            }
-            let fFirst = (sum - history.first()) + history.last()
-            sum = fFirst
-            return fFirst / Float(history.count() - 1)
-        }
-    }
-
-    private final class MovingMin {
-        private let period: Int
-        private let buf: FloatRingBuffer
-        private var heap: [Float] = []
-        init(_ period: Int) { self.period = period; buf = FloatRingBuffer(period) }
-        func apply(_ f: Float) -> Float {
-            if buf.isFull() {
-                if let idx = heap.firstIndex(of: buf.first()) {
-                    heap.remove(at: idx)
-                }
-            }
-            buf.add(f)
-            heap.append(f); heap.sort()
-            return heap.first ?? f
-        }
-    }
-
-    private final class RollingFloatList {
-        let maxSize: Int
-        private var data: [Float] = []
-        init(maxSize: Int) { self.maxSize = maxSize }
-        func addAll(_ arr: [Float]) { arr.forEach { data.append($0); if data.count > maxSize { data.removeFirst() } } }
-        func toArray() -> [Float] { data }
-        func clear() { data.removeAll() }
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    //  Public data types
-    // ──────────────────────────────────────────────────────────────
-
-    // ──────────────────────────────────────────────────────────────
-    //  State
-    // ──────────────────────────────────────────────────────────────
-
-    private struct MotionSample {
-        let timestamp: Date
-        let x, y, z: Double
-        var magnitude: Double { (x*x + y*y + z*z).squareRoot() }
-    }
-
-    private var samples:        [MotionSample]     = []
-    private var gyroSamples:    [(Date, Double)]   = []
-    private var sonarSamples:   [(Date, Float)]    = []
-    private var awakeIntervals: [(Date, Date)]     = []
-    private let frameInterval: TimeInterval = 10
-    private let retentionWindow: TimeInterval = 24 * 60 * 60
-    private var nextPruneDate = Date.distantPast
-
-    // ──────────────────────────────────────────────────────────────
-    //  Public API
-    // ──────────────────────────────────────────────────────────────
-
-    func addSample(timestamp: Date, x: Double, y: Double, z: Double) {
-        let gravity: Double = 9.80665
-        let s = MotionSample(timestamp: timestamp, x: x * gravity, y: y * gravity, z: z * gravity)
-        samples.append(s)
-        pruneState(keepingSamplesThrough: timestamp)
-    }
-
-    func addGyroSample(timestamp: Date, x: Double, y: Double, z: Double) {
-        gyroSamples.append((timestamp, (x*x + y*y + z*z).squareRoot()))
-        pruneState(keepingSamplesThrough: timestamp)
-    }
-
-    func addSonarSample(timestamp: Date, activity: Float) {
-        sonarSamples.append((timestamp, activity))
-        pruneState(keepingSamplesThrough: timestamp)
+    private func flushEpoch() {
+        let peak = hasSampleInEpoch ? currentEpochMaxMagnitude : 0.0
+        hasSampleInEpoch = false
+        currentEpochMaxMagnitude = 0.0
+
+        let result = activityAggregator.update(peakMagnitude: peak)
+        rawActigraphHistory.append(result.actigraph)
+
+        let isAwake = awakeDetector.update(history: rawActigraphHistory)
+        currentStage = isAwake ? .awake : livePhaseDetector.update(
+            isHighActivity: result.isHighActivity,
+            isSomeActivity: result.isSomeActivity
+        )
     }
 
     func addAwakeInterval(start: Date, end: Date) {
-        awakeIntervals.append((start, end))
-        pruneState(keepingSamplesThrough: end)
+        lock.lock()
+        defer { lock.unlock() }
+        if end > start {
+            awakeIntervals.append((start, end))
+        }
     }
 
-    func addAudioLevel(timestamp: Date, levelDbfs: Double, clipped: Bool = false) {
-        // Sleep as Android's extracted phase detector does not use audio events
-        // for deep/light/REM phase classification.
-    }
+    // Sonar high-activity detector matching ActivityAggregatorSonar.java (factor 1.0)
+    private let sonarHighActivityDetector = HypnogramEngine.HighActivityDetector(factor: 1.0)
 
-    func addAudioEvent(timestamp: Date, eventName: String, confidence: Double) {
-        // Intentionally ignored; see addAudioLevel.
+    // Compatibility no-ops for previous sensor calls
+    func addGyroSample(timestamp: Date, x: Double, y: Double, z: Double) {}
+
+    func addSonarSample(timestamp: Date = Date(), activity: Float) {
+        lock.lock()
+        defer { lock.unlock() }
+
+        // In Sleep as Android (ActivityAggregatorSonar.java), Sonar activity directly acts as actigraph
+        rawActigraphHistory.append(activity)
+
+        let isAwake = awakeDetector.update(history: rawActigraphHistory)
+        let (isSome, isHigh) = sonarHighActivityDetector.update(actigraph: activity)
+        currentStage = isAwake ? .awake : livePhaseDetector.update(
+            isHighActivity: isHigh,
+            isSomeActivity: isSome
+        )
     }
 
     func computeStages(sleepStart: Date) -> [SleepStage] {
-        print("[SleepTracker] SleepStageAnalyzer.computeStages(sleepStart=\(sleepStart)) started. samples=\(samples.count), sonarSamples=\(sonarSamples.count), awakeIntervals=\(awakeIntervals.count)")
-        if samples.count < 2 && sonarSamples.isEmpty {
-            print("[SleepTracker] SleepStageAnalyzer.computeStages: returning empty list because not enough samples")
-            return []
+        var (historyCopy, awakeCopy, endDate): ([Float], [(Date, Date)], Date) = ([], [], Date())
+
+        lock.lock()
+        if hasSampleInEpoch {
+            flushEpoch()
+        }
+        let count = rawActigraphHistory.count
+        let derivedEndDate = currentEpochStartDate?.addingTimeInterval(Self.epochDuration)
+            ?? sleepStart.addingTimeInterval(Double(count) * Self.epochDuration)
+        endDate = derivedEndDate
+        historyCopy = rawActigraphHistory
+        awakeCopy = awakeIntervals
+        lock.unlock()
+
+        print("[SleepStageAnalyzer] computeStages: start=\(sleepStart), end=\(endDate), epochs=\(historyCopy.count), awakeIntervals=\(awakeCopy.count)")
+
+        if historyCopy.count < 12 || endDate <= sleepStart {
+            print("[SleepStageAnalyzer] Recording too short for multi-phase hypnogram; returning light sleep")
+            return [SleepStage(type: .light, startDate: sleepStart, endDate: max(endDate, sleepStart.addingTimeInterval(60)))]
         }
 
-        let frames = buildActivityFrames(sleepStart: sleepStart)
-        print("[SleepTracker] SleepStageAnalyzer.computeStages: buildActivityFrames returned \(frames.count) frames")
-        guard !frames.isEmpty else { return [] }
+        // Detect sleep onset latency / initial awake period
+        let initialAwake = awakeDetector.detectBeginningAwake(history: historyCopy, startDate: sleepStart)
+        awakeCopy.append(contentsOf: initialAwake)
 
-        var detectorTimestamp = sleepStart
-        let detector = DeepSleepDetectorV8 {
-            self.isAwake(at: detectorTimestamp)
-        }
-        var stages: [SleepStage] = []
+        let stages = HypnogramEngine.buildHypnogram(
+            rawActigraphHistory: historyCopy,
+            startDate: sleepStart,
+            endDate: endDate,
+            awakeIntervals: awakeCopy
+        )
 
-        for (index, frame) in frames.enumerated() {
-            detectorTimestamp = frame.startDate
-            detector.update(timestamp: frame.startDate, result: frame.result)
-            let awake = isAwake(at: frame.startDate)
-            let type: SleepStageType?
-            if awake {
-                type = .awake
-            } else if detector.remStatus == .rem {
-                type = .rem
-            } else {
-                switch detector.sleepPhase {
-                case .deepSleep: type = .deep
-                case .lightSleep: type = .light
-                case .unknown: type = nil
-                }
-            }
-            print("[SleepTracker] Frame \(index): [\(frame.startDate) - \(frame.endDate)] raw=\(frame.result.rawActivity), actigraph=\(frame.result.actigraph), isSome=\(frame.result.isSomeActivity), isHigh=\(frame.result.isHighActivity), awake=\(awake) -> Stage: \(String(describing: type)) (remStatus=\(detector.remStatus), sleepPhase=\(detector.sleepPhase))")
-            if let type {
-                appendStage(&stages, type: type, startDate: frame.startDate, endDate: frame.endDate)
-            }
+        print("[SleepStageAnalyzer] Hypnogram generated: \(stages.count) segments")
+        for (idx, stage) in stages.enumerated() {
+            print("[SleepStageAnalyzer]   Stage \(idx): \(stage.type) from \(stage.startDate) to \(stage.endDate) (\(stage.durationSeconds / 60.0) min)")
         }
 
-        let finalStages = overlayAwakeIntervals(stages, sessionStart: sleepStart, sessionEnd: frames[frames.count - 1].endDate)
-        print("[SleepTracker] SleepStageAnalyzer.computeStages completed. Result: \(finalStages.count) stages")
-        for (index, stage) in finalStages.enumerated() {
-            print("[SleepTracker]   Stage \(index): \(stage.type) from \(stage.startDate) to \(stage.endDate) (duration: \(stage.endDate.timeIntervalSince(stage.startDate)/60.0) min)")
-        }
-        return finalStages
-    }
-
-    func clear() {
-        samples.removeAll()
-        gyroSamples.removeAll()
-        sonarSamples.removeAll()
-        awakeIntervals.removeAll()
-        nextPruneDate = .distantPast
-    }
-
-    private func pruneState(keepingSamplesThrough latestTimestamp: Date) {
-        guard latestTimestamp >= nextPruneDate else { return }
-        nextPruneDate = latestTimestamp.addingTimeInterval(60)
-        let cutoff = latestTimestamp.addingTimeInterval(-retentionWindow)
-        samples.removeAll { $0.timestamp < cutoff }
-        gyroSamples.removeAll { $0.0 < cutoff }
-        sonarSamples.removeAll { $0.0 < cutoff }
-        awakeIntervals.removeAll { $0.1 < cutoff }
-    }
-
-    private struct ActivityFrame {
-        let startDate: Date
-        let endDate: Date
-        let result: AccelResult
-    }
-
-    private func buildActivityFrames(sleepStart: Date) -> [ActivityFrame] {
-        let hasSonar = !sonarSamples.isEmpty
-        let hasAccel = samples.count >= 2
-        print("[SleepTracker] buildActivityFrames: sleepStart=\(sleepStart), hasSonar=\(hasSonar) (\(sonarSamples.count) samples), hasAccel=\(hasAccel) (\(samples.count) samples)")
-        guard hasSonar || hasAccel else { return [] }
-
-        let sortedSonar = hasSonar ? sonarSamples.sorted { $0.0 < $1.0 } : []
-        let sortedAccel = hasAccel ? samples.sorted { $0.timestamp < $1.timestamp } : []
-
-        let sonarEnd = sortedSonar.last?.0 ?? Date.distantPast
-        let accelEnd = sortedAccel.last?.timestamp ?? Date.distantPast
-        let sessionEnd = sonarEnd > accelEnd ? sonarEnd : accelEnd
-        print("[SleepTracker] buildActivityFrames: sessionEnd=\(sessionEnd). Total duration to process: \(sessionEnd.timeIntervalSince(sleepStart)/60.0) min")
-
-        let accelAggregator = ActivityAggregatorAccel()
-        let sonarAggregator = ActivityAggregatorSonar()
-        var previousSample: MotionSample?
-        var frames: [ActivityFrame] = []
-        var frameStart = sleepStart
-
-        // Two-pointer indices — O(N+M) instead of O(N×M) per-frame .filter
-        var sonarPtr = 0
-        var accelPtr = 0
-
-        while frameStart.addingTimeInterval(frameInterval) <= sessionEnd {
-            let frameEnd = frameStart.addingTimeInterval(frameInterval)
-
-            // ── Sonar result — two-pointer ────────────────────────────────────────────
-            // Sleep as Android uses ActivityAggregatorSonar here: do not run sonar
-            // through ActivityAggregatorAccel's median6 baseline, but do run it through
-            // HighActivity.normalizedAmplitudeBased(1.0).
-            let sonarResult: AccelResult? = hasSonar ? {
-                // Advance main pointer past samples that belong to earlier frames
-                while sonarPtr < sortedSonar.count && sortedSonar[sonarPtr].0 < frameStart {
-                    sonarPtr += 1
-                }
-                // Scan ahead with a local index (main pointer stays put until next frame)
-                var maxSonarActivity: Float? = nil
-                var si = sonarPtr
-                while si < sortedSonar.count && sortedSonar[si].0 < frameEnd {
-                    let v = sortedSonar[si].1
-                    maxSonarActivity = maxSonarActivity.map { max($0, v) } ?? v
-                    si += 1
-                }
-                guard let v = maxSonarActivity else { return nil }
-                return sonarAggregator.update(v)
-            }() : nil
-
-            // ── Accel result — two-pointer ────────────────────────────────────────────
-            let accelResult: AccelResult? = hasAccel ? {
-                while accelPtr < sortedAccel.count && sortedAccel[accelPtr].timestamp < frameStart {
-                    accelPtr += 1
-                }
-                var maxRawChange: Float = 0
-                var hasAccelInFrame = false
-                var ai = accelPtr
-                while ai < sortedAccel.count && sortedAccel[ai].timestamp < frameEnd {
-                    let sample = sortedAccel[ai]
-                    let rawChange: Float = previousSample == nil ? 0 : Float(sample.magnitude)
-                    if rawChange > maxRawChange { maxRawChange = rawChange }
-                    previousSample = sample
-                    hasAccelInFrame = true
-                    ai += 1
-                }
-                guard hasAccelInFrame else { return nil }
-                return accelAggregator.update(maxRawChange)
-            }() : nil
-
-            // ── Combine: take the result showing more activity ─────────────────────────
-            let result: AccelResult
-            switch (sonarResult, accelResult) {
-            case let (s?, a?):
-                result = AccelResult(
-                    rawActivity:    max(s.rawActivity,  a.rawActivity),
-                    actigraph:      max(s.actigraph,    a.actigraph),
-                    isSomeActivity: s.isSomeActivity || a.isSomeActivity,
-                    isHighActivity: s.isHighActivity || a.isHighActivity
-                )
-            case let (s?, nil): result = s
-            case let (nil, a?): result = a
-            default:
-                result = AccelResult(rawActivity: -0.001, actigraph: -0.001,
-                                     isSomeActivity: false, isHighActivity: false)
-            }
-
-            frames.append(ActivityFrame(startDate: frameStart, endDate: frameEnd, result: result))
-            frameStart = frameEnd
-        }
-        print("[SleepTracker] buildActivityFrames: built \(frames.count) frames")
-        return frames
-    }
-
-    private func appendStage(
-        _ stages: inout [SleepStage],
-        type: SleepStageType,
-        startDate: Date,
-        endDate: Date
-    ) {
-        if let last = stages.last,
-           last.type == type,
-           last.endDate == startDate {
-            stages[stages.count - 1] = SleepStage(type: type, startDate: last.startDate, endDate: endDate)
-        } else {
-            stages.append(SleepStage(type: type, startDate: startDate, endDate: endDate))
-        }
-    }
-
-    private func isAwake(at timestamp: Date) -> Bool {
-        awakeIntervals.contains { timestamp >= $0.0 && timestamp < $0.1 }
-    }
-
-    private func overlayAwakeIntervals(
-        _ stages: [SleepStage],
-        sessionStart: Date,
-        sessionEnd: Date
-    ) -> [SleepStage] {
-        if awakeIntervals.isEmpty { return stages }
-        
-        let sortedIntervals = awakeIntervals.compactMap { interval -> (Date, Date)? in
-            let start = max(interval.0, sessionStart)
-            let end = min(interval.1, sessionEnd)
-            return end > start ? (start, end) : nil
-        }.sorted { $0.0 < $1.0 }
-        if sortedIntervals.isEmpty { return stages }
-
-        var mergedIntervals: [(Date, Date)] = []
-        for interval in sortedIntervals {
-            if mergedIntervals.isEmpty {
-                mergedIntervals.append(interval)
-            } else {
-                let last = mergedIntervals[mergedIntervals.count - 1]
-                if interval.0 <= last.1.addingTimeInterval(1.0) {
-                    mergedIntervals[mergedIntervals.count - 1] = (last.0, max(last.1, interval.1))
-                } else {
-                    mergedIntervals.append(interval)
-                }
-            }
-        }
-        
-        var currentStages = stages
-        for awake in mergedIntervals {
-            var nextStages: [SleepStage] = []
-            for stage in currentStages {
-                if stage.endDate <= awake.0 || stage.startDate >= awake.1 {
-                    nextStages.append(stage)
-                } else {
-                    if stage.startDate < awake.0 {
-                        nextStages.append(SleepStage(type: stage.type, startDate: stage.startDate, endDate: awake.0))
-                    }
-                    if stage.endDate > awake.1 {
-                        nextStages.append(SleepStage(type: stage.type, startDate: awake.1, endDate: stage.endDate))
-                    }
-                }
-            }
-            nextStages.append(SleepStage(type: .awake, startDate: awake.0, endDate: awake.1))
-            currentStages = nextStages.sorted { $0.startDate < $1.startDate }
-        }
-        
-        var finalStages: [SleepStage] = []
-        for stage in currentStages {
-            if let last = finalStages.last, last.type == stage.type, last.endDate == stage.startDate {
-                finalStages[finalStages.count - 1] = SleepStage(type: last.type, startDate: last.startDate, endDate: stage.endDate)
-            } else {
-                finalStages.append(stage)
-            }
-        }
-        return finalStages
-    }
-
-}
-
-// MARK: - Comparable clamped helper
-extension Comparable {
-    func clamped(to range: ClosedRange<Self>) -> Self {
-        min(max(self, range.lowerBound), range.upperBound)
+        return stages
     }
 }

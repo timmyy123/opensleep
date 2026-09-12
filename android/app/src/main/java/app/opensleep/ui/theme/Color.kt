@@ -23,3 +23,4 @@ val ColorREM = Color(0xFFA855F7)
 
 val SurfaceContainer = Color(0xFF0F172A)
 val SurfaceVariant = Color(0xFF1E293B)
+val NavySurface = Color(0xFF0F172A)

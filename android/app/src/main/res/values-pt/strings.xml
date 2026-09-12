@@ -85,4 +85,11 @@
     <string name="guide_charger_tip">Dica: Mantenha o telefone conectado a um carregador para evitar o desgaste da bateria pelos sensores de monitoramento.</string>
     <string name="battery_optimization_title">Otimização de Bateria Ativa</string>
     <string name="battery_optimization_desc">O OpenSleep pode ser encerrado em segundo plano pelo economizador de bateria. Toque aqui para desativar nas configurações do sistema.</string>
+
+    <string name="section_sensor">Sensor de monitoramento</string>
+    <string name="sensor_sonar">Sonar (Sem contato)</string>
+    <string name="sensor_sonar_desc">Coloque o telefone no criado-mudo apontado para o peito. Usa ultrassom.</string>
+    <string name="sensor_accelerometer">Acelerômetro (Colchão)</string>
+    <string name="sensor_accelerometer_desc">Coloque o telefone reto no colchão ao lado do travesseiro.</string>
+    <string name="saving">Salvando…</string>
 </resources>
