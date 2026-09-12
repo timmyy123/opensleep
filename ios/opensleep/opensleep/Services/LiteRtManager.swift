@@ -30,8 +30,11 @@ class LiteRtManager: ObservableObject {
 
         do {
             ExperimentalFlags.optIntoExperimentalAPIs()
-            ExperimentalFlags.enableSpeculativeDecoding = true
-            ExperimentalFlags.gpuEnableMetalResidencySet = true
+            if let cap = Capabilities(modelPath: path), cap.hasSpeculativeDecodingSupport() {
+                ExperimentalFlags.enableSpeculativeDecoding = true
+            } else {
+                ExperimentalFlags.enableSpeculativeDecoding = false
+            }
 
             let config = try EngineConfig(
                 modelPath: path,
