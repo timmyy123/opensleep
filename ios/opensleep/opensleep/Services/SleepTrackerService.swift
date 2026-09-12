@@ -148,21 +148,32 @@ class SleepTrackerService: ObservableObject {
     func stopTracking() {
         print("[SleepTracker] stopTracking() called. isTracking=\(isTracking)")
         guard isTracking else { return }
+        isTracking = false
+
+        // Remove observers immediately so no further audio or lifecycle events fire
+        removeLifecycleObservers()
 
         // Close awake state
         analysisQueue.sync {
             recordAwakeState(now: Date(), awake: false)
         }
 
-        // Stop sensors
+        // Stop motion sensors and timers
         motionManager.stopAccelerometerUpdates()
         motionOpQueue = nil
         stageFlushTimer?.cancel(); stageFlushTimer = nil
         sonarPollTimer?.cancel(); sonarPollTimer = nil
 
-        removeLifecycleObservers()
-        teardownAudioEngine()
-        isTracking = false
+        // Clear audio buffer
+        audioChunkLock.lock()
+        audioChunkBuffer.removeAll()
+        isAudioDrainScheduled = false
+        audioChunkLock.unlock()
+
+        // Synchronously teardown audio engine and deactivate session on the rebuild queue
+        audioRebuildQueue.sync { [weak self] in
+            self?.teardownAudioEngine()
+        }
 
         guard let session = activeSession else { return }
         session.endDate = Date()
@@ -268,8 +279,12 @@ class SleepTrackerService: ObservableObject {
 
     private func buildAndStartSonarEngine() {
         audioRebuildQueue.async { [weak self] in
-            guard let self else { return }
+            guard let self, self.isTracking else {
+                print("[SleepTracker] Sonar engine build aborted: tracking inactive.")
+                return
+            }
             self.teardownAudioEngine()
+            guard self.isTracking else { return }
 
             let engine = AVAudioEngine()
             self.audioEngine = engine
@@ -288,7 +303,7 @@ class SleepTrackerService: ObservableObject {
             print("[SleepTracker] Sonar audio engine configured at \(actualRate) Hz")
 
             inputNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(self.sonarAnalysisChunkSize), format: recordingFormat) { [weak self] buffer, _ in
-                guard let self, let channelData = buffer.floatChannelData?[0] else { return }
+                guard let self, self.isTracking, let channelData = buffer.floatChannelData?[0] else { return }
                 let now = Date()
                 var shouldAnalyze = false
                 self.audioChunkLock.lock()
@@ -310,7 +325,8 @@ class SleepTrackerService: ObservableObject {
             let pulseCycleFrameCount = chirpFrameCount * (1 + self.sonarSilenceMultiplier)
             let gain = self.sonarOutputGain
 
-            let sourceNode = AVAudioSourceNode { (_, _, frameCount, audioBufferList) -> OSStatus in
+            let sourceNode = AVAudioSourceNode { [weak self] (_, _, frameCount, audioBufferList) -> OSStatus in
+                guard let self, self.isTracking else { return noErr }
                 let abl = UnsafeMutableAudioBufferListPointer(audioBufferList)
                 for buffer in abl {
                     if let ptr = buffer.mData?.assumingMemoryBound(to: Float.self) {
@@ -332,6 +348,11 @@ class SleepTrackerService: ObservableObject {
 
             guard let playFormat = AVAudioFormat(standardFormatWithSampleRate: Double(actualRate), channels: 1) else { return }
             engine.connect(sourceNode, to: engine.mainMixerNode, format: playFormat)
+
+            guard self.isTracking else {
+                self.teardownAudioEngine()
+                return
+            }
 
             do {
                 try AVAudioSession.sharedInstance().setActive(true)
@@ -387,13 +408,17 @@ class SleepTrackerService: ObservableObject {
 
     private func startSilentAudioEngine() {
         audioRebuildQueue.async { [weak self] in
-            guard let self else { return }
+            guard let self, self.isTracking else {
+                return
+            }
             self.teardownAudioEngine()
+            guard self.isTracking else { return }
 
             let engine = AVAudioEngine()
             self.audioEngine = engine
 
-            let sourceNode = AVAudioSourceNode { (_, _, frameCount, audioBufferList) -> OSStatus in
+            let sourceNode = AVAudioSourceNode { [weak self] (_, _, frameCount, audioBufferList) -> OSStatus in
+                guard let self, self.isTracking else { return noErr }
                 let abl = UnsafeMutableAudioBufferListPointer(audioBufferList)
                 for buffer in abl {
                     if let ptr = buffer.mData?.assumingMemoryBound(to: Float.self) {
@@ -408,12 +433,18 @@ class SleepTrackerService: ObservableObject {
             let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
             engine.connect(sourceNode, to: engine.mainMixerNode, format: format)
 
+            guard self.isTracking else {
+                self.teardownAudioEngine()
+                return
+            }
+
             do {
                 try AVAudioSession.sharedInstance().setActive(true)
                 try engine.start()
                 print("[SleepTracker] Silent keep-alive audio engine started.")
             } catch {
                 print("[SleepTracker] Failed to start silent audio: \(error)")
+                self.teardownAudioEngine()
             }
         }
     }
@@ -427,6 +458,10 @@ class SleepTrackerService: ObservableObject {
             print("[SleepTracker] Failed to configure AVAudioSession: \(error)")
         }
 
+        // Clean up any existing session observers before adding new ones
+        if let obs = interruptionObserver { NotificationCenter.default.removeObserver(obs); interruptionObserver = nil }
+        if let obs = routeChangeObserver { NotificationCenter.default.removeObserver(obs); routeChangeObserver = nil }
+
         interruptionObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.interruptionNotification,
             object: nil,
@@ -439,22 +474,34 @@ class SleepTrackerService: ObservableObject {
             forName: AVAudioSession.routeChangeNotification,
             object: nil,
             queue: nil
-        ) { [weak self] _ in
-            self?.handleAudioRouteChange()
+        ) { [weak self] notification in
+            self?.handleAudioRouteChange(notification)
         }
     }
 
     private func teardownAudioEngine() {
         if let engine = audioEngine {
+            if engine.isRunning {
+                engine.stop()
+            }
             engine.inputNode.removeTap(onBus: 0)
             if let node = audioSourceNode {
+                engine.disconnectNodeOutput(node)
                 engine.detach(node)
             }
-            engine.stop()
+            engine.reset()
         }
         audioSourceNode = nil
         audioEngine = nil
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        chirpProducer = nil
+        fftSonar = nil
+        activityAggregator = nil
+
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("[SleepTracker] Deactivating AVAudioSession: \(error)")
+        }
     }
 
     private func handleAudioInterruption(_ notification: Notification) {
@@ -479,8 +526,16 @@ class SleepTrackerService: ObservableObject {
         }
     }
 
-    private func handleAudioRouteChange() {
-        audioRebuildQueue.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+    private func handleAudioRouteChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else { return }
+
+        // Only handle hardware device changes (e.g. headphones plugged or unplugged)
+        // Never handle categoryChange or routeConfigurationChange which we trigger ourselves
+        guard reason == .newDeviceAvailable || reason == .oldDeviceUnavailable else { return }
+
+        audioRebuildQueue.async { [weak self] in
             guard let self, self.isTracking else { return }
             if self.trackingMode == .sonar {
                 self.buildAndStartSonarEngine()
