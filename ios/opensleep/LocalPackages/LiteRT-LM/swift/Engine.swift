@@ -90,6 +90,26 @@ public actor Engine {
     if let cacheDir = engineConfig.cacheDir {
       litert_lm_engine_settings_set_cache_dir(settings, cacheDir)
     }
+    if let loraRank = engineConfig.loraRank {
+      litert_lm_engine_settings_set_lora_rank(settings, Int32(loraRank))
+      if loraRank > 0 {
+        var ranks = [Int32(loraRank)]
+        let status = litert_lm_engine_settings_set_supported_lora_ranks(settings, &ranks, 1)
+        guard status == 0 else {
+          throw LiteRTLMError.engine(.failedToSetSupportedLoraRanks)
+        }
+      }
+    }
+    if let audioLoraRank = engineConfig.audioLoraRank {
+      litert_lm_engine_settings_set_audio_lora_rank(settings, Int32(audioLoraRank))
+      if audioLoraRank > 0 {
+        var ranks = [Int32(audioLoraRank)]
+        let status = litert_lm_engine_settings_set_supported_audio_lora_ranks(settings, &ranks, 1)
+        guard status == 0 else {
+          throw LiteRTLMError.engine(.failedToSetSupportedAudioLoraRanks)
+        }
+      }
+    }
     if let prefill = benchmarkPrefillTokens, let decode = benchmarkDecodeTokens {
       litert_lm_engine_settings_enable_benchmark(settings)
       litert_lm_engine_settings_set_num_prefill_tokens(settings, Int32(prefill))
@@ -99,6 +119,13 @@ public actor Engine {
     }
     if let enableSpeculativeDecoding = ExperimentalFlags.enableSpeculativeDecoding {
       litert_lm_engine_settings_set_enable_speculative_decoding(settings, enableSpeculativeDecoding)
+    }
+    if let visualTokenBudget = ExperimentalFlags.visualTokenBudget {
+      litert_lm_engine_settings_set_max_vision_tokens_per_image(settings, visualTokenBudget)
+    }
+    if let gpuEnableMetalResidencySet = ExperimentalFlags.gpuEnableMetalResidencySet {
+      litert_lm_engine_settings_set_gpu_enable_metal_residency_set(
+        settings, gpuEnableMetalResidencySet)
     }
 
     guard let engine = litert_lm_engine_create(settings) else {
@@ -160,16 +187,31 @@ public actor Engine {
     defer { litert_lm_session_config_delete(cSessionConfig) }
 
     if let samplerParams = conversationConfig.samplerConfig {
-      var params = LiteRtLmSamplerParams(
-        // Based on the current engine implementation, when SamplerConfig is set, we must switch to
-        // the topP sampling type.
-        type: kLiteRtLmSamplerTypeTopP,
-        top_k: Int32(samplerParams.topK),
-        top_p: samplerParams.topP,
-        temperature: samplerParams.temperature,
-        seed: Int32(samplerParams.seed)
-      )
-      litert_lm_session_config_set_sampler_params(cSessionConfig, &params)
+      guard let cSamplerParams = litert_lm_sampler_params_create(kLiteRtLmSamplerTypeTopP) else {
+        throw LiteRTLMError.engine(.failedToCreateSessionConfig)
+      }
+      defer { litert_lm_sampler_params_delete(cSamplerParams) }
+
+      litert_lm_sampler_params_set_top_k(cSamplerParams, Int32(samplerParams.topK))
+      litert_lm_sampler_params_set_top_p(cSamplerParams, samplerParams.topP)
+      litert_lm_sampler_params_set_temperature(cSamplerParams, samplerParams.temperature)
+      litert_lm_sampler_params_set_seed(cSamplerParams, Int32(samplerParams.seed))
+
+      litert_lm_session_config_set_sampler_params(cSessionConfig, cSamplerParams)
+    }
+
+    if let loraPath = conversationConfig.loraPath {
+      let status = litert_lm_session_config_set_lora_path(cSessionConfig, loraPath)
+      guard status == 0 else {
+        throw LiteRTLMError.engine(.failedToSetLoraPath)
+      }
+    }
+
+    if let audioLoraPath = conversationConfig.audioLoraPath {
+      let status = litert_lm_session_config_set_audio_lora_path(cSessionConfig, audioLoraPath)
+      guard status == 0 else {
+        throw LiteRTLMError.engine(.failedToSetAudioLoraPath)
+      }
     }
 
     guard let cConversationConfig = litert_lm_conversation_config_create() else {
@@ -187,8 +229,34 @@ public actor Engine {
     if !messagesJsonStr.isEmpty {
       litert_lm_conversation_config_set_messages(cConversationConfig, messagesJsonStr)
     }
-    litert_lm_conversation_config_set_enable_constrained_decoding(
-      cConversationConfig, ExperimentalFlags.enableConversationConstrainedDecoding)
+    if conversationConfig.enableResponseFormat {
+      var providerType = kLiteRtLmConstraintProviderTypeLlGuidance
+      litert_lm_conversation_config_set_constraint_provider(cConversationConfig, &providerType)
+      litert_lm_conversation_config_set_enable_constrained_decoding(cConversationConfig, true)
+    } else {
+      litert_lm_conversation_config_set_enable_constrained_decoding(
+        cConversationConfig, ExperimentalFlags.enableConversationConstrainedDecoding)
+    }
+    litert_lm_conversation_config_set_stream_tool_calls(
+      cConversationConfig,
+      conversationConfig.enableToolCallStreaming
+        && ExperimentalFlags.enableConversationToolCallStreaming,
+      ExperimentalFlags.conversationToolCallStreamingChannelName)
+    if let filterChannelContentFromKvCache = ExperimentalFlags.filterChannelContentFromKvCache {
+      litert_lm_conversation_config_set_filter_channel_content_from_kv_cache(
+        cConversationConfig, filterChannelContentFromKvCache)
+    }
+
+    if let thinkingConfig = conversationConfig.thinkingConfig {
+      guard let cThinkingConfig = litert_lm_thinking_config_create() else {
+        throw LiteRTLMError.engine(.failedToCreateConversationConfig)
+      }
+      defer { litert_lm_thinking_config_delete(cThinkingConfig) }
+      litert_lm_thinking_config_set_enable_thinking(cThinkingConfig, thinkingConfig.enableThinking)
+      litert_lm_thinking_config_set_thinking_token_budget(
+        cThinkingConfig, Int32(thinkingConfig.thinkingTokenBudget))
+      litert_lm_conversation_config_set_thinking_config(cConversationConfig, cThinkingConfig)
+    }
 
     guard
       let conversationHandle = litert_lm_conversation_create(
@@ -197,11 +265,42 @@ public actor Engine {
       throw LiteRTLMError.engine(.failedToCreateConversation)
     }
 
-    return Conversation(handle: conversationHandle, toolManager: toolManager)
+    return Conversation(
+      handle: conversationHandle,
+      toolManager: toolManager,
+      automaticToolCalling: conversationConfig.automaticToolCalling,
+      engine: self,
+      enableResponseFormat: conversationConfig.enableResponseFormat,
+      visualTokenBudget: conversationConfig.visualTokenBudget)
+  }
+
+  /// Updates whether to enable Metal residency set on GPU at runtime.
+  ///
+  /// Note: This is an experimental API. To use it, call
+  /// `ExperimentalFlags.optIntoExperimentalAPIs()` first.
+  ///
+  /// - Parameter enable: Whether to enable Metal residency set on GPU.
+  /// - Throws: A `LiteRTLMError` if experimental APIs are not opted into, the engine is not
+  ///   initialized, or update fails.
+  public func updateGPUEnableMetalResidencySet(_ enable: Bool) throws {
+    guard ExperimentalFlags.optedIn else {
+      logger.error("LiteRTLM: Must opt into experimental APIs before calling this method.")
+      throw LiteRTLMError.engine(.notOptedIntoExperimentalAPIs)
+    }
+    guard let handle else {
+      throw LiteRTLMError.engine(.notInitialized)
+    }
+    let status =
+      litert_lm_experimental_engine_update_gpu_enable_metal_residency_set(
+        handle, enable)
+    guard status == 0 else {
+      throw LiteRTLMError.engine(.failedToUpdateGPUEnableMetalResidencySet)
+    }
   }
 
   deinit {
     if let handle = handle {
+      self.handle = nil
       litert_lm_engine_delete(handle)
     }
   }

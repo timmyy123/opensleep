@@ -31,6 +31,7 @@ class LiteRtManager: ObservableObject {
         do {
             ExperimentalFlags.optIntoExperimentalAPIs()
             ExperimentalFlags.enableSpeculativeDecoding = true
+            ExperimentalFlags.gpuEnableMetalResidencySet = true
 
             let config = try EngineConfig(
                 modelPath: path,
@@ -71,7 +72,7 @@ class LiteRtManager: ObservableObject {
                     let convConfig = ConversationConfig(systemMessage: sysMsg, initialMessages: initialMessages)
                     let conversation = try await engine.createConversation(with: convConfig)
 
-                    let stream = try await conversation.sendMessageStream(Message(newMessage))
+                    let stream = conversation.sendMessageStream(Message(newMessage))
                     for try await chunk in stream {
                         continuation.yield(chunk.toString)
                     }

@@ -1,38 +1,67 @@
 // swift-tools-version: 5.9
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import PackageDescription
 
 let package = Package(
-    name: "LiteRTLM",
-    platforms: [
-        .iOS(.v15),
-        .macOS(.v12),
-    ],
-    products: [
-        .library(
-            name: "LiteRTLM",
-            targets: ["LiteRTLM"]
-        ),
-    ],
-    targets: [
-        .binaryTarget(
-            name: "CLiteRTLM",
-            url: "https://github.com/google-ai-edge/LiteRT-LM/releases/download/v0.13.1/CLiteRTLM.xcframework.zip",
-            checksum: "7ff01c42106b754748b5dd3036a4a57161b25ebf523e705bebc1219061852362"
-        ),
-        .target(
-            name: "LiteRTLM",
-            dependencies: ["CLiteRTLM"],
-            path: "swift",
-            exclude: [
-                "CapabilitiesTests.swift",
-                "EngineTests.swift",
-                "ConversationTests.swift",
-                "ToolTests.swift",
-                "MessageTests.swift",
-                "BUILD",
-                "Info.plist",
-            ]
-        ),
-    ]
+  name: "LiteRTLM",
+  platforms: [
+    .iOS(.v15),
+    .macOS(.v12),
+  ],
+  products: [
+    .library(
+      name: "LiteRTLM",
+      targets: ["LiteRTLM"]
+    ),
+  ],
+  targets: [
+    // The Prebuilt Binary Target for iOS
+    .binaryTarget(
+      name: "CLiteRTLM",
+      url:
+        "https://github.com/google-ai-edge/LiteRT-LM/releases/download/v0.17.0/CLiteRTLM.xcframework.zip",
+      checksum: "c94fc12aa0403cb47208e419cc3bfe258214ea17035f7a63c16de536869f2186"
+    ),
+    // The Prebuilt Binary Target for Mac
+    .binaryTarget(
+      name: "CLiteRTLM_mac",
+      url:
+        "https://github.com/google-ai-edge/LiteRT-LM/releases/download/v0.17.0/CLiteRTLM_mac.xcframework.zip",
+      checksum: "83efd536485c9d58fcd7fb7d4556ddb16ca46bb775b0449d08d9825c6836c1a4"
+    ),
+    // The Swift Wrapper Target
+    .target(
+      name: "LiteRTLM",
+      dependencies: [
+        .target(name: "CLiteRTLM", condition: .when(platforms: [.iOS])),
+        .target(name: "CLiteRTLM_mac", condition: .when(platforms: [.macOS])),
+      ],
+      path: "swift",
+      exclude: [
+        "apple_fm",
+        "device_tests",
+        "CapabilitiesTests.swift",
+        "EngineTests.swift",
+        "EmbeddingEngineTests.swift",
+        "ConversationTests.swift",
+        "ToolTests.swift",
+        "MessageTests.swift",
+        "BUILD",
+        "Info.plist",
+      ]
+    ),
+  ]
 )
