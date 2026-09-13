@@ -32,6 +32,7 @@ class SleepStageAnalyzer {
     // Real-time components
     private val activityAggregator = HypnogramEngine.ActivityAggregator()
     private val awakeDetector = HypnogramEngine.AwakeDetector()
+    private val highActivityAwakeDetector = HypnogramEngine.HighActivityAwakeDetector()
     private val livePhaseDetector = HypnogramEngine.LivePhaseDetector()
 
     // Tracked awake intervals
@@ -48,6 +49,7 @@ class SleepStageAnalyzer {
             hasSampleInEpoch = false
             rawActigraphHistory.clear()
             awakeIntervals.clear()
+            highActivityAwakeDetector.reset()
             currentStage = SleepStageType.LIGHT
         }
     }
@@ -77,15 +79,20 @@ class SleepStageAnalyzer {
         val peak = if (hasSampleInEpoch) currentEpochMaxMagnitude else 0.0f
         hasSampleInEpoch = false
         currentEpochMaxMagnitude = 0.0f
+        val epochStartMs = epochEndMs - EPOCH_MS
 
         val result = activityAggregator.update(peak)
         rawActigraphHistory.add(result.actigraph)
 
-        val isAwake = awakeDetector.update(rawActigraphHistory)
-        currentStage = if (isAwake) {
-            SleepStageType.AWAKE
+        val isHighActAwake = highActivityAwakeDetector.update(result.actigraph, result.isHighActivity, epochEndMs)
+        val isAnfAwake = awakeDetector.update(rawActigraphHistory)
+        val isAwake = isHighActAwake || isAnfAwake
+
+        if (isAwake) {
+            currentStage = SleepStageType.AWAKE
+            addAwakeInterval(epochStartMs, epochEndMs)
         } else {
-            livePhaseDetector.update(result.isHighActivity, result.isSomeActivity)
+            currentStage = livePhaseDetector.update(result.isHighActivity, result.isSomeActivity)
         }
     }
 
@@ -106,12 +113,16 @@ class SleepStageAnalyzer {
     fun addSonarSample(timestampMs: Long, activity: Float) {
         synchronized(lock) {
             rawActigraphHistory.add(activity)
-            val isAwake = awakeDetector.update(rawActigraphHistory)
             val haResult = sonarHighActivityDetector.update(activity)
-            currentStage = if (isAwake) {
-                SleepStageType.AWAKE
+            val isHighActAwake = highActivityAwakeDetector.update(activity, haResult.second, timestampMs)
+            val isAnfAwake = awakeDetector.update(rawActigraphHistory)
+            val isAwake = isHighActAwake || isAnfAwake
+
+            if (isAwake) {
+                currentStage = SleepStageType.AWAKE
+                addAwakeInterval(timestampMs - EPOCH_MS, timestampMs)
             } else {
-                livePhaseDetector.update(haResult.second, haResult.first)
+                currentStage = livePhaseDetector.update(haResult.second, haResult.first)
             }
         }
     }
@@ -141,11 +152,13 @@ class SleepStageAnalyzer {
         Log.d(TAG, "computeStages: startMs=$sleepStartMs, endMs=$endMs, epochs=${historyCopy.size}, awakeIntervals=${awakeCopy.size}")
 
         if (historyCopy.size < 12 || endMs <= sleepStartMs) {
-            Log.d(TAG, "Recording too short for multi-phase hypnogram; returning light sleep")
-            return listOf(SleepStage(SleepStageType.LIGHT, sleepStartMs, endMs.coerceAtLeast(sleepStartMs + 1000)))
+            val avg = if (historyCopy.isNotEmpty()) historyCopy.average().toFloat() else 0f
+            val stageType = if (avg >= 0.3f || awakeCopy.isNotEmpty()) SleepStageType.AWAKE else SleepStageType.LIGHT
+            Log.d(TAG, "Short recording (< 2 min); returning $stageType (avg activity=$avg)")
+            return listOf(SleepStage(stageType, sleepStartMs, endMs.coerceAtLeast(sleepStartMs + 1000L)))
         }
 
-        // Detect sleep onset latency / initial awake period
+        // detectBeginningAwake for ANF-based awake onset if long recording
         val initialAwake = awakeDetector.detectBeginningAwake(historyCopy, sleepStartMs)
         awakeCopy.addAll(initialAwake)
 

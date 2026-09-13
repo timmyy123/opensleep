@@ -9,7 +9,7 @@ final class SleepStageAnalyzer {
 
     static let epochDuration: TimeInterval = HypnogramEngine.framerateSec // 10.0 seconds
 
-    private let lock = NSLock()
+    private let lock = NSRecursiveLock()
 
     // 10-second epoch peak accumulator
     private var currentEpochStartDate: Date?
@@ -22,6 +22,7 @@ final class SleepStageAnalyzer {
     // Real-time components
     private let activityAggregator = HypnogramEngine.ActivityAggregator()
     private let awakeDetector = HypnogramEngine.AwakeDetector()
+    private let highActivityAwakeDetector = HypnogramEngine.HighActivityAwakeDetector()
     private let livePhaseDetector = HypnogramEngine.LivePhaseDetector()
 
     // Tracked awake intervals
@@ -39,6 +40,7 @@ final class SleepStageAnalyzer {
         hasSampleInEpoch = false
         rawActigraphHistory.removeAll()
         awakeIntervals.removeAll()
+        highActivityAwakeDetector.reset()
         currentStage = .light
     }
 
@@ -74,23 +76,37 @@ final class SleepStageAnalyzer {
         let peak = hasSampleInEpoch ? currentEpochMaxMagnitude : 0.0
         hasSampleInEpoch = false
         currentEpochMaxMagnitude = 0.0
+        let epochEnd = Date()
+        let epochStart = epochEnd.addingTimeInterval(-Self.epochDuration)
 
         let result = activityAggregator.update(peakMagnitude: peak)
         rawActigraphHistory.append(result.actigraph)
 
-        let isAwake = awakeDetector.update(history: rawActigraphHistory)
-        currentStage = isAwake ? .awake : livePhaseDetector.update(
-            isHighActivity: result.isHighActivity,
-            isSomeActivity: result.isSomeActivity
-        )
+        let isHighActAwake = highActivityAwakeDetector.update(actigraph: result.actigraph, isHighActivity: result.isHighActivity, timestamp: epochEnd)
+        let isAnfAwake = awakeDetector.update(history: rawActigraphHistory)
+        let isAwake = isHighActAwake || isAnfAwake
+
+        if isAwake {
+            currentStage = .awake
+            appendAwakeInterval(start: epochStart, end: epochEnd)
+        } else {
+            currentStage = livePhaseDetector.update(
+                isHighActivity: result.isHighActivity,
+                isSomeActivity: result.isSomeActivity
+            )
+        }
+    }
+
+    private func appendAwakeInterval(start: Date, end: Date) {
+        if end > start {
+            awakeIntervals.append((start, end))
+        }
     }
 
     func addAwakeInterval(start: Date, end: Date) {
         lock.lock()
         defer { lock.unlock() }
-        if end > start {
-            awakeIntervals.append((start, end))
-        }
+        appendAwakeInterval(start: start, end: end)
     }
 
     // Sonar high-activity detector matching ActivityAggregatorSonar.java (factor 1.0)
@@ -103,15 +119,22 @@ final class SleepStageAnalyzer {
         lock.lock()
         defer { lock.unlock() }
 
-        // In Sleep as Android (ActivityAggregatorSonar.java), Sonar activity directly acts as actigraph
         rawActigraphHistory.append(activity)
 
-        let isAwake = awakeDetector.update(history: rawActigraphHistory)
         let (isSome, isHigh) = sonarHighActivityDetector.update(actigraph: activity)
-        currentStage = isAwake ? .awake : livePhaseDetector.update(
-            isHighActivity: isHigh,
-            isSomeActivity: isSome
-        )
+        let isHighActAwake = highActivityAwakeDetector.update(actigraph: activity, isHighActivity: isHigh, timestamp: timestamp)
+        let isAnfAwake = awakeDetector.update(history: rawActigraphHistory)
+        let isAwake = isHighActAwake || isAnfAwake
+
+        if isAwake {
+            currentStage = .awake
+            appendAwakeInterval(start: timestamp.addingTimeInterval(-Self.epochDuration), end: timestamp)
+        } else {
+            currentStage = livePhaseDetector.update(
+                isHighActivity: isHigh,
+                isSomeActivity: isSome
+            )
+        }
     }
 
     func computeStages(sleepStart: Date) -> [SleepStage] {
@@ -132,8 +155,10 @@ final class SleepStageAnalyzer {
         print("[SleepStageAnalyzer] computeStages: start=\(sleepStart), end=\(endDate), epochs=\(historyCopy.count), awakeIntervals=\(awakeCopy.count)")
 
         if historyCopy.count < 12 || endDate <= sleepStart {
-            print("[SleepStageAnalyzer] Recording too short for multi-phase hypnogram; returning light sleep")
-            return [SleepStage(type: .light, startDate: sleepStart, endDate: max(endDate, sleepStart.addingTimeInterval(60)))]
+            let avg = !historyCopy.isEmpty ? (historyCopy.reduce(0.0, +) / Float(historyCopy.count)) : 0.0
+            let stageType: SleepStageType = (avg >= 0.3 || !awakeCopy.isEmpty) ? .awake : .light
+            print("[SleepStageAnalyzer] Short recording (< 2 min); returning \(stageType) (avg activity=\(avg))")
+            return [SleepStage(type: stageType, startDate: sleepStart, endDate: max(endDate, sleepStart.addingTimeInterval(60)))]
         }
 
         // Detect sleep onset latency / initial awake period

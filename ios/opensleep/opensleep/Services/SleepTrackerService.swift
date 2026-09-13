@@ -132,9 +132,9 @@ class SleepTrackerService: ObservableObject {
 
         setupLifecycleObservers()
 
-        // Periodic 5-minute stage flush to SwiftData
+        // Periodic 30-second stage flush to SwiftData
         let flush = DispatchSource.makeTimerSource(queue: analysisQueue)
-        flush.schedule(deadline: .now() + 300, repeating: 300)
+        flush.schedule(deadline: .now() + 30, repeating: 30)
         flush.setEventHandler { [weak self] in
             DispatchQueue.main.async { self?.flushStages() }
         }
@@ -154,9 +154,7 @@ class SleepTrackerService: ObservableObject {
         removeLifecycleObservers()
 
         // Close awake state
-        analysisQueue.sync {
-            recordAwakeState(now: Date(), awake: false)
-        }
+        recordAwakeState(now: Date(), awake: false)
 
         // Stop motion sensors and timers
         motionManager.stopAccelerometerUpdates()
@@ -170,8 +168,8 @@ class SleepTrackerService: ObservableObject {
         isAudioDrainScheduled = false
         audioChunkLock.unlock()
 
-        // Synchronously teardown audio engine and deactivate session on the rebuild queue
-        audioRebuildQueue.sync { [weak self] in
+        // Teardown audio engine and deactivate session asynchronously on the rebuild queue
+        audioRebuildQueue.async { [weak self] in
             self?.teardownAudioEngine()
         }
 
@@ -484,7 +482,9 @@ class SleepTrackerService: ObservableObject {
             if engine.isRunning {
                 engine.stop()
             }
-            engine.inputNode.removeTap(onBus: 0)
+            if trackingMode == .sonar {
+                engine.inputNode.removeTap(onBus: 0)
+            }
             if let node = audioSourceNode {
                 engine.disconnectNodeOutput(node)
                 engine.detach(node)

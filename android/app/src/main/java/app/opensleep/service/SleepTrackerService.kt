@@ -168,13 +168,13 @@ class SleepTrackerService : Service(), SensorEventListener {
             startAccelerometerTracking()
         }
 
-        // Periodic flush of stages to DB every 1 minute
+        // Periodic flush of stages to DB every 30 seconds
         flushJob?.cancel()
         flushJob = serviceScope.launch {
             val sid = sessionId ?: return@launch
             val startTime = repository.getSessionById(sid)?.startTimeMs ?: System.currentTimeMillis()
             while (isActive) {
-                delay(60 * 1000L)
+                delay(30 * 1000L)
                 val stages = analyzer.computeStages(startTime)
                 if (stages.isNotEmpty()) {
                     repository.updateStages(sid, stages)

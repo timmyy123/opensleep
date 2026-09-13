@@ -100,7 +100,7 @@ struct SleepHomeView: View {
         // Write to HealthKit after stopping
         Task {
             if let session = tracker.activeSession {
-                await healthKit.writeSleepSession(session)
+                _ = await healthKit.writeSleepSession(session)
             }
         }
     }

@@ -91,7 +91,7 @@ object HypnogramEngine {
     }
 
     // =========================================================================
-    // Real-Time Component 3: AwakeDetector
+    // Real-Time Component 3: AwakeDetector (ANF Frequency based)
     // =========================================================================
     class AwakeDetector(val threshold: Float = 0.35f, val windowSize: Int = 30) {
         var isCurrentlyAwake: Boolean = false
@@ -146,6 +146,110 @@ object HypnogramEngine {
     }
 
     // =========================================================================
+    // Real-Time Component 3A: HighActivityAwakeDetector (Sleep as Android AwakeWhenHighActivity)
+    // =========================================================================
+    class HighActivityAwakeDetector(
+        val threshold: Float = 1.5f,
+        val persistenceMs: Long = 60_000L
+    ) {
+        private var lastAwakeDetectedMs: Long = 0L
+        private val avgActivity = Moving.avg(3) // 30s rolling avg (3 x 10s epochs)
+
+        fun update(actigraph: Float, isHighActivity: Boolean, timestampMs: Long): Boolean {
+            val avg = avgActivity.apply(actigraph)
+            val isOverThreshold = isHighActivity || actigraph >= threshold || (avg >= threshold * 0.8f)
+            if (isOverThreshold) {
+                lastAwakeDetectedMs = timestampMs
+            }
+            return (timestampMs - lastAwakeDetectedMs) < persistenceMs
+        }
+
+        fun reset() {
+            lastAwakeDetectedMs = 0L
+        }
+    }
+
+    // =========================================================================
+    // Actigraphy Awake Interval Detection (Sleep Onset Latency & Active Epochs)
+    // =========================================================================
+    fun detectAwakeIntervals(
+        history: List<Float>,
+        startMs: Long,
+        threshold: Float = 1.5f,
+        persistenceMs: Long = 60_000L
+    ): List<Pair<Long, Long>> {
+        if (history.isEmpty()) return emptyList()
+        val count = history.size
+        val avgFilter = Moving.avg(3)
+        val smoothed = FloatArray(count)
+        for (i in 0 until count) {
+            smoothed[i] = avgFilter.apply(history[i])
+        }
+
+        val isAwakeArray = BooleanArray(count)
+        var lastAwakeEpoch = -100
+
+        val persistenceEpochs = (persistenceMs / FRAMERATE_MS).toInt().coerceAtLeast(1)
+        for (i in 0 until count) {
+            val act = history[i]
+            val avg = smoothed[i]
+            if (act >= threshold || avg >= threshold * 0.8f) {
+                lastAwakeEpoch = i
+            }
+            if (i - lastAwakeEpoch < persistenceEpochs) {
+                isAwakeArray[i] = true
+            }
+        }
+
+        // Sleep Onset Latency (SOL) detection:
+        var sustainedQuietCount = 0
+        var solEndEpoch = 0
+        for (i in 0 until count) {
+            if (history[i] < 0.3f && smoothed[i] < 0.3f) {
+                sustainedQuietCount++
+                if (sustainedQuietCount >= 18) { // 3 minutes of stillness
+                    solEndEpoch = i - 18
+                    break
+                }
+            } else {
+                sustainedQuietCount = 0
+            }
+        }
+
+        if (sustainedQuietCount < 18) {
+            val sessionAvg = history.average().toFloat()
+            if (sessionAvg >= 0.3f) {
+                // Entire session was active (e.g. typing on bed without sleeping)
+                return listOf(Pair(startMs, startMs + (count * FRAMERATE_MS)))
+            }
+        } else if (solEndEpoch > 0) {
+            for (i in 0..solEndEpoch) {
+                isAwakeArray[i] = true
+            }
+        }
+
+        // Group into contiguous awake intervals
+        val intervals = mutableListOf<Pair<Long, Long>>()
+        var inAwake = false
+        var awakeStart = startMs
+        for (i in 0 until count) {
+            val epochTime = startMs + (i * FRAMERATE_MS)
+            if (isAwakeArray[i] && !inAwake) {
+                inAwake = true
+                awakeStart = epochTime
+            } else if (!isAwakeArray[i] && inAwake) {
+                inAwake = false
+                intervals.add(Pair(awakeStart, epochTime))
+            }
+        }
+        if (inAwake) {
+            intervals.add(Pair(awakeStart, startMs + (count * FRAMERATE_MS)))
+        }
+
+        return intervals
+    }
+
+    // =========================================================================
     // Real-Time Component 4: Real-Time Phase Indicator (DeepSleepDetectorV8)
     // =========================================================================
     class LivePhaseDetector(private val smartWakeupSensitivityChecks: Int = 3) {
@@ -181,14 +285,22 @@ object HypnogramEngine {
     ): List<SleepStage> {
         val size = rawActigraphHistory.size
         if (size < 12 || sessionEndMs <= sessionStartMs) {
-            // Fallback for extremely short recordings (< 2 minutes)
-            return listOf(SleepStage(SleepStageType.LIGHT, sessionStartMs, sessionEndMs))
+            // Even in short recordings, check if user was active/awake
+            val avg = if (size > 0) rawActigraphHistory.average().toFloat() else 0f
+            val stageType = if (avg >= 0.3f || awakeIntervals.isNotEmpty()) SleepStageType.AWAKE else SleepStageType.LIGHT
+            return listOf(SleepStage(stageType, sessionStartMs, sessionEndMs.coerceAtLeast(sessionStartMs + 1000L)))
         }
 
-        // 1. Excluded indices bitset (e.g. awake intervals)
+        // 1. Detect actigraphy-based awake intervals & combine with external awake intervals
+        val actigraphyAwake = detectAwakeIntervals(rawActigraphHistory, sessionStartMs)
+        val allAwake = mutableListOf<Pair<Long, Long>>()
+        allAwake.addAll(awakeIntervals)
+        allAwake.addAll(actigraphyAwake)
+        val mergedAwake = mergeIntervals(allAwake, maxGapMs = 5 * 60_000L)
+
+        // 2. Excluded indices bitset (e.g. awake intervals)
         val excludedIndices = BitSet()
-        val totalDurationMs = sessionEndMs - sessionStartMs
-        for (awake in awakeIntervals) {
+        for (awake in mergedAwake) {
             val fromIdx = ((awake.first - sessionStartMs) / FRAMERATE_MS).toInt().coerceIn(0, size - 1)
             val toIdx = ((awake.second - sessionStartMs) / FRAMERATE_MS).toInt().coerceIn(0, size - 1)
             if (fromIdx <= toIdx) {
@@ -201,12 +313,12 @@ object HypnogramEngine {
             excludedIndices.clear()
         }
 
-        // 2. Adaptive Normalization Filter (ANF)
+        // 3. Adaptive Normalization Filter (ANF)
         val floatArray = FloatArray(size) { rawActigraphHistory[it] }
         val anfResult = AdaptiveNormalizationFilter.normalizeAmplitudes(floatArray, excludedIndices)
         val highActivityBitSet = anfResult.getHighActivityFlags(2.5f)
 
-        // 3. Aggregation factor
+        // 4. Aggregation factor
         val aggregationFactor = when {
             size < 90 -> 3     // 30s points
             size < 360 -> 6    // 60s (1 min) points
@@ -215,10 +327,10 @@ object HypnogramEngine {
         val aggregatedHistory = anfResult.aggregateOutput(aggregationFactor)
         val millisPerPoint = aggregationFactor * FRAMERATE_MS
 
-        // 4. High Activity Frequency
+        // 5. High Activity Frequency
         val highActivityFreq = computeHighActivityFrequency(highActivityBitSet, aggregatedHistory.size, aggregationFactor)
 
-        // 5. Activity segment classification (DEEP / LIGHT / BROKEN)
+        // 6. Activity segment classification (DEEP / LIGHT / BROKEN)
         val rawIntervals = classifyActivitySegments(
             aggregatedHistory,
             highActivityFreq,
@@ -228,17 +340,16 @@ object HypnogramEngine {
             aggregationFactor
         )
 
-        // 6. Deep Sleep Post-Processing (convert DEEP < 15 min to LIGHT; merge LIGHT)
+        // 7. Deep Sleep Post-Processing (convert DEEP < 15 min to LIGHT; merge LIGHT)
         val postProcessedDeep = postProcessDeepIntervals(rawIntervals)
 
-        // 7. REM Detection (following DEEP >= 10 min and LIGHT >= 15 min after 50 min)
+        // 8. REM Detection (following DEEP >= 10 min and LIGHT >= 15 min after 50 min)
         val remIntervals = detectREM(postProcessedDeep, sessionStartMs)
 
-        // 8. Awake Overlap Resolution
-        val mergedAwake = mergeIntervals(awakeIntervals, maxGapMs = 5 * 60_000L)
+        // 9. Awake Overlap Resolution
         val clearedRem = clearRemAtAwake(remIntervals, mergedAwake)
 
-        // 9. Non-overlapping Segment Normalization: AWAKE > REM > LIGHT > DEEP
+        // 10. Non-overlapping Segment Normalization: AWAKE > REM > LIGHT > DEEP
         return normalizeToFourPhases(
             sessionStartMs,
             sessionEndMs,

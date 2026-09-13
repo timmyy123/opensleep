@@ -86,7 +86,7 @@ enum HypnogramEngine {
     }
 
     // =========================================================================
-    // Real-Time Component 3: AwakeDetector
+    // Real-Time Component 3: AwakeDetector (ANF Frequency based)
     // =========================================================================
     final class AwakeDetector {
         let threshold: Float
@@ -146,6 +146,114 @@ enum HypnogramEngine {
     }
 
     // =========================================================================
+    // Real-Time Component 3A: HighActivityAwakeDetector (Sleep as Android AwakeWhenHighActivity)
+    // =========================================================================
+    final class HighActivityAwakeDetector {
+        let threshold: Float
+        let persistenceSec: TimeInterval
+        private var lastAwakeDate: Date?
+        private let avgActivity = Moving.avg(period: 3)
+
+        init(threshold: Float = 1.5, persistenceSec: TimeInterval = 60.0) {
+            self.threshold = threshold
+            self.persistenceSec = persistenceSec
+        }
+
+        func update(actigraph: Float, isHighActivity: Bool, timestamp: Date = Date()) -> Bool {
+            let avg = avgActivity(actigraph)
+            let isOverThreshold = isHighActivity || actigraph >= threshold || (avg >= threshold * 0.8)
+            if isOverThreshold {
+                lastAwakeDate = timestamp
+            }
+            guard let last = lastAwakeDate else { return false }
+            return timestamp.timeIntervalSince(last) < persistenceSec
+        }
+
+        func reset() {
+            lastAwakeDate = nil
+        }
+    }
+
+    // =========================================================================
+    // Actigraphy Awake Interval Detection (Sleep Onset Latency & Active Epochs)
+    // =========================================================================
+    static func detectAwakeIntervals(
+        history: [Float],
+        startDate: Date,
+        threshold: Float = 1.5,
+        persistenceSec: TimeInterval = 60.0
+    ) -> [(Date, Date)] {
+        guard !history.isEmpty else { return [] }
+        let count = history.count
+        let avgFilter = Moving.avg(period: 3)
+        var smoothed = [Float](repeating: 0.0, count: count)
+        for i in 0..<count {
+            smoothed[i] = avgFilter(history[i])
+        }
+
+        var isAwakeArray = [Bool](repeating: false, count: count)
+        var lastAwakeEpoch = -100
+
+        let persistenceEpochs = max(1, Int(persistenceSec / framerateSec))
+        for i in 0..<count {
+            let act = history[i]
+            let avg = smoothed[i]
+            if act >= threshold || avg >= threshold * 0.8 {
+                lastAwakeEpoch = i
+            }
+            if i - lastAwakeEpoch < persistenceEpochs {
+                isAwakeArray[i] = true
+            }
+        }
+
+        // Sleep Onset Latency (SOL) detection:
+        var sustainedQuietCount = 0
+        var solEndEpoch = 0
+        for i in 0..<count {
+            if history[i] < 0.3 && smoothed[i] < 0.3 {
+                sustainedQuietCount += 1
+                if sustainedQuietCount >= 18 { // 3 minutes of stillness
+                    solEndEpoch = i - 18
+                    break
+                }
+            } else {
+                sustainedQuietCount = 0
+            }
+        }
+
+        if sustainedQuietCount < 18 {
+            let sessionAvg = history.reduce(0.0, +) / Float(count)
+            if sessionAvg >= 0.3 {
+                // Entire session was active (e.g. typing on bed without sleeping)
+                return [(startDate, startDate.addingTimeInterval(Double(count) * framerateSec))]
+            }
+        } else if solEndEpoch > 0 {
+            for i in 0...solEndEpoch {
+                isAwakeArray[i] = true
+            }
+        }
+
+        var intervals: [(Date, Date)] = []
+        var inAwake = false
+        var awakeStart = startDate
+        for i in 0..<count {
+            let epochTime = startDate.addingTimeInterval(Double(i) * framerateSec)
+            if isAwakeArray[i] && !inAwake {
+                inAwake = true
+                awakeStart = epochTime
+            } else if !isAwakeArray[i] && inAwake {
+                inAwake = false
+                intervals.append((awakeStart, epochTime))
+            }
+        }
+        if inAwake {
+            intervals.append((awakeStart, startDate.addingTimeInterval(Double(count) * framerateSec)))
+        }
+
+        return intervals
+    }
+
+    // =========================================================================
     // Real-Time Component 4: LivePhaseDetector
     // =========================================================================
     final class LivePhaseDetector {
@@ -183,12 +291,20 @@ enum HypnogramEngine {
     ) -> [SleepStage] {
         let size = rawActigraphHistory.count
         guard size >= 12 && endDate > startDate else {
-            return [SleepStage(type: .light, startDate: startDate, endDate: max(endDate, startDate.addingTimeInterval(60)))]
+            let avg = !rawActigraphHistory.isEmpty ? (rawActigraphHistory.reduce(0.0, +) / Float(rawActigraphHistory.count)) : 0.0
+            let stageType: SleepStageType = (avg >= 0.3 || !awakeIntervals.isEmpty) ? .awake : .light
+            return [SleepStage(type: stageType, startDate: startDate, endDate: max(endDate, startDate.addingTimeInterval(60)))]
         }
 
-        // 1. Excluded indices
+        // 1. Detect actigraphy-based awake intervals & combine with external awake intervals
+        let actigraphyAwake = detectAwakeIntervals(history: rawActigraphHistory, startDate: startDate)
+        var allAwake = awakeIntervals
+        allAwake.append(contentsOf: actigraphyAwake)
+        let mergedAwake = mergeIntervals(allAwake, maxGapSec: 5.0 * 60.0)
+
+        // 2. Excluded indices
         var excluded = IndexSet()
-        for awake in awakeIntervals {
+        for awake in mergedAwake {
             let fromIdx = Int(awake.0.timeIntervalSince(startDate) / framerateSec).clamped(to: 0...(size - 1))
             let toIdx = Int(awake.1.timeIntervalSince(startDate) / framerateSec).clamped(to: 0...(size - 1))
             if fromIdx <= toIdx {
@@ -201,23 +317,23 @@ enum HypnogramEngine {
             excluded.removeAll()
         }
 
-        // 2. Adaptive Normalization Filter
+        // 3. Adaptive Normalization Filter
         let anfResult = AdaptiveNormalizationFilter.normalizeAmplitudes(rawActigraphHistory, excluded: excluded)
         let highActivityFlags = anfResult.getHighActivityFlags(threshold: 2.5)
 
-        // 3. Aggregation factor
+        // 4. Aggregation factor
         let aggregation = size < 90 ? 3 : (size < 360 ? 6 : 30)
         let aggregatedHistory = anfResult.aggregateOutput(aggregation)
         let epochSec = Double(aggregation) * framerateSec
 
-        // 4. High Activity Frequency
+        // 5. High Activity Frequency
         let highActivityFreq = computeHighActivityFrequency(
             flags: highActivityFlags,
             targetSize: aggregatedHistory.count,
             aggregation: aggregation
         )
 
-        // 5. Activity segment classification
+        // 6. Activity segment classification
         let rawIntervals = classifyActivitySegments(
             history: aggregatedHistory,
             haFreq: highActivityFreq,
@@ -227,17 +343,16 @@ enum HypnogramEngine {
             aggregation: aggregation
         )
 
-        // 6. Deep sleep post-processing (convert < 15 min to light, merge light)
+        // 7. Deep sleep post-processing (convert < 15 min to light, merge light)
         let postProcessedDeep = postProcessDeepIntervals(rawIntervals)
 
-        // 7. REM detection (following deep >= 10m and light >= 15m after 50m)
+        // 8. REM detection (following deep >= 10m and light >= 15m after 50m)
         let remIntervals = detectREM(intervals: postProcessedDeep, sessionStart: startDate)
 
-        // 8. Awake Overlap Resolution
-        let mergedAwake = mergeIntervals(awakeIntervals, maxGapSec: 5.0 * 60.0)
+        // 9. Awake Overlap Resolution
         let clearedRem = clearRemAtAwake(remIntervals: remIntervals, awakeIntervals: mergedAwake)
 
-        // 9. Non-overlapping Segment Normalization: AWAKE > REM > LIGHT > DEEP
+        // 10. Non-overlapping Segment Normalization: AWAKE > REM > LIGHT > DEEP
         return normalizeToFourPhases(
             startDate: startDate,
             endDate: endDate,
