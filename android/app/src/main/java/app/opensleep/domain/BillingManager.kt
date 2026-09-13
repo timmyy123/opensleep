@@ -95,11 +95,12 @@ class BillingManager(
             .setProductList(productList)
             .build()
 
-        billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+        billingClient.queryProductDetailsAsync(params) { billingResult, queryProductDetailsResult ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                val details = productDetailsList.firstOrNull { it.productId == LIFETIME_PRODUCT_ID }
+                val details = queryProductDetailsResult.productDetailsList.firstOrNull { it.productId == LIFETIME_PRODUCT_ID }
                 _productDetails.value = details
                 val price = details?.oneTimePurchaseOfferDetails?.formattedPrice
+                    ?: details?.oneTimePurchaseOfferDetailsList?.firstOrNull()?.formattedPrice
                 _formattedPrice.value = price
                 Log.d(TAG, "Product details loaded. Live price: $price")
             } else {
@@ -187,9 +188,15 @@ class BillingManager(
             return false
         }
 
-        val productDetailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+        val offerToken = details.oneTimePurchaseOfferDetails?.offerToken
+            ?: details.oneTimePurchaseOfferDetailsList?.firstOrNull()?.offerToken
+
+        val productDetailsParamsBuilder = BillingFlowParams.ProductDetailsParams.newBuilder()
             .setProductDetails(details)
-            .build()
+        if (offerToken != null) {
+            productDetailsParamsBuilder.setOfferToken(offerToken)
+        }
+        val productDetailsParams = productDetailsParamsBuilder.build()
 
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(listOf(productDetailsParams))

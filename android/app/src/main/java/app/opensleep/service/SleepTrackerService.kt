@@ -72,7 +72,7 @@ class SleepTrackerService : Service(), SensorEventListener {
     private var isSaving = false
     private var isTracking = false
 
-    private var trackingMode: TrackingSensorMode = TrackingSensorMode.SONAR
+    private var trackingMode: TrackingSensorMode = TrackingSensorMode.ACCELEROMETER
     private var chirpProducer: ChirpProducer? = null
     private var audioRecord: AudioRecord? = null
     private var sonarJob: Job? = null
@@ -115,7 +115,7 @@ class SleepTrackerService : Service(), SensorEventListener {
         }
 
         val sharedPrefs = getSharedPreferences("opensleep_settings", Context.MODE_PRIVATE)
-        val modeKey = sharedPrefs.getString("tracking_sensor_mode", TrackingSensorMode.SONAR.key)
+        val modeKey = sharedPrefs.getString("tracking_sensor_mode", TrackingSensorMode.ACCELEROMETER.key)
         trackingMode = TrackingSensorMode.fromKey(modeKey)
         Log.d(TAG, "Starting tracking with mode=$trackingMode")
 

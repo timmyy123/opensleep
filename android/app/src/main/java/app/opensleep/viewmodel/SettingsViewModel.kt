@@ -44,7 +44,7 @@ class SettingsViewModel(
     }
 
     private fun getPersistedTrackingMode(): app.opensleep.domain.TrackingSensorMode {
-        val key = sharedPrefs.getString("tracking_sensor_mode", app.opensleep.domain.TrackingSensorMode.SONAR.key)
+        val key = sharedPrefs.getString("tracking_sensor_mode", app.opensleep.domain.TrackingSensorMode.ACCELEROMETER.key)
         return app.opensleep.domain.TrackingSensorMode.fromKey(key)
     }
 

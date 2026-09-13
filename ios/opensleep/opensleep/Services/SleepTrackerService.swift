@@ -16,7 +16,7 @@ class SleepTrackerService: ObservableObject {
     @MainActor @Published var isTracking = false
     @MainActor @Published var activeSession: SleepSession?
     @MainActor @Published var currentStage: SleepStageType = .light
-    @MainActor @Published var trackingMode: TrackingSensorMode = .sonar
+    @MainActor @Published var trackingMode: TrackingSensorMode = .accelerometer
 
     private let motionManager = CMMotionManager()
     private let analyzer = SleepStageAnalyzer()
@@ -55,7 +55,7 @@ class SleepTrackerService: ObservableObject {
            let mode = TrackingSensorMode(rawValue: savedMode) {
             self.trackingMode = mode
         } else {
-            self.trackingMode = .sonar
+            self.trackingMode = .accelerometer
         }
         registerBackgroundTask()
     }

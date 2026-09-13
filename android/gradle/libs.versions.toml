@@ -18,7 +18,7 @@ navigationCompose = "2.9.0"
 accompanistPermissions = "0.37.2"
 datastore = "1.1.4"
 workManager = "2.10.1"
-billing = "7.1.1"
+billing = "9.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
