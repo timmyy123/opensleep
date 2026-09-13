@@ -2,9 +2,11 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var tracker: SleepTrackerService
+    @EnvironmentObject var storeKit: StoreKitManager
     @ObservedObject var downloadManager: ModelDownloadManager
     @AppStorage("app_language") private var selectedLanguage = "en"
     @State private var showPrivacySheet = false
+    @State private var showPaywallSheet = false
 
     let languages = [
         ("en", "English"),
@@ -71,6 +73,52 @@ struct SettingsView: View {
                         }
                     }
 
+                    // Membership Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("section_membership")
+                            .font(AppTextStyle.titleLarge)
+                            .foregroundStyle(Color.indigoLight)
+
+                        GlassCard(padding: 16) {
+                            HStack(spacing: 14) {
+                                ZStack {
+                                    Circle()
+                                        .fill(storeKit.isPremium ? Color.greenAccent.opacity(0.18) : Color.indigoAccent.opacity(0.2))
+                                        .frame(width: 44, height: 44)
+                                    Image(systemName: storeKit.isPremium ? "checkmark.seal.fill" : "sparkles")
+                                        .font(.system(size: 20))
+                                        .foregroundStyle(storeKit.isPremium ? Color.greenAccent : Color.indigoLight)
+                                }
+                                
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(storeKit.isPremium ? "paywall_premium_active" : "paywall_title")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundStyle(Color.textPrimary)
+                                    
+                                    Text(storeKit.isPremium ? "paywall_lifetime_active_desc" : "paywall_upgrade_now")
+                                        .font(AppTextStyle.bodySmall)
+                                        .foregroundStyle(Color.textSecondary)
+                                }
+                                
+                                Spacer()
+                                
+                                if !storeKit.isPremium {
+                                    Button {
+                                        showPaywallSheet = true
+                                    } label: {
+                                        Text("paywall_unlock_button")
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 14)
+                                            .padding(.vertical, 8)
+                                            .background(Color.indigoAccent)
+                                            .clipShape(Capsule())
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     // Models Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("section_models")
@@ -82,7 +130,8 @@ struct SettingsView: View {
                             ModelDownloadCard(
                                 variant: variant,
                                 state: state,
-                                downloadManager: downloadManager
+                                downloadManager: downloadManager,
+                                onRequirePremium: { showPaywallSheet = true }
                             )
                         }
                     }
@@ -136,6 +185,9 @@ struct SettingsView: View {
             .sheet(isPresented: $showPrivacySheet) {
                 PrivacySheetView()
             }
+            .sheet(isPresented: $showPaywallSheet) {
+                PaywallView(isModal: true)
+            }
         }
     }
 }
@@ -144,6 +196,8 @@ struct ModelDownloadCard: View {
     let variant: ModelVariant
     let state: DownloadState
     @ObservedObject var downloadManager: ModelDownloadManager
+    @EnvironmentObject var storeKit: StoreKitManager
+    var onRequirePremium: () -> Void = {}
     @State private var isExpanded = false
 
     var body: some View {
@@ -164,7 +218,11 @@ struct ModelDownloadCard: View {
                     switch state {
                     case .idle:
                         Button {
-                            downloadManager.downloadModel(variant)
+                            if storeKit.isPremium {
+                                downloadManager.downloadModel(variant)
+                            } else {
+                                onRequirePremium()
+                            }
                         } label: {
                             Text("download_model")
                                 .font(.system(size: 14, weight: .semibold))
@@ -244,7 +302,11 @@ struct ModelDownloadCard: View {
                                 .font(.system(size: 12, weight: .bold))
                                 .foregroundStyle(.red)
                             Button {
-                                downloadManager.downloadModel(variant)
+                                if storeKit.isPremium {
+                                    downloadManager.downloadModel(variant)
+                                } else {
+                                    onRequirePremium()
+                                }
                             } label: {
                                 Image(systemName: "arrow.clockwise")
                                     .font(.system(size: 16))

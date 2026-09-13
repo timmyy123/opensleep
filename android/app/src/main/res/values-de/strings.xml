@@ -92,4 +92,26 @@
     <string name="sensor_accelerometer">Beschleunigungsmesser (Matratze)</string>
     <string name="sensor_accelerometer_desc">Das Telefon flach auf die Matratze neben das Kissen legen.</string>
     <string name="saving">Speichern…</string>
+    <string name="section_membership">Mitgliedschaft</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Personalisierte Schlafanalyse und Beratung durch ein geräteinternes Google-KI-Modell.</string>
+    <string name="paywall_feature1_title">Persönliche Schlafberatung</string>
+    <string name="paywall_feature1_desc">Analysiert Ihre Schlafmuster, Schlafphasen und Schlafqualität für gezielte Ratschläge.</string>
+    <string name="paywall_feature2_title">Geräteinterne Google-KI</string>
+    <string name="paywall_feature2_desc">Angetrieben von einem fortschrittlichen On-Device-KI-Modell von Google. 100% privat und offline nutzbar.</string>
+    <string name="paywall_feature3_title">Unbegrenzte Nachrichten</string>
+    <string name="paywall_feature3_desc">Senden Sie unbegrenzt Nachrichten und stellen Sie jederzeit Schlaf-Fragen.</string>
+    <string name="paywall_feature4_title">Lebenslanger Zugriff</string>
+    <string name="paywall_feature4_desc">Einmal zahlen, für immer nutzen. Keine Abonnements oder wiederkehrende Gebühren.</string>
+    <string name="paywall_lifetime_badge">LEBENSLANG</string>
+    <string name="paywall_one_time_badge">EINMALZAHLUNG</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Einmal bezahlen und den KI-Schlafcoach für immer freischalten. Keine Abokosten.</string>
+    <string name="paywall_unlock_button">Lebenslangen Zugriff freischalten</string>
+    <string name="paywall_unlock_with_price">Lebenslangen Zugriff freischalten · %s</string>
+    <string name="paywall_restore_button">Käufe wiederherstellen</string>
+    <string name="paywall_terms_privacy">Die Zahlung wird über Ihr Google Play-Konto abgerechnet. Einmaliger Kauf ohne Abonnement.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium aktiv</string>
+    <string name="paywall_lifetime_active_desc">Sie haben dauerhaften Zugriff auf den KI-Schlafcoach.</string>
+    <string name="paywall_upgrade_now">OpenSleep Lifetime Premium freischalten</string>
 </resources>

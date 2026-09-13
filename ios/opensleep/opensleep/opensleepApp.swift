@@ -8,6 +8,7 @@ struct opensleepApp: App {
     @StateObject private var healthKit = HealthKitManager()
     @StateObject private var liteRt = LiteRtManager()
     @StateObject private var downloadManager = ModelDownloadManager()
+    @StateObject private var storeKit = StoreKitManager.shared
 
     init() {
         do {
@@ -25,6 +26,7 @@ struct opensleepApp: App {
                 .environmentObject(healthKit)
                 .environmentObject(liteRt)
                 .environmentObject(downloadManager)
+                .environmentObject(storeKit)
                 .preferredColorScheme(.dark)
                 .onAppear {
                     tracker.configure(modelContext: container.mainContext)

@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject var healthKit: HealthKitManager
     @EnvironmentObject var liteRt: LiteRtManager
     @EnvironmentObject var downloadManager: ModelDownloadManager
+    @EnvironmentObject var storeKit: StoreKitManager
     @AppStorage("app_language") private var selectedLanguage = "en"
 
     var body: some View {
@@ -19,10 +20,16 @@ struct ContentView: View {
                     Label("tab_history", systemImage: "chart.bar.fill")
                 }
 
-            AIChatView(liteRt: liteRt, downloadManager: downloadManager)
-                .tabItem {
-                    Label("tab_chat", systemImage: "sparkles")
+            Group {
+                if storeKit.isPremium {
+                    AIChatView(liteRt: liteRt, downloadManager: downloadManager)
+                } else {
+                    PaywallView(isModal: false)
                 }
+            }
+            .tabItem {
+                Label("tab_chat", systemImage: "sparkles")
+            }
 
             SettingsView(downloadManager: downloadManager)
                 .tabItem {

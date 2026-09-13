@@ -50,6 +50,8 @@ fun AppNavigation() {
     val historyVm = remember { HistoryViewModel(sleepRepo, healthSync) }
     val chatVm = remember { AiChatViewModel(chatRepo, sleepRepo, liteRt, downloadMgr) }
     val settingsVm = remember { SettingsViewModel(context.applicationContext as android.app.Application, downloadMgr) }
+    val billingMgr = remember { app.opensleep.domain.BillingManager(context) }
+    val billingVm = remember { app.opensleep.viewmodel.BillingViewModel(billingMgr) }
 
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -103,15 +105,20 @@ fun AppNavigation() {
                 }
             }
             composable(Screen.Chat.route) {
-                AiChatScreen(chatVm, onNavigateToSettings = {
-                    navController.navigate(Screen.Settings.route) {
-                        popUpTo(navController.graph.startDestinationId) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                })
+                val isPremium by billingVm.isPremium.collectAsState()
+                if (isPremium) {
+                    AiChatScreen(chatVm, onNavigateToSettings = {
+                        navController.navigate(Screen.Settings.route) {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    })
+                } else {
+                    PaywallScreen(billingVm = billingVm, onDismiss = null)
+                }
             }
-            composable(Screen.Settings.route) { SettingsScreen(settingsVm) }
+            composable(Screen.Settings.route) { SettingsScreen(settingsVm, billingVm) }
             composable(
                 Screen.Detail.route,
                 arguments = listOf(navArgument("sessionId") { type = NavType.StringType })

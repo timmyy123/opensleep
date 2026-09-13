@@ -92,4 +92,26 @@
     <string name="sensor_accelerometer">Acelerômetro (Colchão)</string>
     <string name="sensor_accelerometer_desc">Coloque o telefone reto no colchão ao lado do travesseiro.</string>
     <string name="saving">Salvando…</string>
+    <string name="section_membership">Assinatura</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Análise e orientação personalizada do sono com modelo de IA da Google no dispositivo.</string>
+    <string name="paywall_feature1_title">Orientação Personalizada do Sono</string>
+    <string name="paywall_feature1_desc">Analisa seus padrões, fases e qualidade do sono para dar orientações práticas.</string>
+    <string name="paywall_feature2_title">IA da Google no Dispositivo</string>
+    <string name="paywall_feature2_desc">Desenvolvido com modelo avançado de IA da Google no dispositivo. 100% privado e offline.</string>
+    <string name="paywall_feature3_title">Mensagens Ilimitadas</string>
+    <string name="paywall_feature3_desc">Envie mensagens ilimitadas e tire dúvidas sobre seu sono sem limites.</string>
+    <string name="paywall_feature4_title">Acesso Vitalício</string>
+    <string name="paywall_feature4_desc">Pague uma vez e use para sempre. Sem assinaturas nem cobranças recorrentes.</string>
+    <string name="paywall_lifetime_badge">VITALÍCIO</string>
+    <string name="paywall_one_time_badge">PAGAMENTO ÚNICO</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Pague uma única vez e desbloqueie o Treinador IA para sempre. Sem cobranças recorrentes.</string>
+    <string name="paywall_unlock_button">Desbloquear Acesso Vitalício</string>
+    <string name="paywall_unlock_with_price">Desbloquear Acesso Vitalício · %s</string>
+    <string name="paywall_restore_button">Restaurar Compras</string>
+    <string name="paywall_terms_privacy">O pagamento será cobrado em sua conta do Google Play. Compra única sem assinatura.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium Ativo</string>
+    <string name="paywall_lifetime_active_desc">Você tem acesso permanente ao Treinador de Sono IA.</string>
+    <string name="paywall_upgrade_now">Desbloquear OpenSleep Lifetime Premium</string>
 </resources>

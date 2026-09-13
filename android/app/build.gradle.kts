@@ -12,10 +12,10 @@ android {
     defaultConfig {
         applicationId = "tech.opensleep"
         minSdk = 28
-        targetSdk = 36
-        versionCode = 14
+        targetSdk = 37
+        versionCode = 15
         
-        versionName = "1.0.2"
+        versionName = "1.0.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -106,6 +106,9 @@ dependencies {
 
     // Permissions UI
     implementation(libs.accompanist.permissions)
+
+    // Google Play Billing
+    implementation(libs.billing.ktx)
 
     // Tests
     testImplementation(libs.junit)

@@ -15,6 +15,10 @@ extension Color {
     static let textTertiary  = Color(red: 0.28, green: 0.34, blue: 0.42)
     static let surfaceContainer = Color(red: 0.06, green: 0.09, blue: 0.16)
     static let surfaceVariant   = Color(red: 0.12, green: 0.16, blue: 0.23)
+    static let navyElevated     = Color(red: 0.08, green: 0.12, blue: 0.20)
+    static let greenAccent      = Color(red: 0.18, green: 0.80, blue: 0.44)
+    static let amberAccent      = Color(red: 0.98, green: 0.73, blue: 0.01)
+    static let coralAccent      = Color(red: 0.94, green: 0.33, blue: 0.31)
 
     // Stage colors
     static let stageAwake = Color(red: 0.94, green: 0.27, blue: 0.27)
@@ -42,6 +46,7 @@ struct AppTextStyle {
     static let bodyLarge = Font.system(size: 16, weight: .regular)
     static let bodyMedium = Font.system(size: 14, weight: .regular)
     static let bodySmall = Font.system(size: 12, weight: .regular)
+    static let caption = Font.system(size: 11, weight: .regular)
     static let labelLarge = Font.system(size: 14, weight: .medium)
     static let labelSmall = Font.system(size: 11, weight: .medium)
 }

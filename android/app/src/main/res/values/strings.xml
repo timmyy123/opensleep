@@ -92,4 +92,26 @@
     <string name="sensor_sonar_desc">Place phone on nightstand pointing towards your chest. Uses ultrasound.</string>
     <string name="sensor_accelerometer">Accelerometer (Mattress)</string>
     <string name="sensor_accelerometer_desc">Place phone flat on the mattress next to your pillow.</string>
+    <string name="section_membership">Membership</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Personalized sleep analysis and guidance powered by an on-device Google AI model.</string>
+    <string name="paywall_feature1_title">Personalized Sleep Guidance</string>
+    <string name="paywall_feature1_desc">Analyzes your sleep patterns, stages, and quality to give tailored advice.</string>
+    <string name="paywall_feature2_title">On-Device Google AI</string>
+    <string name="paywall_feature2_desc">Powered by an advanced on-device AI model from Google. 100% private and offline-capable.</string>
+    <string name="paywall_feature3_title">Unlimited Messages</string>
+    <string name="paywall_feature3_desc">Send unlimited messages and ask any sleep questions without limits.</string>
+    <string name="paywall_feature4_title">Lifetime Access</string>
+    <string name="paywall_feature4_desc">Pay once, use forever. No subscriptions, recurring fees, or hidden costs.</string>
+    <string name="paywall_lifetime_badge">LIFETIME</string>
+    <string name="paywall_one_time_badge">ONE-TIME PAYMENT</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Pay once and unlock the AI Sleep Coach forever. No recurring charges.</string>
+    <string name="paywall_unlock_button">Unlock Lifetime Access</string>
+    <string name="paywall_unlock_with_price">Unlock Lifetime Access · %s</string>
+    <string name="paywall_restore_button">Restore Purchases</string>
+    <string name="paywall_terms_privacy">Payment will be charged to your Google Play account. One-time purchase with no subscription.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium Active</string>
+    <string name="paywall_lifetime_active_desc">You have permanent access to the AI Sleep Coach.</string>
+    <string name="paywall_upgrade_now">Unlock OpenSleep Lifetime Premium</string>
 </resources>

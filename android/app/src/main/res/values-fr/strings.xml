@@ -92,4 +92,26 @@
     <string name="sensor_accelerometer">Accéléromètre (Matelas)</string>
     <string name="sensor_accelerometer_desc">Placez le téléphone à plat sur le matelas à côté de votre oreiller.</string>
     <string name="saving">Enregistrement…</string>
+    <string name="section_membership">Abonnement</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Analyse et conseils personnalisés sur le sommeil grâce à un modèle d\'IA Google sur l\'appareil.</string>
+    <string name="paywall_feature1_title">Conseils de Sommeil Personnalisés</string>
+    <string name="paywall_feature1_desc">Analyse vos cycles, phases et qualité de sommeil pour des conseils sur mesure.</string>
+    <string name="paywall_feature2_title">IA Google sur l\'Appareil</string>
+    <string name="paywall_feature2_desc">Alimenté par un modèle d\'IA avancé de Google sur l\'appareil. 100% privé et utilisable hors ligne.</string>
+    <string name="paywall_feature3_title">Messages Illimités</string>
+    <string name="paywall_feature3_desc">Envoyez des messages en illimité et posez toutes vos questions sans restriction.</string>
+    <string name="paywall_feature4_title">Accès à Vie</string>
+    <string name="paywall_feature4_desc">Payez une fois, utilisez pour toujours. Aucun abonnement ni frais récurrents.</string>
+    <string name="paywall_lifetime_badge">À VIE</string>
+    <string name="paywall_one_time_badge">PAIEMENT UNIQUE</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Payez une fois et débloquez le coach IA pour toujours. Aucun prélèvement récurrent.</string>
+    <string name="paywall_unlock_button">Débloquer l\'Accès à Vie</string>
+    <string name="paywall_unlock_with_price">Débloquer l\'Accès à Vie · %s</string>
+    <string name="paywall_restore_button">Restaurer les achats</string>
+    <string name="paywall_terms_privacy">Le paiement sera débité de votre compte Google Play. Achat unique sans abonnement.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium Actif</string>
+    <string name="paywall_lifetime_active_desc">Vous avez un accès permanent au Coach de Sommeil IA.</string>
+    <string name="paywall_upgrade_now">Débloquer OpenSleep Lifetime Premium</string>
 </resources>

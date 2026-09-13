@@ -22,11 +22,17 @@ import app.opensleep.domain.DownloadStatus
 import app.opensleep.domain.ModelVariant
 import app.opensleep.ui.components.GlassCard
 import app.opensleep.ui.theme.*
+import app.opensleep.viewmodel.BillingViewModel
 import app.opensleep.viewmodel.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel) {
+fun SettingsScreen(
+    viewModel: SettingsViewModel,
+    billingVm: BillingViewModel
+) {
+    val isPremium by billingVm.isPremium.collectAsState()
+    var showPaywallDialog by remember { mutableStateOf(false) }
     val downloadStatus by viewModel.downloadStatus.collectAsState()
     val activeVariant by viewModel.activeVariant.collectAsState()
     val currentLanguage by viewModel.currentLanguage.collectAsState()
@@ -215,6 +221,74 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 
         Spacer(Modifier.height(32.dp))
 
+        // Membership Section
+        Text(
+            text = stringResource(R.string.section_membership),
+            style = MaterialTheme.typography.titleMedium,
+            color = IndigoLight,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        GlassCard(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Surface(
+                        color = if (isPremium) Color(0xFF22C55E).copy(alpha = 0.2f) else IndigoAccent.copy(alpha = 0.2f),
+                        shape = androidx.compose.foundation.shape.CircleShape,
+                        modifier = Modifier.size(42.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = if (isPremium) Icons.Default.Verified else Icons.Default.AutoAwesome,
+                                contentDescription = null,
+                                tint = if (isPremium) Color(0xFF4ADE80) else IndigoLight,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.width(14.dp))
+
+                    Column {
+                        Text(
+                            text = stringResource(if (isPremium) R.string.paywall_premium_active else R.string.paywall_title),
+                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                            color = TextPrimary
+                        )
+                        Text(
+                            text = stringResource(if (isPremium) R.string.paywall_lifetime_active_desc else R.string.paywall_upgrade_now),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TextSecondary
+                        )
+                    }
+                }
+
+                if (!isPremium) {
+                    Button(
+                        onClick = { showPaywallDialog = true },
+                        colors = ButtonDefaults.buttonColors(containerColor = IndigoAccent),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.paywall_unlock_button),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                }
+            }
+        }
+
+        Spacer(Modifier.height(32.dp))
+
         // Downloads Section
         Text(
             text = stringResource(R.string.section_models),
@@ -235,7 +309,13 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
                     contextWindowSize = contextSize,
                     isActive = activeVariant == variant,
                     onSelect = { viewModel.setActiveVariant(variant) },
-                    onDownload = { viewModel.downloadModel(variant) },
+                    onDownload = {
+                        if (isPremium) {
+                            viewModel.downloadModel(variant)
+                        } else {
+                            showPaywallDialog = true
+                        }
+                    },
                     onPause = { viewModel.pauseDownload(variant) },
                     onCancel = { viewModel.cancelDownload(variant) },
                     onDelete = { viewModel.deleteModel(variant) },
@@ -327,6 +407,18 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
                     }
                 }
             )
+        }
+
+        if (showPaywallDialog) {
+            androidx.compose.ui.window.Dialog(
+                onDismissRequest = { showPaywallDialog = false },
+                properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)
+            ) {
+                PaywallScreen(
+                    billingVm = billingVm,
+                    onDismiss = { showPaywallDialog = false }
+                )
+            }
         }
 
         Spacer(Modifier.height(48.dp))
