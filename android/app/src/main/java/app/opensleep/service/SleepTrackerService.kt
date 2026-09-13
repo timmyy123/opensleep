@@ -79,23 +79,6 @@ class SleepTrackerService : Service(), SensorEventListener {
     private var sonarPollJob: Job? = null
     private var lowLevelActivityAggregator: LowLevelActivityAggregator? = null
 
-    private var activeAwakeIntervalStartMs: Long? = null
-
-    private val screenReceiver = object : android.content.BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            when (intent.action) {
-                Intent.ACTION_SCREEN_ON -> {
-                    // User interacted with or turned on phone -> mark awake
-                    recordAwakeState(System.currentTimeMillis(), true)
-                }
-                Intent.ACTION_SCREEN_OFF -> {
-                    // Phone screen turned off -> close active awake interval
-                    recordAwakeState(System.currentTimeMillis(), false)
-                }
-            }
-        }
-    }
-
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "SleepTrackerService.onCreate() called.")
@@ -104,12 +87,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "opensleep::tracking")
         repository = SleepRepository(SleepDatabase.getInstance(applicationContext).sleepSessionDao())
-
-        val filter = IntentFilter().apply {
-            addAction(Intent.ACTION_SCREEN_ON)
-            addAction(Intent.ACTION_SCREEN_OFF)
-        }
-        registerReceiver(screenReceiver, filter)
         createNotificationChannel()
     }
 
@@ -130,7 +107,6 @@ class SleepTrackerService : Service(), SensorEventListener {
     private fun startTracking() {
         if (!isTracking) {
             analyzer.clear()
-            activeAwakeIntervalStartMs = null
             isTracking = true
         }
 
@@ -284,7 +260,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         if (!isTracking || isSaving) return
         isTracking = false
         isSaving = true
-        recordAwakeState(System.currentTimeMillis(), false)
 
         // Stop sensors & sonar
         sensorManager.unregisterListener(this)
@@ -356,20 +331,6 @@ class SleepTrackerService : Service(), SensorEventListener {
         return System.currentTimeMillis() - ageMs.coerceAtLeast(0L)
     }
 
-    @Synchronized
-    private fun recordAwakeState(nowMs: Long, awake: Boolean) {
-        if (awake) {
-            val start = activeAwakeIntervalStartMs ?: nowMs
-            activeAwakeIntervalStartMs = start
-            analyzer.addAwakeInterval(start, nowMs)
-        } else {
-            val start = activeAwakeIntervalStartMs
-            if (start != null && nowMs > start) {
-                analyzer.addAwakeInterval(start, nowMs)
-            }
-            activeAwakeIntervalStartMs = null
-        }
-    }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -407,7 +368,6 @@ class SleepTrackerService : Service(), SensorEventListener {
             audioRecord?.release()
         } catch (_: Exception) {}
         chirpProducer?.stop()
-        runCatching { unregisterReceiver(screenReceiver) }
         serviceScope.cancel()
         if (!isSaving && wakeLock.isHeld) {
             wakeLock.release()

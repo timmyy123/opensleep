@@ -44,11 +44,6 @@ class SleepTrackerService: ObservableObject {
     private var interruptionObserver: AnyObject?
     private var routeChangeObserver: AnyObject?
 
-    // Awake tracking
-    private var activeAwakeIntervalStart: Date?
-    private var lastAwakeRecordTime: Date = Date.distantPast
-    private var didEnterBackgroundObserver: AnyObject?
-    private var willEnterForegroundObserver: AnyObject?
 
     // Timers
     private let sampleInterval: TimeInterval = 0.05 // ~20 Hz
@@ -113,8 +108,6 @@ class SleepTrackerService: ObservableObject {
 
         analysisQueue.sync { [weak self] in
             self?.analyzer.clear()
-            self?.activeAwakeIntervalStart = nil
-            self?.lastAwakeRecordTime = Date.distantPast
             self?.audioChunkLock.lock()
             self?.audioChunkBuffer.removeAll()
             self?.isAudioDrainScheduled = false
@@ -153,8 +146,6 @@ class SleepTrackerService: ObservableObject {
         // Remove observers immediately so no further audio or lifecycle events fire
         removeLifecycleObservers()
 
-        // Close awake state
-        recordAwakeState(now: Date(), awake: false)
 
         // Stop motion sensors and timers
         motionManager.stopAccelerometerUpdates()
@@ -393,10 +384,7 @@ class SleepTrackerService: ObservableObject {
         audioChunkLock.unlock()
 
         if let consumerRes = fftSonar?.processAndGetResult(chunk) {
-            let res = activityAggregator?.update(consumerRes.activity)
-            if res?.isHighActivity == true {
-                recordAwakeState(now: Date(), awake: true, lookback: 10.0)
-            }
+            _ = activityAggregator?.update(consumerRes.activity)
         }
 
         analysisQueue.async { [weak self] in self?.drainAudioFrames() }
@@ -547,31 +535,9 @@ class SleepTrackerService: ObservableObject {
 
     // MARK: - Lifecycle & Observers
 
-    private func setupLifecycleObservers() {
-        willEnterForegroundObserver = NotificationCenter.default.addObserver(
-            forName: UIApplication.willEnterForegroundNotification,
-            object: nil,
-            queue: nil
-        ) { [weak self] _ in
-            self?.analysisQueue.async {
-                self?.recordAwakeState(now: Date(), awake: true)
-            }
-        }
-
-        didEnterBackgroundObserver = NotificationCenter.default.addObserver(
-            forName: UIApplication.didEnterBackgroundNotification,
-            object: nil,
-            queue: nil
-        ) { [weak self] _ in
-            self?.analysisQueue.async {
-                self?.recordAwakeState(now: Date(), awake: false)
-            }
-        }
-    }
+    private func setupLifecycleObservers() {}
 
     private func removeLifecycleObservers() {
-        if let obs = didEnterBackgroundObserver { NotificationCenter.default.removeObserver(obs); didEnterBackgroundObserver = nil }
-        if let obs = willEnterForegroundObserver { NotificationCenter.default.removeObserver(obs); willEnterForegroundObserver = nil }
         if let obs = interruptionObserver { NotificationCenter.default.removeObserver(obs); interruptionObserver = nil }
         if let obs = routeChangeObserver { NotificationCenter.default.removeObserver(obs); routeChangeObserver = nil }
     }
@@ -598,21 +564,6 @@ class SleepTrackerService: ObservableObject {
         if isTracking { scheduleBackgroundTask() }
     }
 
-    private func recordAwakeState(now: Date, awake: Bool, lookback: TimeInterval = 0) {
-        if awake {
-            let timeSinceLast = now.timeIntervalSince(lastAwakeRecordTime)
-            guard timeSinceLast >= 1.0 else { return }
-            lastAwakeRecordTime = now
-            let start = activeAwakeIntervalStart ?? now.addingTimeInterval(-lookback)
-            activeAwakeIntervalStart = start
-            analyzer.addAwakeInterval(start: start, end: now)
-        } else {
-            if let start = activeAwakeIntervalStart, now > start {
-                analyzer.addAwakeInterval(start: start, end: now)
-            }
-            activeAwakeIntervalStart = nil
-        }
-    }
 
     // MARK: - Background Tasks
 
