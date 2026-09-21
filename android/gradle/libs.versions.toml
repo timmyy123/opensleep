@@ -2,22 +2,24 @@
 agp = "9.4.1"
 kotlin = "2.2.10"
 ksp = "2.3.6"
-composeBom = "2026.02.01"
-coreKtx = "1.16.0"
-lifecycleRuntimeKtx = "2.9.0"
-activityCompose = "1.10.1"
+composeBom = "2026.09.00"
+coreKtx = "1.18.0"
+lifecycleRuntimeKtx = "2.10.0"
+activityCompose = "1.13.0"
+fragment = "1.8.9"
+playServicesBase = "18.11.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 room = "2.7.1"
-healthConnect = "1.1.0-rc01"
+healthConnect = "1.1.0"
 coroutines = "1.10.2"
 litertlm = "0.17.1"
 serialization = "1.8.1"
-navigationCompose = "2.9.0"
-accompanistPermissions = "0.37.2"
-datastore = "1.1.4"
-workManager = "2.10.1"
+navigationCompose = "2.10.1"
+accompanistPermissions = "0.37.3"
+datastore = "1.2.1"
+workManager = "2.11.2"
 billing = "9.1.0"
 
 [libraries]
@@ -59,6 +61,8 @@ accompanist-permissions = { group = "com.google.accompanist", name = "accompanis
 
 tensorflow-lite = { group = "org.tensorflow", name = "tensorflow-lite", version = "2.17.0" }
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+play-services-base = { group = "com.google.android.gms", name = "play-services-base", version.ref = "playServicesBase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -7,9 +7,9 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import app.opensleep.navigation.AppNavigation
 import app.opensleep.ui.theme.OpenSleepTheme
@@ -17,13 +17,15 @@ import app.opensleep.ui.theme.OpenSleepTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+        )
 
         // Request runtime permissions for Sleep tracking and notifications
         requestSleepPermissions()
 
-        // Force dark status/nav bars to match our theme
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        // Force light content on dark bars to match our dark theme
         WindowInsetsControllerCompat(window, window.decorView).apply {
             isAppearanceLightStatusBars = false
             isAppearanceLightNavigationBars = false

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "app.opensleep"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "tech.opensleep"
@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -77,6 +78,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.play.services.base)
 
     // Room
     implementation(libs.room.runtime)
