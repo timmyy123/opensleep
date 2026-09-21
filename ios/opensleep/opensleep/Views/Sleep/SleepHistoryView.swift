@@ -63,6 +63,7 @@ struct SleepHistoryView: View {
                         .padding(.horizontal, 24)
                     }
                     .scrollDisabled(true)
+                    .scrollEdgeEffectStyle(.soft, for: .top)
                     .background(Color.navyDeep.ignoresSafeArea())
                 } else {
                     ZStack {
@@ -116,6 +117,7 @@ struct SleepHistoryView: View {
                         .listStyle(.plain)
                         .scrollContentBackground(.hidden)
                         .scrollIndicators(.hidden)
+                        .scrollEdgeEffectStyle(.soft, for: .top)
                         
                         if isMultiSelectActive {
                             multiSelectActionBar()
@@ -127,6 +129,7 @@ struct SleepHistoryView: View {
             .navigationTitle("history_title")
             .navigationBarTitleDisplayMode(.large)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !sessions.filter(\.isCompleted).isEmpty {

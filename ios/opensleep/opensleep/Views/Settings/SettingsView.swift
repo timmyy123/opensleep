@@ -182,6 +182,8 @@ struct SettingsView: View {
                 }
                 .padding(.horizontal, 20)
             }
+            .scrollIndicators(.hidden)
+            .scrollEdgeEffectStyle(.soft, for: .top)
             .sheet(isPresented: $showPrivacySheet) {
                 PrivacySheetView()
             }

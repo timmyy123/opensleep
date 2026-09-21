@@ -78,6 +78,7 @@ struct SleepHomeView: View {
                 .safeAreaPadding(.top)  // Keeps content below the status bar
             }
             .scrollIndicators(.hidden)
+            .scrollEdgeEffectStyle(.soft, for: .top)
         }
         .onAppear { updateTimer() }
         .onDisappear { timer?.invalidate() }

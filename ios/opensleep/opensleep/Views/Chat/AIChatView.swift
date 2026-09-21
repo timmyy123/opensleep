@@ -76,6 +76,7 @@ struct AIChatView: View {
                             }
                         }
                         .scrollDismissesKeyboard(.interactively)
+                        .scrollEdgeEffectStyle(.soft, for: .top)
                         .onChange(of: messages.count) { _, _ in
                             withAnimation { proxy.scrollTo("bottom") }
                         }
