@@ -17,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -443,6 +444,7 @@ fun SleepBreakdownChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)
+                        .clipToBounds()
                 ) {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
@@ -473,14 +475,15 @@ fun SleepBreakdownChart(
                         )
                     }
                     
-                    // Draw floating bars for each label
+                    // Draw floating bars for each label (capped to a sleek maximum width)
                     val barCount = uniqueLabels.size
-                    val spacing = 16.dp.toPx()
-                    val totalSpacing = spacing * (barCount + 1)
-                    val barWidth = (canvasWidth - totalSpacing) / maxOf(1f, barCount.toFloat())
+                    val maxBarWidth = 36.dp.toPx()
+                    val slotWidth = canvasWidth / maxOf(1, barCount)
+                    val barWidth = minOf(maxBarWidth, slotWidth * 0.7f)
                     
                     uniqueLabels.forEachIndexed { idx, label ->
-                        val x = spacing + idx * (barWidth + spacing)
+                        val slotCenter = (idx + 0.5f) * slotWidth
+                        val x = slotCenter - barWidth / 2
                         
                         // Draw stages for this label
                         val stagesForLabel = chartData.filter { it.label == label }
@@ -499,7 +502,7 @@ fun SleepBreakdownChart(
                             }
                         }
                         
-                        // Draw x-axis label centered
+                        // Draw x-axis label centered under each bar
                         val layoutResult = textMeasurer.measure(
                             text = label,
                             style = androidx.compose.ui.text.TextStyle(
@@ -511,7 +514,7 @@ fun SleepBreakdownChart(
                         drawText(
                             textLayoutResult = layoutResult,
                             topLeft = Offset(
-                                x + (barWidth - layoutResult.size.width) / 2,
+                                slotCenter - layoutResult.size.width / 2,
                                 chartHeight + 8.dp.toPx()
                             )
                         )
