@@ -30,8 +30,11 @@ struct PaywallView: View {
                 .ignoresSafeArea()
             
             GeometryReader { geometry in
+                // Short screens (e.g. folded iPhone Duo, compact iPhones) get a tighter layout so the
+                // whole paywall fits above the pinned purchase button.
+                let compact = geometry.size.height < 640
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 16) {
+                    VStack(spacing: compact ? 12 : 16) {
                         // Modal dismiss header
                         if isModal {
                             HStack {
@@ -61,10 +64,10 @@ struct PaywallView: View {
                                             endPoint: .bottomTrailing
                                         )
                                     )
-                                    .frame(width: 72, height: 72)
+                                    .frame(width: compact ? 52 : 72, height: compact ? 52 : 72)
                                 
                                 Image(systemName: "sparkles")
-                                    .font(.system(size: 34, weight: .semibold))
+                                    .font(.system(size: compact ? 24 : 34, weight: .semibold))
                                     .foregroundStyle(
                                         LinearGradient(
                                             colors: [Color.indigoLight, Color.cyanAccent],
@@ -77,7 +80,7 @@ struct PaywallView: View {
                             
                             VStack(spacing: 6) {
                                 Text("paywall_title")
-                                    .font(.system(size: 26, weight: .bold))
+                                    .font(.system(size: compact ? 22 : 26, weight: .bold))
                                     .foregroundStyle(Color.textPrimary)
                                     .multilineTextAlignment(.center)
                                 
@@ -91,12 +94,13 @@ struct PaywallView: View {
                         .padding(.top, isModal ? 2 : 10)
                         
                         // Consolidated Features Card
-                        GlassCard(padding: 16) {
-                            VStack(spacing: 13) {
+                        GlassCard(padding: compact ? 12 : 16) {
+                            VStack(spacing: compact ? 9 : 13) {
                                 FeatureRowCompact(
                                     icon: "waveform.path.ecg",
                                     iconColor: Color.cyanAccent,
                                     titleKey: "paywall_feature1_title",
+                                    showsDescription: !compact,
                                     descKey: "paywall_feature1_desc"
                                 )
                                 
@@ -107,6 +111,7 @@ struct PaywallView: View {
                                     icon: "cpu.fill",
                                     iconColor: Color.indigoLight,
                                     titleKey: "paywall_feature2_title",
+                                    showsDescription: !compact,
                                     descKey: "paywall_feature2_desc"
                                 )
                                 
@@ -117,6 +122,7 @@ struct PaywallView: View {
                                     icon: "bubble.left.and.bubble.right.fill",
                                     iconColor: Color.greenAccent,
                                     titleKey: "paywall_feature3_title",
+                                    showsDescription: !compact,
                                     descKey: "paywall_feature3_desc"
                                 )
                                 
@@ -127,6 +133,7 @@ struct PaywallView: View {
                                     icon: "lock.open.fill",
                                     iconColor: Color.amberAccent,
                                     titleKey: "paywall_feature4_title",
+                                    showsDescription: !compact,
                                     descKey: "paywall_feature4_desc"
                                 )
                             }
@@ -234,7 +241,7 @@ struct PaywallView: View {
                                 .lineLimit(1)
                         }
                         .padding(.top, 2)
-                        .padding(.bottom, isModal ? 16 : 28)
+                        .padding(.bottom, compact ? 12 : (isModal ? 16 : 28))
                     }
                     .padding(.horizontal, 20)
                     .frame(minHeight: geometry.size.height, alignment: .top)
@@ -308,6 +315,7 @@ private struct FeatureRowCompact: View {
     let icon: String
     let iconColor: Color
     let titleKey: LocalizedStringKey
+    var showsDescription: Bool = true
     let descKey: LocalizedStringKey
     
     var body: some View {
@@ -327,10 +335,12 @@ private struct FeatureRowCompact: View {
                     .font(.system(size: 14, weight: .bold))
                     .foregroundStyle(Color.textPrimary)
                 
-                Text(descKey)
-                    .font(AppTextStyle.caption)
-                    .foregroundStyle(Color.textSecondary)
-                    .lineSpacing(1.5)
+                if showsDescription {
+                    Text(descKey)
+                        .font(AppTextStyle.caption)
+                        .foregroundStyle(Color.textSecondary)
+                        .lineSpacing(1.5)
+                }
             }
             
             Spacer(minLength: 0)

@@ -264,6 +264,19 @@ struct SleepHistoryView: View {
         }
     }
 
+    /// Evenly spaced subset of the bar labels (always including the latest) so axis labels never collide.
+    private func xAxisLabels(for data: [ChartStagePoint], maxLabels: Int = 7) -> [String] {
+        var seen = Set<String>()
+        let labels = data.map(\.label).filter { seen.insert($0).inserted }
+        guard labels.count > maxLabels else { return labels }
+        let step = Int((Double(labels.count) / Double(maxLabels)).rounded(.up))
+        // Count back from the newest bar so the most recent night is always labelled
+        return labels.indices.reversed()
+            .filter { (labels.count - 1 - $0) % step == 0 }
+            .reversed()
+            .map { labels[$0] }
+    }
+
     private func makePoints(for selectedSessions: [SleepSession], formatter: DateFormatter) -> [ChartStagePoint] {
         var points: [ChartStagePoint] = []
         for session in selectedSessions {
@@ -333,9 +346,15 @@ struct SleepHistoryView: View {
                         localizedString("stage_rem"): Color.stageREM
                     ])
                     .chartXAxis {
-                        AxisMarks(values: .automatic) { _ in
-                            AxisValueLabel()
-                                .foregroundStyle(Color.textSecondary)
+                        // Label at most ~7 bars so Week/Month labels don't overlap
+                        let shownLabels = Set(xAxisLabels(for: data))
+                        AxisMarks { value in
+                            AxisValueLabel {
+                                if let label = value.as(String.self), shownLabels.contains(label) {
+                                    Text(label)
+                                }
+                            }
+                            .foregroundStyle(Color.textSecondary)
                         }
                     }
                     .chartYAxis {
