@@ -480,7 +480,9 @@ fun SleepBreakdownChart(
                     val maxBarWidth = 36.dp.toPx()
                     val slotWidth = canvasWidth / maxOf(1, barCount)
                     val barWidth = minOf(maxBarWidth, slotWidth * 0.7f)
-                    
+                    // Label at most ~7 bars (always the newest) so Week/Month labels don't overlap
+                    val labelStep = maxOf(1, (barCount + 6) / 7)
+
                     uniqueLabels.forEachIndexed { idx, label ->
                         val slotCenter = (idx + 0.5f) * slotWidth
                         val x = slotCenter - barWidth / 2
@@ -502,7 +504,8 @@ fun SleepBreakdownChart(
                             }
                         }
                         
-                        // Draw x-axis label centered under each bar
+                        // Draw x-axis label centered under the bar (thinned on Week/Month)
+                        if ((barCount - 1 - idx) % labelStep != 0) return@forEachIndexed
                         val layoutResult = textMeasurer.measure(
                             text = label,
                             style = androidx.compose.ui.text.TextStyle(
