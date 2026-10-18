@@ -30,7 +30,7 @@ class LiteRtManager: ObservableObject {
 
         do {
             ExperimentalFlags.optIntoExperimentalAPIs()
-            if let cap = Capabilities(modelPath: path), cap.hasSpeculativeDecodingSupport() {
+            if ModelInfo(modelPath: path)?.llm?.hasSpeculativeDecodingSupport() == true {
                 ExperimentalFlags.enableSpeculativeDecoding = true
             } else {
                 ExperimentalFlags.enableSpeculativeDecoding = false

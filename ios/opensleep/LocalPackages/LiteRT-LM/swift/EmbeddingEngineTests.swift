@@ -32,7 +32,7 @@ class EmbeddingEngineTests: XCTestCase {
     return testDataPath(forResource: modelResource)
   }
 
-  func testEmbeddingOptions_DefaultsAreNil() {
+  func testEmbeddingOptions_setsDefaultAndCustomValues() {
     let options = EmbeddingOptions()
     XCTAssertNil(options.normalize)
     XCTAssertNil(options.insertSpecialTokens)
@@ -51,7 +51,7 @@ class EmbeddingEngineTests: XCTestCase {
     XCTAssertEqual(customOptions.visionTokensPerImage, 70)
   }
 
-  func testEmbeddingEngineConfig_IsCorrectlySet() async throws {
+  func testEmbeddingEngineConfig_setsPropertiesAndStartsUninitialized() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu(),
@@ -67,7 +67,7 @@ class EmbeddingEngineTests: XCTestCase {
     XCTAssertFalse(isInit)
   }
 
-  func testEmbeddingEngineConfig_MaxInputLengthAndVisionTokens_IsCorrectlySet() async throws {
+  func testEmbeddingEngineConfig_withMaxInputLengthAndVisionTokens_setsProperties() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu(),
@@ -82,11 +82,11 @@ class EmbeddingEngineTests: XCTestCase {
     XCTAssertEqual(engineConfig.visionTokensPerImage, 280)
   }
 
-  func testComputeEmbedding_WithMaxInputLength_Success() async throws {
+  func testComputeEmbedding_withMaxInputLength_returnsNonEmptyEmbedding() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu(),
-      maxInputLength: 512
+      maxInputLength: 128
     )
     let engine = EmbeddingEngine(config: config)
     try await engine.initialize()
@@ -100,7 +100,24 @@ class EmbeddingEngineTests: XCTestCase {
     await engine.close()
   }
 
-  func testComputeEmbedding_Success() async throws {
+  func testComputeEmbedding_withCpuThreadCount_returnsNonEmptyEmbedding() async throws {
+    let config = EmbeddingEngineConfig(
+      modelPath: modelPath,
+      backend: .cpu(threadCount: 4)
+    )
+    let engine = EmbeddingEngine(config: config)
+    try await engine.initialize()
+
+    let response = try await engine.computeEmbedding(
+      contents: [.text("'s")],
+      options: EmbeddingOptions(normalize: true)
+    )
+
+    XCTAssertFalse(response.embedding.isEmpty)
+    await engine.close()
+  }
+
+  func testComputeEmbedding_returnsNormalizedAndTruncatedEmbeddings() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu()
@@ -146,7 +163,7 @@ class EmbeddingEngineTests: XCTestCase {
     await engine.close()
   }
 
-  func testComputeEmbeddingBatch_Success() async throws {
+  func testComputeEmbeddingBatch_returnsNonEmptyAndTruncatedEmbeddings() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu()
@@ -176,7 +193,7 @@ class EmbeddingEngineTests: XCTestCase {
     await engine.close()
   }
 
-  func testComputeEmbedding_UninitializedThrows() async throws {
+  func testComputeEmbedding_whenUninitialized_throwsNotInitializedError() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: modelPath,
       backend: .cpu()
@@ -191,7 +208,7 @@ class EmbeddingEngineTests: XCTestCase {
     }
   }
 
-  func testInitialize_InvalidPathThrows() async throws {
+  func testInitialize_withInvalidPath_throwsError() async throws {
     let config = EmbeddingEngineConfig(
       modelPath: "/invalid/path/nonexistent.litertlm",
       backend: .cpu()
@@ -201,8 +218,87 @@ class EmbeddingEngineTests: XCTestCase {
     do {
       try await engine.initialize()
       XCTFail("Expected initialization failure")
+    } catch let error as LiteRTLMError {
+      XCTAssertEqual(error, .embeddingEngine(.failedToCreateEngine))
+      guard case .embeddingEngine(.failedToCreateEngine(let message)) = error else {
+        XCTFail("Expected failedToCreateEngine error, got \(error)")
+        return
+      }
+      XCTAssertFalse(message.isEmpty, "Expected non-empty error message from native layer")
+      XCTAssertTrue(error.localizedDescription.contains(message))
+      XCTAssertNil(LiteRTLMError.getLastErrorMessage())
+      XCTAssertEqual(LiteRTLMError.getLastErrorCode(), 0)
     } catch {
-      // Expected error
+      XCTFail("Unexpected error: \(error)")
     }
+  }
+
+  func testComputeEmbedding_UnsupportedToolResponseThrows() async throws {
+    let config = EmbeddingEngineConfig(
+      modelPath: modelPath,
+      backend: .cpu()
+    )
+    let engine = EmbeddingEngine(config: config)
+    try await engine.initialize()
+
+    do {
+      let toolResponse = Content.toolResponse(name: "test", response: [:])
+      _ = try await engine.computeEmbedding(contents: [toolResponse])
+      XCTFail("Expected failedToCreateInputData error")
+    } catch let error as LiteRTLMError {
+      XCTAssertEqual(error, .embeddingEngine(.failedToCreateInputData))
+      guard case .embeddingEngine(.failedToCreateInputData(let message)) = error else {
+        XCTFail("Expected failedToCreateInputData error, got \(error)")
+        return
+      }
+      XCTAssertTrue(message.contains("Tool responses are not supported"))
+    }
+    await engine.close()
+  }
+
+  func testComputeEmbedding_InvalidImageFilePathThrows() async throws {
+    let config = EmbeddingEngineConfig(
+      modelPath: modelPath,
+      backend: .cpu()
+    )
+    let engine = EmbeddingEngine(config: config)
+    try await engine.initialize()
+
+    do {
+      let content = Content.imageFile("/non/existent/image.png")
+      _ = try await engine.computeEmbedding(contents: [content])
+      XCTFail("Expected failedToCreateInputData error")
+    } catch let error as LiteRTLMError {
+      XCTAssertEqual(error, .embeddingEngine(.failedToCreateInputData))
+      guard case .embeddingEngine(.failedToCreateInputData(let message)) = error else {
+        XCTFail("Expected failedToCreateInputData error, got \(error)")
+        return
+      }
+      XCTAssertTrue(message.contains("Failed to read image file"))
+    }
+    await engine.close()
+  }
+
+  func testComputeEmbedding_InvalidAudioFilePathThrows() async throws {
+    let config = EmbeddingEngineConfig(
+      modelPath: modelPath,
+      backend: .cpu()
+    )
+    let engine = EmbeddingEngine(config: config)
+    try await engine.initialize()
+
+    do {
+      let content = Content.audioFile("/non/existent/audio.wav")
+      _ = try await engine.computeEmbedding(contents: [content])
+      XCTFail("Expected failedToCreateInputData error")
+    } catch let error as LiteRTLMError {
+      XCTAssertEqual(error, .embeddingEngine(.failedToCreateInputData))
+      guard case .embeddingEngine(.failedToCreateInputData(let message)) = error else {
+        XCTFail("Expected failedToCreateInputData error, got \(error)")
+        return
+      }
+      XCTAssertTrue(message.contains("Failed to read audio file"))
+    }
+    await engine.close()
   }
 }
