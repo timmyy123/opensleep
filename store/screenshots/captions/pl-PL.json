@@ -1,0 +1,38 @@
+{
+  "locale": "pl-PL",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI NA URZĄDZENIU",
+      "eyebrow": "Prywatność od podstaw",
+      "headline": "Zapytaj o sen. / *Poznaj odpowiedź.*",
+      "sub": "Trener AI działający na telefonie.",
+      "chip_tag": "DZIAŁA OFFLINE",
+      "chip_value": "Bez konta"
+    },
+    "stages": {
+      "pill_tag": "BEZ OPASKI I ZEGARKA",
+      "eyebrow": "Fazy snu prosto z telefonu",
+      "headline": "Każda faza / *na wykresie.*",
+      "sub": "Głęboki, płytki, REM i czuwanie.",
+      "chip_tag": "REM",
+      "chip_tag2": "OSTATNIA NOC",
+      "chip_foot": "23% NOCY"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIA",
+      "headline": "Dwa tygodnie / *obok siebie.*",
+      "sub": "Widok dnia, tygodnia, miesiąca, roku.",
+      "chip_tag": "OSTATNIA NOC"
+    },
+    "track": {
+      "eyebrow": "02 / POMIAR",
+      "headline": "Jedno dotknięcie. / *Bez opaski.*",
+      "sub": "Połóż telefon obok łóżka.",
+      "list_head": "CZUJNIK POMIARU",
+      "sonar": "Sonar",
+      "sonar_meta": "Bezdotykowo",
+      "accel": "Akcelerometr",
+      "accel_meta": "Materac"
+    }
+  }
+}

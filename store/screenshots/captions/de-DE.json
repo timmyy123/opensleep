@@ -1,0 +1,38 @@
+{
+  "locale": "de-DE",
+  "slides": {
+    "chat": {
+      "pill_tag": "KI AUF DEM GERÄT",
+      "eyebrow": "Privat von Grund auf",
+      "headline": "Fragen zum Schlaf? / *Echte Antworten.*",
+      "sub": "Ein KI-Coach direkt auf deinem Handy.",
+      "chip_tag": "LÄUFT OFFLINE",
+      "chip_value": "Kein Konto"
+    },
+    "stages": {
+      "pill_tag": "OHNE WEARABLE",
+      "eyebrow": "Schlafphasen per Handy",
+      "headline": "Jede Phase / *sichtbar.*",
+      "sub": "Tiefschlaf, Leichtschlaf, REM, wach.",
+      "chip_tag": "REM",
+      "chip_tag2": "LETZTE NACHT",
+      "chip_foot": "23 % DER NACHT"
+    },
+    "history": {
+      "eyebrow": "01 / VERLAUF",
+      "headline": "Zwei Wochen / *im Vergleich.*",
+      "sub": "Ansicht für Tag, Woche, Monat, Jahr.",
+      "chip_tag": "LETZTE NACHT"
+    },
+    "track": {
+      "eyebrow": "02 / AUFZEICHNUNG",
+      "headline": "Ein Tipp. / *Kein Wearable.*",
+      "sub": "Leg dein Handy einfach ans Bett.",
+      "list_head": "TRACKING-SENSOR",
+      "sonar": "Sonar",
+      "sonar_meta": "Kontaktlos",
+      "accel": "Bewegungssensor",
+      "accel_meta": "Matratze"
+    }
+  }
+}

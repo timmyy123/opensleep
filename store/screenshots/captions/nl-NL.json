@@ -1,0 +1,38 @@
+{
+  "locale": "nl-NL",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI OP JE TOESTEL",
+      "eyebrow": "Privé vanaf de basis",
+      "headline": "Slaapvragen? / *Echte antwoorden.*",
+      "sub": "Een AI-coach die op je telefoon draait.",
+      "chip_tag": "WERKT OFFLINE",
+      "chip_value": "Geen account"
+    },
+    "stages": {
+      "pill_tag": "GEEN WEARABLE",
+      "eyebrow": "Slaapfases via je telefoon",
+      "headline": "Elke fase / *in beeld.*",
+      "sub": "Diep, licht, REM en wakker.",
+      "chip_tag": "REM",
+      "chip_tag2": "AFGELOPEN NACHT",
+      "chip_foot": "23% VAN DE NACHT"
+    },
+    "history": {
+      "eyebrow": "01 / GESCHIEDENIS",
+      "headline": "Twee weken / *naast elkaar.*",
+      "sub": "Dag, week, maand en jaar.",
+      "chip_tag": "AFGELOPEN NACHT"
+    },
+    "track": {
+      "eyebrow": "02 / METEN",
+      "headline": "Eén tik. / *Niets om te dragen.*",
+      "sub": "Leg je telefoon naast je bed.",
+      "list_head": "MEETSENSOR",
+      "sonar": "Sonar",
+      "sonar_meta": "Contactloos",
+      "accel": "Versnellingsmeter",
+      "accel_meta": "Matras"
+    }
+  }
+}

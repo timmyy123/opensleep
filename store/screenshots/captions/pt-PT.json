@@ -1,0 +1,38 @@
+{
+  "locale": "pt-PT",
+  "slides": {
+    "chat": {
+      "pill_tag": "IA NO DISPOSITIVO",
+      "eyebrow": "Privado de raiz",
+      "headline": "Dúvidas de sono? / *Respostas a sério.*",
+      "sub": "Um coach de IA a funcionar no telemóvel.",
+      "chip_tag": "FUNCIONA SEM INTERNET",
+      "chip_value": "Sem conta"
+    },
+    "stages": {
+      "pill_tag": "SEM ACESSÓRIOS",
+      "eyebrow": "Fases do sono no telemóvel",
+      "headline": "Cada fase, / *em gráfico.*",
+      "sub": "Profundo, leve, REM e acordado.",
+      "chip_tag": "REM",
+      "chip_tag2": "NOITE PASSADA",
+      "chip_foot": "23% DA NOITE"
+    },
+    "history": {
+      "eyebrow": "01 / HISTÓRICO",
+      "headline": "Duas semanas, / *lado a lado.*",
+      "sub": "Vistas de dia, semana, mês e ano.",
+      "chip_tag": "NOITE PASSADA"
+    },
+    "track": {
+      "eyebrow": "02 / MONITORIZAÇÃO",
+      "headline": "Um toque. / *Nada no pulso.*",
+      "sub": "Deixe o telemóvel junto à cama.",
+      "list_head": "SENSOR DE MONITORIZAÇÃO",
+      "sonar": "Sonar",
+      "sonar_meta": "Sem contacto",
+      "accel": "Acelerómetro",
+      "accel_meta": "Colchão"
+    }
+  }
+}

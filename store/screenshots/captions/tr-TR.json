@@ -1,0 +1,38 @@
+{
+  "locale": "tr-TR",
+  "slides": {
+    "chat": {
+      "pill_tag": "CİHAZDA YAPAY ZEKÂ",
+      "eyebrow": "Özünde gizlilik",
+      "headline": "Uykunu sor. / *Gerçek yanıt al.*",
+      "sub": "Telefonunda çalışan yapay zekâ koçu.",
+      "chip_tag": "ÇEVRİMDIŞI ÇALIŞIR",
+      "chip_value": "Hesap gerekmez"
+    },
+    "stages": {
+      "pill_tag": "BİLEKLİK GEREKMEZ",
+      "eyebrow": "Uyku evreleri telefonundan",
+      "headline": "Her evre / *grafikte.*",
+      "sub": "Derin, hafif, REM ve uyanık.",
+      "chip_tag": "REM",
+      "chip_tag2": "DÜN GECE",
+      "chip_foot": "GECENİN %23’Ü"
+    },
+    "history": {
+      "eyebrow": "01 / GEÇMİŞ",
+      "headline": "İki hafta, / *yan yana.*",
+      "sub": "Gün, hafta, ay ve yıl görünümü.",
+      "chip_tag": "DÜN GECE"
+    },
+    "track": {
+      "eyebrow": "02 / TAKİP",
+      "headline": "Tek dokunuş. / *Bileklik yok.*",
+      "sub": "Telefonunu yatağının yanına bırak.",
+      "list_head": "TAKİP SENSÖRÜ",
+      "sonar": "Sonar",
+      "sonar_meta": "Temassız",
+      "accel": "İvmeölçer",
+      "accel_meta": "Yatak"
+    }
+  }
+}

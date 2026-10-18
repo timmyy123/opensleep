@@ -1,0 +1,38 @@
+{
+  "locale": "ro",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI PE DISPOZITIV",
+      "eyebrow": "Confidențial din start",
+      "headline": "Întreabă de somn. / *Răspunsuri reale.*",
+      "sub": "Un coach AI care rulează pe telefon.",
+      "chip_tag": "FUNCȚIONEAZĂ OFFLINE",
+      "chip_value": "Fără cont"
+    },
+    "stages": {
+      "pill_tag": "NIMIC LA ÎNCHEIETURĂ",
+      "eyebrow": "Fazele somnului de pe telefon",
+      "headline": "Fiecare fază, / *pe grafic.*",
+      "sub": "Profund, ușor, REM și treaz.",
+      "chip_tag": "REM",
+      "chip_tag2": "NOAPTEA TRECUTĂ",
+      "chip_foot": "23% DIN NOAPTE"
+    },
+    "history": {
+      "eyebrow": "01 / ISTORIC",
+      "headline": "Două săptămâni, / *alăturate.*",
+      "sub": "Zi, săptămână, lună și an.",
+      "chip_tag": "NOAPTEA TRECUTĂ"
+    },
+    "track": {
+      "eyebrow": "02 / MONITORIZARE",
+      "headline": "O atingere. / *Nimic de purtat.*",
+      "sub": "Lasă telefonul lângă pat.",
+      "list_head": "SENZOR DE MONITORIZARE",
+      "sonar": "Sonar",
+      "sonar_meta": "Fără contact",
+      "accel": "Accelerometru",
+      "accel_meta": "Saltea"
+    }
+  }
+}

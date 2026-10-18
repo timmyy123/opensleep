@@ -1,0 +1,38 @@
+{
+  "locale": "fr-CA",
+  "slides": {
+    "chat": {
+      "pill_tag": "IA SUR L’APPAREIL",
+      "eyebrow": "Privé dès la conception",
+      "headline": "Votre sommeil? / *De vraies réponses.*",
+      "sub": "Un coach IA intégré à votre cellulaire.",
+      "chip_tag": "FONCTIONNE HORS LIGNE",
+      "chip_value": "Aucun compte"
+    },
+    "stages": {
+      "pill_tag": "RIEN À PORTER",
+      "eyebrow": "Vos phases via le cellulaire",
+      "headline": "Chaque phase, / *bien illustrée.*",
+      "sub": "Profond, léger, REM et éveil.",
+      "chip_tag": "REM",
+      "chip_tag2": "LA NUIT DERNIÈRE",
+      "chip_foot": "23 % DE LA NUIT"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIQUE",
+      "headline": "Deux semaines, / *côte à côte.*",
+      "sub": "Jour, semaine, mois et année.",
+      "chip_tag": "LA NUIT DERNIÈRE"
+    },
+    "track": {
+      "eyebrow": "02 / SUIVI",
+      "headline": "Un seul toucher. / *Rien au poignet.*",
+      "sub": "Laissez votre cellulaire près du lit.",
+      "list_head": "CAPTEUR DE SUIVI",
+      "sonar": "Sonar",
+      "sonar_meta": "Sans contact",
+      "accel": "Accéléromètre",
+      "accel_meta": "Matelas"
+    }
+  }
+}

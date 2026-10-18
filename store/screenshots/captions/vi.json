@@ -1,0 +1,38 @@
+{
+  "locale": "vi",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI TRÊN THIẾT BỊ",
+      "eyebrow": "Riêng tư ngay từ thiết kế",
+      "headline": "Hỏi về giấc ngủ. / *Nhận câu trả lời.*",
+      "sub": "Huấn luyện viên AI chạy ngay trên máy.",
+      "chip_tag": "CHẠY NGOẠI TUYẾN",
+      "chip_value": "Không cần tài khoản"
+    },
+    "stages": {
+      "pill_tag": "KHÔNG CẦN ĐEO GÌ",
+      "eyebrow": "Giai đoạn ngủ từ điện thoại",
+      "headline": "Mọi giai đoạn, / *rõ trên biểu đồ.*",
+      "sub": "Ngủ sâu, ngủ nông, REM và thức.",
+      "chip_tag": "REM",
+      "chip_tag2": "ĐÊM QUA",
+      "chip_foot": "23% CẢ ĐÊM"
+    },
+    "history": {
+      "eyebrow": "01 / LỊCH SỬ",
+      "headline": "Hai tuần, / *đặt cạnh nhau.*",
+      "sub": "Xem theo ngày, tuần, tháng và năm.",
+      "chip_tag": "ĐÊM QUA"
+    },
+    "track": {
+      "eyebrow": "02 / THEO DÕI",
+      "headline": "Một chạm. / *Không cần đeo.*",
+      "sub": "Đặt điện thoại cạnh giường.",
+      "list_head": "CẢM BIẾN THEO DÕI",
+      "sonar": "Sonar",
+      "sonar_meta": "Không tiếp xúc",
+      "accel": "Gia tốc kế",
+      "accel_meta": "Nệm"
+    }
+  }
+}

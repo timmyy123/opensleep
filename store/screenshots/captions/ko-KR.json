@@ -1,0 +1,38 @@
+{
+  "locale": "ko-KR",
+  "slides": {
+    "chat": {
+      "pill_tag": "온디바이스 AI",
+      "eyebrow": "처음부터 프라이버시 중심",
+      "headline": "수면이 궁금할 땐 / *진짜 답을.*",
+      "sub": "휴대폰에서 실행되는 AI 코치.",
+      "chip_tag": "오프라인 작동",
+      "chip_value": "계정 불필요"
+    },
+    "stages": {
+      "pill_tag": "웨어러블 불필요",
+      "eyebrow": "휴대폰으로 수면 단계 확인",
+      "headline": "모든 단계를 / *한눈에.*",
+      "sub": "깊은 수면, 얕은 수면, 렘, 깨어 있음.",
+      "chip_tag": "REM",
+      "chip_tag2": "어젯밤",
+      "chip_foot": "밤의 23%"
+    },
+    "history": {
+      "eyebrow": "01 / 기록",
+      "headline": "2주를 / *나란히.*",
+      "sub": "일·주·월·년 단위 보기.",
+      "chip_tag": "어젯밤"
+    },
+    "track": {
+      "eyebrow": "02 / 측정",
+      "headline": "한 번의 탭. / *착용 없이.*",
+      "sub": "휴대폰을 침대 옆에 두세요.",
+      "list_head": "측정 센서",
+      "sonar": "소나",
+      "sonar_meta": "비접촉",
+      "accel": "가속도계",
+      "accel_meta": "매트리스"
+    }
+  }
+}

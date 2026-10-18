@@ -1,0 +1,38 @@
+{
+  "locale": "cs-CZ",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI V ZAŘÍZENÍ",
+      "eyebrow": "Soukromí v základu",
+      "headline": "Ptejte se na spánek. / *Skutečné odpovědi.*",
+      "sub": "AI kouč, který běží přímo v telefonu.",
+      "chip_tag": "FUNGUJE OFFLINE",
+      "chip_value": "Bez účtu"
+    },
+    "stages": {
+      "pill_tag": "NIC NA ZÁPĚSTÍ",
+      "eyebrow": "Fáze spánku z telefonu",
+      "headline": "Každá fáze / *v grafu.*",
+      "sub": "Hluboký, lehký, REM a bdění.",
+      "chip_tag": "REM",
+      "chip_tag2": "MINULÁ NOC",
+      "chip_foot": "23 % NOCI"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIE",
+      "headline": "Dva týdny / *vedle sebe.*",
+      "sub": "Den, týden, měsíc i rok.",
+      "chip_tag": "MINULÁ NOC"
+    },
+    "track": {
+      "eyebrow": "02 / SLEDOVÁNÍ",
+      "headline": "Jedno klepnutí. / *Nic na sobě.*",
+      "sub": "Nechte telefon u postele.",
+      "list_head": "SENZOR SLEDOVÁNÍ",
+      "sonar": "Sonar",
+      "sonar_meta": "Bezkontaktně",
+      "accel": "Akcelerometr",
+      "accel_meta": "Matrace"
+    }
+  }
+}

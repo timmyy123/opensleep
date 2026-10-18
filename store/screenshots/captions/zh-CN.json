@@ -1,0 +1,38 @@
+{
+  "locale": "zh-CN",
+  "slides": {
+    "chat": {
+      "pill_tag": "端侧 AI",
+      "eyebrow": "隐私，从设计开始",
+      "headline": "睡眠问题，随时问。 / *答案真实可靠。*",
+      "sub": "在手机上本地运行的 AI 教练。",
+      "chip_tag": "离线可用",
+      "chip_value": "无需账号"
+    },
+    "stages": {
+      "pill_tag": "无需穿戴设备",
+      "eyebrow": "用手机看睡眠阶段",
+      "headline": "每个阶段， / *一图看清。*",
+      "sub": "深睡、浅睡、REM 和清醒。",
+      "chip_tag": "REM",
+      "chip_tag2": "昨晚",
+      "chip_foot": "占整晚 23%"
+    },
+    "history": {
+      "eyebrow": "01 / 历史",
+      "headline": "两周数据， / *并排对比。*",
+      "sub": "日、周、月、年视图。",
+      "chip_tag": "昨晚"
+    },
+    "track": {
+      "eyebrow": "02 / 监测",
+      "headline": "轻点一下。 / *什么都不用戴。*",
+      "sub": "把手机放在床边就行。",
+      "list_head": "监测传感器",
+      "sonar": "声呐",
+      "sonar_meta": "无接触",
+      "accel": "加速度计",
+      "accel_meta": "床垫"
+    }
+  }
+}

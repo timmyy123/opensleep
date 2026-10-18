@@ -1,0 +1,38 @@
+{
+  "locale": "en-US",
+  "slides": {
+    "chat": {
+      "pill_tag": "ON-DEVICE AI",
+      "eyebrow": "Private by design",
+      "headline": "Ask about your sleep. / *Get real answers.*",
+      "sub": "An AI coach that runs on your phone.",
+      "chip_tag": "RUNS OFFLINE",
+      "chip_value": "No account"
+    },
+    "stages": {
+      "pill_tag": "NO WEARABLE",
+      "eyebrow": "Sleep stages from your phone",
+      "headline": "Every stage, / *charted.*",
+      "sub": "Deep, light, REM and awake.",
+      "chip_tag": "REM",
+      "chip_tag2": "LAST NIGHT",
+      "chip_foot": "23% OF NIGHT"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORY",
+      "headline": "Two weeks, / *side by side.*",
+      "sub": "Day, week, month and year views.",
+      "chip_tag": "LAST NIGHT"
+    },
+    "track": {
+      "eyebrow": "02 / TRACKING",
+      "headline": "One tap. / *No wearable.*",
+      "sub": "Leave your phone by the bed.",
+      "list_head": "TRACKING SENSOR",
+      "sonar": "Sonar",
+      "sonar_meta": "Contactless",
+      "accel": "Accelerometer",
+      "accel_meta": "Mattress"
+    }
+  }
+}

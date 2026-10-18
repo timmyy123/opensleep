@@ -1,0 +1,38 @@
+{
+  "locale": "it",
+  "slides": {
+    "chat": {
+      "pill_tag": "IA SUL DISPOSITIVO",
+      "eyebrow": "Privato per natura",
+      "headline": "Domande sul sonno? / *Risposte vere.*",
+      "sub": "Un coach IA che gira sul tuo telefono.",
+      "chip_tag": "FUNZIONA OFFLINE",
+      "chip_value": "Nessun account"
+    },
+    "stages": {
+      "pill_tag": "NIENTE DA INDOSSARE",
+      "eyebrow": "Fasi del sonno dal telefono",
+      "headline": "Ogni fase, / *in un grafico.*",
+      "sub": "Profondo, leggero, REM e veglia.",
+      "chip_tag": "REM",
+      "chip_tag2": "ULTIMA NOTTE",
+      "chip_foot": "23% DELLA NOTTE"
+    },
+    "history": {
+      "eyebrow": "01 / STORICO",
+      "headline": "Due settimane / *a confronto.*",
+      "sub": "Giorno, settimana, mese e anno.",
+      "chip_tag": "ULTIMA NOTTE"
+    },
+    "track": {
+      "eyebrow": "02 / MONITORAGGIO",
+      "headline": "Un tocco. / *Niente al polso.*",
+      "sub": "Lascia il telefono accanto al letto.",
+      "list_head": "SENSORE DI RILEVAMENTO",
+      "sonar": "Sonar",
+      "sonar_meta": "Senza contatto",
+      "accel": "Accelerometro",
+      "accel_meta": "Materasso"
+    }
+  }
+}

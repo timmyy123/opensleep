@@ -1,0 +1,38 @@
+{
+  "locale": "id",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI DI PERANGKAT",
+      "eyebrow": "Privat sejak awal",
+      "headline": "Tanya soal tidurmu. / *Dapat jawaban nyata.*",
+      "sub": "Pelatih AI yang berjalan di ponselmu.",
+      "chip_tag": "BERJALAN OFFLINE",
+      "chip_value": "Tanpa akun"
+    },
+    "stages": {
+      "pill_tag": "TANPA WEARABLE",
+      "eyebrow": "Tahap tidur dari ponselmu",
+      "headline": "Setiap tahap, / *dalam grafik.*",
+      "sub": "Nyenyak, ringan, REM, dan terjaga.",
+      "chip_tag": "REM",
+      "chip_tag2": "TADI MALAM",
+      "chip_foot": "23% DARI MALAM"
+    },
+    "history": {
+      "eyebrow": "01 / RIWAYAT",
+      "headline": "Dua minggu, / *berdampingan.*",
+      "sub": "Tampilan hari, minggu, bulan, tahun.",
+      "chip_tag": "TADI MALAM"
+    },
+    "track": {
+      "eyebrow": "02 / PELACAKAN",
+      "headline": "Sekali ketuk. / *Tanpa wearable.*",
+      "sub": "Taruh ponsel di samping kasur.",
+      "list_head": "SENSOR PELACAKAN",
+      "sonar": "Sonar",
+      "sonar_meta": "Tanpa sentuhan",
+      "accel": "Akselerometer",
+      "accel_meta": "Kasur"
+    }
+  }
+}

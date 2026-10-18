@@ -1,0 +1,38 @@
+{
+  "locale": "fi-FI",
+  "slides": {
+    "chat": {
+      "pill_tag": "TEKOÄLY LAITTEESSA",
+      "eyebrow": "Yksityinen alusta asti",
+      "headline": "Kysy unestasi. / *Oikeita vastauksia.*",
+      "sub": "Tekoälyvalmentaja suoraan puhelimessa.",
+      "chip_tag": "TOIMII ILMAN NETTIÄ",
+      "chip_value": "Ei tiliä"
+    },
+    "stages": {
+      "pill_tag": "EI PUETTAVAA LAITETTA",
+      "eyebrow": "Univaiheet puhelimesta",
+      "headline": "Jokainen vaihe / *kaaviona.*",
+      "sub": "Syvä, kevyt, REM ja valveilla.",
+      "chip_tag": "REM",
+      "chip_tag2": "VIIME YÖ",
+      "chip_foot": "23 % YÖSTÄ"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIA",
+      "headline": "Kaksi viikkoa / *rinnakkain.*",
+      "sub": "Päivä, viikko, kuukausi ja vuosi.",
+      "chip_tag": "VIIME YÖ"
+    },
+    "track": {
+      "eyebrow": "02 / SEURANTA",
+      "headline": "Yksi napautus. / *Ei rannekkeita.*",
+      "sub": "Jätä puhelin sängyn viereen.",
+      "list_head": "SEURANTA-ANTURI",
+      "sonar": "Sonar",
+      "sonar_meta": "Kosketukseton",
+      "accel": "Kiihtyvyysanturi",
+      "accel_meta": "Patja"
+    }
+  }
+}

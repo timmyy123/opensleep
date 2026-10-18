@@ -1,0 +1,38 @@
+{
+  "locale": "ja-JP",
+  "slides": {
+    "chat": {
+      "pill_tag": "端末内AI",
+      "eyebrow": "プライバシー重視の設計",
+      "headline": "睡眠の疑問に / *確かな答えを。*",
+      "sub": "スマホの中で動くAIコーチ。",
+      "chip_tag": "オフラインで動作",
+      "chip_value": "アカウント不要"
+    },
+    "stages": {
+      "pill_tag": "ウェアラブル不要",
+      "eyebrow": "スマホで睡眠ステージを計測",
+      "headline": "すべての段階を / *グラフで。*",
+      "sub": "深い眠り・浅い眠り・レム・覚醒。",
+      "chip_tag": "REM",
+      "chip_tag2": "昨夜",
+      "chip_foot": "夜間の23%"
+    },
+    "history": {
+      "eyebrow": "01 / 履歴",
+      "headline": "2週間を / *並べて比較。*",
+      "sub": "日・週・月・年で表示。",
+      "chip_tag": "昨夜"
+    },
+    "track": {
+      "eyebrow": "02 / 計測",
+      "headline": "ワンタップ。 / *着けるもの不要。*",
+      "sub": "スマホを枕元に置くだけ。",
+      "list_head": "計測センサー",
+      "sonar": "ソナー",
+      "sonar_meta": "非接触",
+      "accel": "加速度センサー",
+      "accel_meta": "マットレス"
+    }
+  }
+}

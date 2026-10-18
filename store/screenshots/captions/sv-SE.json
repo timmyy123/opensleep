@@ -1,0 +1,38 @@
+{
+  "locale": "sv-SE",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI I ENHETEN",
+      "eyebrow": "Privat från grunden",
+      "headline": "Fråga om din sömn. / *Få riktiga svar.*",
+      "sub": "En AI-coach som körs i din telefon.",
+      "chip_tag": "FUNKAR OFFLINE",
+      "chip_value": "Inget konto"
+    },
+    "stages": {
+      "pill_tag": "INGET PÅ HANDLEDEN",
+      "eyebrow": "Sömnstadier från telefonen",
+      "headline": "Varje stadium / *kartlagt.*",
+      "sub": "Djup, lätt, REM och vaken.",
+      "chip_tag": "REM",
+      "chip_tag2": "I NATT",
+      "chip_foot": "23 % AV NATTEN"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIK",
+      "headline": "Två veckor / *sida vid sida.*",
+      "sub": "Dag, vecka, månad och år.",
+      "chip_tag": "I NATT"
+    },
+    "track": {
+      "eyebrow": "02 / SPÅRNING",
+      "headline": "Ett tryck. / *Inget att bära.*",
+      "sub": "Lägg telefonen vid sängen.",
+      "list_head": "SPÅRNINGSSENSOR",
+      "sonar": "Sonar",
+      "sonar_meta": "Beröringsfri",
+      "accel": "Accelerometer",
+      "accel_meta": "Madrass"
+    }
+  }
+}

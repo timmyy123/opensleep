@@ -1,0 +1,38 @@
+{
+  "locale": "es-US",
+  "slides": {
+    "chat": {
+      "pill_tag": "IA EN TU DISPOSITIVO",
+      "eyebrow": "Privado por diseño",
+      "headline": "¿Dudas de tu sueño? / *Respuestas reales.*",
+      "sub": "Un coach de IA que funciona en tu celular.",
+      "chip_tag": "FUNCIONA SIN INTERNET",
+      "chip_value": "Sin cuenta"
+    },
+    "stages": {
+      "pill_tag": "SIN RELOJ NI PULSERA",
+      "eyebrow": "Fases del sueño con tu celular",
+      "headline": "Cada fase, / *a la vista.*",
+      "sub": "Profundo, ligero, REM y despierto.",
+      "chip_tag": "REM",
+      "chip_tag2": "ANOCHE",
+      "chip_foot": "23% DE LA NOCHE"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIAL",
+      "headline": "Dos semanas, / *lado a lado.*",
+      "sub": "Vistas por día, semana, mes y año.",
+      "chip_tag": "ANOCHE"
+    },
+    "track": {
+      "eyebrow": "02 / MONITOREO",
+      "headline": "Un toque. / *Nada en la muñeca.*",
+      "sub": "Deja tu celular junto a la cama.",
+      "list_head": "SENSOR DE MONITOREO",
+      "sonar": "Sonar",
+      "sonar_meta": "Sin contacto",
+      "accel": "Acelerómetro",
+      "accel_meta": "Colchón"
+    }
+  }
+}

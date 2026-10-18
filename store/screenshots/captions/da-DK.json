@@ -1,0 +1,38 @@
+{
+  "locale": "da-DK",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI PÅ ENHEDEN",
+      "eyebrow": "Privat fra start",
+      "headline": "Spørg om din søvn. / *Få ægte svar.*",
+      "sub": "En AI-coach, der kører på din telefon.",
+      "chip_tag": "VIRKER OFFLINE",
+      "chip_value": "Ingen konto"
+    },
+    "stages": {
+      "pill_tag": "INTET PÅ HÅNDLEDDET",
+      "eyebrow": "Søvnstadier fra din telefon",
+      "headline": "Hvert stadie / *kortlagt.*",
+      "sub": "Dyb, let, REM og vågen.",
+      "chip_tag": "REM",
+      "chip_tag2": "I NAT",
+      "chip_foot": "23 % AF NATTEN"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIK",
+      "headline": "To uger / *side om side.*",
+      "sub": "Dag, uge, måned og år.",
+      "chip_tag": "I NAT"
+    },
+    "track": {
+      "eyebrow": "02 / SPORING",
+      "headline": "Ét tryk. / *Intet at bære.*",
+      "sub": "Læg telefonen ved sengen.",
+      "list_head": "SPORINGSSENSOR",
+      "sonar": "Sonar",
+      "sonar_meta": "Berøringsfri",
+      "accel": "Accelerometer",
+      "accel_meta": "Madras"
+    }
+  }
+}

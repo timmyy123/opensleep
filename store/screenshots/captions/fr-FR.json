@@ -1,0 +1,38 @@
+{
+  "locale": "fr-FR",
+  "slides": {
+    "chat": {
+      "pill_tag": "IA EMBARQUÉE",
+      "eyebrow": "Confidentiel par nature",
+      "headline": "Votre sommeil ? / *De vraies réponses.*",
+      "sub": "Un coach IA intégré à votre téléphone.",
+      "chip_tag": "FONCTIONNE HORS LIGNE",
+      "chip_value": "Sans compte"
+    },
+    "stages": {
+      "pill_tag": "SANS OBJET CONNECTÉ",
+      "eyebrow": "Phases du sommeil sur mobile",
+      "headline": "Chaque phase, / *en un coup d’œil.*",
+      "sub": "Profond, léger, REM et éveil.",
+      "chip_tag": "REM",
+      "chip_tag2": "NUIT DERNIÈRE",
+      "chip_foot": "23 % DE LA NUIT"
+    },
+    "history": {
+      "eyebrow": "01 / HISTORIQUE",
+      "headline": "Deux semaines, / *côte à côte.*",
+      "sub": "Vues jour, semaine, mois et année.",
+      "chip_tag": "NUIT DERNIÈRE"
+    },
+    "track": {
+      "eyebrow": "02 / SUIVI",
+      "headline": "Un geste. / *Rien à porter.*",
+      "sub": "Posez votre téléphone près du lit.",
+      "list_head": "CAPTEUR DE SUIVI",
+      "sonar": "Sonar",
+      "sonar_meta": "Sans contact",
+      "accel": "Accéléromètre",
+      "accel_meta": "Matelas"
+    }
+  }
+}

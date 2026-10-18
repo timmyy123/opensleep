@@ -1,0 +1,38 @@
+{
+  "locale": "hu-HU",
+  "slides": {
+    "chat": {
+      "pill_tag": "AI A KÉSZÜLÉKEN",
+      "eyebrow": "Alapból privát",
+      "headline": "Kérdés az alvásról? / *Valódi válaszok.*",
+      "sub": "AI-coach, ami a telefonodon fut.",
+      "chip_tag": "OFFLINE IS MŰKÖDIK",
+      "chip_value": "Fiók nélkül"
+    },
+    "stages": {
+      "pill_tag": "SEMMI A CSUKLÓDON",
+      "eyebrow": "Alvásfázisok a telefonodról",
+      "headline": "Minden fázis / *grafikonon.*",
+      "sub": "Mély, könnyű, REM és ébrenlét.",
+      "chip_tag": "REM",
+      "chip_tag2": "TEGNAP ÉJJEL",
+      "chip_foot": "AZ ÉJSZAKA 23%-A"
+    },
+    "history": {
+      "eyebrow": "01 / ELŐZMÉNYEK",
+      "headline": "Két hét / *egymás mellett.*",
+      "sub": "Napi, heti, havi és éves nézet.",
+      "chip_tag": "TEGNAP ÉJJEL"
+    },
+    "track": {
+      "eyebrow": "02 / KÖVETÉS",
+      "headline": "Egy koppintás. / *Nem kell karkötő.*",
+      "sub": "Tedd a telefont az ágy mellé.",
+      "list_head": "KÖVETÉSI ÉRZÉKELŐ",
+      "sonar": "Szonár",
+      "sonar_meta": "Érintésmentes",
+      "accel": "Gyorsulásmérő",
+      "accel_meta": "Matrac"
+    }
+  }
+}
