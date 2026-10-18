@@ -1,0 +1,15 @@
+{
+  "locale": "pt-PT",
+  "appStoreLocales": [
+    "pt-PT"
+  ],
+  "playLocales": [],
+  "appStore": {
+    "name": "OpenSleep: Análise do sono IA",
+    "subtitle": "Coach IA sem rede nem relógio",
+    "keywords": "fases,ciclo,rem,profundo,leve,sonar,contacto,dormir,descanso,privado,saúde,noite,offline,monitor",
+    "promotionalText": "Novidade: coach de sono com IA mais rápido no próprio dispositivo e gráficos redesenhados. Registe as suas fases de sono sem relógio. Os seus dados ficam no iPhone.",
+    "description": "O OpenSleep regista as suas fases de sono sem relógio nem anel e explica-as com um coach de sono com IA que funciona inteiramente no seu iPhone.\n\nREGISTE O SONO SEM RELÓGIO NEM PULSEIRA\nEscolha como o seu telemóvel escuta a noite:\n• Sonar (sem contacto): deixe o iPhone na mesa de cabeceira. O OpenSleep usa o nível de ruído ambiente para captar sinais do sono. O áudio nunca é gravado nem guardado.\n• Modo colchão: coloque o iPhone deitado sobre o colchão, junto à almofada, e deixe o sensor de movimento acompanhar os seus movimentos.\n\nCADA FASE DA SUA NOITE\n• Acordado, REM, sono leve e profundo num anel de fases e num gráfico da noite inteira\n• Hora de deitar, hora de acordar e sono total de cada sessão\n• Histórico por dia, semana, mês e ano para identificar tendências\n\nUM COACH DE SONO COM IA QUE NÃO SAI DO SEU TELEMÓVEL\nPergunte sobre o seu sono, a sua rotina ou porque acorda cansado. O coach é um grande modelo de linguagem que é executado no seu dispositivo, por isso as suas perguntas e respostas nunca são enviadas para um servidor. Transfira o modelo uma vez e converse mesmo sem ligação à internet.\n\nFUNCIONA COM A APP SAÚDE\nO OpenSleep guarda as suas sessões e fases de sono na app Saúde da Apple e pode mostrar o sono que já lá está registado.\n\nPRIVACIDADE DESDE A CONCEÇÃO\n• Sem conta e sem registo\n• A análise do sono é feita no seu iPhone\n• Código aberto: qualquer pessoa pode ler o código\n\nDisponível em português, inglês, espanhol, alemão, francês e italiano.\n\nA monitorização do sono é gratuita. O Coach de Sono com IA é uma compra única, sem subscrição.\n\nO OpenSleep é uma ferramenta de bem-estar, não um dispositivo médico. Fale com um médico sobre qualquer problema de sono ou de saúde.",
+    "whatsNew": "• Motor de IA no dispositivo LiteRT atualizado\n• Otimizações para iPhone Duo"
+  }
+}

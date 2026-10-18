@@ -1,0 +1,13 @@
+{
+  "locale": "sk",
+  "appStoreLocales": [],
+  "playLocales": [
+    "sk"
+  ],
+  "play": {
+    "title": "OpenSleep: Monitor spánku a AI",
+    "shortDescription": "Fázy spánku bez hodiniek či náramku. Súkromný AI kouč spánku funguje aj offline.",
+    "fullDescription": "OpenSleep sleduje vaše fázy spánku bez hodiniek alebo prsteňa a vysvetlí vám ich AI kouč spánku, ktorý beží celý vo vašom telefóne.\n\nSLEDOVANIE SPÁNKU BEZ NOSITEĽNEJ ELEKTRONIKY\nVyberte si, ako bude telefón v noci načúvať:\n• Sonar (bezkontaktne): nechajte telefón na nočnom stolíku. OpenSleep využíva úroveň okolitých zvukov na zachytenie prejavov spánku. Samotný zvuk sa nikdy nenahráva ani neukladá.\n• Režim matraca: položte telefón naplocho na matrac vedľa vankúša a pohybové senzory budú sledovať vaše pohyby.\n\nKAŽDÁ FÁZA VAŠEJ NOCI\n• Bdenie, REM, ľahký a hlboký spánok v kruhovom grafe fáz a v grafe priebehu spánku za celú noc\n• Čas uloženia na spánok, čas prebudenia a celková dĺžka spánku pri každom zázname\n• História po dňoch, týždňoch, mesiacoch a rokoch na odhalenie trendov\n\nAI KOUČ SPÁNKU, KTORÝ ZOSTÁVA VO VAŠOM TELEFÓNE\nOpýtajte sa na svoj spánok, denný režim alebo na to, prečo sa budíte unavení. Kouč je veľký jazykový model, ktorý beží priamo vo vašom zariadení, takže vaše otázky ani odpovede sa nikdy neodosielajú na server. Model si stiahnete raz a potom môžete chatovať aj bez pripojenia. Na podporovaných telefónoch využíva akceleráciu GPU.\n\nFUNGUJE S HEALTH CONNECT\nOpenSleep môže ukladať dokončené záznamy do Health Connect a importovať záznamy spánku, ktoré už máte.\n\nSÚKROMIE OD ZÁKLADU\n• Žiadny účet ani registrácia\n• Analýza spánku prebieha vo vašom telefóne\n• Otvorený zdrojový kód: ktokoľvek si ho môže pozrieť\n\nRozhranie aplikácie je dostupné v angličtine, španielčine, portugalčine, nemčine, francúzštine a taliančine (nie v slovenčine).\n\nSledovanie spánku je zadarmo. AI kouč spánku je jednorazový nákup bez predplatného.\n\nOpenSleep je wellness aplikácia, nie zdravotnícka pomôcka. S akýmikoľvek problémami so spánkom alebo zdravím sa obráťte na lekára.",
+    "releaseNotes": "• Aktualizované prostredie LiteRT pre AI priamo v zariadení\n• Optimalizácia rozloženia pre viac veľkostí obrazoviek"
+  }
+}

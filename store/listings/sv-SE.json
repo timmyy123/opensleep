@@ -1,0 +1,13 @@
+{
+  "locale": "sv-SE",
+  "appStoreLocales": [],
+  "playLocales": [
+    "sv-SE"
+  ],
+  "play": {
+    "title": "OpenSleep: Sömnmätare & AI",
+    "shortDescription": "Mät dina sömnfaser utan klocka. Privat AI-sömncoach som fungerar offline.",
+    "fullDescription": "OpenSleep mäter dina sömnfaser utan klocka eller ring och förklarar dem med en AI-sömncoach som körs helt på din telefon.\n\nMÄT SÖMNEN UTAN WEARABLE\nVälj hur telefonen lyssnar på natten:\n• Sonar (kontaktlöst): Lägg telefonen på nattduksbordet. OpenSleep använder ljudnivån i rummet för att fånga upp tecken på sömn. Rått ljud spelas aldrig in och sparas aldrig.\n• Madrassläge: Lägg telefonen platt på madrassen bredvid kudden och låt rörelsesensorerna följa dina rörelser.\n\nVARJE FAS AV DIN NATT\n• Vaken, REM, lätt och djup sömn i en ring med sömnfaser och ett diagram över sömnmönstret hela natten\n• Läggdags, uppvakningstid och total sömn för varje session\n• Historik med dags-, vecko-, månads- och årsvy för att upptäcka trender\n\nEN AI-SÖMNCOACH SOM STANNAR I DIN TELEFON\nFråga om din sömn, dina rutiner eller varför du vaknar trött. Coachen är en stor språkmodell som körs på din enhet, så dina frågor och svar skickas aldrig till en server. Ladda ned modellen en gång och chatta sedan även utan uppkoppling. På telefoner som stöds används GPU-acceleration.\n\nFUNGERAR MED HEALTH CONNECT\nOpenSleep kan spara avslutade sessioner i Health Connect och importera sömndata som du redan har.\n\nINTEGRITET FRÅN GRUNDEN\n• Inget konto och ingen registrering\n• Sömnanalysen sker på din telefon\n• Öppen källkod: vem som helst kan läsa koden\n\nAppen finns på engelska, spanska, portugisiska, tyska, franska och italienska.\n\nSömnmätningen är gratis. AI-sömncoachen är ett engångsköp utan prenumeration.\n\nOpenSleep är ett verktyg för välmående, inte en medicinteknisk produkt. Prata med en läkare om du är orolig för din sömn eller hälsa.",
+    "releaseNotes": "• Uppdaterad LiteRT-körmiljö för AI på enheten\n• Layout optimerad för fler skärmstorlekar"
+  }
+}

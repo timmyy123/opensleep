@@ -1,0 +1,13 @@
+{
+  "locale": "nl-NL",
+  "appStoreLocales": [],
+  "playLocales": [
+    "nl-NL"
+  ],
+  "play": {
+    "title": "OpenSleep: Slaaptracker & AI",
+    "shortDescription": "Volg je slaapfases zonder wearable. Privé AI-slaapcoach die offline werkt.",
+    "fullDescription": "OpenSleep volgt je slaapfases zonder horloge of ring en legt ze uit met een AI-slaapcoach die volledig op je telefoon draait.\n\nSLAAP VOLGEN ZONDER WEARABLE\nKies hoe je telefoon de nacht beluistert:\n• Sonar (contactloos): leg je telefoon op het nachtkastje. OpenSleep gebruikt het geluidsniveau in de kamer om signalen van je slaap op te pikken. Ruwe audio wordt nooit opgenomen of opgeslagen.\n• Matrasmodus: leg je telefoon plat op het matras naast je kussen en laat de bewegingssensoren je bewegingen volgen.\n\nELKE FASE VAN JE NACHT\n• Wakker, REM, lichte en diepe slaap, in een fasenring en een slaappatroongrafiek van de hele nacht\n• Bedtijd, tijd van wakker worden en totale slaapduur voor elke sessie\n• Geschiedenis per dag, week, maand en jaar om trends te ontdekken\n\nEEN AI-SLAAPCOACH DIE OP JE TELEFOON BLIJFT\nStel vragen over je slaap, je routine of waarom je moe wakker wordt. De coach is een groot taalmodel dat op je apparaat draait, dus je vragen en antwoorden worden nooit naar een server gestuurd. Download het model één keer en chat daarna ook zonder verbinding. Op ondersteunde telefoons wordt GPU-versnelling gebruikt.\n\nWERKT MET HEALTH CONNECT\nOpenSleep kan afgeronde sessies opslaan in Health Connect en slaapgegevens importeren die je al hebt.\n\nPRIVACY VANAF HET ONTWERP\n• Geen account, geen registratie\n• De slaapanalyse gebeurt op je telefoon\n• Open source: iedereen kan de code lezen\n\nDe app is beschikbaar in het Engels, Spaans, Portugees, Duits, Frans en Italiaans.\n\nSlaaptracking is gratis. De AI-slaapcoach is een eenmalige aankoop, zonder abonnement.\n\nOpenSleep is een wellnesstool, geen medisch hulpmiddel. Raadpleeg een arts als je je zorgen maakt over je slaap of gezondheid.",
+    "releaseNotes": "• LiteRT-runtime voor AI op het apparaat bijgewerkt\n• Lay-out geoptimaliseerd voor meer schermformaten"
+  }
+}

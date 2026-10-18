@@ -1,0 +1,13 @@
+{
+  "locale": "ro",
+  "appStoreLocales": [],
+  "playLocales": [
+    "ro"
+  ],
+  "play": {
+    "title": "OpenSleep: Monitor somn cu AI",
+    "shortDescription": "Fazele somnului fără ceas sau brățară. Antrenor de somn AI privat, offline.",
+    "fullDescription": "OpenSleep îți monitorizează fazele somnului fără ceas sau inel și ți le explică printr-un antrenor de somn AI care rulează în întregime pe telefonul tău.\n\nMONITORIZEAZĂ SOMNUL FĂRĂ DISPOZITIVE PURTABILE\nAlege cum „ascultă” telefonul noaptea:\n• Sonar (fără contact): lasă telefonul pe noptieră. OpenSleep folosește nivelul sunetelor din jur pentru a detecta semnele somnului. Sunetul brut nu este niciodată înregistrat sau stocat.\n• Modul saltea: așază telefonul întins pe saltea, lângă pernă, iar senzorii de mișcare îți urmăresc mișcările.\n\nFIECARE FAZĂ A NOPȚII TALE\n• Treaz, REM, somn ușor și profund, afișate pe un inel al fazelor și pe un grafic al tiparului de somn pentru întreaga noapte\n• Ora de culcare, ora trezirii și durata totală a somnului pentru fiecare sesiune\n• Istoric pe zi, săptămână, lună și an, ca să observi tendințele\n\nUN ANTRENOR DE SOMN AI CARE RĂMÂNE PE TELEFONUL TĂU\nÎntreabă despre somnul tău, rutina ta sau de ce te trezești obosit. Antrenorul este un model lingvistic mare care rulează pe dispozitivul tău, așa că întrebările și răspunsurile nu sunt trimise niciodată către un server. Descarci modelul o singură dată, apoi poți conversa chiar și fără conexiune. Pe telefoanele compatibile se folosește accelerarea GPU.\n\nFUNCȚIONEAZĂ CU HEALTH CONNECT\nOpenSleep poate salva sesiunile încheiate în Health Connect și poate importa înregistrările de somn pe care le ai deja.\n\nCONFIDENȚIALITATE DIN PRIMA ZI\n• Fără cont și fără înregistrare\n• Analiza somnului se face pe telefonul tău\n• Open source: oricine poate citi codul\n\nInterfața aplicației este disponibilă în engleză, spaniolă, portugheză, germană, franceză și italiană (nu și în română).\n\nMonitorizarea somnului este gratuită. Antrenorul de somn AI este o achiziție unică, fără abonament.\n\nOpenSleep este un instrument de wellness, nu un dispozitiv medical. Discută cu un medic despre orice problemă legată de somn sau de sănătate.",
+    "releaseNotes": "• Mediul LiteRT pentru AI pe dispozitiv a fost actualizat\n• Aspect optimizat pentru mai multe dimensiuni de ecran"
+  }
+}

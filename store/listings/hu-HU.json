@@ -1,0 +1,13 @@
+{
+  "locale": "hu-HU",
+  "appStoreLocales": [],
+  "playLocales": [
+    "hu-HU"
+  ],
+  "play": {
+    "title": "OpenSleep: Alváskövető és AI",
+    "shortDescription": "Alvásfázisok óra és karkötő nélkül. Privát AI alvás-coach, offline is működik.",
+    "fullDescription": "Az OpenSleep óra vagy gyűrű nélkül követi az alvásfázisaidat, és egy teljesen a telefonodon futó AI alvás-coach elmagyarázza, mit jelentenek.\n\nALVÁSKÖVETÉS VISELHETŐ ESZKÖZ NÉLKÜL\nVálaszd ki, hogyan figyelje a telefonod az éjszakát:\n• Szonár (érintés nélkül): hagyd a telefont az éjjeliszekrényen. Az OpenSleep a környezeti hangszintet használja az alvásra utaló jelek érzékeléséhez. Nyers hangot soha nem rögzít és nem tárol.\n• Matrac mód: tedd a telefont laposan a matracra a párnád mellé, és a mozgásérzékelők követik a mozgásodat.\n\nAZ ÉJSZAKA MINDEN FÁZISA\n• Ébrenlét, REM, könnyű és mély alvás egy fázisgyűrűn és egy teljes éjszakát mutató alvásmintázat-grafikonon\n• Lefekvés, ébredés és teljes alvásidő minden alváshoz\n• Előzmények napi, heti, havi és éves nézetben a trendek felismeréséhez\n\nAI ALVÁS-COACH, AMELY A TELEFONODON MARAD\nKérdezz az alvásodról, a napi rutinodról, vagy arról, miért ébredsz fáradtan. A coach egy nagy nyelvi modell, amely a készülékeden fut, így a kérdéseid és a válaszok soha nem kerülnek szerverre. Egyszer töltsd le a modellt, utána internetkapcsolat nélkül is cseveghetsz. A támogatott telefonokon GPU-gyorsítást használ.\n\nMŰKÖDIK A HEALTH CONNECTTEL\nAz OpenSleep a befejezett alvásokat mentheti a Health Connectbe, és importálhatja a már meglévő alvásadataidat.\n\nALAPBÓL PRIVÁT\n• Nincs fiók, nincs regisztráció\n• Az alváselemzés a telefonodon történik\n• Nyílt forráskódú: bárki megnézheti a kódot\n\nAz alkalmazás felülete angol, spanyol, portugál, német, francia és olasz nyelven érhető el (magyarul nem).\n\nAz alváskövetés ingyenes. Az AI alvás-coach egyszeri vásárlás, előfizetés nélkül.\n\nAz OpenSleep wellness eszköz, nem orvostechnikai eszköz. Alvási vagy egészségügyi panaszaiddal fordulj orvoshoz.",
+    "releaseNotes": "• Frissült a LiteRT, az eszközön futó AI-környezet\n• Elrendezés optimalizálva több képernyőmérethez"
+  }
+}

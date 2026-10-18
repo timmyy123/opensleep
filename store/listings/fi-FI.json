@@ -1,0 +1,13 @@
+{
+  "locale": "fi-FI",
+  "appStoreLocales": [],
+  "playLocales": [
+    "fi-FI"
+  ],
+  "play": {
+    "title": "OpenSleep: Uniseuranta & AI",
+    "shortDescription": "Seuraa univaiheitasi ilman älykelloa. Yksityinen AI-univalmentaja, myös offline.",
+    "fullDescription": "OpenSleep seuraa univaiheitasi ilman kelloa tai sormusta ja selittää ne tekoälyunivalmentajan avulla, joka toimii kokonaan puhelimessasi.\n\nSEURAA UNTA ILMAN PUETTAVAA LAITETTA\nValitse, miten puhelimesi kuuntelee yötä:\n• Sonar (kosketukseton): jätä puhelin yöpöydälle. OpenSleep käyttää ympäristön äänitasoa unen merkkien tunnistamiseen. Ääntä ei koskaan äänitetä eikä tallenneta.\n• Patjatila: aseta puhelin tasaisesti patjalle tyynyn viereen ja anna liikeanturien seurata liikkeitäsi.\n\nYÖSI JOKAINEN UNIVAIHE\n• Valveilla, REM, kevyt ja syvä uni univaiherenkaassa ja koko yön unen kulkua kuvaavassa kaaviossa\n• Nukkumaanmenoaika, heräämisaika ja unen kokonaismäärä jokaiselta seurantakerralta\n• Historia päivä-, viikko-, kuukausi- ja vuosinäkymillä trendien huomaamiseksi\n\nTEKOÄLYUNIVALMENTAJA, JOKA PYSYY PUHELIMESSASI\nKysy unestasi, rutiineistasi tai siitä, miksi heräät väsyneenä. Valmentaja on suuri kielimalli, joka toimii laitteellasi, joten kysymyksiäsi ja vastauksia ei koskaan lähetetä palvelimelle. Lataa malli kerran, ja keskustele sen jälkeen myös ilman verkkoyhteyttä. Tuetuissa puhelimissa käytetään GPU-kiihdytystä.\n\nTOIMII HEALTH CONNECTIN KANSSA\nOpenSleep voi tallentaa päättyneet seurantakerrat Health Connectiin ja tuoda sieltä unitiedot, jotka sinulla jo on.\n\nYKSITYISYYS SUUNNITTELUN LÄHTÖKOHTANA\n• Ei tiliä eikä rekisteröitymistä\n• Unianalyysi tehdään puhelimessasi\n• Avoin lähdekoodi: kuka tahansa voi lukea koodin\n\nSovellus on saatavilla englanniksi, espanjaksi, portugaliksi, saksaksi, ranskaksi ja italiaksi.\n\nUnen seuranta on ilmaista. Tekoälyunivalmentaja on kertaosto ilman tilausta.\n\nOpenSleep on hyvinvointityökalu, ei lääkinnällinen laite. Keskustele lääkärin kanssa, jos olet huolissasi unestasi tai terveydestäsi.",
+    "releaseNotes": "• Päivitetty LiteRT-ajoympäristö laitteella toimivalle tekoälylle\n• Asettelu optimoitu entistä useampiin näyttökokoihin"
+  }
+}

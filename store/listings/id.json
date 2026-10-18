@@ -1,0 +1,11 @@
+{
+  "locale": "id",
+  "appStoreLocales": [],
+  "playLocales": ["id"],
+  "play": {
+    "title": "OpenSleep: Pelacak Tidur & AI",
+    "shortDescription": "Lacak tahap tidur tanpa jam pintar. Pelatih tidur AI privat yang bisa offline.",
+    "fullDescription": "OpenSleep melacak tahap tidur Anda tanpa jam tangan atau cincin pintar, lalu menjelaskannya lewat pelatih tidur AI yang berjalan sepenuhnya di ponsel Anda.\n\nLACAK TIDUR TANPA PERANGKAT WEARABLE\nPilih cara ponsel Anda memantau tidur sepanjang malam:\n• Sonar (tanpa kontak): letakkan ponsel di meja samping tempat tidur. OpenSleep memakai tingkat suara di sekitar untuk menangkap tanda-tanda tidur. Audio asli tidak pernah direkam atau disimpan.\n• Mode kasur: letakkan ponsel mendatar di atas kasur, di samping bantal, dan biarkan sensor gerak mengikuti gerakan Anda.\n\nLIHAT SETIAP TAHAP TIDUR SEMALAMAN\n• Terjaga, REM, tidur ringan, dan tidur nyenyak, ditampilkan dalam lingkaran tahap tidur dan grafik pola tidur semalaman\n• Waktu tidur, waktu bangun, dan total durasi tidur di setiap sesi\n• Riwayat harian, mingguan, bulanan, dan tahunan untuk melihat tren\n\nPELATIH TIDUR AI YANG TETAP DI PONSEL ANDA\nTanyakan soal tidur, rutinitas, atau alasan Anda bangun dalam keadaan lelah. Pelatih ini adalah model bahasa besar yang berjalan di perangkat Anda, jadi pertanyaan dan jawaban Anda tidak pernah dikirim ke server. Unduh modelnya sekali, lalu mengobrol bahkan tanpa koneksi internet. Akselerasi GPU digunakan di ponsel yang didukung.\n\nTERHUBUNG DENGAN HEALTH CONNECT\nOpenSleep dapat menyimpan sesi yang sudah selesai ke Health Connect dan mengimpor catatan tidur yang sudah Anda miliki.\n\nPRIVASI SEJAK AWAL\n• Tanpa akun dan tanpa pendaftaran\n• Analisis tidur dilakukan di ponsel Anda\n• Sumber terbuka (open source): siapa pun bisa membaca kodenya\n\nTampilan aplikasi tersedia dalam bahasa Inggris, Spanyol, Portugis, Jerman, Prancis, dan Italia (tidak tersedia dalam bahasa Indonesia).\n\nPelacakan tidur gratis. Pelatih Tidur AI adalah pembelian satu kali tanpa langganan.\n\nOpenSleep adalah alat untuk mendukung gaya hidup sehat (wellness), bukan perangkat medis. Konsultasikan dengan dokter jika Anda memiliki kekhawatiran tentang tidur atau kesehatan.",
+    "releaseNotes": "• Pembaruan runtime AI di perangkat LiteRT\n• Optimalisasi tata letak untuk lebih banyak ukuran layar"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "locale": "no-NO",
+  "appStoreLocales": [],
+  "playLocales": [
+    "no-NO"
+  ],
+  "play": {
+    "title": "OpenSleep: Søvnmåler & AI",
+    "shortDescription": "Mål søvnfasene uten klokke. Privat AI-søvncoach som fungerer offline.",
+    "fullDescription": "OpenSleep måler søvnfasene dine uten klokke eller ring og forklarer dem med en AI-søvncoach som kjører helt på telefonen din.\n\nMÅL SØVNEN UTEN WEARABLES\nVelg hvordan telefonen lytter til natten:\n• Sonar (kontaktløs): Legg telefonen på nattbordet. OpenSleep bruker lydnivået i rommet til å fange opp tegn på søvn. Rålyd blir aldri tatt opp eller lagret.\n• Madrassmodus: Legg telefonen flatt på madrassen ved siden av puten, og la bevegelsessensorene følge bevegelsene dine.\n\nHVER FASE AV NATTEN DIN\n• Våken, REM, lett og dyp søvn vist i en ring med søvnfaser og et diagram over søvnmønsteret gjennom hele natten\n• Leggetid, våknetid og total søvn for hver økt\n• Historikk med dags-, uke-, måneds- og årsvisning for å oppdage trender\n\nEN AI-SØVNCOACH SOM BLIR PÅ TELEFONEN DIN\nSpør om søvnen din, rutinene dine eller hvorfor du våkner trøtt. Coachen er en stor språkmodell som kjører på enheten din, så spørsmålene og svarene dine blir aldri sendt til en server. Last ned modellen én gang, og chat deretter også uten nettforbindelse. På støttede telefoner brukes GPU-akselerasjon.\n\nFUNGERER MED HEALTH CONNECT\nOpenSleep kan lagre fullførte økter i Health Connect og importere søvndata du allerede har.\n\nINNEBYGD PERSONVERN\n• Ingen konto og ingen registrering\n• Søvnanalysen skjer på telefonen din\n• Åpen kildekode: Alle kan lese koden\n\nAppen er tilgjengelig på engelsk, spansk, portugisisk, tysk, fransk og italiensk.\n\nSøvnmålingen er gratis. AI-søvncoachen er et engangskjøp uten abonnement.\n\nOpenSleep er et verktøy for velvære, ikke medisinsk utstyr. Snakk med en lege hvis du er bekymret for søvnen eller helsen din.",
+    "releaseNotes": "• Oppdatert LiteRT-kjøremiljø for AI på enheten\n• Layout optimalisert for flere skjermstørrelser"
+  }
+}

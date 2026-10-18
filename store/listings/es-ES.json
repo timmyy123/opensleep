@@ -1,0 +1,23 @@
+{
+  "locale": "es-ES",
+  "appStoreLocales": [
+    "es-ES"
+  ],
+  "playLocales": [
+    "es-ES"
+  ],
+  "appStore": {
+    "name": "OpenSleep: Monitor de sueño IA",
+    "subtitle": "Coach IA sin conexión ni reloj",
+    "keywords": "dormir,descanso,fases,rem,profundo,ciclo,sonar,privado,local,salud,noche,hipnograma,bienestar",
+    "promotionalText": "Novedad: un coach de sueño con IA más rápido en tu dispositivo y gráficos de sueño rediseñados. Mide tus fases de sueño sin pulsera. Tus datos se quedan en tu móvil.",
+    "description": "OpenSleep mide tus fases de sueño sin reloj ni pulsera y te las explica con un coach de sueño con IA que funciona por completo en tu iPhone.\n\nMIDE TU SUEÑO SIN WEARABLES\nElige cómo escucha tu móvil la noche:\n• Sonar (sin contacto): deja el iPhone en la mesilla. OpenSleep usa el nivel de ruido ambiente para detectar señales del sueño. El audio nunca se graba ni se guarda.\n• Modo colchón: coloca el iPhone sobre el colchón, junto a la almohada, y el sensor de movimiento seguirá tus movimientos.\n\nCADA FASE DE TU NOCHE\n• Despierto, REM, sueño ligero y profundo en un anillo de fases y un gráfico de toda la noche\n• Hora de acostarte, de despertarte y sueño total de cada sesión\n• Historial por día, semana, mes y año para ver tendencias\n\nUN COACH DE SUEÑO CON IA QUE NO SALE DE TU MÓVIL\nPregunta por tu descanso, tu rutina o por qué te levantas cansado. El coach es un modelo de lenguaje que se ejecuta en tu dispositivo: tus preguntas y respuestas nunca se envían a un servidor. Descarga el modelo una vez y chatea incluso sin conexión.\n\nCOMPATIBLE CON SALUD DE APPLE\nOpenSleep guarda tus sesiones y fases de sueño en la app Salud y puede mostrar el sueño que ya tengas registrado allí.\n\nPRIVACIDAD DE SERIE\n• Sin cuenta ni registro\n• El análisis del sueño se hace en tu iPhone\n• Código abierto: cualquiera puede revisarlo\n\nDisponible en español, inglés, portugués, alemán, francés e italiano.\n\nEl seguimiento del sueño es gratis. El Coach de Sueño con IA es un pago único, sin suscripción.\n\nOpenSleep es una herramienta de bienestar, no un dispositivo médico. Consulta a un médico ante cualquier problema de sueño o de salud.",
+    "whatsNew": "• Motor de IA en el dispositivo LiteRT actualizado\n• Optimizaciones para iPhone Duo"
+  },
+  "play": {
+    "title": "OpenSleep: Monitor de sueño IA",
+    "shortDescription": "Mide tus fases de sueño sin pulsera. Coach de sueño con IA privado y offline.",
+    "fullDescription": "OpenSleep mide tus fases de sueño sin reloj ni pulsera y te las explica con un coach de sueño con IA que funciona por completo en tu móvil.\n\nMIDE TU SUEÑO SIN WEARABLES\nElige cómo escucha tu móvil la noche:\n• Sonar (sin contacto): deja el móvil en la mesilla. OpenSleep usa el nivel de ruido ambiente para detectar señales del sueño. El audio nunca se graba ni se guarda.\n• Modo colchón: coloca el móvil sobre el colchón, junto a la almohada, y los sensores de movimiento seguirán tus movimientos.\n\nCADA FASE DE TU NOCHE\n• Despierto, REM, sueño ligero y profundo en un anillo de fases y un gráfico de toda la noche\n• Hora de acostarte, de despertarte y sueño total de cada sesión\n• Historial por día, semana, mes y año para ver tendencias\n\nUN COACH DE SUEÑO CON IA QUE NO SALE DE TU MÓVIL\nPregunta por tu descanso, tu rutina o por qué te levantas cansado. El coach es un modelo de lenguaje que se ejecuta en tu dispositivo: tus preguntas y respuestas nunca se envían a un servidor. Descarga el modelo una vez y chatea incluso sin conexión. En los móviles compatibles usa aceleración por GPU.\n\nCOMPATIBLE CON HEALTH CONNECT\nOpenSleep puede guardar tus sesiones en Health Connect e importar los registros de sueño que ya tengas.\n\nPRIVACIDAD DE SERIE\n• Sin cuenta ni registro\n• El análisis del sueño se hace en tu móvil\n• Código abierto: cualquiera puede revisarlo\n\nDisponible en español, inglés, portugués, alemán, francés e italiano.\n\nEl seguimiento del sueño es gratis. El Coach de Sueño con IA es un pago único, sin suscripción.\n\nOpenSleep es una herramienta de bienestar, no un dispositivo médico. Consulta a un médico ante cualquier problema de sueño o de salud.",
+    "releaseNotes": "• Motor de IA en el dispositivo LiteRT actualizado\n• Diseño optimizado para más tamaños de pantalla"
+  }
+}

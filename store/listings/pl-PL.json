@@ -1,0 +1,13 @@
+{
+  "locale": "pl-PL",
+  "appStoreLocales": [],
+  "playLocales": [
+    "pl-PL"
+  ],
+  "play": {
+    "title": "OpenSleep: Monitor snu i AI",
+    "shortDescription": "Fazy snu bez opaski i zegarka. Prywatny trener snu AI, który działa offline.",
+    "fullDescription": "OpenSleep monitoruje fazy snu bez zegarka ani pierścienia, a trener snu AI działający w całości na Twoim telefonie wyjaśnia, co oznaczają.\n\nMONITOROWANIE SNU BEZ OPASKI\nWybierz, jak telefon ma „słuchać” Twojej nocy:\n• Sonar (bezkontaktowo): zostaw telefon na szafce nocnej. OpenSleep wykorzystuje poziom dźwięków otoczenia, aby wychwycić sygnały snu. Surowy dźwięk nigdy nie jest nagrywany ani zapisywany.\n• Tryb materaca: połóż telefon płasko na materacu obok poduszki, a czujniki ruchu będą śledzić Twoje ruchy.\n\nKAŻDA FAZA TWOJEJ NOCY\n• Czuwanie, faza REM, sen płytki i głęboki na pierścieniu faz oraz na wykresie przebiegu snu z całej nocy\n• Pora pójścia spać, pora pobudki i całkowity czas snu dla każdej sesji\n• Historia w widoku dnia, tygodnia, miesiąca i roku, by dostrzec trendy\n\nTRENER SNU AI, KTÓRY ZOSTAJE NA TWOIM TELEFONIE\nZapytaj o swój sen, codzienną rutynę albo o to, dlaczego budzisz się zmęczony. Trener to duży model językowy działający na Twoim urządzeniu, więc pytania i odpowiedzi nigdy nie trafiają na serwer. Pobierz model raz, a potem rozmawiaj nawet bez połączenia z internetem. Na obsługiwanych telefonach korzysta z akceleracji GPU.\n\nDZIAŁA Z HEALTH CONNECT\nOpenSleep może zapisywać zakończone sesje w Health Connect i importować zapisy snu, które już masz.\n\nPRYWATNOŚĆ W STANDARDZIE\n• Bez konta i bez rejestracji\n• Analiza snu odbywa się na Twoim telefonie\n• Otwarte źródło: każdy może przejrzeć kod\n\nInterfejs aplikacji jest dostępny po angielsku, hiszpańsku, portugalsku, niemiecku, francusku i włosku (nie po polsku).\n\nMonitorowanie snu jest bezpłatne. Trener snu AI to jednorazowy zakup, bez subskrypcji.\n\nOpenSleep to narzędzie wspierające dobre samopoczucie, a nie wyrób medyczny. W razie problemów ze snem lub zdrowiem skonsultuj się z lekarzem.",
+    "releaseNotes": "• Zaktualizowane środowisko LiteRT do obsługi AI na urządzeniu\n• Układ zoptymalizowany pod więcej rozmiarów ekranu"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "locale": "tr-TR",
+  "appStoreLocales": [],
+  "playLocales": [
+    "tr-TR"
+  ],
+  "play": {
+    "title": "OpenSleep: Uyku Takibi ve AI",
+    "shortDescription": "Saat ya da bileklik olmadan uyku evreleri. Çevrimdışı, gizli AI uyku koçu.",
+    "fullDescription": "OpenSleep, saat veya yüzük olmadan uyku evrelerinizi takip eder ve tamamen telefonunuzda çalışan bir yapay zeka (AI) uyku koçuyla bunları size açıklar.\n\nGİYİLEBİLİR CİHAZ OLMADAN UYKU TAKİBİ\nTelefonunuzun geceyi nasıl dinleyeceğini seçin:\n• Sonar (temassız): telefonunuzu komodinin üzerine bırakın. OpenSleep, uyku belirtilerini yakalamak için ortamdaki ses seviyelerini kullanır. Ham ses asla kaydedilmez veya saklanmaz.\n• Yatak modu: telefonunuzu yastığınızın yanında, yatağın üzerine düz şekilde koyun; hareket sensörleri hareketlerinizi takip etsin.\n\nGECENİZİN HER EVRESİ\n• Uyanık, REM, hafif ve derin uyku; evre halkasında ve tüm geceyi gösteren uyku düzeni grafiğinde\n• Her oturum için yatma saati, uyanma saati ve toplam uyku süresi\n• Eğilimleri görmek için gün, hafta, ay ve yıl görünümleriyle geçmiş\n\nTELEFONUNUZDAN ÇIKMAYAN BİR AI UYKU KOÇU\nUykunuzu, rutininizi ya da neden yorgun uyandığınızı sorun. Koç, cihazınızda çalışan büyük bir dil modelidir; bu yüzden sorularınız ve yanıtlar asla bir sunucuya gönderilmez. Modeli bir kez indirin, ardından internet bağlantısı olmadan da sohbet edin. Desteklenen telefonlarda GPU hızlandırması kullanılır.\n\nHEALTH CONNECT İLE ÇALIŞIR\nOpenSleep, tamamlanan oturumları Health Connect'e kaydedebilir ve mevcut uyku kayıtlarınızı içe aktarabilir.\n\nGİZLİLİK ODAKLI TASARIM\n• Hesap yok, kayıt yok\n• Uyku analizi telefonunuzda yapılır\n• Açık kaynak: herkes kodu inceleyebilir\n\nUygulama arayüzü İngilizce, İspanyolca, Portekizce, Almanca, Fransızca ve İtalyanca dillerinde sunulur (Türkçe değildir).\n\nUyku takibi ücretsizdir. AI Uyku Koçu, abonelik gerektirmeyen tek seferlik bir satın alımdır.\n\nOpenSleep bir sağlıklı yaşam (wellness) aracıdır, tıbbi bir cihaz değildir. Uykunuz veya sağlığınızla ilgili her türlü endişe için bir doktora danışın.",
+    "releaseNotes": "• Cihaz üzerinde çalışan yapay zeka ortamı LiteRT güncellendi\n• Daha fazla ekran boyutu için düzen iyileştirmeleri"
+  }
+}

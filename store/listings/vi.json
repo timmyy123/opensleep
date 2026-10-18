@@ -1,0 +1,11 @@
+{
+  "locale": "vi",
+  "appStoreLocales": [],
+  "playLocales": ["vi"],
+  "play": {
+    "title": "OpenSleep: Đo giấc ngủ & AI",
+    "shortDescription": "Theo dõi giai đoạn ngủ không cần đồng hồ. Trợ lý giấc ngủ AI riêng tư, offline.",
+    "fullDescription": "OpenSleep theo dõi các giai đoạn giấc ngủ của bạn mà không cần đồng hồ hay nhẫn thông minh, rồi giải thích chúng bằng một huấn luyện viên giấc ngủ AI chạy hoàn toàn trên điện thoại.\n\nTHEO DÕI GIẤC NGỦ KHÔNG CẦN THIẾT BỊ ĐEO\nChọn cách điện thoại theo dõi đêm ngủ của bạn:\n• Sonar (không tiếp xúc): đặt điện thoại trên tủ đầu giường. OpenSleep dùng mức âm thanh xung quanh để nhận biết các dấu hiệu giấc ngủ. Âm thanh gốc không bao giờ bị ghi âm hay lưu trữ.\n• Chế độ nệm: đặt điện thoại nằm phẳng trên nệm, cạnh gối, để cảm biến chuyển động theo dõi cử động của bạn.\n\nXEM MỌI GIAI ĐOẠN GIẤC NGỦ TRONG ĐÊM\n• Thức, REM, ngủ nông và ngủ sâu, hiển thị trên vòng giai đoạn ngủ và biểu đồ diễn biến giấc ngủ suốt đêm\n• Giờ đi ngủ, giờ thức dậy và tổng thời gian ngủ của mỗi lần ghi\n• Lịch sử theo ngày, tuần, tháng và năm để nhận ra xu hướng\n\nHUẤN LUYỆN VIÊN GIẤC NGỦ AI NGAY TRÊN ĐIỆN THOẠI\nHỏi về giấc ngủ, thói quen sinh hoạt hay lý do bạn thức dậy vẫn thấy mệt. Huấn luyện viên là một mô hình ngôn ngữ lớn chạy trên thiết bị, nên câu hỏi và câu trả lời của bạn không bao giờ được gửi lên máy chủ. Chỉ cần tải mô hình một lần, sau đó trò chuyện cả khi không có kết nối mạng. Trên điện thoại được hỗ trợ, ứng dụng sử dụng tăng tốc GPU.\n\nHOẠT ĐỘNG VỚI HEALTH CONNECT\nOpenSleep có thể lưu các phiên ngủ đã hoàn tất vào Health Connect và nhập các bản ghi giấc ngủ bạn đã có.\n\nRIÊNG TƯ NGAY TỪ THIẾT KẾ\n• Không cần tài khoản, không cần đăng ký\n• Phân tích giấc ngủ diễn ra trên điện thoại của bạn\n• Mã nguồn mở: ai cũng có thể đọc mã\n\nGiao diện ứng dụng có tiếng Anh, Tây Ban Nha, Bồ Đào Nha, Đức, Pháp và Ý (không có tiếng Việt).\n\nTheo dõi giấc ngủ hoàn toàn miễn phí. Huấn luyện viên giấc ngủ AI là gói mua một lần, không thu phí định kỳ.\n\nOpenSleep là công cụ hỗ trợ sức khỏe tổng quát, không phải thiết bị y tế. Hãy hỏi ý kiến bác sĩ nếu bạn có bất kỳ lo ngại nào về giấc ngủ hoặc sức khỏe.",
+    "releaseNotes": "• Cập nhật môi trường chạy AI trên thiết bị LiteRT\n• Tối ưu bố cục cho nhiều kích thước màn hình hơn"
+  }
+}

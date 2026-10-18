@@ -1,0 +1,15 @@
+{
+  "locale": "fr-CA",
+  "appStoreLocales": [
+    "fr-CA"
+  ],
+  "playLocales": [],
+  "appStore": {
+    "name": "OpenSleep : Suivi du sommeil",
+    "subtitle": "Coach IA hors ligne et privé",
+    "keywords": "phases,cycles,paradoxal,profond,léger,rem,sonar,contact,montre,dormir,repos,santé,nuit,tracker,local",
+    "promotionalText": "Nouveau : coach du sommeil IA plus rapide sur l’appareil et graphiques repensés. Suivez vos phases de sommeil sans montre. Vos données restent sur votre iPhone.",
+    "description": "OpenSleep suit vos phases de sommeil sans montre ni bague, et vous les explique grâce à un coach du sommeil IA qui fonctionne entièrement sur votre iPhone.\n\nSUIVEZ VOTRE SOMMEIL SANS MONTRE NI BRACELET\nChoisissez comment votre cellulaire écoute la nuit :\n• Sonar (sans contact) : laissez votre iPhone sur la table de nuit. OpenSleep utilise le niveau sonore ambiant pour détecter les signes du sommeil. L’audio n’est jamais enregistré ni conservé.\n• Mode matelas : déposez votre iPhone à plat sur le matelas, à côté de votre oreiller, et laissez le capteur de mouvement suivre vos mouvements.\n\nCHAQUE PHASE DE VOTRE NUIT\n• Éveil, sommeil paradoxal (REM), léger et profond, sur un anneau des phases et un graphique de toute la nuit\n• Heure du coucher, heure du réveil et durée totale de sommeil pour chaque séance\n• Historique par jour, semaine, mois et année pour repérer les tendances\n\nUN COACH DU SOMMEIL IA QUI RESTE SUR VOTRE CELLULAIRE\nPosez vos questions sur votre sommeil, votre routine ou la raison pour laquelle vous vous réveillez fatigué. Le coach est un grand modèle de langage qui s’exécute sur votre appareil : vos questions et ses réponses ne sont jamais transmises à un serveur. Téléchargez le modèle une seule fois, puis clavardez même sans connexion.\n\nFONCTIONNE AVEC L’APPLICATION SANTÉ\nOpenSleep enregistre vos séances et phases de sommeil dans l’application Santé d’Apple et peut afficher le sommeil qui y est déjà enregistré.\n\nCONFIDENTIALITÉ DÈS LA CONCEPTION\n• Aucun compte, aucune inscription\n• L’analyse du sommeil se fait sur votre iPhone\n• Code source ouvert : tout le monde peut lire le code\n\nOffert en français, anglais, espagnol, portugais, allemand et italien.\n\nLe suivi du sommeil est gratuit. Le Coach du sommeil IA est un achat unique, sans abonnement.\n\nOpenSleep est un outil de bien-être, et non un dispositif médical. Consultez un médecin pour toute question sur votre sommeil ou votre santé.",
+    "whatsNew": "• Moteur d’IA embarquée LiteRT mis à jour\n• Optimisations pour iPhone Duo"
+  }
+}

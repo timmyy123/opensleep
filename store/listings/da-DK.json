@@ -1,0 +1,13 @@
+{
+  "locale": "da-DK",
+  "appStoreLocales": [],
+  "playLocales": [
+    "da-DK"
+  ],
+  "play": {
+    "title": "OpenSleep: Søvntracker & AI",
+    "shortDescription": "Følg dine søvnfaser uden wearable. Privat AI-søvncoach, der virker offline.",
+    "fullDescription": "OpenSleep måler dine søvnfaser uden ur eller ring og forklarer dem med en AI-søvncoach, der kører helt på din telefon.\n\nMÅL DIN SØVN UDEN WEARABLE\nVælg, hvordan din telefon lytter til natten:\n• Sonar (kontaktløs): Læg telefonen på natbordet. OpenSleep bruger lydniveauet i rummet til at opfange tegn på søvn. Rå lyd bliver aldrig optaget eller gemt.\n• Madrastilstand: Læg telefonen fladt på madrassen ved siden af hovedpuden, og lad bevægelsessensorerne følge dine bevægelser.\n\nHVER FASE AF DIN NAT\n• Vågen, REM, let og dyb søvn vist i en ring med søvnfaser og et diagram over søvnmønsteret hele natten\n• Sengetid, opvågningstidspunkt og samlet søvn for hver session\n• Historik med dags-, uge-, måneds- og årsvisning, så du kan se tendenser\n\nEN AI-SØVNCOACH, DER BLIVER PÅ DIN TELEFON\nSpørg om din søvn, din rutine, eller hvorfor du vågner træt. Coachen er en stor sprogmodel, der kører på din enhed, så dine spørgsmål og svar bliver aldrig sendt til en server. Download modellen én gang, og chat derefter også uden forbindelse. På understøttede telefoner bruges GPU-acceleration.\n\nVIRKER MED HEALTH CONNECT\nOpenSleep kan gemme afsluttede sessioner i Health Connect og importere søvndata, du allerede har.\n\nPRIVATLIV FRA STARTEN\n• Ingen konto og ingen tilmelding\n• Søvnanalysen sker på din telefon\n• Open source: Alle kan læse koden\n\nAppen findes på engelsk, spansk, portugisisk, tysk, fransk og italiensk.\n\nSøvnmåling er gratis. AI-søvncoachen er et engangskøb uden abonnement.\n\nOpenSleep er et wellnessværktøj, ikke medicinsk udstyr. Tal med en læge, hvis du er bekymret for din søvn eller dit helbred.",
+    "releaseNotes": "• Opdateret LiteRT-runtime til AI på enheden\n• Layout optimeret til flere skærmstørrelser"
+  }
+}

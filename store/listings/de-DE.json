@@ -1,0 +1,23 @@
+{
+  "locale": "de-DE",
+  "appStoreLocales": [
+    "de-DE"
+  ],
+  "playLocales": [
+    "de-DE"
+  ],
+  "appStore": {
+    "name": "OpenSleep: Schlaftracker & KI",
+    "subtitle": "Offline-KI-Coach ohne Wearable",
+    "keywords": "schlafphasen,tiefschlaf,rem,schlafzyklus,schlafanalyse,sonar,kontaktlos,privat,gesundheit,hypnogramm",
+    "promotionalText": "Neu: ein schnellerer KI-Schlafcoach direkt auf dem Gerät und neu gestaltete Schlafdiagramme. Schlafphasen tracken ohne Wearable. Deine Daten bleiben auf deinem iPhone.",
+    "description": "OpenSleep erfasst deine Schlafphasen ohne Uhr oder Ring und erklärt sie dir mit einem KI-Schlafcoach, der komplett auf deinem iPhone läuft.\n\nSCHLAF TRACKEN OHNE WEARABLE\nWähle, wie dein iPhone die Nacht erfasst:\n• Sonar (kontaktlos): Leg dein iPhone auf den Nachttisch. OpenSleep nutzt den Geräuschpegel im Raum, um Hinweise auf deinen Schlaf zu erkennen. Audio wird nie aufgenommen oder gespeichert.\n• Matratzenmodus: Leg dein iPhone flach auf die Matratze neben dein Kopfkissen – der Bewegungssensor folgt deinen Bewegungen.\n\nJEDE SCHLAFPHASE DEINER NACHT\n• Wach, REM, Leicht- und Tiefschlaf – im Phasenring und im Schlafverlauf der ganzen Nacht\n• Zubettgehzeit, Aufwachzeit und Gesamtschlafdauer für jede Messung\n• Verlauf mit Tages-, Wochen-, Monats- und Jahresansicht, um Trends zu erkennen\n\nEIN KI-SCHLAFCOACH, DER AUF DEINEM IPHONE BLEIBT\nFrag nach deinem Schlaf, deiner Routine oder warum du müde aufwachst. Der Coach ist ein großes Sprachmodell, das auf deinem Gerät läuft – deine Fragen und Antworten werden nie an einen Server gesendet. Lade das Modell einmal herunter und chatte danach auch ganz ohne Internetverbindung.\n\nFUNKTIONIERT MIT APPLE HEALTH\nOpenSleep schreibt deine Schlafmessungen und Schlafphasen in Apple Health und kann dort bereits erfassten Schlaf anzeigen.\n\nPRIVAT VON GRUND AUF\n• Kein Konto, keine Registrierung\n• Die Schlafanalyse läuft auf deinem iPhone\n• Open Source: Jeder kann den Code einsehen\n\nVerfügbar auf Deutsch, Englisch, Spanisch, Portugiesisch, Französisch und Italienisch.\n\nDas Schlaftracking ist kostenlos. Der KI-Schlafcoach ist ein Einmalkauf ohne Abo.\n\nOpenSleep ist ein Wellness-Tool, kein Medizinprodukt. Sprich bei Fragen zu deinem Schlaf oder deiner Gesundheit mit einer Ärztin oder einem Arzt.",
+    "whatsNew": "• LiteRT-Laufzeit für die KI auf dem Gerät aktualisiert\n• Optimierungen für iPhone Duo"
+  },
+  "play": {
+    "title": "OpenSleep: Schlaftracker & KI",
+    "shortDescription": "Schlafphasen tracken ohne Wearable. Privater KI-Schlafcoach, der offline läuft.",
+    "fullDescription": "OpenSleep erfasst deine Schlafphasen ohne Uhr oder Ring und erklärt sie dir mit einem KI-Schlafcoach, der komplett auf deinem Handy läuft.\n\nSCHLAF TRACKEN OHNE WEARABLE\nWähle, wie dein Handy die Nacht erfasst:\n• Sonar (kontaktlos): Leg dein Handy auf den Nachttisch. OpenSleep nutzt den Geräuschpegel im Raum, um Hinweise auf deinen Schlaf zu erkennen. Audio wird nie aufgenommen oder gespeichert.\n• Matratzenmodus: Leg dein Handy flach auf die Matratze neben dein Kopfkissen – die Bewegungssensoren folgen deinen Bewegungen.\n\nJEDE SCHLAFPHASE DEINER NACHT\n• Wach, REM, Leicht- und Tiefschlaf – im Phasenring und im Schlafverlauf der ganzen Nacht\n• Zubettgehzeit, Aufwachzeit und Gesamtschlafdauer für jede Messung\n• Verlauf mit Tages-, Wochen-, Monats- und Jahresansicht, um Trends zu erkennen\n\nEIN KI-SCHLAFCOACH, DER AUF DEINEM HANDY BLEIBT\nFrag nach deinem Schlaf, deiner Routine oder warum du müde aufwachst. Der Coach ist ein großes Sprachmodell, das auf deinem Gerät läuft – deine Fragen und Antworten werden nie an einen Server gesendet. Lade das Modell einmal herunter und chatte danach auch ganz ohne Internetverbindung. Auf unterstützten Handys wird die GPU-Beschleunigung genutzt.\n\nFUNKTIONIERT MIT HEALTH CONNECT\nOpenSleep kann abgeschlossene Messungen in Health Connect speichern und vorhandene Schlafdaten von dort importieren.\n\nPRIVAT VON GRUND AUF\n• Kein Konto, keine Registrierung\n• Die Schlafanalyse läuft auf deinem Handy\n• Open Source: Jeder kann den Code einsehen\n\nVerfügbar auf Deutsch, Englisch, Spanisch, Portugiesisch, Französisch und Italienisch.\n\nDas Schlaftracking ist kostenlos. Der KI-Schlafcoach ist ein Einmalkauf ohne Abo.\n\nOpenSleep ist ein Wellness-Tool, kein Medizinprodukt. Sprich bei Fragen zu deinem Schlaf oder deiner Gesundheit mit einer Ärztin oder einem Arzt.",
+    "releaseNotes": "• LiteRT-Laufzeit für die KI auf dem Gerät aktualisiert\n• Layout für mehr Bildschirmgrößen optimiert"
+  }
+}

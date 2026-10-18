@@ -1,0 +1,23 @@
+{
+  "locale": "it",
+  "appStoreLocales": [
+    "it"
+  ],
+  "playLocales": [
+    "it-IT"
+  ],
+  "appStore": {
+    "name": "OpenSleep: Monitor sonno & IA",
+    "subtitle": "Coach IA offline e privato",
+    "keywords": "fasi,ciclo,rem,profondo,leggero,sonar,contatto,dormire,riposo,salute,notte,tracker,orologio,locale",
+    "promotionalText": "Novità: coach del sonno IA più veloce sul dispositivo e grafici del sonno ridisegnati. Monitora le fasi del sonno senza smartwatch. I tuoi dati restano sull’iPhone.",
+    "description": "OpenSleep monitora le fasi del sonno senza orologio né anello e te le spiega con un coach del sonno IA che funziona interamente sul tuo iPhone.\n\nMONITORA IL SONNO SENZA DISPOSITIVI INDOSSABILI\nScegli come il tuo telefono ascolta la notte:\n• Sonar (senza contatto): lascia l’iPhone sul comodino. OpenSleep usa il livello del rumore ambientale per cogliere i segnali del sonno. L’audio non viene mai registrato né salvato.\n• Modalità materasso: appoggia l’iPhone sul materasso accanto al cuscino e lascia che il sensore di movimento segua i tuoi movimenti.\n\nOGNI FASE DELLA TUA NOTTE\n• Veglia, REM, sonno leggero e profondo, su un anello delle fasi e un grafico dell’intera notte\n• Ora in cui vai a letto, ora del risveglio e sonno totale di ogni sessione\n• Cronologia con viste per giorno, settimana, mese e anno per individuare le tendenze\n\nUN COACH DEL SONNO IA CHE RESTA SUL TUO TELEFONO\nChiedi del tuo sonno, della tua routine o del perché ti svegli stanco. Il coach è un modello linguistico di grandi dimensioni che gira sul tuo dispositivo: domande e risposte non vengono mai inviate a un server. Scarica il modello una volta, poi chatta anche senza connessione.\n\nFUNZIONA CON L’APP SALUTE\nOpenSleep scrive le tue sessioni e fasi del sonno nell’app Salute di Apple e può mostrare il sonno già registrato lì.\n\nPRIVACY FIN DALLA PROGETTAZIONE\n• Nessun account, nessuna registrazione\n• L’analisi del sonno avviene sul tuo iPhone\n• Open source: chiunque può leggere il codice\n\nDisponibile in italiano, inglese, spagnolo, portoghese, tedesco e francese.\n\nIl monitoraggio del sonno è gratuito. Il Coach del sonno IA è un acquisto una tantum, senza abbonamento.\n\nOpenSleep è uno strumento per il benessere, non un dispositivo medico. Per qualsiasi dubbio sul sonno o sulla salute, rivolgiti a un medico.",
+    "whatsNew": "• Runtime IA sul dispositivo LiteRT aggiornato\n• Ottimizzazioni per iPhone Duo"
+  },
+  "play": {
+    "title": "OpenSleep: Monitor sonno & IA",
+    "shortDescription": "Fasi del sonno senza smartwatch. Coach del sonno IA privato e offline.",
+    "fullDescription": "OpenSleep monitora le fasi del sonno senza orologio né anello e te le spiega con un coach del sonno IA che funziona interamente sul tuo telefono.\n\nMONITORA IL SONNO SENZA DISPOSITIVI INDOSSABILI\nScegli come il tuo telefono ascolta la notte:\n• Sonar (senza contatto): lascia il telefono sul comodino. OpenSleep usa il livello del rumore ambientale per cogliere i segnali del sonno. L’audio non viene mai registrato né salvato.\n• Modalità materasso: appoggia il telefono sul materasso accanto al cuscino e lascia che i sensori di movimento seguano i tuoi movimenti.\n\nOGNI FASE DELLA TUA NOTTE\n• Veglia, REM, sonno leggero e profondo, su un anello delle fasi e un grafico dell’intera notte\n• Ora in cui vai a letto, ora del risveglio e sonno totale di ogni sessione\n• Cronologia con viste per giorno, settimana, mese e anno per individuare le tendenze\n\nUN COACH DEL SONNO IA CHE RESTA SUL TUO TELEFONO\nChiedi del tuo sonno, della tua routine o del perché ti svegli stanco. Il coach è un modello linguistico di grandi dimensioni che gira sul tuo dispositivo: domande e risposte non vengono mai inviate a un server. Scarica il modello una volta, poi chatta anche senza connessione. Sui telefoni compatibili viene usata l’accelerazione GPU.\n\nFUNZIONA CON HEALTH CONNECT\nOpenSleep può salvare le sessioni completate in Health Connect e importare i dati del sonno che hai già.\n\nPRIVACY FIN DALLA PROGETTAZIONE\n• Nessun account, nessuna registrazione\n• L’analisi del sonno avviene sul tuo telefono\n• Open source: chiunque può leggere il codice\n\nDisponibile in italiano, inglese, spagnolo, portoghese, tedesco e francese.\n\nIl monitoraggio del sonno è gratuito. Il Coach del sonno IA è un acquisto una tantum, senza abbonamento.\n\nOpenSleep è uno strumento per il benessere, non un dispositivo medico. Per qualsiasi dubbio sul sonno o sulla salute, rivolgiti a un medico.",
+    "releaseNotes": "• Runtime IA sul dispositivo LiteRT aggiornato\n• Layout ottimizzato per più dimensioni dello schermo"
+  }
+}

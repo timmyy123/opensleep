@@ -1,0 +1,23 @@
+{
+  "locale": "en-US",
+  "appStoreLocales": [
+    "en-US"
+  ],
+  "playLocales": [
+    "en-US"
+  ],
+  "appStore": {
+    "name": "OpenSleep: Sleep Tracker & AI",
+    "subtitle": "Offline AI coach, no wearable",
+    "keywords": "sonar,contactless,rem,deep,cycle,stages,hypnogram,private,local,llm,health,night,rest,bedtime",
+    "promotionalText": "New: a faster on-device AI Sleep Coach and redesigned sleep charts. Track your sleep stages without a wearable. Your sleep data stays on your phone.",
+    "description": "OpenSleep tracks your sleep stages without a watch or ring, and explains them with an AI sleep coach that runs entirely on your iPhone.\n\nTRACK SLEEP WITHOUT A WEARABLE\nChoose how your phone listens to the night:\n• Sonar (contactless): leave your iPhone on the nightstand. OpenSleep uses ambient sound levels to pick up sleep cues. Raw audio is never recorded or stored.\n• Mattress mode: place your iPhone flat on the mattress next to your pillow and let the motion sensor follow your movement.\n\nSEE EVERY STAGE OF YOUR NIGHT\n• Awake, REM, light and deep sleep, shown on a stage ring and a full-night sleep pattern chart\n• Bedtime, wake-up time and total sleep for every session\n• History with day, week, month and year views to spot trends\n\nAN AI SLEEP COACH THAT STAYS ON YOUR PHONE\nAsk about your sleep, your routine or why you wake up tired. The coach is a large language model that runs on your device, so your questions and answers are never sent to a server. Download the model once, then chat even with no connection.\n\nWORKS WITH APPLE HEALTH\nOpenSleep writes your sleep sessions and stages to Apple Health and can show sleep already recorded there.\n\nPRIVATE BY DESIGN\n• No account and no sign-up\n• Sleep analysis happens on your iPhone\n• Open source: anyone can read the code\n\nAvailable in English, Spanish, Portuguese, German, French and Italian.\n\nSleep tracking is free. The AI Sleep Coach is a one-time purchase with no subscription.\n\nOpenSleep is a wellness tool, not a medical device. Talk to a doctor about any sleep or health concerns.",
+    "whatsNew": "• Updated LiteRT on-device AI runtime\n• Optimizations for iPhone Duo"
+  },
+  "play": {
+    "title": "OpenSleep: Sleep Tracker & AI",
+    "shortDescription": "Track sleep stages without a wearable. Private AI sleep coach that runs offline.",
+    "fullDescription": "OpenSleep tracks your sleep stages without a watch or ring, and explains them with an AI sleep coach that runs entirely on your phone.\n\nTRACK SLEEP WITHOUT A WEARABLE\nChoose how your phone listens to the night:\n• Sonar (contactless): leave your phone on the nightstand. OpenSleep uses ambient sound levels to pick up sleep cues. Raw audio is never recorded or stored.\n• Mattress mode: place your phone flat on the mattress next to your pillow and let the motion sensors follow your movement.\n\nSEE EVERY STAGE OF YOUR NIGHT\n• Awake, REM, light and deep sleep, shown on a stage ring and a full-night sleep pattern chart\n• Bedtime, wake-up time and total sleep for every session\n• History with day, week, month and year views to spot trends\n\nAN AI SLEEP COACH THAT STAYS ON YOUR PHONE\nAsk about your sleep, your routine or why you wake up tired. The coach is a large language model that runs on your device, so your questions and answers are never sent to a server. Download the model once, then chat even with no connection. GPU acceleration is used on supported phones.\n\nWORKS WITH HEALTH CONNECT\nOpenSleep can save completed sessions to Health Connect and import sleep records you already have.\n\nPRIVATE BY DESIGN\n• No account and no sign-up\n• Sleep analysis happens on your phone\n• Open source: anyone can read the code\n\nAvailable in English, Spanish, Portuguese, German, French and Italian.\n\nSleep tracking is free. The AI Sleep Coach is a one-time purchase with no subscription.\n\nOpenSleep is a wellness tool, not a medical device. Talk to a doctor about any sleep or health concerns.",
+    "releaseNotes": "• Updated LiteRT on-device AI runtime\n• Layout optimizations for more screen sizes"
+  }
+}
