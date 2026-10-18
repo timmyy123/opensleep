@@ -13,9 +13,9 @@ android {
         applicationId = "tech.opensleep"
         minSdk = 28
         targetSdk = 37
-        versionCode = 18
-        
-        versionName = "1.0.4"
+        versionCode = 19
+
+        versionName = "1.0.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
