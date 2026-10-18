@@ -32,7 +32,7 @@ struct PaywallView: View {
             GeometryReader { geometry in
                 // Short screens (e.g. folded iPhone Duo, compact iPhones) get a tighter layout so the
                 // whole paywall fits above the pinned purchase button.
-                let compact = geometry.size.height < 640
+                let compact = DeviceKind.isIPhoneDuo && geometry.size.height < 640
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: compact ? 12 : 16) {
                         // Modal dismiss header
@@ -208,6 +208,11 @@ struct PaywallView: View {
                                 .padding(.horizontal, 12)
                         }
                         
+                        // Purchase CTA Button (pinned to the bottom instead on iPhone Duo)
+                        if !DeviceKind.isIPhoneDuo {
+                            purchaseButton
+                        }
+
                         // Restore & Terms row
                         HStack(spacing: 8) {
                             Button {
@@ -247,20 +252,22 @@ struct PaywallView: View {
                     .frame(minHeight: geometry.size.height, alignment: .top)
                 }
             }
-            // Pinned so the CTA stays visible on short screens (e.g. iPhone Duo)
+            // iPhone Duo only: pin the CTA so it stays visible on the short outer display
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                purchaseButton
-                    .padding(.horizontal, 20)
-                    .padding(.top, 12)
-                    .padding(.bottom, 8)
-                    .background(
-                        LinearGradient(
-                            colors: [Color.navyDeep.opacity(0), Color.navyDeep],
-                            startPoint: .top,
-                            endPoint: .center
+                if DeviceKind.isIPhoneDuo {
+                    purchaseButton
+                        .padding(.horizontal, 20)
+                        .padding(.top, 12)
+                        .padding(.bottom, 8)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.navyDeep.opacity(0), Color.navyDeep],
+                                startPoint: .top,
+                                endPoint: .center
+                            )
+                            .ignoresSafeArea()
                         )
-                        .ignoresSafeArea()
-                    )
+                }
             }
         }
         .task {

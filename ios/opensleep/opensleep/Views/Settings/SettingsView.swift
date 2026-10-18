@@ -52,16 +52,13 @@ struct SettingsView: View {
 
                         GlassCard(padding: 14) {
                             VStack(alignment: .leading, spacing: 12) {
-                                // Segmented when both labels fit untruncated; stacked options on narrow screens (e.g. iPhone Duo)
+                                // iPhone Duo only: fall back to stacked options when the segment labels would truncate.
+                                // Every other device keeps the original segmented picker.
+                                if !DeviceKind.isIPhoneDuo {
+                                    sensorPicker
+                                } else {
                                 ViewThatFits(in: .horizontal) {
-                                    Picker("section_sensor", selection: Binding(
-                                        get: { tracker.trackingMode },
-                                        set: { tracker.setTrackingMode($0) }
-                                    )) {
-                                        Text("sensor_sonar").tag(TrackingSensorMode.sonar)
-                                        Text("sensor_accelerometer").tag(TrackingSensorMode.accelerometer)
-                                    }
-                                    .pickerStyle(.segmented)
+                                    sensorPicker
 
                                     VStack(spacing: 8) {
                                         ForEach(TrackingSensorMode.allCases) { mode in
@@ -89,6 +86,7 @@ struct SettingsView: View {
                                         }
                                     }
                                 }
+                                }
 
                                 HStack(spacing: 8) {
                                     Image(systemName: tracker.trackingMode == .sonar ? "wave.3.forward" : "bed.double.fill")
@@ -109,15 +107,12 @@ struct SettingsView: View {
                             .foregroundStyle(Color.indigoLight)
 
                         GlassCard(padding: 16) {
-                            // One row when everything fits on a line; otherwise the button moves below (e.g. iPhone Duo)
+                            // iPhone Duo only: move the button below the text when the row can't fit on one line.
+                            if !DeviceKind.isIPhoneDuo {
+                                membershipRow
+                            } else {
                             ViewThatFits(in: .horizontal) {
-                                HStack(spacing: 14) {
-                                    membershipSummary
-                                    Spacer()
-                                    if !storeKit.isPremium {
-                                        unlockButton(fullWidth: false)
-                                    }
-                                }
+                                membershipRow
 
                                 VStack(alignment: .leading, spacing: 14) {
                                     HStack(spacing: 14) {
@@ -128,6 +123,7 @@ struct SettingsView: View {
                                         unlockButton(fullWidth: true)
                                     }
                                 }
+                            }
                             }
                         }
                     }
@@ -202,6 +198,27 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showPaywallSheet) {
                 PaywallView(isModal: true)
+            }
+        }
+    }
+
+    private var sensorPicker: some View {
+        Picker("section_sensor", selection: Binding(
+            get: { tracker.trackingMode },
+            set: { tracker.setTrackingMode($0) }
+        )) {
+            Text("sensor_sonar").tag(TrackingSensorMode.sonar)
+            Text("sensor_accelerometer").tag(TrackingSensorMode.accelerometer)
+        }
+        .pickerStyle(.segmented)
+    }
+
+    private var membershipRow: some View {
+        HStack(spacing: 14) {
+            membershipSummary
+            Spacer()
+            if !storeKit.isPremium {
+                unlockButton(fullWidth: false)
             }
         }
     }
