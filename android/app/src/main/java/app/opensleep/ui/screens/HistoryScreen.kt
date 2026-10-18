@@ -514,12 +514,12 @@ fun SleepBreakdownChart(
                                 fontWeight = FontWeight.Medium
                             )
                         )
+                        // Keep the first/last labels inside the canvas (it clips to bounds)
+                        val labelX = (slotCenter - layoutResult.size.width / 2)
+                            .coerceIn(0f, maxOf(0f, canvasWidth - layoutResult.size.width))
                         drawText(
                             textLayoutResult = layoutResult,
-                            topLeft = Offset(
-                                slotCenter - layoutResult.size.width / 2,
-                                chartHeight + 8.dp.toPx()
-                            )
+                            topLeft = Offset(labelX, chartHeight + 8.dp.toPx())
                         )
                     }
                 }
