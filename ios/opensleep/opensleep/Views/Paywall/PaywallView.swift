@@ -9,23 +9,25 @@ struct PaywallView: View {
     
     var body: some View {
         ZStack {
-            Color.navyDeep.ignoresSafeArea()
-            
-            // Ambient glowing background gradients
-            VStack {
-                Circle()
-                    .fill(Color.indigoAccent.opacity(0.20))
-                    .frame(width: 300, height: 300)
-                    .blur(radius: 85)
-                    .offset(x: -80, y: -80)
-                Spacer()
-                Circle()
-                    .fill(Color.cyanAccent.opacity(0.14))
-                    .frame(width: 280, height: 280)
-                    .blur(radius: 75)
-                    .offset(x: 80, y: 60)
-            }
-            .ignoresSafeArea()
+            Color.navyDeep
+                // Ambient glowing background gradients. Kept in an overlay so their fixed sizes
+                // never grow the layout past the screen on short displays (e.g. iPhone Duo).
+                .overlay {
+                    VStack {
+                        Circle()
+                            .fill(Color.indigoAccent.opacity(0.20))
+                            .frame(width: 300, height: 300)
+                            .blur(radius: 85)
+                            .offset(x: -80, y: -80)
+                        Spacer(minLength: 0)
+                        Circle()
+                            .fill(Color.cyanAccent.opacity(0.14))
+                            .frame(width: 280, height: 280)
+                            .blur(radius: 75)
+                            .offset(x: 80, y: 60)
+                    }
+                }
+                .ignoresSafeArea()
             
             GeometryReader { geometry in
                 ScrollView(showsIndicators: false) {
@@ -199,47 +201,6 @@ struct PaywallView: View {
                                 .padding(.horizontal, 12)
                         }
                         
-                        // Purchase CTA Button
-                        Button {
-                            Task {
-                                let success = await storeKit.purchase()
-                                if success && isModal {
-                                    dismiss()
-                                }
-                            }
-                        } label: {
-                            HStack(spacing: 8) {
-                                if storeKit.isPurchasing {
-                                    ProgressView()
-                                        .tint(.white)
-                                } else {
-                                    Image(systemName: "sparkles")
-                                        .font(.system(size: 16, weight: .bold))
-                                    
-                                    if let price = storeKit.product?.displayPrice {
-                                        Text(String(format: String(localized: "paywall_unlock_with_price"), price))
-                                            .font(.system(size: 17, weight: .bold))
-                                    } else {
-                                        Text("paywall_unlock_button")
-                                            .font(.system(size: 17, weight: .bold))
-                                    }
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 52)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.indigoAccent, Color.cyanAccent.opacity(0.85)],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: Color.indigoAccent.opacity(0.35), radius: 12, x: 0, y: 5)
-                        }
-                        .disabled(storeKit.isPurchasing)
-                        
                         // Restore & Terms row
                         HStack(spacing: 8) {
                             Button {
@@ -279,10 +240,67 @@ struct PaywallView: View {
                     .frame(minHeight: geometry.size.height, alignment: .top)
                 }
             }
+            // Pinned so the CTA stays visible on short screens (e.g. iPhone Duo)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                purchaseButton
+                    .padding(.horizontal, 20)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.navyDeep.opacity(0), Color.navyDeep],
+                            startPoint: .top,
+                            endPoint: .center
+                        )
+                        .ignoresSafeArea()
+                    )
+            }
         }
         .task {
             await storeKit.loadProduct()
         }
+    }
+
+    private var purchaseButton: some View {
+        Button {
+            Task {
+                let success = await storeKit.purchase()
+                if success && isModal {
+                    dismiss()
+                }
+            }
+        } label: {
+            HStack(spacing: 8) {
+                if storeKit.isPurchasing {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 16, weight: .bold))
+                                
+                    if let price = storeKit.product?.displayPrice {
+                        Text(String(format: String(localized: "paywall_unlock_with_price"), price))
+                            .font(.system(size: 17, weight: .bold))
+                    } else {
+                        Text("paywall_unlock_button")
+                            .font(.system(size: 17, weight: .bold))
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 52)
+            .background(
+                LinearGradient(
+                    colors: [Color.indigoAccent, Color.cyanAccent.opacity(0.85)],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .shadow(color: Color.indigoAccent.opacity(0.35), radius: 12, x: 0, y: 5)
+        }
+        .disabled(storeKit.isPurchasing)
     }
 }
 

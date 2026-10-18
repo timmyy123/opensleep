@@ -52,14 +52,43 @@ struct SettingsView: View {
 
                         GlassCard(padding: 14) {
                             VStack(alignment: .leading, spacing: 12) {
-                                Picker("section_sensor", selection: Binding(
-                                    get: { tracker.trackingMode },
-                                    set: { tracker.setTrackingMode($0) }
-                                )) {
-                                    Text("sensor_sonar").tag(TrackingSensorMode.sonar)
-                                    Text("sensor_accelerometer").tag(TrackingSensorMode.accelerometer)
+                                // Segmented when both labels fit untruncated; stacked options on narrow screens (e.g. iPhone Duo)
+                                ViewThatFits(in: .horizontal) {
+                                    Picker("section_sensor", selection: Binding(
+                                        get: { tracker.trackingMode },
+                                        set: { tracker.setTrackingMode($0) }
+                                    )) {
+                                        Text("sensor_sonar").tag(TrackingSensorMode.sonar)
+                                        Text("sensor_accelerometer").tag(TrackingSensorMode.accelerometer)
+                                    }
+                                    .pickerStyle(.segmented)
+
+                                    VStack(spacing: 8) {
+                                        ForEach(TrackingSensorMode.allCases) { mode in
+                                            let isSelected = tracker.trackingMode == mode
+                                            Button {
+                                                tracker.setTrackingMode(mode)
+                                            } label: {
+                                                HStack {
+                                                    Text(mode.titleKey)
+                                                        .font(AppTextStyle.bodyMedium)
+                                                        .foregroundStyle(isSelected ? Color.textPrimary : Color.textSecondary)
+                                                    Spacer()
+                                                    if isSelected {
+                                                        Image(systemName: "checkmark")
+                                                            .font(.system(size: 14, weight: .bold))
+                                                            .foregroundStyle(Color.indigoLight)
+                                                    }
+                                                }
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 10)
+                                                .background(isSelected ? Color.indigoAccent.opacity(0.25) : Color.navyElevated)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
                                 }
-                                .pickerStyle(.segmented)
 
                                 HStack(spacing: 8) {
                                     Image(systemName: tracker.trackingMode == .sonar ? "wave.3.forward" : "bed.double.fill")
@@ -80,39 +109,23 @@ struct SettingsView: View {
                             .foregroundStyle(Color.indigoLight)
 
                         GlassCard(padding: 16) {
-                            HStack(spacing: 14) {
-                                ZStack {
-                                    Circle()
-                                        .fill(storeKit.isPremium ? Color.greenAccent.opacity(0.18) : Color.indigoAccent.opacity(0.2))
-                                        .frame(width: 44, height: 44)
-                                    Image(systemName: storeKit.isPremium ? "checkmark.seal.fill" : "sparkles")
-                                        .font(.system(size: 20))
-                                        .foregroundStyle(storeKit.isPremium ? Color.greenAccent : Color.indigoLight)
+                            // One row when everything fits on a line; otherwise the button moves below (e.g. iPhone Duo)
+                            ViewThatFits(in: .horizontal) {
+                                HStack(spacing: 14) {
+                                    membershipSummary
+                                    Spacer()
+                                    if !storeKit.isPremium {
+                                        unlockButton(fullWidth: false)
+                                    }
                                 }
-                                
-                                VStack(alignment: .leading, spacing: 3) {
-                                    Text(storeKit.isPremium ? "paywall_premium_active" : "paywall_title")
-                                        .font(.system(size: 16, weight: .bold))
-                                        .foregroundStyle(Color.textPrimary)
-                                    
-                                    Text(storeKit.isPremium ? "paywall_lifetime_active_desc" : "paywall_upgrade_now")
-                                        .font(AppTextStyle.bodySmall)
-                                        .foregroundStyle(Color.textSecondary)
-                                }
-                                
-                                Spacer()
-                                
-                                if !storeKit.isPremium {
-                                    Button {
-                                        showPaywallSheet = true
-                                    } label: {
-                                        Text("paywall_unlock_button")
-                                            .font(.system(size: 13, weight: .bold))
-                                            .foregroundStyle(.white)
-                                            .padding(.horizontal, 14)
-                                            .padding(.vertical, 8)
-                                            .background(Color.indigoAccent)
-                                            .clipShape(Capsule())
+
+                                VStack(alignment: .leading, spacing: 14) {
+                                    HStack(spacing: 14) {
+                                        membershipSummary
+                                        Spacer(minLength: 0)
+                                    }
+                                    if !storeKit.isPremium {
+                                        unlockButton(fullWidth: true)
                                     }
                                 }
                             }
@@ -190,6 +203,44 @@ struct SettingsView: View {
             .sheet(isPresented: $showPaywallSheet) {
                 PaywallView(isModal: true)
             }
+        }
+    }
+
+    private var membershipSummary: some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(storeKit.isPremium ? Color.greenAccent.opacity(0.18) : Color.indigoAccent.opacity(0.2))
+                    .frame(width: 44, height: 44)
+                Image(systemName: storeKit.isPremium ? "checkmark.seal.fill" : "sparkles")
+                    .font(.system(size: 20))
+                    .foregroundStyle(storeKit.isPremium ? Color.greenAccent : Color.indigoLight)
+            }
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(storeKit.isPremium ? "paywall_premium_active" : "paywall_title")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(Color.textPrimary)
+
+                Text(storeKit.isPremium ? "paywall_lifetime_active_desc" : "paywall_upgrade_now")
+                    .font(AppTextStyle.bodySmall)
+                    .foregroundStyle(Color.textSecondary)
+            }
+        }
+    }
+
+    private func unlockButton(fullWidth: Bool) -> some View {
+        Button {
+            showPaywallSheet = true
+        } label: {
+            Text("paywall_unlock_button")
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 14)
+                .padding(.vertical, fullWidth ? 10 : 8)
+                .frame(maxWidth: fullWidth ? .infinity : nil)
+                .background(Color.indigoAccent)
+                .clipShape(Capsule())
         }
     }
 }

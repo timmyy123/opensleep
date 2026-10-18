@@ -14,71 +14,77 @@ struct SleepHomeView: View {
         ZStack {
             Color.navyDeep.ignoresSafeArea()
 
-            ScrollView {
-                VStack(spacing: 32) {
-                    // Header
-                    VStack(spacing: 6) {
-                        Text("OpenSleep")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .foregroundStyle(Color.indigoLight)
-                        Text(isSleeping ? "tracking_active" : "tracking_idle")
-                            .font(AppTextStyle.bodyMedium)
-                            .foregroundStyle(Color.textSecondary)
-                    }
-                    .padding(.top, 16)
-
-                    // Main sleep button
-                    SleepButton(isSleeping: isSleeping) {
-                        if isSleeping { stopSleep() }
-                        else { startSleep() }
-                    }
-
-                    // Elapsed timer
-                    if isSleeping {
-                        GlassCard {
-                            VStack(spacing: 4) {
-                                let h = elapsedSeconds / 3600
-                                let m = (elapsedSeconds % 3600) / 60
-                                let s = elapsedSeconds % 60
-                                Text(String(format: "%02d:%02d:%02d", h, m, s))
-                                    .font(.system(size: 48, weight: .light, design: .monospaced))
-                                    .foregroundStyle(Color.indigoLight)
-                                Text("time_asleep")
-                                    .font(AppTextStyle.bodyMedium)
-                                    .foregroundStyle(Color.textSecondary)
-                            }
-                            .frame(maxWidth: .infinity)
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(spacing: 32) {
+                        // Header
+                        VStack(spacing: 6) {
+                            Text("OpenSleep")
+                                .font(.system(size: 28, weight: .bold, design: .rounded))
+                                .foregroundStyle(Color.indigoLight)
+                            Text(isSleeping ? "tracking_active" : "tracking_idle")
+                                .font(AppTextStyle.bodyMedium)
+                                .foregroundStyle(Color.textSecondary)
                         }
-                        .padding(.horizontal, 16)
-                    }
+                        .padding(.top, 16)
 
-                    // Live stage ring — only shown while actively tracking
-                    if isSleeping, let session = tracker.activeSession {
-                        let durations = session.stageDurations
-                        if durations.values.reduce(0, +) > 0 {
+                        // Pushes the button toward the vertical center when content is shorter than the screen
+                        Spacer(minLength: 0)
+
+                        // Main sleep button
+                        SleepButton(isSleeping: isSleeping) {
+                            if isSleeping { stopSleep() }
+                            else { startSleep() }
+                        }
+
+                        // Elapsed timer
+                        if isSleeping {
                             GlassCard {
-                                VStack(alignment: .leading, spacing: 16) {
-                                    Text("live_stages")
-                                        .font(AppTextStyle.titleLarge)
-                                        .foregroundStyle(Color.textPrimary)
-                                    SleepRingChart(stageDurations: durations)
-                                        .frame(width: 160, height: 160)
-                                        .frame(maxWidth: .infinity)
-                                    SleepStageLegend(stageDurations: durations)
+                                VStack(spacing: 4) {
+                                    let h = elapsedSeconds / 3600
+                                    let m = (elapsedSeconds % 3600) / 60
+                                    let s = elapsedSeconds % 60
+                                    Text(String(format: "%02d:%02d:%02d", h, m, s))
+                                        .font(.system(size: 48, weight: .light, design: .monospaced))
+                                        .foregroundStyle(Color.indigoLight)
+                                    Text("time_asleep")
+                                        .font(AppTextStyle.bodyMedium)
+                                        .foregroundStyle(Color.textSecondary)
                                 }
+                                .frame(maxWidth: .infinity)
                             }
                             .padding(.horizontal, 16)
                         }
+
+                        // Live stage ring — only shown while actively tracking
+                        if isSleeping, let session = tracker.activeSession {
+                            let durations = session.stageDurations
+                            if durations.values.reduce(0, +) > 0 {
+                                GlassCard {
+                                    VStack(alignment: .leading, spacing: 16) {
+                                        Text("live_stages")
+                                            .font(AppTextStyle.titleLarge)
+                                            .foregroundStyle(Color.textPrimary)
+                                        SleepRingChart(stageDurations: durations)
+                                            .frame(width: 160, height: 160)
+                                            .frame(maxWidth: .infinity)
+                                        SleepStageLegend(stageDurations: durations)
+                                    }
+                                }
+                                .padding(.horizontal, 16)
+                            }
+                        }
+
+
+
+                        Spacer(minLength: 32)
                     }
-
-
-
-                    Spacer(minLength: 32)
+                    .frame(maxWidth: .infinity, minHeight: geometry.size.height)
+                    .safeAreaPadding(.top)  // Keeps content below the status bar
                 }
-                .safeAreaPadding(.top)  // Keeps content below the status bar
+                .scrollIndicators(.hidden)
+                .scrollEdgeEffectStyle(.soft, for: .top)
             }
-            .scrollIndicators(.hidden)
-            .scrollEdgeEffectStyle(.soft, for: .top)
         }
         .onAppear { updateTimer() }
         .onDisappear { timer?.invalidate() }
