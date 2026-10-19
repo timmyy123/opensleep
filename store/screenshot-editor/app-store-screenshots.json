@@ -41,7 +41,7 @@
     "zh-CN"
   ],
   "locale": "en-US",
-  "device": "creative-universal",
+  "device": "iphone",
   "orientation": "portrait",
   "appIcon": "/app-icon.png",
   "slidesByDevice": {
@@ -365,326 +365,6 @@
         "screenshot": "/screenshots/apple/iphone/{locale}/04.png"
       }
     ],
-    "android": [
-      {
-        "id": "android-chat",
-        "layout": "hero",
-        "label": {
-          "en-US": "ON-DEVICE AI",
-          "de-DE": "KI AUF DEM GERÄT",
-          "es-ES": "IA EN EL DISPOSITIVO",
-          "es-MX": "IA EN TU DISPOSITIVO",
-          "fr-FR": "IA EMBARQUÉE",
-          "fr-CA": "IA SUR L’APPAREIL",
-          "it": "IA SUL DISPOSITIVO",
-          "pt-BR": "IA NO APARELHO",
-          "pt-PT": "IA NO DISPOSITIVO",
-          "ar": "ذكاء اصطناعي على الجهاز",
-          "cs-CZ": "AI V ZAŘÍZENÍ",
-          "da-DK": "AI PÅ ENHEDEN",
-          "es-419": "IA EN TU DISPOSITIVO",
-          "es-US": "IA EN TU DISPOSITIVO",
-          "fi-FI": "TEKOÄLY LAITTEESSA",
-          "hi-IN": "डिवाइस पर AI",
-          "hu-HU": "AI A KÉSZÜLÉKEN",
-          "id": "AI DI PERANGKAT",
-          "it-IT": "IA SUL DISPOSITIVO",
-          "iw-IL": "בינה מלאכותית במכשיר",
-          "ja-JP": "端末内AI",
-          "ko-KR": "온디바이스 AI",
-          "nl-NL": "AI OP JE TOESTEL",
-          "no-NO": "AI PÅ ENHETEN",
-          "pl-PL": "AI NA URZĄDZENIU",
-          "ro": "AI PE DISPOZITIV",
-          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
-          "sk": "AI V ZARIADENÍ",
-          "sv-SE": "AI I ENHETEN",
-          "th": "AI บนอุปกรณ์",
-          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
-          "uk": "ШІ НА ПРИСТРОЇ",
-          "vi": "AI TRÊN THIẾT BỊ",
-          "zh-CN": "端侧 AI"
-        },
-        "headline": {
-          "en-US": "AI sleep coach.\nRuns on your device.",
-          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
-          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
-          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
-          "it": "Coach sonno IA.\nSul tuo dispositivo.",
-          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
-          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
-          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
-          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
-          "da-DK": "AI-søvncoach.\nKører på din enhed.",
-          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
-          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
-          "hu-HU": "MI alváscoach.\nA készüléken fut.",
-          "id": "Pelatih tidur AI.\nDi perangkatmu.",
-          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
-          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
-          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
-          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
-          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
-          "no-NO": "AI-søvncoach.\nKjører på enheten.",
-          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
-          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
-          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
-          "sk": "AI tréner spánku.\nBeží v zariadení.",
-          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
-          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
-          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
-          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
-          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
-          "zh-CN": "AI 睡眠教练\n在设备本地运行"
-        },
-        "screenshot": "/screenshots/android/phone/{locale}/01.png",
-        "typography": {
-          "headlineScale": 0.82
-        }
-      },
-      {
-        "id": "android-stages",
-        "layout": "device-bottom",
-        "label": {
-          "en-US": "NO WEARABLE",
-          "de-DE": "OHNE WEARABLE",
-          "es-ES": "SIN RELOJ NI PULSERA",
-          "es-MX": "SIN RELOJ NI PULSERA",
-          "fr-FR": "SANS OBJET CONNECTÉ",
-          "fr-CA": "RIEN À PORTER",
-          "it": "NIENTE DA INDOSSARE",
-          "pt-BR": "SEM ACESSÓRIOS",
-          "pt-PT": "SEM ACESSÓRIOS",
-          "ar": "بلا ساعة أو سوار",
-          "cs-CZ": "NIC NA ZÁPĚSTÍ",
-          "da-DK": "INTET PÅ HÅNDLEDDET",
-          "es-419": "SIN RELOJ NI PULSERA",
-          "es-US": "SIN RELOJ NI PULSERA",
-          "fi-FI": "EI PUETTAVAA LAITETTA",
-          "hi-IN": "कोई वियरेबल नहीं",
-          "hu-HU": "SEMMI A CSUKLÓDON",
-          "id": "TANPA WEARABLE",
-          "it-IT": "NIENTE DA INDOSSARE",
-          "iw-IL": "בלי שעון או צמיד",
-          "ja-JP": "ウェアラブル不要",
-          "ko-KR": "웨어러블 불필요",
-          "nl-NL": "GEEN WEARABLE",
-          "no-NO": "INTET PÅ ARMEN",
-          "pl-PL": "BEZ OPASKI I ZEGARKA",
-          "ro": "NIMIC LA ÎNCHEIETURĂ",
-          "ru-RU": "БЕЗ ГАДЖЕТОВ НА РУКЕ",
-          "sk": "NIČ NA ZÁPÄSTÍ",
-          "sv-SE": "INGET PÅ HANDLEDEN",
-          "th": "ไม่ต้องสวมอุปกรณ์",
-          "tr-TR": "BİLEKLİK GEREKMEZ",
-          "uk": "НІЧОГО НА ЗАП’ЯСТІ",
-          "vi": "KHÔNG CẦN ĐEO GÌ",
-          "zh-CN": "无需穿戴设备"
-        },
-        "headline": {
-          "en-US": "Every stage,\ncharted.",
-          "de-DE": "Jede Phase\nsichtbar.",
-          "es-ES": "Todas las fases,\na la vista.",
-          "es-MX": "Cada fase,\na la vista.",
-          "fr-FR": "Chaque phase,\nen un coup d’œil.",
-          "fr-CA": "Chaque phase,\nbien illustrée.",
-          "it": "Ogni fase,\nin un grafico.",
-          "pt-BR": "Cada fase,\nno gráfico.",
-          "pt-PT": "Cada fase,\nem gráfico.",
-          "ar": "كل مرحلة،\nفي رسم بياني.",
-          "cs-CZ": "Každá fáze\nv grafu.",
-          "da-DK": "Hvert stadie\nkortlagt.",
-          "es-419": "Cada fase,\na la vista.",
-          "es-US": "Cada fase,\na la vista.",
-          "fi-FI": "Jokainen vaihe\nkaaviona.",
-          "hi-IN": "हर चरण,\nचार्ट में।",
-          "hu-HU": "Minden fázis\ngrafikonon.",
-          "id": "Setiap tahap,\ndalam grafik.",
-          "it-IT": "Ogni fase,\nin un grafico.",
-          "iw-IL": "כל שלב,\nבתרשים.",
-          "ja-JP": "すべての段階を\nグラフで。",
-          "ko-KR": "모든 단계를\n한눈에.",
-          "nl-NL": "Elke fase\nin beeld.",
-          "no-NO": "Hvert stadium\nkartlagt.",
-          "pl-PL": "Każda faza\nna wykresie.",
-          "ro": "Fiecare fază,\npe grafic.",
-          "ru-RU": "Каждая фаза —\nна графике.",
-          "sk": "Každá fáza\nv grafe.",
-          "sv-SE": "Varje stadium\nkartlagt.",
-          "th": "ทุกระยะ\nในกราฟเดียว",
-          "tr-TR": "Her evre\ngrafikte.",
-          "uk": "Кожна фаза —\nна графіку.",
-          "vi": "Mọi giai đoạn,\nrõ trên biểu đồ.",
-          "zh-CN": "每个阶段，\n一图看清。"
-        },
-        "screenshot": "/screenshots/android/phone/{locale}/02.png",
-        "callout": {
-          "focusX": 0.5,
-          "focusY": 0.36,
-          "zoom": 2.2,
-          "shape": "circle"
-        }
-      },
-      {
-        "id": "android-history",
-        "layout": "device-top",
-        "label": {
-          "en-US": "HISTORY",
-          "de-DE": "VERLAUF",
-          "es-ES": "HISTORIAL",
-          "es-MX": "HISTORIAL",
-          "fr-FR": "HISTORIQUE",
-          "fr-CA": "HISTORIQUE",
-          "it": "STORICO",
-          "pt-BR": "HISTÓRICO",
-          "pt-PT": "HISTÓRICO",
-          "ar": "السجل",
-          "cs-CZ": "HISTORIE",
-          "da-DK": "HISTORIK",
-          "es-419": "HISTORIAL",
-          "es-US": "HISTORIAL",
-          "fi-FI": "HISTORIA",
-          "hi-IN": "इतिहास",
-          "hu-HU": "ELŐZMÉNYEK",
-          "id": "RIWAYAT",
-          "it-IT": "STORICO",
-          "iw-IL": "היסטוריה",
-          "ja-JP": "履歴",
-          "ko-KR": "기록",
-          "nl-NL": "GESCHIEDENIS",
-          "no-NO": "HISTORIKK",
-          "pl-PL": "HISTORIA",
-          "ro": "ISTORIC",
-          "ru-RU": "ИСТОРИЯ",
-          "sk": "HISTÓRIA",
-          "sv-SE": "HISTORIK",
-          "th": "ประวัติ",
-          "tr-TR": "GEÇMİŞ",
-          "uk": "ІСТОРІЯ",
-          "vi": "LỊCH SỬ",
-          "zh-CN": "历史"
-        },
-        "headline": {
-          "en-US": "Two weeks,\nside by side.",
-          "de-DE": "Zwei Wochen\nim Vergleich.",
-          "es-ES": "Dos semanas,\ncara a cara.",
-          "es-MX": "Dos semanas,\nlado a lado.",
-          "fr-FR": "Deux semaines,\ncôte à côte.",
-          "fr-CA": "Deux semaines,\ncôte à côte.",
-          "it": "Due settimane\na confronto.",
-          "pt-BR": "Duas semanas,\nlado a lado.",
-          "pt-PT": "Duas semanas,\nlado a lado.",
-          "ar": "أسبوعان،\nجنبًا إلى جنب.",
-          "cs-CZ": "Dva týdny\nvedle sebe.",
-          "da-DK": "To uger\nside om side.",
-          "es-419": "Dos semanas,\nlado a lado.",
-          "es-US": "Dos semanas,\nlado a lado.",
-          "fi-FI": "Kaksi viikkoa\nrinnakkain.",
-          "hi-IN": "दो हफ़्ते,\nसाथ-साथ।",
-          "hu-HU": "Két hét\negymás mellett.",
-          "id": "Dua minggu,\nberdampingan.",
-          "it-IT": "Due settimane\na confronto.",
-          "iw-IL": "שבועיים,\nזה לצד זה.",
-          "ja-JP": "2週間を\n並べて比較。",
-          "ko-KR": "2주를\n나란히.",
-          "nl-NL": "Twee weken\nnaast elkaar.",
-          "no-NO": "To uker\nside om side.",
-          "pl-PL": "Dwa tygodnie\nobok siebie.",
-          "ro": "Două săptămâni,\nalăturate.",
-          "ru-RU": "Две недели\nбок о бок.",
-          "sk": "Dva týždne\nvedľa seba.",
-          "sv-SE": "Två veckor\nsida vid sida.",
-          "th": "สองสัปดาห์\nเทียบกันชัดๆ",
-          "tr-TR": "İki hafta,\nyan yana.",
-          "uk": "Два тижні\nпліч-о-пліч.",
-          "vi": "Hai tuần,\nđặt cạnh nhau.",
-          "zh-CN": "两周数据，\n并排对比。"
-        },
-        "screenshot": "/screenshots/android/phone/{locale}/03.png",
-        "inverted": true
-      },
-      {
-        "id": "android-track",
-        "layout": "hero",
-        "label": {
-          "en-US": "TRACKING",
-          "de-DE": "AUFZEICHNUNG",
-          "es-ES": "SEGUIMIENTO",
-          "es-MX": "MONITOREO",
-          "fr-FR": "SUIVI",
-          "fr-CA": "SUIVI",
-          "it": "MONITORAGGIO",
-          "pt-BR": "MONITORAMENTO",
-          "pt-PT": "MONITORIZAÇÃO",
-          "ar": "التتبّع",
-          "cs-CZ": "SLEDOVÁNÍ",
-          "da-DK": "SPORING",
-          "es-419": "MONITOREO",
-          "es-US": "MONITOREO",
-          "fi-FI": "SEURANTA",
-          "hi-IN": "ट्रैकिंग",
-          "hu-HU": "KÖVETÉS",
-          "id": "PELACAKAN",
-          "it-IT": "MONITORAGGIO",
-          "iw-IL": "מעקב",
-          "ja-JP": "計測",
-          "ko-KR": "측정",
-          "nl-NL": "METEN",
-          "no-NO": "SPORING",
-          "pl-PL": "POMIAR",
-          "ro": "MONITORIZARE",
-          "ru-RU": "ОТСЛЕЖИВАНИЕ",
-          "sk": "SLEDOVANIE",
-          "sv-SE": "SPÅRNING",
-          "th": "การติดตาม",
-          "tr-TR": "TAKİP",
-          "uk": "ВІДСТЕЖЕННЯ",
-          "vi": "THEO DÕI",
-          "zh-CN": "监测"
-        },
-        "headline": {
-          "en-US": "One tap.\nNo wearable.",
-          "de-DE": "Ein Tipp.\nKein Wearable.",
-          "es-ES": "Un toque.\nNada en la muñeca.",
-          "es-MX": "Un toque.\nNada en la muñeca.",
-          "fr-FR": "Un geste.\nRien à porter.",
-          "fr-CA": "Un seul toucher.\nRien au poignet.",
-          "it": "Un tocco.\nNiente al polso.",
-          "pt-BR": "Um toque.\nNada no pulso.",
-          "pt-PT": "Um toque.\nNada no pulso.",
-          "ar": "نقرة واحدة.\nلا شيء على معصمك.",
-          "cs-CZ": "Jedno klepnutí.\nNic na sobě.",
-          "da-DK": "Ét tryk.\nIntet at bære.",
-          "es-419": "Un toque.\nNada en la muñeca.",
-          "es-US": "Un toque.\nNada en la muñeca.",
-          "fi-FI": "Yksi napautus.\nEi rannekkeita.",
-          "hi-IN": "एक टैप।\nकुछ पहनना नहीं।",
-          "hu-HU": "Egy koppintás.\nNem kell karkötő.",
-          "id": "Sekali ketuk.\nTanpa wearable.",
-          "it-IT": "Un tocco.\nNiente al polso.",
-          "iw-IL": "נגיעה אחת.\nבלי שום צמיד.",
-          "ja-JP": "ワンタップ。\n着けるもの不要。",
-          "ko-KR": "한 번의 탭.\n착용 없이.",
-          "nl-NL": "Eén tik.\nNiets om te dragen.",
-          "no-NO": "Ett trykk.\nIngenting å bære.",
-          "pl-PL": "Jedno dotknięcie.\nBez opaski.",
-          "ro": "O atingere.\nNimic de purtat.",
-          "ru-RU": "Одно касание.\nНичего на руке.",
-          "sk": "Jedno ťuknutie.\nNič na sebe.",
-          "sv-SE": "Ett tryck.\nInget att bära.",
-          "th": "แตะครั้งเดียว\nไม่ต้องสวมอะไร",
-          "tr-TR": "Tek dokunuş.\nBileklik yok.",
-          "uk": "Один дотик.\nНічого на руці.",
-          "vi": "Một chạm.\nKhông cần đeo.",
-          "zh-CN": "轻点一下。\n什么都不用戴。"
-        },
-        "screenshot": "/screenshots/android/phone/{locale}/04.png"
-      }
-    ],
     "ipad": [
       {
         "id": "ipad-chat",
@@ -1005,187 +685,9 @@
         "screenshot": "/screenshots/apple/ipad/{locale}/04.png"
       }
     ],
-    "tvos": [
+    "duo-outer": [
       {
-        "id": "s_mvfkx7hs_d",
-        "layout": "hero",
-        "label": {
-          "en": "MEET YOUR APP"
-        },
-        "headline": {
-          "en": "Made for\nthe living room."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_e",
-        "layout": "split-landscape",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "One idea\nper screen."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_f",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "Flip the contrast."
-        },
-        "screenshot": "",
-        "inverted": true
-      },
-      {
-        "id": "s_mvfkx7hs_g",
-        "layout": "no-device",
-        "label": {
-          "en": "MORE"
-        },
-        "headline": {
-          "en": "And so\nmuch more."
-        },
-        "screenshot": ""
-      }
-    ],
-    "watchos": [
-      {
-        "id": "s_mvfkx7hs_h",
-        "layout": "hero",
-        "label": {
-          "en": "MEET YOUR APP"
-        },
-        "headline": {
-          "en": "On your\nwrist."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_i",
-        "layout": "device-bottom",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "One glance.\nDone."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_j",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "Always\nwith you."
-        },
-        "screenshot": "",
-        "inverted": true
-      }
-    ],
-    "carplay": [
-      {
-        "id": "s_mvfkx7hs_k",
-        "layout": "split-landscape",
-        "label": {
-          "en": "CARPLAY"
-        },
-        "headline": {
-          "en": "Eyes on\nthe road."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_l",
-        "layout": "device-bottom",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "Everything, one tap away."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_m",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "Made for every drive."
-        },
-        "screenshot": "",
-        "inverted": true
-      }
-    ],
-    "mac": [
-      {
-        "id": "s_mvfkx7hs_n",
-        "layout": "hero",
-        "label": {
-          "en": "MEET YOUR APP"
-        },
-        "headline": {
-          "en": "Made for\nyour Mac."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_o",
-        "layout": "split-landscape",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "Everything in\none window."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_p",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "One shortcut away."
-        },
-        "screenshot": "",
-        "inverted": true
-      },
-      {
-        "id": "s_mvfkx7hs_q",
-        "layout": "two-devices",
-        "label": {
-          "en": "FEATURE 03"
-        },
-        "headline": {
-          "en": "Work across windows."
-        },
-        "screenshot": "",
-        "screenshotSecondary": ""
-      },
-      {
-        "id": "s_mvfkx7hs_r",
-        "layout": "no-device",
-        "label": {
-          "en": "MORE"
-        },
-        "headline": {
-          "en": "And so\nmuch more."
-        },
-        "screenshot": ""
-      }
-    ],
-    "android-7": [
-      {
-        "id": "android-7-chat",
+        "id": "duo-outer-chat",
         "layout": "hero",
         "label": {
           "en-US": "ON-DEVICE AI",
@@ -1259,13 +761,13 @@
           "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
           "zh-CN": "AI 睡眠教练\n在设备本地运行"
         },
-        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/01.png",
+        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/01.png",
         "typography": {
           "headlineScale": 0.82
         }
       },
       {
-        "id": "android-7-stages",
+        "id": "duo-outer-stages",
         "layout": "device-bottom",
         "label": {
           "en-US": "NO WEARABLE",
@@ -1339,16 +841,10 @@
           "vi": "Mọi giai đoạn,\nrõ trên biểu đồ.",
           "zh-CN": "每个阶段，\n一图看清。"
         },
-        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/02.png",
-        "callout": {
-          "focusX": 0.5,
-          "focusY": 0.36,
-          "zoom": 2.2,
-          "shape": "circle"
-        }
+        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/02.png"
       },
       {
-        "id": "android-7-history",
+        "id": "duo-outer-history",
         "layout": "device-top",
         "label": {
           "en-US": "HISTORY",
@@ -1422,11 +918,11 @@
           "vi": "Hai tuần,\nđặt cạnh nhau.",
           "zh-CN": "两周数据，\n并排对比。"
         },
-        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/03.png",
+        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/03.png",
         "inverted": true
       },
       {
-        "id": "android-7-track",
+        "id": "duo-outer-track",
         "layout": "hero",
         "label": {
           "en-US": "TRACKING",
@@ -1500,7 +996,327 @@
           "vi": "Một chạm.\nKhông cần đeo.",
           "zh-CN": "轻点一下。\n什么都不用戴。"
         },
-        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/04.png"
+        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/04.png"
+      }
+    ],
+    "android": [
+      {
+        "id": "android-chat",
+        "layout": "hero",
+        "label": {
+          "en-US": "ON-DEVICE AI",
+          "de-DE": "KI AUF DEM GERÄT",
+          "es-ES": "IA EN EL DISPOSITIVO",
+          "es-MX": "IA EN TU DISPOSITIVO",
+          "fr-FR": "IA EMBARQUÉE",
+          "fr-CA": "IA SUR L’APPAREIL",
+          "it": "IA SUL DISPOSITIVO",
+          "pt-BR": "IA NO APARELHO",
+          "pt-PT": "IA NO DISPOSITIVO",
+          "ar": "ذكاء اصطناعي على الجهاز",
+          "cs-CZ": "AI V ZAŘÍZENÍ",
+          "da-DK": "AI PÅ ENHEDEN",
+          "es-419": "IA EN TU DISPOSITIVO",
+          "es-US": "IA EN TU DISPOSITIVO",
+          "fi-FI": "TEKOÄLY LAITTEESSA",
+          "hi-IN": "डिवाइस पर AI",
+          "hu-HU": "AI A KÉSZÜLÉKEN",
+          "id": "AI DI PERANGKAT",
+          "it-IT": "IA SUL DISPOSITIVO",
+          "iw-IL": "בינה מלאכותית במכשיר",
+          "ja-JP": "端末内AI",
+          "ko-KR": "온디바이스 AI",
+          "nl-NL": "AI OP JE TOESTEL",
+          "no-NO": "AI PÅ ENHETEN",
+          "pl-PL": "AI NA URZĄDZENIU",
+          "ro": "AI PE DISPOZITIV",
+          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
+          "sk": "AI V ZARIADENÍ",
+          "sv-SE": "AI I ENHETEN",
+          "th": "AI บนอุปกรณ์",
+          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
+          "uk": "ШІ НА ПРИСТРОЇ",
+          "vi": "AI TRÊN THIẾT BỊ",
+          "zh-CN": "端侧 AI"
+        },
+        "headline": {
+          "en-US": "AI sleep coach.\nRuns on your device.",
+          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
+          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
+          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
+          "it": "Coach sonno IA.\nSul tuo dispositivo.",
+          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
+          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
+          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
+          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
+          "da-DK": "AI-søvncoach.\nKører på din enhed.",
+          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
+          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
+          "hu-HU": "MI alváscoach.\nA készüléken fut.",
+          "id": "Pelatih tidur AI.\nDi perangkatmu.",
+          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
+          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
+          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
+          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
+          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
+          "no-NO": "AI-søvncoach.\nKjører på enheten.",
+          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
+          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
+          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
+          "sk": "AI tréner spánku.\nBeží v zariadení.",
+          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
+          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
+          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
+          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
+          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
+          "zh-CN": "AI 睡眠教练\n在设备本地运行"
+        },
+        "screenshot": "/screenshots/android/phone/{locale}/01.png",
+        "typography": {
+          "headlineScale": 0.82
+        }
+      },
+      {
+        "id": "android-stages",
+        "layout": "device-bottom",
+        "label": {
+          "en-US": "NO WEARABLE",
+          "de-DE": "OHNE WEARABLE",
+          "es-ES": "SIN RELOJ NI PULSERA",
+          "es-MX": "SIN RELOJ NI PULSERA",
+          "fr-FR": "SANS OBJET CONNECTÉ",
+          "fr-CA": "RIEN À PORTER",
+          "it": "NIENTE DA INDOSSARE",
+          "pt-BR": "SEM ACESSÓRIOS",
+          "pt-PT": "SEM ACESSÓRIOS",
+          "ar": "بلا ساعة أو سوار",
+          "cs-CZ": "NIC NA ZÁPĚSTÍ",
+          "da-DK": "INTET PÅ HÅNDLEDDET",
+          "es-419": "SIN RELOJ NI PULSERA",
+          "es-US": "SIN RELOJ NI PULSERA",
+          "fi-FI": "EI PUETTAVAA LAITETTA",
+          "hi-IN": "कोई वियरेबल नहीं",
+          "hu-HU": "SEMMI A CSUKLÓDON",
+          "id": "TANPA WEARABLE",
+          "it-IT": "NIENTE DA INDOSSARE",
+          "iw-IL": "בלי שעון או צמיד",
+          "ja-JP": "ウェアラブル不要",
+          "ko-KR": "웨어러블 불필요",
+          "nl-NL": "GEEN WEARABLE",
+          "no-NO": "INTET PÅ ARMEN",
+          "pl-PL": "BEZ OPASKI I ZEGARKA",
+          "ro": "NIMIC LA ÎNCHEIETURĂ",
+          "ru-RU": "БЕЗ ГАДЖЕТОВ НА РУКЕ",
+          "sk": "NIČ NA ZÁPÄSTÍ",
+          "sv-SE": "INGET PÅ HANDLEDEN",
+          "th": "ไม่ต้องสวมอุปกรณ์",
+          "tr-TR": "BİLEKLİK GEREKMEZ",
+          "uk": "НІЧОГО НА ЗАП’ЯСТІ",
+          "vi": "KHÔNG CẦN ĐEO GÌ",
+          "zh-CN": "无需穿戴设备"
+        },
+        "headline": {
+          "en-US": "Every stage,\ncharted.",
+          "de-DE": "Jede Phase\nsichtbar.",
+          "es-ES": "Todas las fases,\na la vista.",
+          "es-MX": "Cada fase,\na la vista.",
+          "fr-FR": "Chaque phase,\nen un coup d’œil.",
+          "fr-CA": "Chaque phase,\nbien illustrée.",
+          "it": "Ogni fase,\nin un grafico.",
+          "pt-BR": "Cada fase,\nno gráfico.",
+          "pt-PT": "Cada fase,\nem gráfico.",
+          "ar": "كل مرحلة،\nفي رسم بياني.",
+          "cs-CZ": "Každá fáze\nv grafu.",
+          "da-DK": "Hvert stadie\nkortlagt.",
+          "es-419": "Cada fase,\na la vista.",
+          "es-US": "Cada fase,\na la vista.",
+          "fi-FI": "Jokainen vaihe\nkaaviona.",
+          "hi-IN": "हर चरण,\nचार्ट में।",
+          "hu-HU": "Minden fázis\ngrafikonon.",
+          "id": "Setiap tahap,\ndalam grafik.",
+          "it-IT": "Ogni fase,\nin un grafico.",
+          "iw-IL": "כל שלב,\nבתרשים.",
+          "ja-JP": "すべての段階を\nグラフで。",
+          "ko-KR": "모든 단계를\n한눈에.",
+          "nl-NL": "Elke fase\nin beeld.",
+          "no-NO": "Hvert stadium\nkartlagt.",
+          "pl-PL": "Każda faza\nna wykresie.",
+          "ro": "Fiecare fază,\npe grafic.",
+          "ru-RU": "Каждая фаза —\nна графике.",
+          "sk": "Každá fáza\nv grafe.",
+          "sv-SE": "Varje stadium\nkartlagt.",
+          "th": "ทุกระยะ\nในกราฟเดียว",
+          "tr-TR": "Her evre\ngrafikte.",
+          "uk": "Кожна фаза —\nна графіку.",
+          "vi": "Mọi giai đoạn,\nrõ trên biểu đồ.",
+          "zh-CN": "每个阶段，\n一图看清。"
+        },
+        "screenshot": "/screenshots/android/phone/{locale}/02.png",
+        "callout": {
+          "focusX": 0.5,
+          "focusY": 0.36,
+          "zoom": 2.2,
+          "shape": "circle"
+        }
+      },
+      {
+        "id": "android-history",
+        "layout": "device-top",
+        "label": {
+          "en-US": "HISTORY",
+          "de-DE": "VERLAUF",
+          "es-ES": "HISTORIAL",
+          "es-MX": "HISTORIAL",
+          "fr-FR": "HISTORIQUE",
+          "fr-CA": "HISTORIQUE",
+          "it": "STORICO",
+          "pt-BR": "HISTÓRICO",
+          "pt-PT": "HISTÓRICO",
+          "ar": "السجل",
+          "cs-CZ": "HISTORIE",
+          "da-DK": "HISTORIK",
+          "es-419": "HISTORIAL",
+          "es-US": "HISTORIAL",
+          "fi-FI": "HISTORIA",
+          "hi-IN": "इतिहास",
+          "hu-HU": "ELŐZMÉNYEK",
+          "id": "RIWAYAT",
+          "it-IT": "STORICO",
+          "iw-IL": "היסטוריה",
+          "ja-JP": "履歴",
+          "ko-KR": "기록",
+          "nl-NL": "GESCHIEDENIS",
+          "no-NO": "HISTORIKK",
+          "pl-PL": "HISTORIA",
+          "ro": "ISTORIC",
+          "ru-RU": "ИСТОРИЯ",
+          "sk": "HISTÓRIA",
+          "sv-SE": "HISTORIK",
+          "th": "ประวัติ",
+          "tr-TR": "GEÇMİŞ",
+          "uk": "ІСТОРІЯ",
+          "vi": "LỊCH SỬ",
+          "zh-CN": "历史"
+        },
+        "headline": {
+          "en-US": "Two weeks,\nside by side.",
+          "de-DE": "Zwei Wochen\nim Vergleich.",
+          "es-ES": "Dos semanas,\ncara a cara.",
+          "es-MX": "Dos semanas,\nlado a lado.",
+          "fr-FR": "Deux semaines,\ncôte à côte.",
+          "fr-CA": "Deux semaines,\ncôte à côte.",
+          "it": "Due settimane\na confronto.",
+          "pt-BR": "Duas semanas,\nlado a lado.",
+          "pt-PT": "Duas semanas,\nlado a lado.",
+          "ar": "أسبوعان،\nجنبًا إلى جنب.",
+          "cs-CZ": "Dva týdny\nvedle sebe.",
+          "da-DK": "To uger\nside om side.",
+          "es-419": "Dos semanas,\nlado a lado.",
+          "es-US": "Dos semanas,\nlado a lado.",
+          "fi-FI": "Kaksi viikkoa\nrinnakkain.",
+          "hi-IN": "दो हफ़्ते,\nसाथ-साथ।",
+          "hu-HU": "Két hét\negymás mellett.",
+          "id": "Dua minggu,\nberdampingan.",
+          "it-IT": "Due settimane\na confronto.",
+          "iw-IL": "שבועיים,\nזה לצד זה.",
+          "ja-JP": "2週間を\n並べて比較。",
+          "ko-KR": "2주를\n나란히.",
+          "nl-NL": "Twee weken\nnaast elkaar.",
+          "no-NO": "To uker\nside om side.",
+          "pl-PL": "Dwa tygodnie\nobok siebie.",
+          "ro": "Două săptămâni,\nalăturate.",
+          "ru-RU": "Две недели\nбок о бок.",
+          "sk": "Dva týždne\nvedľa seba.",
+          "sv-SE": "Två veckor\nsida vid sida.",
+          "th": "สองสัปดาห์\nเทียบกันชัดๆ",
+          "tr-TR": "İki hafta,\nyan yana.",
+          "uk": "Два тижні\nпліч-о-пліч.",
+          "vi": "Hai tuần,\nđặt cạnh nhau.",
+          "zh-CN": "两周数据，\n并排对比。"
+        },
+        "screenshot": "/screenshots/android/phone/{locale}/03.png",
+        "inverted": true
+      },
+      {
+        "id": "android-track",
+        "layout": "hero",
+        "label": {
+          "en-US": "TRACKING",
+          "de-DE": "AUFZEICHNUNG",
+          "es-ES": "SEGUIMIENTO",
+          "es-MX": "MONITOREO",
+          "fr-FR": "SUIVI",
+          "fr-CA": "SUIVI",
+          "it": "MONITORAGGIO",
+          "pt-BR": "MONITORAMENTO",
+          "pt-PT": "MONITORIZAÇÃO",
+          "ar": "التتبّع",
+          "cs-CZ": "SLEDOVÁNÍ",
+          "da-DK": "SPORING",
+          "es-419": "MONITOREO",
+          "es-US": "MONITOREO",
+          "fi-FI": "SEURANTA",
+          "hi-IN": "ट्रैकिंग",
+          "hu-HU": "KÖVETÉS",
+          "id": "PELACAKAN",
+          "it-IT": "MONITORAGGIO",
+          "iw-IL": "מעקב",
+          "ja-JP": "計測",
+          "ko-KR": "측정",
+          "nl-NL": "METEN",
+          "no-NO": "SPORING",
+          "pl-PL": "POMIAR",
+          "ro": "MONITORIZARE",
+          "ru-RU": "ОТСЛЕЖИВАНИЕ",
+          "sk": "SLEDOVANIE",
+          "sv-SE": "SPÅRNING",
+          "th": "การติดตาม",
+          "tr-TR": "TAKİP",
+          "uk": "ВІДСТЕЖЕННЯ",
+          "vi": "THEO DÕI",
+          "zh-CN": "监测"
+        },
+        "headline": {
+          "en-US": "One tap.\nNo wearable.",
+          "de-DE": "Ein Tipp.\nKein Wearable.",
+          "es-ES": "Un toque.\nNada en la muñeca.",
+          "es-MX": "Un toque.\nNada en la muñeca.",
+          "fr-FR": "Un geste.\nRien à porter.",
+          "fr-CA": "Un seul toucher.\nRien au poignet.",
+          "it": "Un tocco.\nNiente al polso.",
+          "pt-BR": "Um toque.\nNada no pulso.",
+          "pt-PT": "Um toque.\nNada no pulso.",
+          "ar": "نقرة واحدة.\nلا شيء على معصمك.",
+          "cs-CZ": "Jedno klepnutí.\nNic na sobě.",
+          "da-DK": "Ét tryk.\nIntet at bære.",
+          "es-419": "Un toque.\nNada en la muñeca.",
+          "es-US": "Un toque.\nNada en la muñeca.",
+          "fi-FI": "Yksi napautus.\nEi rannekkeita.",
+          "hi-IN": "एक टैप।\nकुछ पहनना नहीं।",
+          "hu-HU": "Egy koppintás.\nNem kell karkötő.",
+          "id": "Sekali ketuk.\nTanpa wearable.",
+          "it-IT": "Un tocco.\nNiente al polso.",
+          "iw-IL": "נגיעה אחת.\nבלי שום צמיד.",
+          "ja-JP": "ワンタップ。\n着けるもの不要。",
+          "ko-KR": "한 번의 탭.\n착용 없이.",
+          "nl-NL": "Eén tik.\nNiets om te dragen.",
+          "no-NO": "Ett trykk.\nIngenting å bære.",
+          "pl-PL": "Jedno dotknięcie.\nBez opaski.",
+          "ro": "O atingere.\nNimic de purtat.",
+          "ru-RU": "Одно касание.\nНичего на руке.",
+          "sk": "Jedno ťuknutie.\nNič na sebe.",
+          "sv-SE": "Ett tryck.\nInget att bära.",
+          "th": "แตะครั้งเดียว\nไม่ต้องสวมอะไร",
+          "tr-TR": "Tek dokunuş.\nBileklik yok.",
+          "uk": "Один дотик.\nНічого на руці.",
+          "vi": "Một chạm.\nKhông cần đeo.",
+          "zh-CN": "轻点一下。\n什么都不用戴。"
+        },
+        "screenshot": "/screenshots/android/phone/{locale}/04.png"
       }
     ],
     "android-10": [
@@ -1823,6 +1639,326 @@
         "screenshot": "/screenshots/android/tablet-10/portrait/{locale}/04.png"
       }
     ],
+    "android-7": [
+      {
+        "id": "android-7-chat",
+        "layout": "hero",
+        "label": {
+          "en-US": "ON-DEVICE AI",
+          "de-DE": "KI AUF DEM GERÄT",
+          "es-ES": "IA EN EL DISPOSITIVO",
+          "es-MX": "IA EN TU DISPOSITIVO",
+          "fr-FR": "IA EMBARQUÉE",
+          "fr-CA": "IA SUR L’APPAREIL",
+          "it": "IA SUL DISPOSITIVO",
+          "pt-BR": "IA NO APARELHO",
+          "pt-PT": "IA NO DISPOSITIVO",
+          "ar": "ذكاء اصطناعي على الجهاز",
+          "cs-CZ": "AI V ZAŘÍZENÍ",
+          "da-DK": "AI PÅ ENHEDEN",
+          "es-419": "IA EN TU DISPOSITIVO",
+          "es-US": "IA EN TU DISPOSITIVO",
+          "fi-FI": "TEKOÄLY LAITTEESSA",
+          "hi-IN": "डिवाइस पर AI",
+          "hu-HU": "AI A KÉSZÜLÉKEN",
+          "id": "AI DI PERANGKAT",
+          "it-IT": "IA SUL DISPOSITIVO",
+          "iw-IL": "בינה מלאכותית במכשיר",
+          "ja-JP": "端末内AI",
+          "ko-KR": "온디바이스 AI",
+          "nl-NL": "AI OP JE TOESTEL",
+          "no-NO": "AI PÅ ENHETEN",
+          "pl-PL": "AI NA URZĄDZENIU",
+          "ro": "AI PE DISPOZITIV",
+          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
+          "sk": "AI V ZARIADENÍ",
+          "sv-SE": "AI I ENHETEN",
+          "th": "AI บนอุปกรณ์",
+          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
+          "uk": "ШІ НА ПРИСТРОЇ",
+          "vi": "AI TRÊN THIẾT BỊ",
+          "zh-CN": "端侧 AI"
+        },
+        "headline": {
+          "en-US": "AI sleep coach.\nRuns on your device.",
+          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
+          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
+          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
+          "it": "Coach sonno IA.\nSul tuo dispositivo.",
+          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
+          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
+          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
+          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
+          "da-DK": "AI-søvncoach.\nKører på din enhed.",
+          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
+          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
+          "hu-HU": "MI alváscoach.\nA készüléken fut.",
+          "id": "Pelatih tidur AI.\nDi perangkatmu.",
+          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
+          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
+          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
+          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
+          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
+          "no-NO": "AI-søvncoach.\nKjører på enheten.",
+          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
+          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
+          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
+          "sk": "AI tréner spánku.\nBeží v zariadení.",
+          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
+          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
+          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
+          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
+          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
+          "zh-CN": "AI 睡眠教练\n在设备本地运行"
+        },
+        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/01.png",
+        "typography": {
+          "headlineScale": 0.82
+        }
+      },
+      {
+        "id": "android-7-stages",
+        "layout": "device-bottom",
+        "label": {
+          "en-US": "NO WEARABLE",
+          "de-DE": "OHNE WEARABLE",
+          "es-ES": "SIN RELOJ NI PULSERA",
+          "es-MX": "SIN RELOJ NI PULSERA",
+          "fr-FR": "SANS OBJET CONNECTÉ",
+          "fr-CA": "RIEN À PORTER",
+          "it": "NIENTE DA INDOSSARE",
+          "pt-BR": "SEM ACESSÓRIOS",
+          "pt-PT": "SEM ACESSÓRIOS",
+          "ar": "بلا ساعة أو سوار",
+          "cs-CZ": "NIC NA ZÁPĚSTÍ",
+          "da-DK": "INTET PÅ HÅNDLEDDET",
+          "es-419": "SIN RELOJ NI PULSERA",
+          "es-US": "SIN RELOJ NI PULSERA",
+          "fi-FI": "EI PUETTAVAA LAITETTA",
+          "hi-IN": "कोई वियरेबल नहीं",
+          "hu-HU": "SEMMI A CSUKLÓDON",
+          "id": "TANPA WEARABLE",
+          "it-IT": "NIENTE DA INDOSSARE",
+          "iw-IL": "בלי שעון או צמיד",
+          "ja-JP": "ウェアラブル不要",
+          "ko-KR": "웨어러블 불필요",
+          "nl-NL": "GEEN WEARABLE",
+          "no-NO": "INTET PÅ ARMEN",
+          "pl-PL": "BEZ OPASKI I ZEGARKA",
+          "ro": "NIMIC LA ÎNCHEIETURĂ",
+          "ru-RU": "БЕЗ ГАДЖЕТОВ НА РУКЕ",
+          "sk": "NIČ NA ZÁPÄSTÍ",
+          "sv-SE": "INGET PÅ HANDLEDEN",
+          "th": "ไม่ต้องสวมอุปกรณ์",
+          "tr-TR": "BİLEKLİK GEREKMEZ",
+          "uk": "НІЧОГО НА ЗАП’ЯСТІ",
+          "vi": "KHÔNG CẦN ĐEO GÌ",
+          "zh-CN": "无需穿戴设备"
+        },
+        "headline": {
+          "en-US": "Every stage,\ncharted.",
+          "de-DE": "Jede Phase\nsichtbar.",
+          "es-ES": "Todas las fases,\na la vista.",
+          "es-MX": "Cada fase,\na la vista.",
+          "fr-FR": "Chaque phase,\nen un coup d’œil.",
+          "fr-CA": "Chaque phase,\nbien illustrée.",
+          "it": "Ogni fase,\nin un grafico.",
+          "pt-BR": "Cada fase,\nno gráfico.",
+          "pt-PT": "Cada fase,\nem gráfico.",
+          "ar": "كل مرحلة،\nفي رسم بياني.",
+          "cs-CZ": "Každá fáze\nv grafu.",
+          "da-DK": "Hvert stadie\nkortlagt.",
+          "es-419": "Cada fase,\na la vista.",
+          "es-US": "Cada fase,\na la vista.",
+          "fi-FI": "Jokainen vaihe\nkaaviona.",
+          "hi-IN": "हर चरण,\nचार्ट में।",
+          "hu-HU": "Minden fázis\ngrafikonon.",
+          "id": "Setiap tahap,\ndalam grafik.",
+          "it-IT": "Ogni fase,\nin un grafico.",
+          "iw-IL": "כל שלב,\nבתרשים.",
+          "ja-JP": "すべての段階を\nグラフで。",
+          "ko-KR": "모든 단계를\n한눈에.",
+          "nl-NL": "Elke fase\nin beeld.",
+          "no-NO": "Hvert stadium\nkartlagt.",
+          "pl-PL": "Każda faza\nna wykresie.",
+          "ro": "Fiecare fază,\npe grafic.",
+          "ru-RU": "Каждая фаза —\nна графике.",
+          "sk": "Každá fáza\nv grafe.",
+          "sv-SE": "Varje stadium\nkartlagt.",
+          "th": "ทุกระยะ\nในกราฟเดียว",
+          "tr-TR": "Her evre\ngrafikte.",
+          "uk": "Кожна фаза —\nна графіку.",
+          "vi": "Mọi giai đoạn,\nrõ trên biểu đồ.",
+          "zh-CN": "每个阶段，\n一图看清。"
+        },
+        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/02.png",
+        "callout": {
+          "focusX": 0.5,
+          "focusY": 0.36,
+          "zoom": 2.2,
+          "shape": "circle"
+        }
+      },
+      {
+        "id": "android-7-history",
+        "layout": "device-top",
+        "label": {
+          "en-US": "HISTORY",
+          "de-DE": "VERLAUF",
+          "es-ES": "HISTORIAL",
+          "es-MX": "HISTORIAL",
+          "fr-FR": "HISTORIQUE",
+          "fr-CA": "HISTORIQUE",
+          "it": "STORICO",
+          "pt-BR": "HISTÓRICO",
+          "pt-PT": "HISTÓRICO",
+          "ar": "السجل",
+          "cs-CZ": "HISTORIE",
+          "da-DK": "HISTORIK",
+          "es-419": "HISTORIAL",
+          "es-US": "HISTORIAL",
+          "fi-FI": "HISTORIA",
+          "hi-IN": "इतिहास",
+          "hu-HU": "ELŐZMÉNYEK",
+          "id": "RIWAYAT",
+          "it-IT": "STORICO",
+          "iw-IL": "היסטוריה",
+          "ja-JP": "履歴",
+          "ko-KR": "기록",
+          "nl-NL": "GESCHIEDENIS",
+          "no-NO": "HISTORIKK",
+          "pl-PL": "HISTORIA",
+          "ro": "ISTORIC",
+          "ru-RU": "ИСТОРИЯ",
+          "sk": "HISTÓRIA",
+          "sv-SE": "HISTORIK",
+          "th": "ประวัติ",
+          "tr-TR": "GEÇMİŞ",
+          "uk": "ІСТОРІЯ",
+          "vi": "LỊCH SỬ",
+          "zh-CN": "历史"
+        },
+        "headline": {
+          "en-US": "Two weeks,\nside by side.",
+          "de-DE": "Zwei Wochen\nim Vergleich.",
+          "es-ES": "Dos semanas,\ncara a cara.",
+          "es-MX": "Dos semanas,\nlado a lado.",
+          "fr-FR": "Deux semaines,\ncôte à côte.",
+          "fr-CA": "Deux semaines,\ncôte à côte.",
+          "it": "Due settimane\na confronto.",
+          "pt-BR": "Duas semanas,\nlado a lado.",
+          "pt-PT": "Duas semanas,\nlado a lado.",
+          "ar": "أسبوعان،\nجنبًا إلى جنب.",
+          "cs-CZ": "Dva týdny\nvedle sebe.",
+          "da-DK": "To uger\nside om side.",
+          "es-419": "Dos semanas,\nlado a lado.",
+          "es-US": "Dos semanas,\nlado a lado.",
+          "fi-FI": "Kaksi viikkoa\nrinnakkain.",
+          "hi-IN": "दो हफ़्ते,\nसाथ-साथ।",
+          "hu-HU": "Két hét\negymás mellett.",
+          "id": "Dua minggu,\nberdampingan.",
+          "it-IT": "Due settimane\na confronto.",
+          "iw-IL": "שבועיים,\nזה לצד זה.",
+          "ja-JP": "2週間を\n並べて比較。",
+          "ko-KR": "2주를\n나란히.",
+          "nl-NL": "Twee weken\nnaast elkaar.",
+          "no-NO": "To uker\nside om side.",
+          "pl-PL": "Dwa tygodnie\nobok siebie.",
+          "ro": "Două săptămâni,\nalăturate.",
+          "ru-RU": "Две недели\nбок о бок.",
+          "sk": "Dva týždne\nvedľa seba.",
+          "sv-SE": "Två veckor\nsida vid sida.",
+          "th": "สองสัปดาห์\nเทียบกันชัดๆ",
+          "tr-TR": "İki hafta,\nyan yana.",
+          "uk": "Два тижні\nпліч-о-пліч.",
+          "vi": "Hai tuần,\nđặt cạnh nhau.",
+          "zh-CN": "两周数据，\n并排对比。"
+        },
+        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/03.png",
+        "inverted": true
+      },
+      {
+        "id": "android-7-track",
+        "layout": "hero",
+        "label": {
+          "en-US": "TRACKING",
+          "de-DE": "AUFZEICHNUNG",
+          "es-ES": "SEGUIMIENTO",
+          "es-MX": "MONITOREO",
+          "fr-FR": "SUIVI",
+          "fr-CA": "SUIVI",
+          "it": "MONITORAGGIO",
+          "pt-BR": "MONITORAMENTO",
+          "pt-PT": "MONITORIZAÇÃO",
+          "ar": "التتبّع",
+          "cs-CZ": "SLEDOVÁNÍ",
+          "da-DK": "SPORING",
+          "es-419": "MONITOREO",
+          "es-US": "MONITOREO",
+          "fi-FI": "SEURANTA",
+          "hi-IN": "ट्रैकिंग",
+          "hu-HU": "KÖVETÉS",
+          "id": "PELACAKAN",
+          "it-IT": "MONITORAGGIO",
+          "iw-IL": "מעקב",
+          "ja-JP": "計測",
+          "ko-KR": "측정",
+          "nl-NL": "METEN",
+          "no-NO": "SPORING",
+          "pl-PL": "POMIAR",
+          "ro": "MONITORIZARE",
+          "ru-RU": "ОТСЛЕЖИВАНИЕ",
+          "sk": "SLEDOVANIE",
+          "sv-SE": "SPÅRNING",
+          "th": "การติดตาม",
+          "tr-TR": "TAKİP",
+          "uk": "ВІДСТЕЖЕННЯ",
+          "vi": "THEO DÕI",
+          "zh-CN": "监测"
+        },
+        "headline": {
+          "en-US": "One tap.\nNo wearable.",
+          "de-DE": "Ein Tipp.\nKein Wearable.",
+          "es-ES": "Un toque.\nNada en la muñeca.",
+          "es-MX": "Un toque.\nNada en la muñeca.",
+          "fr-FR": "Un geste.\nRien à porter.",
+          "fr-CA": "Un seul toucher.\nRien au poignet.",
+          "it": "Un tocco.\nNiente al polso.",
+          "pt-BR": "Um toque.\nNada no pulso.",
+          "pt-PT": "Um toque.\nNada no pulso.",
+          "ar": "نقرة واحدة.\nلا شيء على معصمك.",
+          "cs-CZ": "Jedno klepnutí.\nNic na sobě.",
+          "da-DK": "Ét tryk.\nIntet at bære.",
+          "es-419": "Un toque.\nNada en la muñeca.",
+          "es-US": "Un toque.\nNada en la muñeca.",
+          "fi-FI": "Yksi napautus.\nEi rannekkeita.",
+          "hi-IN": "एक टैप।\nकुछ पहनना नहीं।",
+          "hu-HU": "Egy koppintás.\nNem kell karkötő.",
+          "id": "Sekali ketuk.\nTanpa wearable.",
+          "it-IT": "Un tocco.\nNiente al polso.",
+          "iw-IL": "נגיעה אחת.\nבלי שום צמיד.",
+          "ja-JP": "ワンタップ。\n着けるもの不要。",
+          "ko-KR": "한 번의 탭.\n착용 없이.",
+          "nl-NL": "Eén tik.\nNiets om te dragen.",
+          "no-NO": "Ett trykk.\nIngenting å bære.",
+          "pl-PL": "Jedno dotknięcie.\nBez opaski.",
+          "ro": "O atingere.\nNimic de purtat.",
+          "ru-RU": "Одно касание.\nНичего на руке.",
+          "sk": "Jedno ťuknutie.\nNič na sebe.",
+          "sv-SE": "Ett tryck.\nInget att bära.",
+          "th": "แตะครั้งเดียว\nไม่ต้องสวมอะไร",
+          "tr-TR": "Tek dokunuş.\nBileklik yok.",
+          "uk": "Один дотик.\nНічого на руці.",
+          "vi": "Một chạm.\nKhông cần đeo.",
+          "zh-CN": "轻点一下。\n什么都不用戴。"
+        },
+        "screenshot": "/screenshots/android/tablet-7/portrait/{locale}/04.png"
+      }
+    ],
     "feature-graphic": [
       {
         "id": "fg-1",
@@ -1901,571 +2037,6 @@
         },
         "screenshot": ""
       }
-    ],
-    "duo-outer": [
-      {
-        "id": "duo-outer-chat",
-        "layout": "hero",
-        "label": {
-          "en-US": "ON-DEVICE AI",
-          "de-DE": "KI AUF DEM GERÄT",
-          "es-ES": "IA EN EL DISPOSITIVO",
-          "es-MX": "IA EN TU DISPOSITIVO",
-          "fr-FR": "IA EMBARQUÉE",
-          "fr-CA": "IA SUR L’APPAREIL",
-          "it": "IA SUL DISPOSITIVO",
-          "pt-BR": "IA NO APARELHO",
-          "pt-PT": "IA NO DISPOSITIVO",
-          "ar": "ذكاء اصطناعي على الجهاز",
-          "cs-CZ": "AI V ZAŘÍZENÍ",
-          "da-DK": "AI PÅ ENHEDEN",
-          "es-419": "IA EN TU DISPOSITIVO",
-          "es-US": "IA EN TU DISPOSITIVO",
-          "fi-FI": "TEKOÄLY LAITTEESSA",
-          "hi-IN": "डिवाइस पर AI",
-          "hu-HU": "AI A KÉSZÜLÉKEN",
-          "id": "AI DI PERANGKAT",
-          "it-IT": "IA SUL DISPOSITIVO",
-          "iw-IL": "בינה מלאכותית במכשיר",
-          "ja-JP": "端末内AI",
-          "ko-KR": "온디바이스 AI",
-          "nl-NL": "AI OP JE TOESTEL",
-          "no-NO": "AI PÅ ENHETEN",
-          "pl-PL": "AI NA URZĄDZENIU",
-          "ro": "AI PE DISPOZITIV",
-          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
-          "sk": "AI V ZARIADENÍ",
-          "sv-SE": "AI I ENHETEN",
-          "th": "AI บนอุปกรณ์",
-          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
-          "uk": "ШІ НА ПРИСТРОЇ",
-          "vi": "AI TRÊN THIẾT BỊ",
-          "zh-CN": "端侧 AI"
-        },
-        "headline": {
-          "en-US": "AI sleep coach.\nRuns on your device.",
-          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
-          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
-          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
-          "it": "Coach sonno IA.\nSul tuo dispositivo.",
-          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
-          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
-          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
-          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
-          "da-DK": "AI-søvncoach.\nKører på din enhed.",
-          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
-          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
-          "hu-HU": "MI alváscoach.\nA készüléken fut.",
-          "id": "Pelatih tidur AI.\nDi perangkatmu.",
-          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
-          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
-          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
-          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
-          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
-          "no-NO": "AI-søvncoach.\nKjører på enheten.",
-          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
-          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
-          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
-          "sk": "AI tréner spánku.\nBeží v zariadení.",
-          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
-          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
-          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
-          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
-          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
-          "zh-CN": "AI 睡眠教练\n在设备本地运行"
-        },
-        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/01.png",
-        "typography": {
-          "headlineScale": 0.82
-        }
-      },
-      {
-        "id": "duo-outer-stages",
-        "layout": "device-bottom",
-        "label": {
-          "en-US": "NO WEARABLE",
-          "de-DE": "OHNE WEARABLE",
-          "es-ES": "SIN RELOJ NI PULSERA",
-          "es-MX": "SIN RELOJ NI PULSERA",
-          "fr-FR": "SANS OBJET CONNECTÉ",
-          "fr-CA": "RIEN À PORTER",
-          "it": "NIENTE DA INDOSSARE",
-          "pt-BR": "SEM ACESSÓRIOS",
-          "pt-PT": "SEM ACESSÓRIOS",
-          "ar": "بلا ساعة أو سوار",
-          "cs-CZ": "NIC NA ZÁPĚSTÍ",
-          "da-DK": "INTET PÅ HÅNDLEDDET",
-          "es-419": "SIN RELOJ NI PULSERA",
-          "es-US": "SIN RELOJ NI PULSERA",
-          "fi-FI": "EI PUETTAVAA LAITETTA",
-          "hi-IN": "कोई वियरेबल नहीं",
-          "hu-HU": "SEMMI A CSUKLÓDON",
-          "id": "TANPA WEARABLE",
-          "it-IT": "NIENTE DA INDOSSARE",
-          "iw-IL": "בלי שעון או צמיד",
-          "ja-JP": "ウェアラブル不要",
-          "ko-KR": "웨어러블 불필요",
-          "nl-NL": "GEEN WEARABLE",
-          "no-NO": "INTET PÅ ARMEN",
-          "pl-PL": "BEZ OPASKI I ZEGARKA",
-          "ro": "NIMIC LA ÎNCHEIETURĂ",
-          "ru-RU": "БЕЗ ГАДЖЕТОВ НА РУКЕ",
-          "sk": "NIČ NA ZÁPÄSTÍ",
-          "sv-SE": "INGET PÅ HANDLEDEN",
-          "th": "ไม่ต้องสวมอุปกรณ์",
-          "tr-TR": "BİLEKLİK GEREKMEZ",
-          "uk": "НІЧОГО НА ЗАП’ЯСТІ",
-          "vi": "KHÔNG CẦN ĐEO GÌ",
-          "zh-CN": "无需穿戴设备"
-        },
-        "headline": {
-          "en-US": "Every stage,\ncharted.",
-          "de-DE": "Jede Phase\nsichtbar.",
-          "es-ES": "Todas las fases,\na la vista.",
-          "es-MX": "Cada fase,\na la vista.",
-          "fr-FR": "Chaque phase,\nen un coup d’œil.",
-          "fr-CA": "Chaque phase,\nbien illustrée.",
-          "it": "Ogni fase,\nin un grafico.",
-          "pt-BR": "Cada fase,\nno gráfico.",
-          "pt-PT": "Cada fase,\nem gráfico.",
-          "ar": "كل مرحلة،\nفي رسم بياني.",
-          "cs-CZ": "Každá fáze\nv grafu.",
-          "da-DK": "Hvert stadie\nkortlagt.",
-          "es-419": "Cada fase,\na la vista.",
-          "es-US": "Cada fase,\na la vista.",
-          "fi-FI": "Jokainen vaihe\nkaaviona.",
-          "hi-IN": "हर चरण,\nचार्ट में।",
-          "hu-HU": "Minden fázis\ngrafikonon.",
-          "id": "Setiap tahap,\ndalam grafik.",
-          "it-IT": "Ogni fase,\nin un grafico.",
-          "iw-IL": "כל שלב,\nבתרשים.",
-          "ja-JP": "すべての段階を\nグラフで。",
-          "ko-KR": "모든 단계를\n한눈에.",
-          "nl-NL": "Elke fase\nin beeld.",
-          "no-NO": "Hvert stadium\nkartlagt.",
-          "pl-PL": "Każda faza\nna wykresie.",
-          "ro": "Fiecare fază,\npe grafic.",
-          "ru-RU": "Каждая фаза —\nна графике.",
-          "sk": "Každá fáza\nv grafe.",
-          "sv-SE": "Varje stadium\nkartlagt.",
-          "th": "ทุกระยะ\nในกราฟเดียว",
-          "tr-TR": "Her evre\ngrafikte.",
-          "uk": "Кожна фаза —\nна графіку.",
-          "vi": "Mọi giai đoạn,\nrõ trên biểu đồ.",
-          "zh-CN": "每个阶段，\n一图看清。"
-        },
-        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/02.png"
-      },
-      {
-        "id": "duo-outer-history",
-        "layout": "device-top",
-        "label": {
-          "en-US": "HISTORY",
-          "de-DE": "VERLAUF",
-          "es-ES": "HISTORIAL",
-          "es-MX": "HISTORIAL",
-          "fr-FR": "HISTORIQUE",
-          "fr-CA": "HISTORIQUE",
-          "it": "STORICO",
-          "pt-BR": "HISTÓRICO",
-          "pt-PT": "HISTÓRICO",
-          "ar": "السجل",
-          "cs-CZ": "HISTORIE",
-          "da-DK": "HISTORIK",
-          "es-419": "HISTORIAL",
-          "es-US": "HISTORIAL",
-          "fi-FI": "HISTORIA",
-          "hi-IN": "इतिहास",
-          "hu-HU": "ELŐZMÉNYEK",
-          "id": "RIWAYAT",
-          "it-IT": "STORICO",
-          "iw-IL": "היסטוריה",
-          "ja-JP": "履歴",
-          "ko-KR": "기록",
-          "nl-NL": "GESCHIEDENIS",
-          "no-NO": "HISTORIKK",
-          "pl-PL": "HISTORIA",
-          "ro": "ISTORIC",
-          "ru-RU": "ИСТОРИЯ",
-          "sk": "HISTÓRIA",
-          "sv-SE": "HISTORIK",
-          "th": "ประวัติ",
-          "tr-TR": "GEÇMİŞ",
-          "uk": "ІСТОРІЯ",
-          "vi": "LỊCH SỬ",
-          "zh-CN": "历史"
-        },
-        "headline": {
-          "en-US": "Two weeks,\nside by side.",
-          "de-DE": "Zwei Wochen\nim Vergleich.",
-          "es-ES": "Dos semanas,\ncara a cara.",
-          "es-MX": "Dos semanas,\nlado a lado.",
-          "fr-FR": "Deux semaines,\ncôte à côte.",
-          "fr-CA": "Deux semaines,\ncôte à côte.",
-          "it": "Due settimane\na confronto.",
-          "pt-BR": "Duas semanas,\nlado a lado.",
-          "pt-PT": "Duas semanas,\nlado a lado.",
-          "ar": "أسبوعان،\nجنبًا إلى جنب.",
-          "cs-CZ": "Dva týdny\nvedle sebe.",
-          "da-DK": "To uger\nside om side.",
-          "es-419": "Dos semanas,\nlado a lado.",
-          "es-US": "Dos semanas,\nlado a lado.",
-          "fi-FI": "Kaksi viikkoa\nrinnakkain.",
-          "hi-IN": "दो हफ़्ते,\nसाथ-साथ।",
-          "hu-HU": "Két hét\negymás mellett.",
-          "id": "Dua minggu,\nberdampingan.",
-          "it-IT": "Due settimane\na confronto.",
-          "iw-IL": "שבועיים,\nזה לצד זה.",
-          "ja-JP": "2週間を\n並べて比較。",
-          "ko-KR": "2주를\n나란히.",
-          "nl-NL": "Twee weken\nnaast elkaar.",
-          "no-NO": "To uker\nside om side.",
-          "pl-PL": "Dwa tygodnie\nobok siebie.",
-          "ro": "Două săptămâni,\nalăturate.",
-          "ru-RU": "Две недели\nбок о бок.",
-          "sk": "Dva týždne\nvedľa seba.",
-          "sv-SE": "Två veckor\nsida vid sida.",
-          "th": "สองสัปดาห์\nเทียบกันชัดๆ",
-          "tr-TR": "İki hafta,\nyan yana.",
-          "uk": "Два тижні\nпліч-о-пліч.",
-          "vi": "Hai tuần,\nđặt cạnh nhau.",
-          "zh-CN": "两周数据，\n并排对比。"
-        },
-        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/03.png",
-        "inverted": true
-      },
-      {
-        "id": "duo-outer-track",
-        "layout": "hero",
-        "label": {
-          "en-US": "TRACKING",
-          "de-DE": "AUFZEICHNUNG",
-          "es-ES": "SEGUIMIENTO",
-          "es-MX": "MONITOREO",
-          "fr-FR": "SUIVI",
-          "fr-CA": "SUIVI",
-          "it": "MONITORAGGIO",
-          "pt-BR": "MONITORAMENTO",
-          "pt-PT": "MONITORIZAÇÃO",
-          "ar": "التتبّع",
-          "cs-CZ": "SLEDOVÁNÍ",
-          "da-DK": "SPORING",
-          "es-419": "MONITOREO",
-          "es-US": "MONITOREO",
-          "fi-FI": "SEURANTA",
-          "hi-IN": "ट्रैकिंग",
-          "hu-HU": "KÖVETÉS",
-          "id": "PELACAKAN",
-          "it-IT": "MONITORAGGIO",
-          "iw-IL": "מעקב",
-          "ja-JP": "計測",
-          "ko-KR": "측정",
-          "nl-NL": "METEN",
-          "no-NO": "SPORING",
-          "pl-PL": "POMIAR",
-          "ro": "MONITORIZARE",
-          "ru-RU": "ОТСЛЕЖИВАНИЕ",
-          "sk": "SLEDOVANIE",
-          "sv-SE": "SPÅRNING",
-          "th": "การติดตาม",
-          "tr-TR": "TAKİP",
-          "uk": "ВІДСТЕЖЕННЯ",
-          "vi": "THEO DÕI",
-          "zh-CN": "监测"
-        },
-        "headline": {
-          "en-US": "One tap.\nNo wearable.",
-          "de-DE": "Ein Tipp.\nKein Wearable.",
-          "es-ES": "Un toque.\nNada en la muñeca.",
-          "es-MX": "Un toque.\nNada en la muñeca.",
-          "fr-FR": "Un geste.\nRien à porter.",
-          "fr-CA": "Un seul toucher.\nRien au poignet.",
-          "it": "Un tocco.\nNiente al polso.",
-          "pt-BR": "Um toque.\nNada no pulso.",
-          "pt-PT": "Um toque.\nNada no pulso.",
-          "ar": "نقرة واحدة.\nلا شيء على معصمك.",
-          "cs-CZ": "Jedno klepnutí.\nNic na sobě.",
-          "da-DK": "Ét tryk.\nIntet at bære.",
-          "es-419": "Un toque.\nNada en la muñeca.",
-          "es-US": "Un toque.\nNada en la muñeca.",
-          "fi-FI": "Yksi napautus.\nEi rannekkeita.",
-          "hi-IN": "एक टैप।\nकुछ पहनना नहीं।",
-          "hu-HU": "Egy koppintás.\nNem kell karkötő.",
-          "id": "Sekali ketuk.\nTanpa wearable.",
-          "it-IT": "Un tocco.\nNiente al polso.",
-          "iw-IL": "נגיעה אחת.\nבלי שום צמיד.",
-          "ja-JP": "ワンタップ。\n着けるもの不要。",
-          "ko-KR": "한 번의 탭.\n착용 없이.",
-          "nl-NL": "Eén tik.\nNiets om te dragen.",
-          "no-NO": "Ett trykk.\nIngenting å bære.",
-          "pl-PL": "Jedno dotknięcie.\nBez opaski.",
-          "ro": "O atingere.\nNimic de purtat.",
-          "ru-RU": "Одно касание.\nНичего на руке.",
-          "sk": "Jedno ťuknutie.\nNič na sebe.",
-          "sv-SE": "Ett tryck.\nInget att bära.",
-          "th": "แตะครั้งเดียว\nไม่ต้องสวมอะไร",
-          "tr-TR": "Tek dokunuş.\nBileklik yok.",
-          "uk": "Один дотик.\nНічого на руці.",
-          "vi": "Một chạm.\nKhông cần đeo.",
-          "zh-CN": "轻点一下。\n什么都不用戴。"
-        },
-        "screenshot": "/screenshots/apple/duo-outer/portrait/{locale}/04.png"
-      }
-    ],
-    "duo-outer-landscape": [
-      {
-        "id": "s_mvfkx7hs_12",
-        "layout": "hero",
-        "label": {
-          "en": "TURN IT"
-        },
-        "headline": {
-          "en": "Made for the wide view."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_13",
-        "layout": "split-landscape",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "One idea\nper screen."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_14",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "Flip the contrast."
-        },
-        "screenshot": "",
-        "inverted": true
-      }
-    ],
-    "duo-inner": [
-      {
-        "id": "s_mvfkx7hs_15",
-        "layout": "hero",
-        "label": {
-          "en": "UNFOLD IT"
-        },
-        "headline": {
-          "en": "Room for\nthe whole view."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_16",
-        "layout": "device-bottom",
-        "label": {
-          "en": "FEATURE 01"
-        },
-        "headline": {
-          "en": "One idea\nper screen."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_17",
-        "layout": "two-devices",
-        "label": {
-          "en": "FOLDED + OPEN"
-        },
-        "headline": {
-          "en": "Turn it, open it,\nkeep going."
-        },
-        "screenshot": "",
-        "screenshotSecondary": ""
-      },
-      {
-        "id": "s_mvfkx7hs_18",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "Flip the contrast."
-        },
-        "screenshot": "",
-        "inverted": true
-      }
-    ],
-    "duo-inner-landscape": [
-      {
-        "id": "s_mvfkx7hs_19",
-        "layout": "hero",
-        "label": {
-          "en": "UNFOLD IT"
-        },
-        "headline": {
-          "en": "Lead with the two-pane view."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_1a",
-        "layout": "two-devices",
-        "label": {
-          "en": "FOLDED + OPEN"
-        },
-        "headline": {
-          "en": "Same moment, closed and open."
-        },
-        "screenshot": "",
-        "screenshotSecondary": ""
-      },
-      {
-        "id": "s_mvfkx7hs_1b",
-        "layout": "split-landscape",
-        "label": {
-          "en": "FEATURE 02"
-        },
-        "headline": {
-          "en": "One idea\nper screen."
-        },
-        "screenshot": ""
-      },
-      {
-        "id": "s_mvfkx7hs_1c",
-        "layout": "device-top",
-        "label": {
-          "en": "FEATURE 03"
-        },
-        "headline": {
-          "en": "Show what only the wide screen can."
-        },
-        "screenshot": "",
-        "inverted": true
-      },
-      {
-        "id": "s_mvfkx7hs_1d",
-        "layout": "no-device",
-        "label": {
-          "en": "MORE"
-        },
-        "headline": {
-          "en": "And so much more."
-        },
-        "screenshot": ""
-      }
-    ],
-    "creative-universal": [
-      {
-        "id": "creative-1",
-        "layout": "split-landscape",
-        "label": {
-          "en-US": "ON-DEVICE AI",
-          "de-DE": "KI AUF DEM GERÄT",
-          "es-ES": "IA EN EL DISPOSITIVO",
-          "es-MX": "IA EN TU DISPOSITIVO",
-          "fr-FR": "IA EMBARQUÉE",
-          "fr-CA": "IA SUR L’APPAREIL",
-          "it": "IA SUL DISPOSITIVO",
-          "pt-BR": "IA NO APARELHO",
-          "pt-PT": "IA NO DISPOSITIVO",
-          "ar": "ذكاء اصطناعي على الجهاز",
-          "cs-CZ": "AI V ZAŘÍZENÍ",
-          "da-DK": "AI PÅ ENHEDEN",
-          "es-419": "IA EN TU DISPOSITIVO",
-          "es-US": "IA EN TU DISPOSITIVO",
-          "fi-FI": "TEKOÄLY LAITTEESSA",
-          "hi-IN": "डिवाइस पर AI",
-          "hu-HU": "AI A KÉSZÜLÉKEN",
-          "id": "AI DI PERANGKAT",
-          "it-IT": "IA SUL DISPOSITIVO",
-          "iw-IL": "בינה מלאכותית במכשיר",
-          "ja-JP": "端末内AI",
-          "ko-KR": "온디바이스 AI",
-          "nl-NL": "AI OP JE TOESTEL",
-          "no-NO": "AI PÅ ENHETEN",
-          "pl-PL": "AI NA URZĄDZENIU",
-          "ro": "AI PE DISPOZITIV",
-          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
-          "sk": "AI V ZARIADENÍ",
-          "sv-SE": "AI I ENHETEN",
-          "th": "AI บนอุปกรณ์",
-          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
-          "uk": "ШІ НА ПРИСТРОЇ",
-          "vi": "AI TRÊN THIẾT BỊ",
-          "zh-CN": "端侧 AI"
-        },
-        "headline": {
-          "en-US": "AI sleep coach.\nRuns on your device.",
-          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
-          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
-          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
-          "it": "Coach sonno IA.\nSul tuo dispositivo.",
-          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
-          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
-          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
-          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
-          "da-DK": "AI-søvncoach.\nKører på din enhed.",
-          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
-          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
-          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
-          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
-          "hu-HU": "MI alváscoach.\nA készüléken fut.",
-          "id": "Pelatih tidur AI.\nDi perangkatmu.",
-          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
-          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
-          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
-          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
-          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
-          "no-NO": "AI-søvncoach.\nKjører på enheten.",
-          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
-          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
-          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
-          "sk": "AI tréner spánku.\nBeží v zariadení.",
-          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
-          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
-          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
-          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
-          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
-          "zh-CN": "AI 睡眠教练\n在设备本地运行"
-        },
-        "screenshot": "/screenshots/apple/iphone/{locale}/01.png",
-        "typography": {
-          "headlineScale": 0.5
-        }
-      }
-    ],
-    "creative-header": [
-      {
-        "id": "s_mvfkx7hs_1f",
-        "layout": "split-landscape",
-        "label": {
-          "en": "NEW"
-        },
-        "headline": {
-          "en": "Your app,\nat a glance."
-        },
-        "screenshot": ""
-      }
-    ],
-    "creative-search": [
-      {
-        "id": "s_mvfkx7hs_1g",
-        "layout": "split-landscape",
-        "label": {
-          "en": "NEW"
-        },
-        "headline": {
-          "en": "Your app,\nat a glance."
-        },
-        "screenshot": ""
-      }
     ]
   },
   "crossScreenMockupsByDevice": {
@@ -2484,7 +2055,6 @@
     "glow": 75,
     "tilt": 0,
     "headlineWeight": 600,
-    "headlineScale": 1,
     "headlineCase": "as-typed",
     "captionAlign": "auto"
   }
