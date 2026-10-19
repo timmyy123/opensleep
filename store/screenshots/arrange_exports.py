@@ -2,7 +2,7 @@
 """Unzip the screenshot tool's bundles and arrange them for the store uploaders.
 
 Usage: arrange_exports.py <exports_dir> <final_root>
-  App Store: final_root/appstore/{iphone69,ipad13,duo}/<locale>/NN_<layout>.png
+  App Store: final_root/appstore/{iphone69,ipad13,duo,creative}/<locale>/NN_<layout>.png
   Play:      final_root/play/{phone,tablet7,tablet10,feature}/<locale>/NN_<layout>.png
 """
 import shutil
@@ -19,6 +19,7 @@ MAP = {
     "android-7": ("android/android-7/1200x1920", "play", "tablet7"),
     "android-10": ("android/android-10/1600x2560", "play", "tablet10"),
     "feature-graphic": ("android/feature-graphic/1024x500", "play", "feature"),
+    "creative-universal": ("ios/creative-universal/5244x2950", "appstore", "creative"),
 }
 
 

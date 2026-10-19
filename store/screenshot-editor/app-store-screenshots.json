@@ -41,7 +41,7 @@
     "zh-CN"
   ],
   "locale": "en-US",
-  "device": "feature-graphic",
+  "device": "creative-universal",
   "orientation": "portrait",
   "appIcon": "/app-icon.png",
   "slidesByDevice": {
@@ -1007,7 +1007,7 @@
     ],
     "tvos": [
       {
-        "id": "s_mve2401s_d",
+        "id": "s_mvfkx7hs_d",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -1018,7 +1018,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_e",
+        "id": "s_mvfkx7hs_e",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -1029,7 +1029,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_f",
+        "id": "s_mvfkx7hs_f",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -1041,7 +1041,7 @@
         "inverted": true
       },
       {
-        "id": "s_mve2401s_g",
+        "id": "s_mvfkx7hs_g",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -1054,7 +1054,7 @@
     ],
     "watchos": [
       {
-        "id": "s_mve2401s_h",
+        "id": "s_mvfkx7hs_h",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -1065,7 +1065,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_i",
+        "id": "s_mvfkx7hs_i",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -1076,7 +1076,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_j",
+        "id": "s_mvfkx7hs_j",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -1090,7 +1090,7 @@
     ],
     "carplay": [
       {
-        "id": "s_mve2401s_k",
+        "id": "s_mvfkx7hs_k",
         "layout": "split-landscape",
         "label": {
           "en": "CARPLAY"
@@ -1101,7 +1101,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_l",
+        "id": "s_mvfkx7hs_l",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -1112,7 +1112,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_m",
+        "id": "s_mvfkx7hs_m",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -1126,7 +1126,7 @@
     ],
     "mac": [
       {
-        "id": "s_mve2401s_n",
+        "id": "s_mvfkx7hs_n",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -1137,7 +1137,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_o",
+        "id": "s_mvfkx7hs_o",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -1148,7 +1148,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_p",
+        "id": "s_mvfkx7hs_p",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -1160,7 +1160,7 @@
         "inverted": true
       },
       {
-        "id": "s_mve2401s_q",
+        "id": "s_mvfkx7hs_q",
         "layout": "two-devices",
         "label": {
           "en": "FEATURE 03"
@@ -1172,7 +1172,7 @@
         "screenshotSecondary": ""
       },
       {
-        "id": "s_mve2401s_r",
+        "id": "s_mvfkx7hs_r",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -2218,7 +2218,7 @@
     ],
     "duo-outer-landscape": [
       {
-        "id": "s_mve2401s_12",
+        "id": "s_mvfkx7hs_12",
         "layout": "hero",
         "label": {
           "en": "TURN IT"
@@ -2229,7 +2229,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_13",
+        "id": "s_mvfkx7hs_13",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -2240,7 +2240,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_14",
+        "id": "s_mvfkx7hs_14",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -2254,7 +2254,7 @@
     ],
     "duo-inner": [
       {
-        "id": "s_mve2401s_15",
+        "id": "s_mvfkx7hs_15",
         "layout": "hero",
         "label": {
           "en": "UNFOLD IT"
@@ -2265,7 +2265,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_16",
+        "id": "s_mvfkx7hs_16",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -2276,7 +2276,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_17",
+        "id": "s_mvfkx7hs_17",
         "layout": "two-devices",
         "label": {
           "en": "FOLDED + OPEN"
@@ -2288,7 +2288,7 @@
         "screenshotSecondary": ""
       },
       {
-        "id": "s_mve2401s_18",
+        "id": "s_mvfkx7hs_18",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -2302,7 +2302,7 @@
     ],
     "duo-inner-landscape": [
       {
-        "id": "s_mve2401s_19",
+        "id": "s_mvfkx7hs_19",
         "layout": "hero",
         "label": {
           "en": "UNFOLD IT"
@@ -2313,7 +2313,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_1a",
+        "id": "s_mvfkx7hs_1a",
         "layout": "two-devices",
         "label": {
           "en": "FOLDED + OPEN"
@@ -2325,7 +2325,7 @@
         "screenshotSecondary": ""
       },
       {
-        "id": "s_mve2401s_1b",
+        "id": "s_mvfkx7hs_1b",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 02"
@@ -2336,7 +2336,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mve2401s_1c",
+        "id": "s_mvfkx7hs_1c",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 03"
@@ -2348,7 +2348,7 @@
         "inverted": true
       },
       {
-        "id": "s_mve2401s_1d",
+        "id": "s_mvfkx7hs_1d",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -2361,20 +2361,89 @@
     ],
     "creative-universal": [
       {
-        "id": "s_mve2401s_1e",
+        "id": "creative-1",
         "layout": "split-landscape",
         "label": {
-          "en": "NEW"
+          "en-US": "ON-DEVICE AI",
+          "de-DE": "KI AUF DEM GERÄT",
+          "es-ES": "IA EN EL DISPOSITIVO",
+          "es-MX": "IA EN TU DISPOSITIVO",
+          "fr-FR": "IA EMBARQUÉE",
+          "fr-CA": "IA SUR L’APPAREIL",
+          "it": "IA SUL DISPOSITIVO",
+          "pt-BR": "IA NO APARELHO",
+          "pt-PT": "IA NO DISPOSITIVO",
+          "ar": "ذكاء اصطناعي على الجهاز",
+          "cs-CZ": "AI V ZAŘÍZENÍ",
+          "da-DK": "AI PÅ ENHEDEN",
+          "es-419": "IA EN TU DISPOSITIVO",
+          "es-US": "IA EN TU DISPOSITIVO",
+          "fi-FI": "TEKOÄLY LAITTEESSA",
+          "hi-IN": "डिवाइस पर AI",
+          "hu-HU": "AI A KÉSZÜLÉKEN",
+          "id": "AI DI PERANGKAT",
+          "it-IT": "IA SUL DISPOSITIVO",
+          "iw-IL": "בינה מלאכותית במכשיר",
+          "ja-JP": "端末内AI",
+          "ko-KR": "온디바이스 AI",
+          "nl-NL": "AI OP JE TOESTEL",
+          "no-NO": "AI PÅ ENHETEN",
+          "pl-PL": "AI NA URZĄDZENIU",
+          "ro": "AI PE DISPOZITIV",
+          "ru-RU": "ИИ НА УСТРОЙСТВЕ",
+          "sk": "AI V ZARIADENÍ",
+          "sv-SE": "AI I ENHETEN",
+          "th": "AI บนอุปกรณ์",
+          "tr-TR": "CİHAZDA YAPAY ZEKÂ",
+          "uk": "ШІ НА ПРИСТРОЇ",
+          "vi": "AI TRÊN THIẾT BỊ",
+          "zh-CN": "端侧 AI"
         },
         "headline": {
-          "en": "Your app,\nat a glance."
+          "en-US": "AI sleep coach.\nRuns on your device.",
+          "de-DE": "KI-Schlafcoach.\nLäuft auf dem Gerät.",
+          "es-ES": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-MX": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fr-FR": "Coach sommeil IA.\nSur votre appareil.",
+          "fr-CA": "Coach sommeil IA.\nSur votre appareil.",
+          "it": "Coach sonno IA.\nSul tuo dispositivo.",
+          "pt-BR": "Coach de sono IA.\nNo seu aparelho.",
+          "pt-PT": "Treinador de sono IA.\nNo seu dispositivo.",
+          "ar": "مدرب نوم ذكي.\nيعمل على جهازك.",
+          "cs-CZ": "AI kouč spánku.\nBěží v zařízení.",
+          "da-DK": "AI-søvncoach.\nKører på din enhed.",
+          "es-419": "Coach de sueño IA.\nEn tu dispositivo.",
+          "es-US": "Coach de sueño IA.\nEn tu dispositivo.",
+          "fi-FI": "AI-univalmentaja.\nToimii laitteellasi.",
+          "hi-IN": "AI स्लीप कोच।\nडिवाइस पर ही चलता है।",
+          "hu-HU": "MI alváscoach.\nA készüléken fut.",
+          "id": "Pelatih tidur AI.\nDi perangkatmu.",
+          "it-IT": "Coach sonno IA.\nSul tuo dispositivo.",
+          "iw-IL": "מאמן שינה AI.\nפועל במכשיר שלך.",
+          "ja-JP": "AI睡眠コーチ。\n端末内で動作。",
+          "ko-KR": "AI 수면 코치.\n기기에서 직접 실행.",
+          "nl-NL": "AI-slaapcoach.\nOp je apparaat.",
+          "no-NO": "AI-søvncoach.\nKjører på enheten.",
+          "pl-PL": "Trener snu AI.\nNa Twoim urządzeniu.",
+          "ro": "Antrenor de somn AI.\nPe dispozitivul tău.",
+          "ru-RU": "ИИ-тренер сна.\nПрямо на устройстве.",
+          "sk": "AI tréner spánku.\nBeží v zariadení.",
+          "sv-SE": "AI-sömncoach.\nKörs på din enhet.",
+          "th": "โค้ชการนอน AI\nทำงานบนเครื่องคุณ",
+          "tr-TR": "YZ uyku koçu.\nCihazında çalışır.",
+          "uk": "ШІ-тренер сну.\nПрацює на пристрої.",
+          "vi": "Trợ lý giấc ngủ AI.\nChạy trên máy bạn.",
+          "zh-CN": "AI 睡眠教练\n在设备本地运行"
         },
-        "screenshot": ""
+        "screenshot": "/screenshots/apple/iphone/{locale}/01.png",
+        "typography": {
+          "headlineScale": 0.5
+        }
       }
     ],
     "creative-header": [
       {
-        "id": "s_mve2401s_1f",
+        "id": "s_mvfkx7hs_1f",
         "layout": "split-landscape",
         "label": {
           "en": "NEW"
@@ -2387,7 +2456,7 @@
     ],
     "creative-search": [
       {
-        "id": "s_mve2401s_1g",
+        "id": "s_mvfkx7hs_1g",
         "layout": "split-landscape",
         "label": {
           "en": "NEW"

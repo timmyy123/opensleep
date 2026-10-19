@@ -102,6 +102,13 @@ def main():
     decks["feature-graphic"] = [{"id": "fg-1", "layout": "feature-graphic",
                                  "label": {loc: "" for loc in LOCALES}, "headline": fg_head, "screenshot": ""}]
 
+    # App Store creative asset (product page header + search results): one short brand line next to the AI chat.
+    decks["creative-universal"] = [{"id": "creative-1", "layout": "split-landscape",
+                                    "label": {loc: text_for(loc, "chat", "label") for loc in LOCALES},
+                                    "headline": {loc: text_for(loc, "chat", "headline") for loc in LOCALES},
+                                    "screenshot": "/screenshots/apple/iphone/{locale}/01.png",
+                                    "typography": {"headlineScale": 0.46}}]
+
     proj_file = HERE / "app-store-screenshots.json"
     state = json.loads(proj_file.read_text()) if proj_file.exists() else {}
     state.update({
