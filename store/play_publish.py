@@ -70,6 +70,7 @@ def main():
     ap.add_argument("--sa", required=True); ap.add_argument("--aab"); ap.add_argument("--mapping")
     ap.add_argument("--listings", required=True); ap.add_argument("--shots", required=True)
     ap.add_argument("--track", default="production"); ap.add_argument("--commit", action="store_true")
+    ap.add_argument("--release-name", default="1.0.7", help="release name shown in Play Console")
     ap.add_argument("--locales", help="comma-separated Play locales to update (default: all)")
     a = ap.parse_args()
 
@@ -126,9 +127,9 @@ def main():
                                raw=Path(a.mapping).read_bytes(), ctype="application/octet-stream")
                 print(f"mapping.txt: {'ok' if st < 300 else (st, r.get('error', r))}")
             st, r = p.call("PUT", f"{E}/tracks/{a.track}", {"track": a.track, "releases": [{
-                "name": "1.0.6", "versionCodes": [str(vc)], "status": "completed", "releaseNotes": notes}]})
+                "name": a.release_name, "versionCodes": [str(vc)], "status": "completed", "releaseNotes": notes}]})
             if st >= 300: fail(f"track {a.track}: {st} {r.get('error', r)}")
-            else: print(f"track {a.track}: release 1.0.6 (versionCode {vc}) with notes in {len(notes)} languages")
+            else: print(f"track {a.track}: release {a.release_name} (versionCode {vc}) with notes in {len(notes)} languages")
 
         st, r = p.call("POST", f"{E}:validate")
         if st >= 300: fail(f"validate: {st} {r.get('error', r)}")
