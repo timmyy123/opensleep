@@ -107,7 +107,7 @@ fun AiChatScreen(viewModel: AiChatViewModel, onNavigateToSettings: () -> Unit) {
                 IconButton(onClick = { viewModel.clearChat() }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Clear Chat",
+                        contentDescription = stringResource(R.string.cd_clear_chat),
                         tint = TextTertiary
                     )
                 }

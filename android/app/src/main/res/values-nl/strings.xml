@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium actief</string>
     <string name="paywall_lifetime_active_desc">Je hebt permanente toegang tot de AI-slaapcoach.</string>
     <string name="paywall_upgrade_now">Ontgrendel OpenSleep Lifetime Premium</string>
+    <string name="model_size">Grootte: %s GB</string>
+    <string name="paused">Gepauzeerd</string>
+    <string name="retry">Probeer opnieuw</string>
+    <string name="selected_count">%d geselecteerd</string>
+    <string name="tokens_count">%d tokens</string>
+    <string name="duration_hm">%1$du %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Pauzeren</string>
+    <string name="cd_resume">Hervatten</string>
+    <string name="cd_delete">Verwijderen</string>
+    <string name="cd_clear_chat">Chat wissen</string>
+    <string name="billing_restored">Aankopen succesvol hersteld!</string>
+    <string name="billing_no_purchases">Geen eerdere aankopen gevonden.</string>
+    <string name="billing_restore_failed">Aankopen herstellen is mislukt.</string>
+    <string name="billing_loading">Google Play-gegevens laden… probeer het opnieuw.</string>
+    <string name="billing_purchase_failed">De aankoop kon niet worden voltooid.</string>
 </resources>

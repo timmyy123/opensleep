@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium Etkin</string>
     <string name="paywall_lifetime_active_desc">Yapay Zekâ Uyku Koçu\'na kalıcı erişimin var.</string>
     <string name="paywall_upgrade_now">OpenSleep Lifetime Premium\'un Kilidini Aç</string>
+    <string name="model_size">Boyut: %s GB</string>
+    <string name="paused">Duraklatıldı</string>
+    <string name="retry">Tekrar Dene</string>
+    <string name="selected_count">%d seçildi</string>
+    <string name="tokens_count">%d token</string>
+    <string name="duration_hm">%1$d sa %2$d dk</string>
+    <string name="duration_m">%d dk</string>
+    <string name="cd_pause">Duraklat</string>
+    <string name="cd_resume">Devam et</string>
+    <string name="cd_delete">Sil</string>
+    <string name="cd_clear_chat">Sohbeti temizle</string>
+    <string name="billing_restored">Satın alımlar başarıyla geri yüklendi!</string>
+    <string name="billing_no_purchases">Önceki satın alma bulunamadı.</string>
+    <string name="billing_restore_failed">Satın alımlar geri yüklenemedi.</string>
+    <string name="billing_loading">Google Play ayrıntıları yükleniyor… lütfen tekrar dene.</string>
+    <string name="billing_purchase_failed">Satın alma tamamlanamadı.</string>
 </resources>

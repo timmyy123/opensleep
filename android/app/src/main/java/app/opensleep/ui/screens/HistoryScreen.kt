@@ -197,7 +197,7 @@ fun HistoryScreen(
                                         if (isDismissed) {
                                             Icon(
                                                 imageVector = Icons.Default.Delete,
-                                                contentDescription = "Delete",
+                                                contentDescription = stringResource(R.string.cd_delete),
                                                 tint = Color.White,
                                                 modifier = Modifier.size(28.dp)
                                             )
@@ -236,7 +236,7 @@ fun HistoryScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "${selectedSessionIds.size} Selected",
+                                    text = stringResource(R.string.selected_count, selectedSessionIds.size),
                                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                                     color = TextPrimary
                                 )
@@ -557,7 +557,7 @@ fun SleepSessionCard(
                         color = TextSecondary
                     )
                     Text(
-                        text = "${hours}h ${minutes}m",
+                        text = stringResource(R.string.duration_hm, hours, minutes),
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.SemiBold, color = TextPrimary
                         )

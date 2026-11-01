@@ -3,6 +3,7 @@ package app.opensleep.domain
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import app.opensleep.R
 import com.android.billingclient.api.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -157,20 +158,20 @@ class BillingManager(
                         setPremiumStatus(purchased)
                         coroutineScope.launch {
                             if (purchased) {
-                                _userMessage.emit("Purchases restored successfully!")
+                                _userMessage.emit(context.getString(R.string.billing_restored))
                             } else {
-                                _userMessage.emit("No active purchases found.")
+                                _userMessage.emit(context.getString(R.string.billing_no_purchases))
                             }
                         }
                     } else {
                         coroutineScope.launch {
-                            _userMessage.emit(billingResult.debugMessage.ifBlank { "Failed to restore purchases." })
+                            _userMessage.emit(billingResult.debugMessage.ifBlank { context.getString(R.string.billing_restore_failed) })
                         }
                     }
                 }
             } catch (t: Throwable) {
                 _isRestoring.value = false
-                _userMessage.emit(t.localizedMessage ?: "Restore failed")
+                _userMessage.emit(t.localizedMessage ?: context.getString(R.string.billing_restore_failed))
             }
         }
     }
@@ -182,7 +183,7 @@ class BillingManager(
         val details = _productDetails.value
         if (details == null) {
             coroutineScope.launch {
-                _userMessage.emit("Loading Google Play details… please retry.")
+                _userMessage.emit(context.getString(R.string.billing_loading))
                 queryProductDetails()
             }
             return false
@@ -224,7 +225,7 @@ class BillingManager(
             else -> {
                 Log.w(TAG, "Purchase failed: ${billingResult.debugMessage}")
                 coroutineScope.launch {
-                    _userMessage.emit(billingResult.debugMessage.ifBlank { "Purchase could not be completed." })
+                    _userMessage.emit(billingResult.debugMessage.ifBlank { context.getString(R.string.billing_purchase_failed) })
                 }
             }
         }

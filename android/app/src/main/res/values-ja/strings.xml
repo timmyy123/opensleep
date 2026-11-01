@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep 買い切りプレミアム有効</string>
     <string name="paywall_lifetime_active_desc">AI睡眠コーチを永続的にご利用いただけます。</string>
     <string name="paywall_upgrade_now">OpenSleep 買い切りプレミアムをアンロック</string>
+    <string name="model_size">サイズ: %s GB</string>
+    <string name="paused">一時停止中</string>
+    <string name="retry">再試行</string>
+    <string name="selected_count">%d件選択</string>
+    <string name="tokens_count">%dトークン</string>
+    <string name="duration_hm">%1$d時間%2$d分</string>
+    <string name="duration_m">%d分</string>
+    <string name="cd_pause">一時停止</string>
+    <string name="cd_resume">再開</string>
+    <string name="cd_delete">削除</string>
+    <string name="cd_clear_chat">チャットを消去</string>
+    <string name="billing_restored">購入を復元しました!</string>
+    <string name="billing_no_purchases">以前の購入は見つかりませんでした。</string>
+    <string name="billing_restore_failed">購入を復元できませんでした。</string>
+    <string name="billing_loading">Google Play の情報を読み込んでいます…もう一度お試しください。</string>
+    <string name="billing_purchase_failed">購入を完了できませんでした。</string>
 </resources>

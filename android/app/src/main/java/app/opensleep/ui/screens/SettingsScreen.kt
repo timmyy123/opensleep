@@ -476,7 +476,7 @@ fun ModelDownloadCard(
                         color = TextPrimary
                     )
                     Text(
-                        text = "Size: %.1f GB".format(variant.sizeGB),
+                        text = stringResource(R.string.model_size, "%.1f".format(variant.sizeGB)),
                         style = MaterialTheme.typography.bodyMedium,
                         color = TextSecondary
                     )
@@ -497,20 +497,20 @@ fun ModelDownloadCard(
                     DownloadStatus.State.DOWNLOADING -> {
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             IconButton(onClick = onPause) {
-                                Icon(Icons.Default.Pause, contentDescription = "Pause", tint = IndigoLight)
+                                Icon(Icons.Default.Pause, contentDescription = stringResource(R.string.cd_pause), tint = IndigoLight)
                             }
                             IconButton(onClick = onCancel) {
-                                Icon(Icons.Default.Close, contentDescription = "Cancel", tint = Color.Red)
+                                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.cancel), tint = Color.Red)
                             }
                         }
                     }
                     DownloadStatus.State.PAUSED -> {
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             IconButton(onClick = onDownload) {
-                                Icon(Icons.Default.PlayArrow, contentDescription = "Resume", tint = IndigoLight)
+                                Icon(Icons.Default.PlayArrow, contentDescription = stringResource(R.string.cd_resume), tint = IndigoLight)
                             }
                             IconButton(onClick = onCancel) {
-                                Icon(Icons.Default.Close, contentDescription = "Cancel", tint = Color.Red)
+                                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.cancel), tint = Color.Red)
                             }
                         }
                     }
@@ -523,11 +523,11 @@ fun ModelDownloadCard(
                                     onClick = onSelect,
                                     colors = ButtonDefaults.buttonColors(containerColor = IndigoAccent)
                                 ) {
-                                    Text("Select", color = TextPrimary)
+                                    Text(stringResource(R.string.select), color = TextPrimary)
                                 }
                             }
                             IconButton(onClick = onDelete) {
-                                Icon(Icons.Default.Delete, contentDescription = "Delete", tint = Color.Red)
+                                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.cd_delete), tint = Color.Red)
                             }
                             Icon(
                                 imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
@@ -541,7 +541,7 @@ fun ModelDownloadCard(
                             onClick = onDownload,
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
                         ) {
-                            Text("Retry", color = TextPrimary)
+                            Text(stringResource(R.string.retry), color = TextPrimary)
                         }
                     }
                 }
@@ -571,7 +571,7 @@ fun ModelDownloadCard(
                         text = if (status.state == DownloadStatus.State.DOWNLOADING) {
                             formatSpeed(status.speedBytesPerSec)
                         } else {
-                            "Paused"
+                            stringResource(R.string.paused)
                         },
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                         color = if (status.state == DownloadStatus.State.DOWNLOADING) IndigoLight else TextSecondary
@@ -611,7 +611,7 @@ fun ModelDownloadCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "$contextWindowSize tokens",
+                            text = stringResource(R.string.tokens_count, contextWindowSize),
                             style = MaterialTheme.typography.bodyMedium,
                             color = TextPrimary
                         )

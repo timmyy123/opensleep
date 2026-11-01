@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium đang hoạt động</string>
     <string name="paywall_lifetime_active_desc">Bạn có quyền truy cập vĩnh viễn vào Huấn luyện viên giấc ngủ AI.</string>
     <string name="paywall_upgrade_now">Mở khóa OpenSleep Lifetime Premium</string>
+    <string name="model_size">Dung lượng: %s GB</string>
+    <string name="paused">Đã tạm dừng</string>
+    <string name="retry">Thử lại</string>
+    <string name="selected_count">Đã chọn %d</string>
+    <string name="tokens_count">%d token</string>
+    <string name="duration_hm">%1$dg %2$dp</string>
+    <string name="duration_m">%dp</string>
+    <string name="cd_pause">Tạm dừng</string>
+    <string name="cd_resume">Tiếp tục</string>
+    <string name="cd_delete">Xóa</string>
+    <string name="cd_clear_chat">Xóa cuộc trò chuyện</string>
+    <string name="billing_restored">Đã khôi phục giao dịch mua thành công!</string>
+    <string name="billing_no_purchases">Không tìm thấy giao dịch mua trước đó.</string>
+    <string name="billing_restore_failed">Không thể khôi phục giao dịch mua.</string>
+    <string name="billing_loading">Đang tải thông tin từ Google Play… vui lòng thử lại.</string>
+    <string name="billing_purchase_failed">Không thể hoàn tất giao dịch mua.</string>
 </resources>

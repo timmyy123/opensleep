@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium aktiv</string>
     <string name="paywall_lifetime_active_desc">Sie haben dauerhaften Zugriff auf den KI-Schlafcoach.</string>
     <string name="paywall_upgrade_now">OpenSleep Lifetime Premium freischalten</string>
+    <string name="model_size">Größe: %s GB</string>
+    <string name="paused">Pausiert</string>
+    <string name="retry">Wiederholen</string>
+    <string name="selected_count">%d ausgewählt</string>
+    <string name="tokens_count">%d Token</string>
+    <string name="duration_hm">%1$dh %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Pausieren</string>
+    <string name="cd_resume">Fortsetzen</string>
+    <string name="cd_delete">Löschen</string>
+    <string name="cd_clear_chat">Chat leeren</string>
+    <string name="billing_restored">Käufe erfolgreich wiederhergestellt!</string>
+    <string name="billing_no_purchases">Keine früheren Käufe gefunden.</string>
+    <string name="billing_restore_failed">Käufe konnten nicht wiederhergestellt werden.</string>
+    <string name="billing_loading">Google Play-Details werden geladen … bitte versuche es erneut.</string>
+    <string name="billing_purchase_failed">Der Kauf konnte nicht abgeschlossen werden.</string>
 </resources>

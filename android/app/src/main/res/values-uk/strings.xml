@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium активний</string>
     <string name="paywall_lifetime_active_desc">У тебе є постійний доступ до ШІ-коуча зі сну.</string>
     <string name="paywall_upgrade_now">Відкрити OpenSleep Lifetime Premium</string>
+    <string name="model_size">Розмір: %s ГБ</string>
+    <string name="paused">На паузі</string>
+    <string name="retry">Повторити</string>
+    <string name="selected_count">Вибрано: %d</string>
+    <string name="tokens_count">Токенів: %d</string>
+    <string name="duration_hm">%1$d год %2$d хв</string>
+    <string name="duration_m">%d хв</string>
+    <string name="cd_pause">Призупинити</string>
+    <string name="cd_resume">Відновити</string>
+    <string name="cd_delete">Видалити</string>
+    <string name="cd_clear_chat">Очистити чат</string>
+    <string name="billing_restored">Покупки успішно відновлено!</string>
+    <string name="billing_no_purchases">Попередніх покупок не знайдено.</string>
+    <string name="billing_restore_failed">Не вдалося відновити покупки.</string>
+    <string name="billing_loading">Завантажуємо дані Google Play… спробуй ще раз.</string>
+    <string name="billing_purchase_failed">Не вдалося завершити покупку.</string>
 </resources>

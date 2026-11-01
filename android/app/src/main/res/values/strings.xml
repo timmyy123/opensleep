@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium Active</string>
     <string name="paywall_lifetime_active_desc">You have permanent access to the AI Sleep Coach.</string>
     <string name="paywall_upgrade_now">Unlock OpenSleep Lifetime Premium</string>
+    <string name="model_size">Size: %s GB</string>
+    <string name="paused">Paused</string>
+    <string name="retry">Retry</string>
+    <string name="selected_count">%d Selected</string>
+    <string name="tokens_count">%d tokens</string>
+    <string name="duration_hm">%1$dh %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Pause</string>
+    <string name="cd_resume">Resume</string>
+    <string name="cd_delete">Delete</string>
+    <string name="cd_clear_chat">Clear Chat</string>
+    <string name="billing_restored">Purchases restored successfully!</string>
+    <string name="billing_no_purchases">No previous purchases found.</string>
+    <string name="billing_restore_failed">Failed to restore purchases.</string>
+    <string name="billing_loading">Loading Google Play details… please retry.</string>
+    <string name="billing_purchase_failed">Purchase could not be completed.</string>
 </resources>

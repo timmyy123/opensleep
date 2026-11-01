@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium Aktif</string>
     <string name="paywall_lifetime_active_desc">Anda memiliki akses permanen ke Pelatih Tidur AI.</string>
     <string name="paywall_upgrade_now">Buka OpenSleep Lifetime Premium</string>
+    <string name="model_size">Ukuran: %s GB</string>
+    <string name="paused">Dijeda</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="selected_count">%d Dipilih</string>
+    <string name="tokens_count">%d token</string>
+    <string name="duration_hm">%1$dj %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Jeda</string>
+    <string name="cd_resume">Lanjutkan</string>
+    <string name="cd_delete">Hapus</string>
+    <string name="cd_clear_chat">Hapus obrolan</string>
+    <string name="billing_restored">Pembelian berhasil dipulihkan!</string>
+    <string name="billing_no_purchases">Tidak ada pembelian sebelumnya.</string>
+    <string name="billing_restore_failed">Gagal memulihkan pembelian.</string>
+    <string name="billing_loading">Memuat detail Google Play… silakan coba lagi.</string>
+    <string name="billing_purchase_failed">Pembelian tidak dapat diselesaikan.</string>
 </resources>

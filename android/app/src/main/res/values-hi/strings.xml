@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium सक्रिय</string>
     <string name="paywall_lifetime_active_desc">आपके पास AI स्लीप कोच का स्थायी एक्सेस है।</string>
     <string name="paywall_upgrade_now">OpenSleep Lifetime Premium अनलॉक करें</string>
+    <string name="model_size">आकार: %s GB</string>
+    <string name="paused">रुका हुआ</string>
+    <string name="retry">फिर से कोशिश करें</string>
+    <string name="selected_count">%d चुने गए</string>
+    <string name="tokens_count">%d टोकन</string>
+    <string name="duration_hm">%1$d घं %2$d मि</string>
+    <string name="duration_m">%d मि</string>
+    <string name="cd_pause">रोकें</string>
+    <string name="cd_resume">फिर से शुरू करें</string>
+    <string name="cd_delete">हटाएं</string>
+    <string name="cd_clear_chat">चैट साफ़ करें</string>
+    <string name="billing_restored">खरीदारी सफलतापूर्वक बहाल की गई!</string>
+    <string name="billing_no_purchases">कोई पिछली खरीदारी नहीं मिली।</string>
+    <string name="billing_restore_failed">खरीदारी बहाल नहीं हो सकी।</string>
+    <string name="billing_loading">Google Play विवरण लोड हो रहे हैं… कृपया फिर से कोशिश करें।</string>
+    <string name="billing_purchase_failed">खरीदारी पूरी नहीं हो सकी।</string>
 </resources>

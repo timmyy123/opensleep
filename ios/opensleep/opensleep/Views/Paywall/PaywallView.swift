@@ -195,13 +195,13 @@ struct PaywallView: View {
                         
                         // Error & Status feedback
                         if let error = storeKit.errorMessage {
-                            Text(error)
+                            Text(LocalizedStringKey(error))
                                 .font(AppTextStyle.caption)
                                 .foregroundStyle(Color.coralAccent)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 12)
                         } else if let status = storeKit.statusMessage {
-                            Text(status)
+                            Text(LocalizedStringKey(status))
                                 .font(AppTextStyle.caption)
                                 .foregroundStyle(Color.greenAccent)
                                 .multilineTextAlignment(.center)

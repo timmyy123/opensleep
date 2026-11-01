@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium Attivo</string>
     <string name="paywall_lifetime_active_desc">Hai accesso permanente al Coach del Sonno IA.</string>
     <string name="paywall_upgrade_now">Sblocca OpenSleep Lifetime Premium</string>
+    <string name="model_size">Dimensione: %s GB</string>
+    <string name="paused">In pausa</string>
+    <string name="retry">Riprova</string>
+    <string name="selected_count">%d selezionati</string>
+    <string name="tokens_count">%d token</string>
+    <string name="duration_hm">%1$dh %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Metti in pausa</string>
+    <string name="cd_resume">Riprendi</string>
+    <string name="cd_delete">Elimina</string>
+    <string name="cd_clear_chat">Cancella chat</string>
+    <string name="billing_restored">Acquisti ripristinati con successo!</string>
+    <string name="billing_no_purchases">Nessun acquisto precedente trovato.</string>
+    <string name="billing_restore_failed">Impossibile ripristinare gli acquisti.</string>
+    <string name="billing_loading">Caricamento dei dettagli di Google Play… riprova.</string>
+    <string name="billing_purchase_failed">Impossibile completare l\'acquisto.</string>
 </resources>

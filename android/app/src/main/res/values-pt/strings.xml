@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium Ativo</string>
     <string name="paywall_lifetime_active_desc">Você tem acesso permanente ao Treinador de Sono IA.</string>
     <string name="paywall_upgrade_now">Desbloquear OpenSleep Lifetime Premium</string>
+    <string name="model_size">Tamanho: %s GB</string>
+    <string name="paused">Pausado</string>
+    <string name="retry">Repetir</string>
+    <string name="selected_count">%d selecionados</string>
+    <string name="tokens_count">%d tokens</string>
+    <string name="duration_hm">%1$dh %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Pausar</string>
+    <string name="cd_resume">Retomar</string>
+    <string name="cd_delete">Excluir</string>
+    <string name="cd_clear_chat">Limpar conversa</string>
+    <string name="billing_restored">Compras restauradas com sucesso!</string>
+    <string name="billing_no_purchases">Nenhuma compra anterior encontrada.</string>
+    <string name="billing_restore_failed">Não foi possível restaurar as compras.</string>
+    <string name="billing_loading">Carregando detalhes do Google Play… tente novamente.</string>
+    <string name="billing_purchase_failed">Não foi possível concluir a compra.</string>
 </resources>

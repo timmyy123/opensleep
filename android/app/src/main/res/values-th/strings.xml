@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">เปิดใช้งาน OpenSleep Lifetime Premium แล้ว</string>
     <string name="paywall_lifetime_active_desc">คุณมีสิทธิ์ใช้งานโค้ชการนอน AI อย่างถาวร</string>
     <string name="paywall_upgrade_now">ปลดล็อก OpenSleep Lifetime Premium</string>
+    <string name="model_size">ขนาด: %s GB</string>
+    <string name="paused">หยุดชั่วคราว</string>
+    <string name="retry">ลองอีกครั้ง</string>
+    <string name="selected_count">เลือก %d รายการ</string>
+    <string name="tokens_count">%d โทเค็น</string>
+    <string name="duration_hm">%1$d ชม. %2$d น.</string>
+    <string name="duration_m">%d น.</string>
+    <string name="cd_pause">หยุดชั่วคราว</string>
+    <string name="cd_resume">ดำเนินการต่อ</string>
+    <string name="cd_delete">ลบ</string>
+    <string name="cd_clear_chat">ล้างแชท</string>
+    <string name="billing_restored">กู้คืนการซื้อสำเร็จแล้ว!</string>
+    <string name="billing_no_purchases">ไม่พบการซื้อก่อนหน้า</string>
+    <string name="billing_restore_failed">กู้คืนการซื้อไม่สำเร็จ</string>
+    <string name="billing_loading">กำลังโหลดรายละเอียดจาก Google Play… โปรดลองอีกครั้ง</string>
+    <string name="billing_purchase_failed">ไม่สามารถทำการซื้อให้เสร็จสมบูรณ์ได้</string>
 </resources>

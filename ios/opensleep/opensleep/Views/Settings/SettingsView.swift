@@ -373,7 +373,7 @@ struct ModelDownloadCard: View {
                         Text(variant.displayName)
                             .font(.system(size: 16, weight: .bold))
                             .foregroundStyle(Color.textPrimary)
-                        Text(String(format: "Size: %.1f GB", variant.sizeGB))
+                        Text("Size: \(String(format: "%.1f", variant.sizeGB)) GB")
                             .font(AppTextStyle.bodyMedium)
                             .foregroundStyle(Color.textSecondary)
                     }

@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium активен</string>
     <string name="paywall_lifetime_active_desc">У тебя есть постоянный доступ к ИИ-коучу по сну.</string>
     <string name="paywall_upgrade_now">Открыть OpenSleep Lifetime Premium</string>
+    <string name="model_size">Размер: %s ГБ</string>
+    <string name="paused">На паузе</string>
+    <string name="retry">Повторить</string>
+    <string name="selected_count">Выбрано: %d</string>
+    <string name="tokens_count">Токенов: %d</string>
+    <string name="duration_hm">%1$d ч %2$d мин</string>
+    <string name="duration_m">%d мин</string>
+    <string name="cd_pause">Приостановить</string>
+    <string name="cd_resume">Возобновить</string>
+    <string name="cd_delete">Удалить</string>
+    <string name="cd_clear_chat">Очистить чат</string>
+    <string name="billing_restored">Покупки успешно восстановлены!</string>
+    <string name="billing_no_purchases">Предыдущие покупки не найдены.</string>
+    <string name="billing_restore_failed">Не удалось восстановить покупки.</string>
+    <string name="billing_loading">Загружаем данные Google Play… попробуй ещё раз.</string>
+    <string name="billing_purchase_failed">Не удалось завершить покупку.</string>
 </resources>

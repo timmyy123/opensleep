@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium פעיל</string>
     <string name="paywall_lifetime_active_desc">יש לך גישה קבועה למאמן השינה מבוסס ה-AI.</string>
     <string name="paywall_upgrade_now">פתיחת OpenSleep Lifetime Premium</string>
+    <string name="model_size">גודל: %s GB</string>
+    <string name="paused">מושהה</string>
+    <string name="retry">ניסיון חוזר</string>
+    <string name="selected_count">%d נבחרו</string>
+    <string name="tokens_count">%d טוקנים</string>
+    <string name="duration_hm">%1$d שע׳ %2$d דק׳</string>
+    <string name="duration_m">%d דק׳</string>
+    <string name="cd_pause">השהיה</string>
+    <string name="cd_resume">המשך</string>
+    <string name="cd_delete">מחיקה</string>
+    <string name="cd_clear_chat">ניקוי הצ׳אט</string>
+    <string name="billing_restored">הרכישות שוחזרו בהצלחה!</string>
+    <string name="billing_no_purchases">לא נמצאו רכישות קודמות.</string>
+    <string name="billing_restore_failed">שחזור הרכישות נכשל.</string>
+    <string name="billing_loading">טוען פרטים מ-Google Play… יש לנסות שוב.</string>
+    <string name="billing_purchase_failed">לא ניתן היה להשלים את הרכישה.</string>
 </resources>

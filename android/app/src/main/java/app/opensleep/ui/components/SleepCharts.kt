@@ -83,7 +83,7 @@ fun SleepRingChart(
             val hours = TimeUnit.MILLISECONDS.toHours(totalMs)
             val minutes = TimeUnit.MILLISECONDS.toMinutes(totalMs) % 60
             Text(
-                text = "${hours}h ${minutes}m",
+                text = stringResource(R.string.duration_hm, hours, minutes),
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
@@ -231,7 +231,7 @@ fun SleepStageLegend(
                     color = stageColor(type)
                 )
                 Text(
-                    text = "${minutes}m",
+                    text = stringResource(R.string.duration_m, minutes),
                     style = MaterialTheme.typography.labelSmall,
                     color = TextSecondary
                 )

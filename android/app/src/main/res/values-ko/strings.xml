@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep 평생 프리미엄 활성화됨</string>
     <string name="paywall_lifetime_active_desc">AI 수면 코치를 평생 이용할 수 있어요.</string>
     <string name="paywall_upgrade_now">OpenSleep 평생 프리미엄 잠금 해제</string>
+    <string name="model_size">크기: %sGB</string>
+    <string name="paused">일시정지됨</string>
+    <string name="retry">다시 시도</string>
+    <string name="selected_count">%d개 선택됨</string>
+    <string name="tokens_count">%d토큰</string>
+    <string name="duration_hm">%1$d시간 %2$d분</string>
+    <string name="duration_m">%d분</string>
+    <string name="cd_pause">일시정지</string>
+    <string name="cd_resume">재개</string>
+    <string name="cd_delete">삭제</string>
+    <string name="cd_clear_chat">채팅 지우기</string>
+    <string name="billing_restored">구매 항목을 복원했어요!</string>
+    <string name="billing_no_purchases">이전 구매 내역이 없어요.</string>
+    <string name="billing_restore_failed">구매 항목을 복원하지 못했어요.</string>
+    <string name="billing_loading">Google Play 정보를 불러오는 중이에요… 다시 시도해 주세요.</string>
+    <string name="billing_purchase_failed">구매를 완료하지 못했어요.</string>
 </resources>

@@ -15,6 +15,7 @@ final class StoreKitManager: ObservableObject {
     @Published var isLoadingProduct: Bool = false
     @Published var isPurchasing: Bool = false
     @Published var isRestoring: Bool = false
+    // Localizable.xcstrings keys, or StoreKit's own already-localized error text.
     @Published var statusMessage: String? = nil
     @Published var errorMessage: String? = nil
     
@@ -61,7 +62,7 @@ final class StoreKitManager: ObservableObject {
             await loadProduct()
         }
         guard let product = self.product else {
-            self.errorMessage = "Unable to connect to the App Store. Please try again."
+            self.errorMessage = "store_error_connect"
             return false
         }
         
@@ -82,7 +83,7 @@ final class StoreKitManager: ObservableObject {
                 return false
                 
             case .pending:
-                self.statusMessage = "Purchase is pending approval."
+                self.statusMessage = "store_pending"
                 return false
                 
             @unknown default:
@@ -105,9 +106,9 @@ final class StoreKitManager: ObservableObject {
             try await AppStore.sync()
             await updatePurchasedStatus()
             if isPremium {
-                statusMessage = "Purchases restored successfully!"
+                statusMessage = "store_restored"
             } else {
-                statusMessage = "No previous purchases found."
+                statusMessage = "store_no_purchases"
             }
         } catch {
             errorMessage = error.localizedDescription

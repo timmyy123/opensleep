@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium er aktiv</string>
     <string name="paywall_lifetime_active_desc">Du har permanent tilgang til AI-søvncoachen.</string>
     <string name="paywall_upgrade_now">Lås opp OpenSleep Lifetime Premium</string>
+    <string name="model_size">Størrelse: %s GB</string>
+    <string name="paused">Satt på pause</string>
+    <string name="retry">Prøv igjen</string>
+    <string name="selected_count">%d valgt</string>
+    <string name="tokens_count">%d tokens</string>
+    <string name="duration_hm">%1$dt %2$dm</string>
+    <string name="duration_m">%dm</string>
+    <string name="cd_pause">Sett på pause</string>
+    <string name="cd_resume">Fortsett</string>
+    <string name="cd_delete">Slett</string>
+    <string name="cd_clear_chat">Tøm chatten</string>
+    <string name="billing_restored">Kjøpene er gjenopprettet!</string>
+    <string name="billing_no_purchases">Fant ingen tidligere kjøp.</string>
+    <string name="billing_restore_failed">Kunne ikke gjenopprette kjøpene.</string>
+    <string name="billing_loading">Laster inn detaljer fra Google Play … prøv igjen.</string>
+    <string name="billing_purchase_failed">Kjøpet kunne ikke fullføres.</string>
 </resources>

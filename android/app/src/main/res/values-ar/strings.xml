@@ -114,4 +114,20 @@
     <string name="paywall_premium_active">OpenSleep Lifetime Premium مفعّل</string>
     <string name="paywall_lifetime_active_desc">لديك وصول دائم إلى مدرب النوم بالذكاء الاصطناعي.</string>
     <string name="paywall_upgrade_now">افتح OpenSleep Lifetime Premium</string>
+    <string name="model_size">الحجم: %s غيغابايت</string>
+    <string name="paused">متوقف مؤقتًا</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="selected_count">تم تحديد %d</string>
+    <string name="tokens_count">الرموز: %d</string>
+    <string name="duration_hm">%1$d س %2$d د</string>
+    <string name="duration_m">%d د</string>
+    <string name="cd_pause">إيقاف مؤقت</string>
+    <string name="cd_resume">استئناف</string>
+    <string name="cd_delete">حذف</string>
+    <string name="cd_clear_chat">مسح المحادثة</string>
+    <string name="billing_restored">تمت استعادة المشتريات بنجاح!</string>
+    <string name="billing_no_purchases">لم يتم العثور على مشتريات سابقة.</string>
+    <string name="billing_restore_failed">تعذّرت استعادة المشتريات.</string>
+    <string name="billing_loading">جارٍ تحميل تفاصيل Google Play… يُرجى المحاولة مرة أخرى.</string>
+    <string name="billing_purchase_failed">تعذّر إتمام عملية الشراء.</string>
 </resources>
