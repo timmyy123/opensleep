@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Bắt đầu ngủ</string>
+    <string name="stop_sleep">Dừng ngủ</string>
+    <string name="saving">Đang lưu…</string>
+    <string name="tracking_active">Đang theo dõi giấc ngủ của bạn…</string>
+    <string name="tracking_idle">Sẵn sàng theo dõi giấc ngủ</string>
+    <string name="time_asleep">thời gian ngủ</string>
+    <string name="live_stages">Giai đoạn trực tiếp</string>
+    <string name="history_title">Lịch sử giấc ngủ</string>
+    <string name="no_sessions">Chưa có phiên ngủ nào.\nChạm Bắt đầu ngủ để bắt đầu.</string>
+    <string name="ai_chat_title">Huấn luyện viên giấc ngủ</string>
+    <string name="no_model_loaded">Chưa tải mô hình nào</string>
+    <string name="choose_model">Chọn mô hình AI của bạn</string>
+    <string name="load_model">Dùng</string>
+    <string name="download_model">Tải về</string>
+    <string name="chat_placeholder">Hỏi về giấc ngủ của bạn…</string>
+    <string name="notification_channel_name">Theo dõi giấc ngủ</string>
+    <string name="notification_channel_desc">Hoạt động khi OpenSleep theo dõi giấc ngủ của bạn</string>
+    <string name="notification_tracking_title">Đang theo dõi giấc ngủ</string>
+    <string name="notification_tracking_text">OpenSleep đang theo dõi kiểu ngủ của bạn</string>
+    <string name="notification_syncing_title">Đang đồng bộ dữ liệu giấc ngủ</string>
+    <string name="notification_syncing_text">OpenSleep đang lưu và đồng bộ dữ liệu của bạn…</string>
+    <string name="menu_sleep">Ngủ</string>
+    <string name="menu_history">Lịch sử</string>
+    <string name="menu_chat">Chat AI</string>
+    <string name="menu_settings">Cài đặt</string>
+    <string name="section_language">Ngôn ngữ</string>
+    <string name="section_models">Mô hình AI</string>
+    <string name="chat_thinking">Đang suy nghĩ…</string>
+    <string name="no_models_downloaded">Chưa tải mô hình AI nào. Vào Cài đặt để chọn và tải một mô hình Gemma 4.</string>
+    <string name="configure_in_settings">Thiết lập trong Cài đặt</string>
+    <string name="manage_models_in_settings">Quản lý mô hình trong Cài đặt</string>
+    <string name="loading_model">Đang tải mô hình vào bộ nhớ…</string>
+    <string name="chat_loading">Đang tải…</string>
+    <string name="setting_context_size">Kích thước cửa sổ ngữ cảnh</string>
+    <string name="active_model">Đang dùng</string>
+    <string name="ready_to_use">Sẵn sàng sử dụng</string>
+    <string name="delete_session_title">Xóa phiên ngủ?</string>
+    <string name="delete_session_message">Phiên ngủ này và dữ liệu sức khỏe của nó sẽ bị xóa vĩnh viễn.</string>
+    <string name="delete_confirm">Xóa</string>
+    <string name="cancel">Hủy</string>
+        <string name="bedtime">Giờ đi ngủ</string>
+    <string name="wake_up">Thức dậy</string>
+    <string name="duration">Thời lượng</string>
+    <string name="sleep_stages">Giai đoạn giấc ngủ</string>
+    <string name="sleep_pattern">Kiểu ngủ</string>
+    <string name="sleep_pattern_legend">Thức · REM · Nông · Sâu  (trên → dưới)</string>
+    <string name="total_sleep">tổng</string>
+    <string name="stage_awake">Thức</string>
+    <string name="stage_light">Nông</string>
+    <string name="stage_deep">Sâu</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Ngày</string>
+    <string name="chart_week">Tuần</string>
+    <string name="chart_month">Tháng</string>
+    <string name="chart_year">Năm</string>
+    <string name="select_all">Chọn tất cả</string>
+    <string name="select">Chọn</string>
+    <string name="delete_selected">Xóa mục đã chọn</string>
+    <string name="section_about">Giới thiệu &amp; Quyền riêng tư</string>
+    <string name="privacy_tos">Quyền riêng tư &amp; Điều khoản</string>
+    <string name="privacy_title">Chính sách quyền riêng tư</string>
+    <string name="privacy_body" formatted="false">OpenSleep cam kết 100% bảo vệ quyền riêng tư của bạn.
+
+• Xử lý 100% trên thiết bị: Cảm biến chuyển động của điện thoại và các đặc trưng mức âm thanh lấy từ micrô được phân tích hoàn toàn cục bộ. Âm thanh gốc không được lưu lại, và không có dữ liệu đo từ xa cá nhân nào rời khỏi thiết bị của bạn.
+• Mô hình AI cục bộ: Trợ lý giấc ngủ chạy LLM Gemma 4 hoàn toàn cục bộ trên thiết bị (không máy chủ, không API bên ngoài).
+• Mã nguồn mở: OpenSleep là dự án mã nguồn mở, minh bạch hoàn toàn. Bạn có thể xem mã nguồn bất cứ lúc nào.
+• Đồng bộ sức khỏe: Các phiên ngủ được lưu cục bộ và đồng bộ trực tiếp với Google Health Connect.
+• Hỗ trợ: Nếu bạn có câu hỏi hoặc góp ý, hãy liên hệ với chúng tôi qua timmy@opensleep.tech.</string>
+    <string name="github_repo">Kho mã GitHub</string>
+    <string name="notifications_disabled_title">Thông báo đã bị tắt</string>
+    <string name="notifications_disabled_desc">OpenSleep cần quyền thông báo để theo dõi giấc ngủ ở chế độ nền. Chạm vào đây để bật trong Cài đặt.</string>
+    <string name="health_connect_permissions_title">Bật Health Connect</string>
+    <string name="health_connect_permissions_desc">Cho phép quyền đọc/ghi dữ liệu giấc ngủ để OpenSleep có thể đồng bộ các phiên đã hoàn tất và nhập dữ liệu giấc ngủ hiện có.</string>
+    <string name="enable">Bật</string>
+    <string name="section_ai_settings">Cài đặt Chat AI</string>
+    <string name="setting_use_gpu">Dùng tăng tốc GPU</string>
+    <string name="setting_use_gpu_desc">Dùng GPU của điện thoại để AI phản hồi nhanh hơn. Tắt để dùng CPU.</string>
+    <string name="guide_title">Hướng dẫn theo dõi giấc ngủ</string>
+    <string name="guide_sonar_title">Sonar (Không tiếp xúc)</string>
+    <string name="guide_sonar_desc">Đặt điện thoại trên tủ đầu giường chắc chắn, cạnh giường. Hướng cạnh dưới (loa/micrô) về phía cơ thể/ngực bạn.</string>
+    <string name="guide_accel_title">Gia tốc kế (Nệm)</string>
+    <string name="guide_accel_desc">Đặt điện thoại nằm phẳng trên nệm cạnh gối hoặc dưới ga giường để theo dõi chuyển động cơ thể.</string>
+    <string name="guide_charger_tip">Mẹo: Hãy cắm sạc điện thoại để cảm biến theo dõi không làm hao pin.</string>
+    <string name="battery_optimization_title">Tối ưu hóa pin đang bật</string>
+    <string name="battery_optimization_desc">OpenSleep có thể bị trình tiết kiệm pin của hệ thống dừng khi chạy nền. Chạm vào đây để tắt tối ưu hóa pin trong cài đặt hệ thống.</string>
+
+    <string name="section_sensor">Cảm biến theo dõi</string>
+    <string name="sensor_sonar">Sonar (Không tiếp xúc)</string>
+    <string name="sensor_sonar_desc">Đặt trên tủ đầu giường, hướng về phía ngực bạn. Sử dụng sóng siêu âm.</string>
+    <string name="sensor_accelerometer">Gia tốc kế (Nệm)</string>
+    <string name="sensor_accelerometer_desc">Đặt điện thoại nằm phẳng trên nệm cạnh gối.</string>
+    <string name="section_membership">Gói thành viên</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Phân tích và hướng dẫn giấc ngủ cá nhân hóa, vận hành bởi mô hình AI của Google trên thiết bị.</string>
+    <string name="paywall_feature1_title">Hướng dẫn giấc ngủ cá nhân hóa</string>
+    <string name="paywall_feature1_desc">Phân tích kiểu ngủ, các giai đoạn và chất lượng giấc ngủ của bạn để đưa ra lời khuyên phù hợp.</string>
+    <string name="paywall_feature2_title">AI của Google trên thiết bị</string>
+    <string name="paywall_feature2_desc">Vận hành bởi mô hình AI tiên tiến của Google chạy ngay trên thiết bị. Riêng tư 100% và dùng được ngoại tuyến.</string>
+    <string name="paywall_feature3_title">Tin nhắn không giới hạn</string>
+    <string name="paywall_feature3_desc">Gửi tin nhắn không giới hạn và hỏi mọi câu hỏi về giấc ngủ.</string>
+    <string name="paywall_feature4_title">Truy cập trọn đời</string>
+    <string name="paywall_feature4_desc">Trả một lần, dùng mãi mãi. Không gói đăng ký, không phí định kỳ, không chi phí ẩn.</string>
+    <string name="paywall_lifetime_badge">TRỌN ĐỜI</string>
+    <string name="paywall_one_time_badge">THANH TOÁN MỘT LẦN</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Trả một lần để mở khóa Huấn luyện viên giấc ngủ AI mãi mãi. Không phí định kỳ.</string>
+    <string name="paywall_unlock_button">Mở khóa trọn đời</string>
+    <string name="paywall_unlock_with_price">Mở khóa trọn đời · %s</string>
+    <string name="paywall_restore_button">Khôi phục giao dịch mua</string>
+    <string name="paywall_terms_privacy">Khoản thanh toán sẽ được tính vào tài khoản Google Play của bạn. Mua một lần, không có gói đăng ký.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium đang hoạt động</string>
+    <string name="paywall_lifetime_active_desc">Bạn có quyền truy cập vĩnh viễn vào Huấn luyện viên giấc ngủ AI.</string>
+    <string name="paywall_upgrade_now">Mở khóa OpenSleep Lifetime Premium</string>
+</resources>

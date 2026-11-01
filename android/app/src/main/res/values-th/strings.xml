@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">เริ่มการนอน</string>
+    <string name="stop_sleep">สิ้นสุดการนอน</string>
+    <string name="saving">กำลังบันทึก…</string>
+    <string name="tracking_active">กำลังติดตามการนอนของคุณ…</string>
+    <string name="tracking_idle">พร้อมติดตามการนอนของคุณ</string>
+    <string name="time_asleep">เวลาที่หลับ</string>
+    <string name="live_stages">ระยะการนอนแบบเรียลไทม์</string>
+    <string name="history_title">ประวัติการนอน</string>
+    <string name="no_sessions">ยังไม่มีเซสชันการนอน\nแตะ “เริ่มการนอน” เพื่อเริ่มต้น</string>
+    <string name="ai_chat_title">โค้ชการนอน</string>
+    <string name="no_model_loaded">ยังไม่ได้โหลดโมเดล</string>
+    <string name="choose_model">เลือกโมเดล AI ของคุณ</string>
+    <string name="load_model">ใช้</string>
+    <string name="download_model">ดาวน์โหลด</string>
+    <string name="chat_placeholder">ถามเกี่ยวกับการนอนของคุณ…</string>
+    <string name="notification_channel_name">การติดตามการนอน</string>
+    <string name="notification_channel_desc">ทำงานขณะที่ OpenSleep ติดตามการนอนของคุณ</string>
+    <string name="notification_tracking_title">กำลังติดตามการนอน</string>
+    <string name="notification_tracking_text">OpenSleep กำลังติดตามรูปแบบการนอนของคุณ</string>
+    <string name="notification_syncing_title">กำลังซิงค์ข้อมูลการนอน</string>
+    <string name="notification_syncing_text">OpenSleep กำลังบันทึกและซิงค์ข้อมูลของคุณ…</string>
+    <string name="menu_sleep">การนอน</string>
+    <string name="menu_history">ประวัติ</string>
+    <string name="menu_chat">แชท AI</string>
+    <string name="menu_settings">การตั้งค่า</string>
+    <string name="section_language">ภาษา</string>
+    <string name="section_models">โมเดล AI</string>
+    <string name="chat_thinking">กำลังคิด…</string>
+    <string name="no_models_downloaded">ยังไม่ได้ดาวน์โหลดโมเดล AI ไปที่การตั้งค่าเพื่อเลือกและดาวน์โหลดโมเดล Gemma 4</string>
+    <string name="configure_in_settings">กำหนดค่าในการตั้งค่า</string>
+    <string name="manage_models_in_settings">จัดการโมเดลในการตั้งค่า</string>
+    <string name="loading_model">กำลังโหลดโมเดลเข้าหน่วยความจำ…</string>
+    <string name="chat_loading">กำลังโหลด…</string>
+    <string name="setting_context_size">ขนาดหน้าต่างบริบท</string>
+    <string name="active_model">ใช้งานอยู่</string>
+    <string name="ready_to_use">พร้อมใช้งาน</string>
+    <string name="delete_session_title">ลบเซสชันใช่ไหม</string>
+    <string name="delete_session_message">เซสชันการนอนนี้และข้อมูลสุขภาพที่เกี่ยวข้องจะถูกลบอย่างถาวร</string>
+    <string name="delete_confirm">ลบ</string>
+    <string name="cancel">ยกเลิก</string>
+        <string name="bedtime">เวลาเข้านอน</string>
+    <string name="wake_up">เวลาตื่น</string>
+    <string name="duration">ระยะเวลา</string>
+    <string name="sleep_stages">ระยะการนอน</string>
+    <string name="sleep_pattern">รูปแบบการนอน</string>
+    <string name="sleep_pattern_legend">ตื่น · REM · หลับตื้น · หลับลึก  (บน → ล่าง)</string>
+    <string name="total_sleep">รวม</string>
+    <string name="stage_awake">ตื่น</string>
+    <string name="stage_light">หลับตื้น</string>
+    <string name="stage_deep">หลับลึก</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">วัน</string>
+    <string name="chart_week">สัปดาห์</string>
+    <string name="chart_month">เดือน</string>
+    <string name="chart_year">ปี</string>
+    <string name="select_all">เลือกทั้งหมด</string>
+    <string name="select">เลือก</string>
+    <string name="delete_selected">ลบที่เลือก</string>
+    <string name="section_about">เกี่ยวกับและความเป็นส่วนตัว</string>
+    <string name="privacy_tos">นโยบายความเป็นส่วนตัวและข้อกำหนด</string>
+    <string name="privacy_title">นโยบายความเป็นส่วนตัว</string>
+    <string name="privacy_body" formatted="false">OpenSleep ให้ความสำคัญกับความเป็นส่วนตัวของคุณ 100%
+
+• ประมวลผลบนอุปกรณ์ 100%: เซ็นเซอร์ตรวจจับการเคลื่อนไหวของโทรศัพท์และคุณลักษณะระดับเสียงที่ได้จากไมโครโฟนได้รับการวิเคราะห์บนอุปกรณ์ทั้งหมด ไม่มีการเก็บเสียงดิบ และไม่มีข้อมูลการวัดระยะไกลส่วนบุคคลใดๆ ออกจากอุปกรณ์ของคุณ
+• โมเดล AI ในเครื่อง: ผู้ช่วยด้านการนอนใช้ Gemma 4 LLM ที่ทำงานบนอุปกรณ์ทั้งหมด (ไม่มีเซิร์ฟเวอร์ ไม่มี API ภายนอก)
+• โอเพนซอร์ส: OpenSleep เป็นโปรเจกต์โอเพนซอร์สที่โปร่งใสเต็มที่ คุณสามารถตรวจสอบซอร์สโค้ดได้ทุกเมื่อ
+• ซิงค์ข้อมูลสุขภาพ: เซสชันการนอนจะถูกเก็บไว้ในเครื่องและซิงค์กับ Google Health Connect โดยตรง
+• การสนับสนุน: หากมีคำถามหรือข้อเสนอแนะ ติดต่อเราได้ที่ timmy@opensleep.tech</string>
+    <string name="github_repo">ที่เก็บโค้ดบน GitHub</string>
+    <string name="notifications_disabled_title">การแจ้งเตือนถูกปิดอยู่</string>
+    <string name="notifications_disabled_desc">OpenSleep ต้องได้รับสิทธิ์การแจ้งเตือนเพื่อติดตามการนอนในเบื้องหลัง แตะที่นี่เพื่อเปิดในการตั้งค่า</string>
+    <string name="health_connect_permissions_title">เปิดใช้ Health Connect</string>
+    <string name="health_connect_permissions_desc">อนุญาตสิทธิ์อ่าน/เขียนข้อมูลการนอน เพื่อให้ OpenSleep ซิงค์เซสชันที่เสร็จสิ้นแล้วและนำเข้าบันทึกการนอนที่มีอยู่ได้</string>
+    <string name="enable">เปิดใช้</string>
+    <string name="section_ai_settings">การตั้งค่าแชท AI</string>
+    <string name="setting_use_gpu">ใช้การเร่งความเร็วด้วย GPU</string>
+    <string name="setting_use_gpu_desc">ใช้ GPU ของโทรศัพท์เพื่อให้ AI ตอบเร็วขึ้น ปิดเพื่อใช้ CPU</string>
+    <string name="guide_title">คู่มือการติดตามการนอน</string>
+    <string name="guide_sonar_title">โซนาร์ (ไม่ต้องสัมผัส)</string>
+    <string name="guide_sonar_desc">วางโทรศัพท์บนโต๊ะข้างเตียงที่มั่นคง หันด้านล่าง (ลำโพง/ไมค์) เข้าหาลำตัว/หน้าอกของคุณ</string>
+    <string name="guide_accel_title">ตัววัดความเร่ง (ที่นอน)</string>
+    <string name="guide_accel_desc">วางโทรศัพท์ราบบนที่นอนข้างหมอนหรือใต้ผ้าปูที่นอน เพื่อติดตามการเคลื่อนไหวของร่างกาย</string>
+    <string name="guide_charger_tip">เคล็ดลับ: เสียบชาร์จโทรศัพท์ไว้ เพื่อป้องกันไม่ให้เซ็นเซอร์ติดตามทำให้แบตเตอรี่หมด</string>
+    <string name="battery_optimization_title">การเพิ่มประสิทธิภาพแบตเตอรี่เปิดอยู่</string>
+    <string name="battery_optimization_desc">ระบบประหยัดแบตเตอรี่อาจปิด OpenSleep ขณะทำงานในเบื้องหลัง แตะที่นี่เพื่อปิดการเพิ่มประสิทธิภาพแบตเตอรี่ในการตั้งค่าระบบ</string>
+
+    <string name="section_sensor">เซ็นเซอร์ติดตาม</string>
+    <string name="sensor_sonar">โซนาร์ (ไม่ต้องสัมผัส)</string>
+    <string name="sensor_sonar_desc">วางโทรศัพท์บนโต๊ะข้างเตียงโดยหันเข้าหาหน้าอก ใช้คลื่นอัลตราซาวด์</string>
+    <string name="sensor_accelerometer">ตัววัดความเร่ง (ที่นอน)</string>
+    <string name="sensor_accelerometer_desc">วางโทรศัพท์ราบบนที่นอนข้างหมอน</string>
+    <string name="section_membership">สมาชิกภาพ</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">การวิเคราะห์และคำแนะนำการนอนเฉพาะบุคคล ขับเคลื่อนด้วยโมเดล Google AI บนอุปกรณ์</string>
+    <string name="paywall_feature1_title">คำแนะนำการนอนเฉพาะบุคคล</string>
+    <string name="paywall_feature1_desc">วิเคราะห์รูปแบบ ระยะ และคุณภาพการนอนของคุณ เพื่อให้คำแนะนำที่เหมาะกับคุณ</string>
+    <string name="paywall_feature2_title">Google AI บนอุปกรณ์</string>
+    <string name="paywall_feature2_desc">ขับเคลื่อนด้วยโมเดล AI ขั้นสูงจาก Google ที่ทำงานบนอุปกรณ์ เป็นส่วนตัว 100% และใช้งานแบบออฟไลน์ได้</string>
+    <string name="paywall_feature3_title">ข้อความไม่จำกัด</string>
+    <string name="paywall_feature3_desc">ส่งข้อความได้ไม่จำกัด และถามคำถามเรื่องการนอนได้ทุกเรื่องโดยไม่มีข้อจำกัด</string>
+    <string name="paywall_feature4_title">สิทธิ์ใช้งานตลอดชีพ</string>
+    <string name="paywall_feature4_desc">จ่ายครั้งเดียว ใช้ได้ตลอดไป ไม่มีการสมัครสมาชิก ค่าบริการรายงวด หรือค่าใช้จ่ายแอบแฝง</string>
+    <string name="paywall_lifetime_badge">ตลอดชีพ</string>
+    <string name="paywall_one_time_badge">ชำระครั้งเดียว</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">จ่ายครั้งเดียวเพื่อปลดล็อกโค้ชการนอน AI ตลอดไป ไม่มีการเรียกเก็บเงินซ้ำ</string>
+    <string name="paywall_unlock_button">ปลดล็อกสิทธิ์ตลอดชีพ</string>
+    <string name="paywall_unlock_with_price">ปลดล็อกสิทธิ์ตลอดชีพ · %s</string>
+    <string name="paywall_restore_button">กู้คืนการซื้อ</string>
+    <string name="paywall_terms_privacy">การชำระเงินจะเรียกเก็บจากบัญชี Google Play ของคุณ เป็นการซื้อครั้งเดียวโดยไม่มีการสมัครสมาชิก</string>
+    <string name="paywall_premium_active">เปิดใช้งาน OpenSleep Lifetime Premium แล้ว</string>
+    <string name="paywall_lifetime_active_desc">คุณมีสิทธิ์ใช้งานโค้ชการนอน AI อย่างถาวร</string>
+    <string name="paywall_upgrade_now">ปลดล็อก OpenSleep Lifetime Premium</string>
+</resources>

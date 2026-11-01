@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Start søvn</string>
+    <string name="stop_sleep">Stopp søvn</string>
+    <string name="saving">Lagrer…</string>
+    <string name="tracking_active">Måler søvnen din…</string>
+    <string name="tracking_idle">Klar til å måle søvnen din</string>
+    <string name="time_asleep">sovetid</string>
+    <string name="live_stages">Live-stadier</string>
+    <string name="history_title">Søvnhistorikk</string>
+    <string name="no_sessions">Ingen søvnøkter ennå.\nTrykk på Start søvn for å begynne.</string>
+    <string name="ai_chat_title">Søvncoach</string>
+    <string name="no_model_loaded">Ingen modell lastet inn</string>
+    <string name="choose_model">Velg AI-modell</string>
+    <string name="load_model">Bruk</string>
+    <string name="download_model">Last ned</string>
+    <string name="chat_placeholder">Spør om søvnen din…</string>
+    <string name="notification_channel_name">Søvnmåling</string>
+    <string name="notification_channel_desc">Aktiv mens OpenSleep måler søvnen din</string>
+    <string name="notification_tracking_title">Måler søvn</string>
+    <string name="notification_tracking_text">OpenSleep overvåker søvnmønstrene dine</string>
+    <string name="notification_syncing_title">Synkroniserer søvndata</string>
+    <string name="notification_syncing_text">OpenSleep lagrer og synkroniserer dataene dine…</string>
+    <string name="menu_sleep">Søvn</string>
+    <string name="menu_history">Historikk</string>
+    <string name="menu_chat">AI-chat</string>
+    <string name="menu_settings">Innstillinger</string>
+    <string name="section_language">Språk</string>
+    <string name="section_models">AI-modeller</string>
+    <string name="chat_thinking">Tenker…</string>
+    <string name="no_models_downloaded">Ingen AI-modeller er lastet ned ennå. Gå til Innstillinger for å velge og laste ned en Gemma 4-modell.</string>
+    <string name="configure_in_settings">Konfigurer i Innstillinger</string>
+    <string name="manage_models_in_settings">Administrer modeller i Innstillinger</string>
+    <string name="loading_model">Laster modellen inn i minnet…</string>
+    <string name="chat_loading">Laster inn…</string>
+    <string name="setting_context_size">Størrelse på kontekstvindu</string>
+    <string name="active_model">Aktiv</string>
+    <string name="ready_to_use">Klar til bruk</string>
+    <string name="delete_session_title">Slette økten?</string>
+    <string name="delete_session_message">Denne søvnøkten og helsedataene for den blir slettet permanent.</string>
+    <string name="delete_confirm">Slett</string>
+    <string name="cancel">Avbryt</string>
+        <string name="bedtime">Leggetid</string>
+    <string name="wake_up">Våknet</string>
+    <string name="duration">Varighet</string>
+    <string name="sleep_stages">Søvnstadier</string>
+    <string name="sleep_pattern">Søvnmønster</string>
+    <string name="sleep_pattern_legend">Våken · REM · Lett · Dyp  (topp → bunn)</string>
+    <string name="total_sleep">totalt</string>
+    <string name="stage_awake">Våken</string>
+    <string name="stage_light">Lett</string>
+    <string name="stage_deep">Dyp</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Dag</string>
+    <string name="chart_week">Uke</string>
+    <string name="chart_month">Måned</string>
+    <string name="chart_year">År</string>
+    <string name="select_all">Velg alle</string>
+    <string name="select">Velg</string>
+    <string name="delete_selected">Slett valgte</string>
+    <string name="section_about">Om og personvern</string>
+    <string name="privacy_tos">Personvern og vilkår</string>
+    <string name="privacy_title">Personvernerklæring</string>
+    <string name="privacy_body" formatted="false">OpenSleep tar personvernet ditt 100 % på alvor.
+
+• 100 % behandling på enheten: Telefonens bevegelsessensorer og lydnivådata hentet fra mikrofonen analyseres helt lokalt. Rå lyd lagres ikke, og ingen personlig telemetri forlater enheten din.
+• Lokal AI-modell: Søvnassistenten kjører en helt lokal Gemma 4-LLM fullstendig på enheten (ingen servere, ingen eksterne API-er).
+• Åpen kildekode: OpenSleep er et fullt transparent prosjekt med åpen kildekode. Du kan når som helst se gjennom kildekoden.
+• Helsesynkronisering: Søvnøkter lagres lokalt og synkroniseres direkte med Health Connect fra Google.
+• Brukerstøtte: Har du spørsmål eller tilbakemeldinger, kan du kontakte oss på timmy@opensleep.tech.</string>
+    <string name="github_repo">GitHub-repository</string>
+    <string name="notifications_disabled_title">Varsler er slått av</string>
+    <string name="notifications_disabled_desc">OpenSleep trenger tillatelse til å sende varsler for å kunne måle søvn i bakgrunnen. Trykk her for å slå det på i Innstillinger.</string>
+    <string name="health_connect_permissions_title">Aktiver Health Connect</string>
+    <string name="health_connect_permissions_desc">Gi lese- og skrivetilgang til søvndata, slik at OpenSleep kan synkronisere fullførte økter og importere eksisterende søvndata.</string>
+    <string name="enable">Aktiver</string>
+    <string name="section_ai_settings">Innstillinger for AI-chat</string>
+    <string name="setting_use_gpu">Bruk GPU-akselerasjon</string>
+    <string name="setting_use_gpu_desc">Bruk telefonens GPU for raskere AI-svar. Slå av for å bruke CPU.</string>
+    <string name="guide_title">Veiledning for søvnmåling</string>
+    <string name="guide_sonar_title">Sonar (berøringsfri)</string>
+    <string name="guide_sonar_desc">Legg telefonen på et stødig nattbord ved siden av sengen. Pek bunnen (høyttaler/mikrofon) mot kroppen/brystet ditt.</string>
+    <string name="guide_accel_title">Akselerometer (madrass)</string>
+    <string name="guide_accel_desc">Legg telefonen flatt på madrassen ved siden av puten eller under lakenet for å registrere bevegelser.</string>
+    <string name="guide_charger_tip">Tips: Ha telefonen koblet til en lader, så målesensorene ikke tapper batteriet.</string>
+    <string name="battery_optimization_title">Batterioptimalisering er aktiv</string>
+    <string name="battery_optimization_desc">OpenSleep kan bli avsluttet i bakgrunnen av systemets batterisparing. Trykk her for å slå av batterioptimalisering i systeminnstillingene.</string>
+
+    <string name="section_sensor">Målesensor</string>
+    <string name="sensor_sonar">Sonar (berøringsfri)</string>
+    <string name="sensor_sonar_desc">Plasser på nattbordet rettet mot brystet ditt. Bruker ultralyd.</string>
+    <string name="sensor_accelerometer">Akselerometer (madrass)</string>
+    <string name="sensor_accelerometer_desc">Legg telefonen flatt på madrassen ved siden av puten.</string>
+    <string name="section_membership">Medlemskap</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Personlig søvnanalyse og veiledning drevet av en Google AI-modell som kjører på enheten.</string>
+    <string name="paywall_feature1_title">Personlig søvnveiledning</string>
+    <string name="paywall_feature1_desc">Analyserer søvnmønstre, søvnstadier og søvnkvalitet for å gi deg skreddersydde råd.</string>
+    <string name="paywall_feature2_title">Google AI på enheten</string>
+    <string name="paywall_feature2_desc">Drevet av en avansert AI-modell fra Google som kjører på enheten. 100 % privat og fungerer uten nett.</string>
+    <string name="paywall_feature3_title">Ubegrensede meldinger</string>
+    <string name="paywall_feature3_desc">Send så mange meldinger du vil, og still alle søvnspørsmål uten begrensninger.</string>
+    <string name="paywall_feature4_title">Livstidstilgang</string>
+    <string name="paywall_feature4_desc">Betal én gang, bruk for alltid. Ingen abonnementer, løpende gebyrer eller skjulte kostnader.</string>
+    <string name="paywall_lifetime_badge">LIVSTID</string>
+    <string name="paywall_one_time_badge">ENGANGSBETALING</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Betal én gang og lås opp AI-søvncoachen for alltid. Ingen løpende trekk.</string>
+    <string name="paywall_unlock_button">Lås opp livstidstilgang</string>
+    <string name="paywall_unlock_with_price">Lås opp livstidstilgang · %s</string>
+    <string name="paywall_restore_button">Gjenopprett kjøp</string>
+    <string name="paywall_terms_privacy">Betalingen belastes Google Play-kontoen din. Engangskjøp uten abonnement.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium er aktiv</string>
+    <string name="paywall_lifetime_active_desc">Du har permanent tilgang til AI-søvncoachen.</string>
+    <string name="paywall_upgrade_now">Lås opp OpenSleep Lifetime Premium</string>
+</resources>

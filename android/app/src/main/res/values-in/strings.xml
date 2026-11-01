@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Mulai Tidur</string>
+    <string name="stop_sleep">Hentikan Tidur</string>
+    <string name="saving">Menyimpan…</string>
+    <string name="tracking_active">Melacak tidur Anda…</string>
+    <string name="tracking_idle">Siap melacak tidur Anda</string>
+    <string name="time_asleep">waktu tidur</string>
+    <string name="live_stages">Tahap langsung</string>
+    <string name="history_title">Riwayat Tidur</string>
+    <string name="no_sessions">Belum ada sesi tidur.\nKetuk Mulai Tidur untuk memulai.</string>
+    <string name="ai_chat_title">Pelatih Tidur</string>
+    <string name="no_model_loaded">Belum ada model yang dimuat</string>
+    <string name="choose_model">Pilih model AI Anda</string>
+    <string name="load_model">Gunakan</string>
+    <string name="download_model">Unduh</string>
+    <string name="chat_placeholder">Tanyakan tentang tidur Anda…</string>
+    <string name="notification_channel_name">Pelacakan Tidur</string>
+    <string name="notification_channel_desc">Aktif saat OpenSleep melacak tidur Anda</string>
+    <string name="notification_tracking_title">Melacak tidur</string>
+    <string name="notification_tracking_text">OpenSleep sedang memantau pola tidur Anda</string>
+    <string name="notification_syncing_title">Menyinkronkan data tidur</string>
+    <string name="notification_syncing_text">OpenSleep sedang menyimpan dan menyinkronkan data Anda…</string>
+    <string name="menu_sleep">Tidur</string>
+    <string name="menu_history">Riwayat</string>
+    <string name="menu_chat">Chat AI</string>
+    <string name="menu_settings">Setelan</string>
+    <string name="section_language">Bahasa</string>
+    <string name="section_models">Model AI</string>
+    <string name="chat_thinking">Berpikir…</string>
+    <string name="no_models_downloaded">Belum ada model AI yang diunduh. Buka Setelan untuk memilih dan mengunduh model Gemma 4.</string>
+    <string name="configure_in_settings">Atur di Setelan</string>
+    <string name="manage_models_in_settings">Kelola Model di Setelan</string>
+    <string name="loading_model">Memuat model ke memori…</string>
+    <string name="chat_loading">Memuat…</string>
+    <string name="setting_context_size">Ukuran Jendela Konteks</string>
+    <string name="active_model">Aktif</string>
+    <string name="ready_to_use">Siap Digunakan</string>
+    <string name="delete_session_title">Hapus Sesi?</string>
+    <string name="delete_session_message">Sesi tidur ini beserta data kesehatannya akan dihapus secara permanen.</string>
+    <string name="delete_confirm">Hapus</string>
+    <string name="cancel">Batal</string>
+        <string name="bedtime">Waktu tidur</string>
+    <string name="wake_up">Bangun</string>
+    <string name="duration">Durasi</string>
+    <string name="sleep_stages">Tahap Tidur</string>
+    <string name="sleep_pattern">Pola Tidur</string>
+    <string name="sleep_pattern_legend">Terjaga · REM · Ringan · Nyenyak  (atas → bawah)</string>
+    <string name="total_sleep">total</string>
+    <string name="stage_awake">Terjaga</string>
+    <string name="stage_light">Ringan</string>
+    <string name="stage_deep">Nyenyak</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Hari</string>
+    <string name="chart_week">Minggu</string>
+    <string name="chart_month">Bulan</string>
+    <string name="chart_year">Tahun</string>
+    <string name="select_all">Pilih Semua</string>
+    <string name="select">Pilih</string>
+    <string name="delete_selected">Hapus yang Dipilih</string>
+    <string name="section_about">Tentang &amp; Privasi</string>
+    <string name="privacy_tos">Kebijakan Privasi &amp; Ketentuan</string>
+    <string name="privacy_title">Kebijakan Privasi</string>
+    <string name="privacy_body" formatted="false">OpenSleep 100% berkomitmen menjaga privasi Anda.
+
+• 100% Pemrosesan di Perangkat: Sensor gerak ponsel dan fitur tingkat suara yang berasal dari mikrofon dianalisis sepenuhnya secara lokal. Audio mentah tidak disimpan, dan tidak ada telemetri pribadi yang meninggalkan perangkat Anda.
+• Model AI Lokal: Asisten tidur menjalankan LLM Gemma 4 sepenuhnya secara lokal di perangkat (tanpa server, tanpa API eksternal).
+• Sumber Terbuka: OpenSleep adalah proyek sumber terbuka yang sepenuhnya transparan. Anda dapat memeriksa kode sumbernya kapan saja.
+• Sinkronisasi Kesehatan: Sesi tidur disimpan secara lokal dan disinkronkan langsung dengan Google Health Connect.
+• Dukungan: Jika ada pertanyaan atau masukan, hubungi kami di timmy@opensleep.tech.</string>
+    <string name="github_repo">Repositori GitHub</string>
+    <string name="notifications_disabled_title">Notifikasi Dinonaktifkan</string>
+    <string name="notifications_disabled_desc">OpenSleep memerlukan izin notifikasi untuk menjalankan pelacakan tidur di latar belakang. Ketuk di sini untuk mengaktifkannya di Setelan.</string>
+    <string name="health_connect_permissions_title">Aktifkan Health Connect</string>
+    <string name="health_connect_permissions_desc">Izinkan akses baca/tulis data tidur agar OpenSleep dapat menyinkronkan sesi yang selesai dan mengimpor catatan tidur yang ada.</string>
+    <string name="enable">Aktifkan</string>
+    <string name="section_ai_settings">Setelan Chat AI</string>
+    <string name="setting_use_gpu">Gunakan Akselerasi GPU</string>
+    <string name="setting_use_gpu_desc">Gunakan GPU ponsel untuk respons AI yang lebih cepat. Nonaktifkan untuk menggunakan CPU.</string>
+    <string name="guide_title">Panduan Pelacakan Tidur</string>
+    <string name="guide_sonar_title">Sonar (Tanpa Kontak)</string>
+    <string name="guide_sonar_desc">Letakkan ponsel di meja samping tempat tidur yang stabil. Arahkan bagian bawah (speaker/mikrofon) ke tubuh/dada Anda.</string>
+    <string name="guide_accel_title">Akselerometer (Kasur)</string>
+    <string name="guide_accel_desc">Letakkan ponsel mendatar di kasur di samping bantal atau di bawah seprai untuk melacak gerakan tubuh.</string>
+    <string name="guide_charger_tip">Tips: Biarkan ponsel tersambung ke pengisi daya agar baterai tidak terkuras oleh sensor pelacakan.</string>
+    <string name="battery_optimization_title">Pengoptimalan Baterai Aktif</string>
+    <string name="battery_optimization_desc">OpenSleep dapat dihentikan di latar belakang oleh penghemat baterai sistem. Ketuk di sini untuk menonaktifkan pengoptimalan baterai di setelan sistem.</string>
+
+    <string name="section_sensor">Sensor Pelacakan</string>
+    <string name="sensor_sonar">Sonar (Tanpa Kontak)</string>
+    <string name="sensor_sonar_desc">Letakkan di meja samping tempat tidur, arahkan ke dada Anda. Menggunakan ultrasonik.</string>
+    <string name="sensor_accelerometer">Akselerometer (Kasur)</string>
+    <string name="sensor_accelerometer_desc">Letakkan ponsel mendatar di kasur di samping bantal.</string>
+    <string name="section_membership">Keanggotaan</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Analisis dan panduan tidur yang dipersonalisasi, didukung model AI Google di perangkat.</string>
+    <string name="paywall_feature1_title">Panduan Tidur yang Dipersonalisasi</string>
+    <string name="paywall_feature1_desc">Menganalisis pola, tahap, dan kualitas tidur Anda untuk memberikan saran yang sesuai.</string>
+    <string name="paywall_feature2_title">AI Google di Perangkat</string>
+    <string name="paywall_feature2_desc">Didukung model AI canggih dari Google yang berjalan di perangkat. 100% privat dan bisa digunakan secara offline.</string>
+    <string name="paywall_feature3_title">Pesan Tanpa Batas</string>
+    <string name="paywall_feature3_desc">Kirim pesan tanpa batas dan ajukan pertanyaan apa pun tentang tidur.</string>
+    <string name="paywall_feature4_title">Akses Seumur Hidup</string>
+    <string name="paywall_feature4_desc">Bayar sekali, gunakan selamanya. Tanpa langganan, biaya berulang, atau biaya tersembunyi.</string>
+    <string name="paywall_lifetime_badge">SEUMUR HIDUP</string>
+    <string name="paywall_one_time_badge">PEMBAYARAN SEKALI</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Bayar sekali dan buka Pelatih Tidur AI selamanya. Tanpa tagihan berulang.</string>
+    <string name="paywall_unlock_button">Buka Akses Seumur Hidup</string>
+    <string name="paywall_unlock_with_price">Buka Akses Seumur Hidup · %s</string>
+    <string name="paywall_restore_button">Pulihkan Pembelian</string>
+    <string name="paywall_terms_privacy">Pembayaran akan ditagihkan ke akun Google Play Anda. Pembelian satu kali tanpa langganan.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium Aktif</string>
+    <string name="paywall_lifetime_active_desc">Anda memiliki akses permanen ke Pelatih Tidur AI.</string>
+    <string name="paywall_upgrade_now">Buka OpenSleep Lifetime Premium</string>
+</resources>

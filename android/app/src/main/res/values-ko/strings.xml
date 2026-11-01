@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">수면 시작</string>
+    <string name="stop_sleep">수면 종료</string>
+    <string name="saving">저장 중…</string>
+    <string name="tracking_active">수면 측정 중…</string>
+    <string name="tracking_idle">수면 측정 준비 완료</string>
+    <string name="time_asleep">수면 시간</string>
+    <string name="live_stages">실시간 수면 단계</string>
+    <string name="history_title">수면 기록</string>
+    <string name="no_sessions">아직 수면 기록이 없어요.\n수면 시작을 탭해 시작하세요.</string>
+    <string name="ai_chat_title">수면 코치</string>
+    <string name="no_model_loaded">불러온 모델 없음</string>
+    <string name="choose_model">AI 모델 선택</string>
+    <string name="load_model">사용</string>
+    <string name="download_model">다운로드</string>
+    <string name="chat_placeholder">수면에 대해 물어보세요…</string>
+    <string name="notification_channel_name">수면 측정</string>
+    <string name="notification_channel_desc">OpenSleep이 수면을 측정하는 동안 표시돼요</string>
+    <string name="notification_tracking_title">수면 측정 중</string>
+    <string name="notification_tracking_text">OpenSleep이 수면 패턴을 기록하고 있어요</string>
+    <string name="notification_syncing_title">수면 데이터 동기화 중</string>
+    <string name="notification_syncing_text">OpenSleep이 데이터를 저장하고 동기화하는 중이에요…</string>
+    <string name="menu_sleep">수면</string>
+    <string name="menu_history">기록</string>
+    <string name="menu_chat">AI 채팅</string>
+    <string name="menu_settings">설정</string>
+    <string name="section_language">언어</string>
+    <string name="section_models">AI 모델</string>
+    <string name="chat_thinking">생각 중…</string>
+    <string name="no_models_downloaded">아직 다운로드한 AI 모델이 없어요. 설정에서 Gemma 4 모델을 선택해 다운로드하세요.</string>
+    <string name="configure_in_settings">설정에서 구성</string>
+    <string name="manage_models_in_settings">설정에서 모델 관리</string>
+    <string name="loading_model">모델을 메모리에 불러오는 중…</string>
+    <string name="chat_loading">불러오는 중…</string>
+    <string name="setting_context_size">컨텍스트 윈도우 크기</string>
+    <string name="active_model">사용 중</string>
+    <string name="ready_to_use">사용 가능</string>
+    <string name="delete_session_title">기록을 삭제할까요?</string>
+    <string name="delete_session_message">이 수면 기록과 건강 데이터가 영구적으로 삭제됩니다.</string>
+    <string name="delete_confirm">삭제</string>
+    <string name="cancel">취소</string>
+        <string name="bedtime">취침</string>
+    <string name="wake_up">기상</string>
+    <string name="duration">시간</string>
+    <string name="sleep_stages">수면 단계</string>
+    <string name="sleep_pattern">수면 패턴</string>
+    <string name="sleep_pattern_legend">깸 · REM · 얕은 수면 · 깊은 수면  (위 → 아래)</string>
+    <string name="total_sleep">총</string>
+    <string name="stage_awake">깸</string>
+    <string name="stage_light">얕은 수면</string>
+    <string name="stage_deep">깊은 수면</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">일</string>
+    <string name="chart_week">주</string>
+    <string name="chart_month">월</string>
+    <string name="chart_year">년</string>
+    <string name="select_all">모두 선택</string>
+    <string name="select">선택</string>
+    <string name="delete_selected">선택 항목 삭제</string>
+    <string name="section_about">정보 및 개인정보 보호</string>
+    <string name="privacy_tos">개인정보 처리방침 및 약관</string>
+    <string name="privacy_title">개인정보 처리방침</string>
+    <string name="privacy_body" formatted="false">OpenSleep은 여러분의 개인정보 보호를 100% 약속합니다.
+
+• 100% 온디바이스 처리: 휴대폰 동작 센서와 마이크에서 추출한 소리 크기 특징은 전적으로 기기에서만 분석됩니다. 원본 오디오는 저장되지 않으며, 개인 원격 측정 데이터는 기기 밖으로 전송되지 않습니다.
+• 로컬 AI 모델: 수면 어시스턴트는 완전히 로컬인 Gemma 4 LLM을 기기에서만 실행합니다(서버 없음, 외부 API 없음).
+• 오픈 소스: OpenSleep은 완전히 투명한 오픈 소스 프로젝트입니다. 언제든지 소스 코드를 확인할 수 있습니다.
+• 건강 동기화: 수면 기록은 기기에 저장되며 Google 헬스 커넥트와 직접 동기화됩니다.
+• 지원: 질문이나 의견이 있으면 timmy@opensleep.tech로 연락해 주세요.</string>
+    <string name="github_repo">GitHub 저장소</string>
+    <string name="notifications_disabled_title">알림 꺼짐</string>
+    <string name="notifications_disabled_desc">OpenSleep이 백그라운드에서 수면을 측정하려면 알림 권한이 필요해요. 여기를 탭해 설정에서 허용하세요.</string>
+    <string name="health_connect_permissions_title">헬스 커넥트 사용 설정</string>
+    <string name="health_connect_permissions_desc">수면 데이터 읽기/쓰기 권한을 허용하면 OpenSleep이 완료된 기록을 동기화하고 기존 수면 기록을 가져올 수 있어요.</string>
+    <string name="enable">사용</string>
+    <string name="section_ai_settings">AI 채팅 설정</string>
+    <string name="setting_use_gpu">GPU 가속 사용</string>
+    <string name="setting_use_gpu_desc">휴대폰 GPU를 사용해 AI 응답 속도를 높여요. 끄면 CPU를 사용해요.</string>
+    <string name="guide_title">수면 측정 가이드</string>
+    <string name="guide_sonar_title">소나 (비접촉)</string>
+    <string name="guide_sonar_desc">휴대폰을 침대 옆 안정적인 협탁 위에 놓고, 아랫부분(스피커/마이크)이 몸이나 가슴을 향하게 하세요.</string>
+    <string name="guide_accel_title">가속도계 (매트리스)</string>
+    <string name="guide_accel_desc">몸의 움직임을 기록할 수 있도록 휴대폰을 베개 옆 매트리스 위나 시트 아래에 평평하게 놓으세요.</string>
+    <string name="guide_charger_tip">팁: 측정 센서로 인한 배터리 소모를 막으려면 휴대폰을 충전기에 연결해 두세요.</string>
+    <string name="battery_optimization_title">배터리 최적화 사용 중</string>
+    <string name="battery_optimization_desc">시스템 절전 기능 때문에 OpenSleep이 백그라운드에서 종료될 수 있어요. 여기를 탭해 시스템 설정에서 배터리 최적화를 해제하세요.</string>
+
+    <string name="section_sensor">측정 센서</string>
+    <string name="sensor_sonar">소나 (비접촉)</string>
+    <string name="sensor_sonar_desc">협탁 위에 놓고 가슴 쪽을 향하게 하세요. 초음파를 사용해요.</string>
+    <string name="sensor_accelerometer">가속도계 (매트리스)</string>
+    <string name="sensor_accelerometer_desc">휴대폰을 베개 옆 매트리스 위에 평평하게 놓으세요.</string>
+    <string name="section_membership">멤버십</string>
+    <string name="paywall_title">OpenSleep 평생 프리미엄</string>
+    <string name="paywall_subtitle">온디바이스 Google AI 모델로 제공되는 맞춤형 수면 분석과 가이드.</string>
+    <string name="paywall_feature1_title">맞춤형 수면 가이드</string>
+    <string name="paywall_feature1_desc">수면 패턴, 수면 단계, 수면의 질을 분석해 나에게 맞는 조언을 드려요.</string>
+    <string name="paywall_feature2_title">온디바이스 Google AI</string>
+    <string name="paywall_feature2_desc">Google의 고급 온디바이스 AI 모델로 작동해요. 100% 비공개이며 오프라인에서도 사용할 수 있어요.</string>
+    <string name="paywall_feature3_title">무제한 메시지</string>
+    <string name="paywall_feature3_desc">메시지를 무제한으로 보내고 수면에 관한 무엇이든 마음껏 물어보세요.</string>
+    <string name="paywall_feature4_title">평생 이용권</string>
+    <string name="paywall_feature4_desc">한 번 결제로 평생 사용하세요. 구독, 정기 요금, 숨겨진 비용이 없어요.</string>
+    <string name="paywall_lifetime_badge">평생 이용</string>
+    <string name="paywall_one_time_badge">1회 결제</string>
+    <string name="paywall_lifetime_heading">OpenSleep 평생 프리미엄</string>
+    <string name="paywall_no_subscription_note">한 번 결제로 AI 수면 코치를 평생 잠금 해제하세요. 정기 결제는 없어요.</string>
+    <string name="paywall_unlock_button">평생 이용권 잠금 해제</string>
+    <string name="paywall_unlock_with_price">평생 이용권 잠금 해제 · %s</string>
+    <string name="paywall_restore_button">구매 내역 복원</string>
+    <string name="paywall_terms_privacy">결제 금액은 Google Play 계정으로 청구됩니다. 구독이 아닌 1회성 구매입니다.</string>
+    <string name="paywall_premium_active">OpenSleep 평생 프리미엄 활성화됨</string>
+    <string name="paywall_lifetime_active_desc">AI 수면 코치를 평생 이용할 수 있어요.</string>
+    <string name="paywall_upgrade_now">OpenSleep 평생 프리미엄 잠금 해제</string>
+</resources>

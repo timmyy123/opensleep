@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">नींद शुरू करें</string>
+    <string name="stop_sleep">नींद रोकें</string>
+    <string name="saving">सेव हो रहा है…</string>
+    <string name="tracking_active">आपकी नींद ट्रैक हो रही है…</string>
+    <string name="tracking_idle">आपकी नींद ट्रैक करने के लिए तैयार</string>
+    <string name="time_asleep">नींद का समय</string>
+    <string name="live_stages">लाइव चरण</string>
+    <string name="history_title">नींद का इतिहास</string>
+    <string name="no_sessions">अभी तक कोई नींद सेशन नहीं है।\nशुरू करने के लिए “नींद शुरू करें” पर टैप करें।</string>
+    <string name="ai_chat_title">स्लीप कोच</string>
+    <string name="no_model_loaded">कोई मॉडल लोड नहीं है</string>
+    <string name="choose_model">अपना AI मॉडल चुनें</string>
+    <string name="load_model">इस्तेमाल करें</string>
+    <string name="download_model">डाउनलोड करें</string>
+    <string name="chat_placeholder">अपनी नींद के बारे में पूछें…</string>
+    <string name="notification_channel_name">नींद ट्रैकिंग</string>
+    <string name="notification_channel_desc">जब OpenSleep आपकी नींद ट्रैक करता है, तब सक्रिय रहता है</string>
+    <string name="notification_tracking_title">नींद ट्रैक हो रही है</string>
+    <string name="notification_tracking_text">OpenSleep आपकी नींद के पैटर्न पर नज़र रख रहा है</string>
+    <string name="notification_syncing_title">नींद का डेटा सिंक हो रहा है</string>
+    <string name="notification_syncing_text">OpenSleep आपका डेटा सेव और सिंक कर रहा है…</string>
+    <string name="menu_sleep">नींद</string>
+    <string name="menu_history">इतिहास</string>
+    <string name="menu_chat">AI चैट</string>
+    <string name="menu_settings">सेटिंग</string>
+    <string name="section_language">भाषा</string>
+    <string name="section_models">AI मॉडल</string>
+    <string name="chat_thinking">सोच रहा है…</string>
+    <string name="no_models_downloaded">अभी तक कोई AI मॉडल डाउनलोड नहीं हुआ है। Gemma 4 मॉडल चुनने और डाउनलोड करने के लिए सेटिंग में जाएँ।</string>
+    <string name="configure_in_settings">सेटिंग में कॉन्फ़िगर करें</string>
+    <string name="manage_models_in_settings">सेटिंग में मॉडल प्रबंधित करें</string>
+    <string name="loading_model">मॉडल मेमोरी में लोड हो रहा है…</string>
+    <string name="chat_loading">लोड हो रहा है…</string>
+    <string name="setting_context_size">कॉन्टेक्स्ट विंडो का आकार</string>
+    <string name="active_model">सक्रिय</string>
+    <string name="ready_to_use">इस्तेमाल के लिए तैयार</string>
+    <string name="delete_session_title">सेशन डिलीट करें?</string>
+    <string name="delete_session_message">यह नींद सेशन और इसका हेल्थ डेटा स्थायी रूप से डिलीट हो जाएगा।</string>
+    <string name="delete_confirm">डिलीट करें</string>
+    <string name="cancel">रद्द करें</string>
+        <string name="bedtime">सोने का समय</string>
+    <string name="wake_up">जागने का समय</string>
+    <string name="duration">अवधि</string>
+    <string name="sleep_stages">नींद के चरण</string>
+    <string name="sleep_pattern">नींद का पैटर्न</string>
+    <string name="sleep_pattern_legend">जागृत · REM · हल्की · गहरी  (ऊपर → नीचे)</string>
+    <string name="total_sleep">कुल</string>
+    <string name="stage_awake">जागृत</string>
+    <string name="stage_light">हल्की</string>
+    <string name="stage_deep">गहरी</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">दिन</string>
+    <string name="chart_week">सप्ताह</string>
+    <string name="chart_month">महीना</string>
+    <string name="chart_year">वर्ष</string>
+    <string name="select_all">सभी चुनें</string>
+    <string name="select">चुनें</string>
+    <string name="delete_selected">चुने गए डिलीट करें</string>
+    <string name="section_about">परिचय और गोपनीयता</string>
+    <string name="privacy_tos">गोपनीयता नीति और शर्तें</string>
+    <string name="privacy_title">गोपनीयता नीति</string>
+    <string name="privacy_body" formatted="false">OpenSleep आपकी गोपनीयता के लिए 100% प्रतिबद्ध है।
+
+• 100% ऑन-डिवाइस प्रोसेसिंग: फ़ोन के मोशन सेंसर और माइक्रोफ़ोन से निकाली गई ध्वनि-स्तर की विशेषताओं का विश्लेषण पूरी तरह आपके डिवाइस पर ही होता है। रॉ ऑडियो सेव नहीं किया जाता, और कोई भी निजी टेलीमेट्री आपके डिवाइस से बाहर नहीं जाती।
+• लोकल AI मॉडल: स्लीप असिस्टेंट पूरी तरह डिवाइस पर चलने वाला लोकल Gemma 4 LLM इस्तेमाल करता है (कोई सर्वर नहीं, कोई बाहरी API नहीं)।
+• ओपन सोर्स: OpenSleep एक पूरी तरह पारदर्शी, ओपन-सोर्स प्रोजेक्ट है। आप कभी भी इसका सोर्स कोड देख सकते हैं।
+• हेल्थ सिंक: नींद सेशन आपके डिवाइस पर सेव होते हैं और सीधे Google Health Connect के साथ सिंक होते हैं।
+• सहायता: अगर आपके कोई सवाल या सुझाव हैं, तो हमसे timmy@opensleep.tech पर संपर्क करें।</string>
+    <string name="github_repo">GitHub रिपॉज़िटरी</string>
+    <string name="notifications_disabled_title">सूचनाएँ बंद हैं</string>
+    <string name="notifications_disabled_desc">बैकग्राउंड में नींद ट्रैक करने के लिए OpenSleep को सूचना की अनुमति चाहिए। सेटिंग में इसे चालू करने के लिए यहाँ टैप करें।</string>
+    <string name="health_connect_permissions_title">Health Connect चालू करें</string>
+    <string name="health_connect_permissions_desc">नींद का डेटा पढ़ने/लिखने की अनुमति दें, ताकि OpenSleep पूरे हुए सेशन सिंक कर सके और मौजूदा नींद रिकॉर्ड इंपोर्ट कर सके।</string>
+    <string name="enable">चालू करें</string>
+    <string name="section_ai_settings">AI चैट सेटिंग</string>
+    <string name="setting_use_gpu">GPU एक्सेलेरेशन इस्तेमाल करें</string>
+    <string name="setting_use_gpu_desc">तेज़ AI जवाबों के लिए फ़ोन का GPU इस्तेमाल करें। CPU इस्तेमाल करने के लिए बंद करें।</string>
+    <string name="guide_title">नींद ट्रैकिंग गाइड</string>
+    <string name="guide_sonar_title">सोनार (बिना संपर्क)</string>
+    <string name="guide_sonar_desc">फ़ोन को बिस्तर के पास किसी स्थिर नाइटस्टैंड पर रखें। उसका निचला हिस्सा (स्पीकर/माइक) अपने शरीर/सीने की ओर रखें।</string>
+    <string name="guide_accel_title">एक्सेलेरोमीटर (गद्दा)</string>
+    <string name="guide_accel_desc">शरीर की हलचल ट्रैक करने के लिए फ़ोन को तकिए के पास गद्दे पर या चादर के नीचे सपाट रखें।</string>
+    <string name="guide_charger_tip">सुझाव: ट्रैकिंग सेंसर से बैटरी खत्म होने से बचाने के लिए फ़ोन को चार्जर से जोड़े रखें।</string>
+    <string name="battery_optimization_title">बैटरी ऑप्टिमाइज़ेशन चालू है</string>
+    <string name="battery_optimization_desc">सिस्टम के बैटरी सेवर OpenSleep को बैकग्राउंड में बंद कर सकते हैं। सिस्टम सेटिंग में बैटरी ऑप्टिमाइज़ेशन बंद करने के लिए यहाँ टैप करें।</string>
+
+    <string name="section_sensor">ट्रैकिंग सेंसर</string>
+    <string name="sensor_sonar">सोनार (बिना संपर्क)</string>
+    <string name="sensor_sonar_desc">फ़ोन को नाइटस्टैंड पर अपने सीने की ओर करके रखें। अल्ट्रासाउंड का इस्तेमाल करता है।</string>
+    <string name="sensor_accelerometer">एक्सेलेरोमीटर (गद्दा)</string>
+    <string name="sensor_accelerometer_desc">फ़ोन को तकिए के पास गद्दे पर सपाट रखें।</string>
+    <string name="section_membership">सदस्यता</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">ऑन-डिवाइस Google AI मॉडल द्वारा संचालित व्यक्तिगत नींद विश्लेषण और मार्गदर्शन।</string>
+    <string name="paywall_feature1_title">व्यक्तिगत नींद मार्गदर्शन</string>
+    <string name="paywall_feature1_desc">आपके नींद के पैटर्न, चरणों और गुणवत्ता का विश्लेषण करके आपके लिए खास सलाह देता है।</string>
+    <string name="paywall_feature2_title">ऑन-डिवाइस Google AI</string>
+    <string name="paywall_feature2_desc">Google के एक उन्नत ऑन-डिवाइस AI मॉडल द्वारा संचालित। 100% निजी और ऑफ़लाइन भी काम करता है।</string>
+    <string name="paywall_feature3_title">असीमित मैसेज</string>
+    <string name="paywall_feature3_desc">असीमित मैसेज भेजें और नींद से जुड़ा कोई भी सवाल बिना किसी सीमा के पूछें।</string>
+    <string name="paywall_feature4_title">आजीवन एक्सेस</string>
+    <string name="paywall_feature4_desc">एक बार भुगतान करें, हमेशा इस्तेमाल करें। कोई सब्सक्रिप्शन, बार-बार लगने वाला शुल्क या छिपी लागत नहीं।</string>
+    <string name="paywall_lifetime_badge">आजीवन</string>
+    <string name="paywall_one_time_badge">एकमुश्त भुगतान</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">एक बार भुगतान करें और AI स्लीप कोच को हमेशा के लिए अनलॉक करें। कोई आवर्ती शुल्क नहीं।</string>
+    <string name="paywall_unlock_button">आजीवन एक्सेस अनलॉक करें</string>
+    <string name="paywall_unlock_with_price">आजीवन एक्सेस अनलॉक करें · %s</string>
+    <string name="paywall_restore_button">खरीदारी रीस्टोर करें</string>
+    <string name="paywall_terms_privacy">भुगतान आपके Google Play खाते से लिया जाएगा। एकमुश्त खरीदारी, कोई सब्सक्रिप्शन नहीं।</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium सक्रिय</string>
+    <string name="paywall_lifetime_active_desc">आपके पास AI स्लीप कोच का स्थायी एक्सेस है।</string>
+    <string name="paywall_upgrade_now">OpenSleep Lifetime Premium अनलॉक करें</string>
+</resources>

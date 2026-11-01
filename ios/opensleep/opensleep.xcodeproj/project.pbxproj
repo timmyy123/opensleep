@@ -104,6 +104,22 @@
 				de,
 				it,
 				pt,
+				nl,
+				sv,
+				da,
+				nb,
+				pl,
+				tr,
+				ru,
+				uk,
+				ar,
+				he,
+				hi,
+				th,
+				id,
+				vi,
+				ja,
+				ko,
 			);
 			mainGroup = 240EF6192FCB0FDB0003B07B;
 			minimizedProjectReferenceProxies = 1;

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">بدء النوم</string>
+    <string name="stop_sleep">إيقاف النوم</string>
+    <string name="saving">جارٍ الحفظ…</string>
+    <string name="tracking_active">جارٍ تتبّع نومك…</string>
+    <string name="tracking_idle">جاهز لتتبّع نومك</string>
+    <string name="time_asleep">مدة النوم</string>
+    <string name="live_stages">المراحل المباشرة</string>
+    <string name="history_title">سجل النوم</string>
+    <string name="no_sessions">لا توجد جلسات نوم بعد.\nاضغط على «بدء النوم» للبدء.</string>
+    <string name="ai_chat_title">مدرب النوم</string>
+    <string name="no_model_loaded">لم يتم تحميل أي نموذج</string>
+    <string name="choose_model">اختر نموذج الذكاء الاصطناعي</string>
+    <string name="load_model">استخدام</string>
+    <string name="download_model">تنزيل</string>
+    <string name="chat_placeholder">اسأل عن نومك…</string>
+    <string name="notification_channel_name">تتبّع النوم</string>
+    <string name="notification_channel_desc">نشط أثناء تتبّع OpenSleep لنومك</string>
+    <string name="notification_tracking_title">جارٍ تتبّع النوم</string>
+    <string name="notification_tracking_text">يراقب OpenSleep أنماط نومك</string>
+    <string name="notification_syncing_title">جارٍ مزامنة بيانات النوم</string>
+    <string name="notification_syncing_text">يحفظ OpenSleep بياناتك ويزامنها…</string>
+    <string name="menu_sleep">النوم</string>
+    <string name="menu_history">السجل</string>
+    <string name="menu_chat">الدردشة الذكية</string>
+    <string name="menu_settings">الإعدادات</string>
+    <string name="section_language">اللغة</string>
+    <string name="section_models">نماذج الذكاء الاصطناعي</string>
+    <string name="chat_thinking">جارٍ التفكير…</string>
+    <string name="no_models_downloaded">لم يتم تنزيل أي نماذج ذكاء اصطناعي بعد. انتقل إلى الإعدادات لاختيار نموذج Gemma 4 وتنزيله.</string>
+    <string name="configure_in_settings">الضبط في الإعدادات</string>
+    <string name="manage_models_in_settings">إدارة النماذج في الإعدادات</string>
+    <string name="loading_model">جارٍ تحميل النموذج في الذاكرة…</string>
+    <string name="chat_loading">جارٍ التحميل…</string>
+    <string name="setting_context_size">حجم نافذة السياق</string>
+    <string name="active_model">نشط</string>
+    <string name="ready_to_use">جاهز للاستخدام</string>
+    <string name="delete_session_title">حذف الجلسة؟</string>
+    <string name="delete_session_message">سيتم حذف جلسة النوم هذه وبياناتها الصحية نهائيًا.</string>
+    <string name="delete_confirm">حذف</string>
+    <string name="cancel">إلغاء</string>
+        <string name="bedtime">وقت النوم</string>
+    <string name="wake_up">الاستيقاظ</string>
+    <string name="duration">المدة</string>
+    <string name="sleep_stages">مراحل النوم</string>
+    <string name="sleep_pattern">نمط النوم</string>
+    <string name="sleep_pattern_legend">مستيقظ · REM · خفيف · عميق  (من الأعلى إلى الأسفل)</string>
+    <string name="total_sleep">الإجمالي</string>
+    <string name="stage_awake">مستيقظ</string>
+    <string name="stage_light">خفيف</string>
+    <string name="stage_deep">عميق</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">يوم</string>
+    <string name="chart_week">أسبوع</string>
+    <string name="chart_month">شهر</string>
+    <string name="chart_year">سنة</string>
+    <string name="select_all">تحديد الكل</string>
+    <string name="select">تحديد</string>
+    <string name="delete_selected">حذف المحدد</string>
+    <string name="section_about">حول التطبيق والخصوصية</string>
+    <string name="privacy_tos">سياسة الخصوصية والشروط</string>
+    <string name="privacy_title">سياسة الخصوصية</string>
+    <string name="privacy_body" formatted="false">يلتزم OpenSleep بخصوصيتك التزامًا تامًا بنسبة 100%.
+
+• معالجة 100% على الجهاز: تُحلَّل مستشعرات حركة الهاتف وخصائص مستوى الصوت المستخلصة من الميكروفون محليًا بالكامل. لا يُخزَّن الصوت الخام، ولا تغادر أي بيانات قياس شخصية جهازك.
+• نموذج ذكاء اصطناعي محلي: يشغّل مساعد النوم نموذج Gemma 4 LLM محليًا بالكامل على الجهاز (دون خوادم ودون واجهات API خارجية).
+• مفتوح المصدر: OpenSleep مشروع مفتوح المصدر يتّسم بالشفافية الكاملة. يمكنك الاطّلاع على الشيفرة المصدرية في أي وقت.
+• مزامنة الصحة: تُخزَّن جلسات النوم محليًا وتتم مزامنتها مباشرةً مع Google Health Connect.
+• الدعم: إذا كانت لديك أي أسئلة أو ملاحظات، فتواصل معنا عبر timmy@opensleep.tech.</string>
+    <string name="github_repo">مستودع GitHub</string>
+    <string name="notifications_disabled_title">الإشعارات معطّلة</string>
+    <string name="notifications_disabled_desc">يحتاج OpenSleep إلى إذن الإشعارات لتشغيل تتبّع النوم في الخلفية. اضغط هنا لتفعيله من الإعدادات.</string>
+    <string name="health_connect_permissions_title">تفعيل Health Connect</string>
+    <string name="health_connect_permissions_desc">اسمح بصلاحية قراءة بيانات النوم وكتابتها ليتمكّن OpenSleep من مزامنة الجلسات المكتملة واستيراد سجلات النوم الحالية.</string>
+    <string name="enable">تفعيل</string>
+    <string name="section_ai_settings">إعدادات الدردشة الذكية</string>
+    <string name="setting_use_gpu">استخدام تسريع GPU</string>
+    <string name="setting_use_gpu_desc">استخدم GPU الهاتف للحصول على ردود أسرع من الذكاء الاصطناعي. عطّله لاستخدام CPU.</string>
+    <string name="guide_title">دليل تتبّع النوم</string>
+    <string name="guide_sonar_title">السونار (دون تلامس)</string>
+    <string name="guide_sonar_desc">ضع الهاتف على طاولة جانبية ثابتة بجوار السرير، ووجّه الجزء السفلي (السماعة/الميكروفون) نحو جسمك/صدرك.</string>
+    <string name="guide_accel_title">مقياس التسارع (المرتبة)</string>
+    <string name="guide_accel_desc">ضع الهاتف مسطحًا على المرتبة بجانب وسادتك أو تحت الملاءة لتتبّع حركة الجسم.</string>
+    <string name="guide_charger_tip">نصيحة: أبقِ الهاتف موصولًا بالشاحن لتجنّب استنزاف البطارية بسبب مستشعرات التتبّع.</string>
+    <string name="battery_optimization_title">تحسين البطارية مفعّل</string>
+    <string name="battery_optimization_desc">قد يوقف موفّر البطارية في النظام تطبيق OpenSleep في الخلفية. اضغط هنا لتعطيل تحسين البطارية في إعدادات النظام.</string>
+
+    <string name="section_sensor">مستشعر التتبّع</string>
+    <string name="sensor_sonar">السونار (دون تلامس)</string>
+    <string name="sensor_sonar_desc">ضع الهاتف على الطاولة الجانبية موجّهًا نحو صدرك. يستخدم الموجات فوق الصوتية.</string>
+    <string name="sensor_accelerometer">مقياس التسارع (المرتبة)</string>
+    <string name="sensor_accelerometer_desc">ضع الهاتف مسطحًا على المرتبة بجانب وسادتك.</string>
+    <string name="section_membership">العضوية</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">تحليل وإرشادات نوم مخصّصة مدعومة بنموذج ذكاء اصطناعي من Google يعمل على الجهاز.</string>
+    <string name="paywall_feature1_title">إرشادات نوم مخصّصة</string>
+    <string name="paywall_feature1_desc">يحلّل أنماط نومك ومراحله وجودته ليقدّم لك نصائح مخصّصة.</string>
+    <string name="paywall_feature2_title">ذكاء Google الاصطناعي على الجهاز</string>
+    <string name="paywall_feature2_desc">مدعوم بنموذج ذكاء اصطناعي متقدّم من Google يعمل على الجهاز. خاص بنسبة 100% ويعمل دون اتصال.</string>
+    <string name="paywall_feature3_title">رسائل غير محدودة</string>
+    <string name="paywall_feature3_desc">أرسل رسائل غير محدودة واطرح أي سؤال عن النوم دون قيود.</string>
+    <string name="paywall_feature4_title">وصول مدى الحياة</string>
+    <string name="paywall_feature4_desc">ادفع مرة واحدة واستخدمه إلى الأبد. بلا اشتراكات أو رسوم متكررة أو تكاليف خفية.</string>
+    <string name="paywall_lifetime_badge">مدى الحياة</string>
+    <string name="paywall_one_time_badge">دفعة لمرة واحدة</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">ادفع مرة واحدة وافتح مدرب النوم بالذكاء الاصطناعي إلى الأبد. بلا رسوم متكررة.</string>
+    <string name="paywall_unlock_button">فتح الوصول مدى الحياة</string>
+    <string name="paywall_unlock_with_price">فتح الوصول مدى الحياة · %s</string>
+    <string name="paywall_restore_button">استعادة المشتريات</string>
+    <string name="paywall_terms_privacy">سيتم تحصيل المبلغ من حسابك على Google Play. شراء لمرة واحدة دون اشتراك.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium مفعّل</string>
+    <string name="paywall_lifetime_active_desc">لديك وصول دائم إلى مدرب النوم بالذكاء الاصطناعي.</string>
+    <string name="paywall_upgrade_now">افتح OpenSleep Lifetime Premium</string>
+</resources>

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Начать сон</string>
+    <string name="stop_sleep">Завершить сон</string>
+    <string name="saving">Сохранение…</string>
+    <string name="tracking_active">Отслеживаем твой сон…</string>
+    <string name="tracking_idle">Готово к отслеживанию сна</string>
+    <string name="time_asleep">время сна</string>
+    <string name="live_stages">Фазы в реальном времени</string>
+    <string name="history_title">История сна</string>
+    <string name="no_sessions">Записей сна пока нет.\nНажми «Начать сон», чтобы начать.</string>
+    <string name="ai_chat_title">Коуч по сну</string>
+    <string name="no_model_loaded">Модель не загружена</string>
+    <string name="choose_model">Выбери ИИ-модель</string>
+    <string name="load_model">Использовать</string>
+    <string name="download_model">Скачать</string>
+    <string name="chat_placeholder">Спроси о своём сне…</string>
+    <string name="notification_channel_name">Отслеживание сна</string>
+    <string name="notification_channel_desc">Активно, пока OpenSleep отслеживает твой сон</string>
+    <string name="notification_tracking_title">Отслеживание сна</string>
+    <string name="notification_tracking_text">OpenSleep следит за твоим сном</string>
+    <string name="notification_syncing_title">Синхронизация данных сна</string>
+    <string name="notification_syncing_text">OpenSleep сохраняет и синхронизирует данные…</string>
+    <string name="menu_sleep">Сон</string>
+    <string name="menu_history">История</string>
+    <string name="menu_chat">ИИ-чат</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="section_language">Язык</string>
+    <string name="section_models">ИИ-модели</string>
+    <string name="chat_thinking">Думаю…</string>
+    <string name="no_models_downloaded">ИИ-модели ещё не скачаны. Перейди в настройки, чтобы выбрать и скачать модель Gemma 4.</string>
+    <string name="configure_in_settings">Открыть настройки</string>
+    <string name="manage_models_in_settings">Управлять моделями в настройках</string>
+    <string name="loading_model">Загрузка модели в память…</string>
+    <string name="chat_loading">Загрузка…</string>
+    <string name="setting_context_size">Размер контекстного окна</string>
+    <string name="active_model">Активна</string>
+    <string name="ready_to_use">Готова к работе</string>
+    <string name="delete_session_title">Удалить сеанс?</string>
+    <string name="delete_session_message">Этот сеанс сна и его данные о здоровье будут удалены навсегда.</string>
+    <string name="delete_confirm">Удалить</string>
+    <string name="cancel">Отмена</string>
+        <string name="bedtime">Отход ко сну</string>
+    <string name="wake_up">Подъём</string>
+    <string name="duration">Длительность</string>
+    <string name="sleep_stages">Фазы сна</string>
+    <string name="sleep_pattern">Структура сна</string>
+    <string name="sleep_pattern_legend">Бодрствование · REM · Лёгкий · Глубокий  (сверху → вниз)</string>
+    <string name="total_sleep">всего</string>
+    <string name="stage_awake">Бодрствование</string>
+    <string name="stage_light">Лёгкий</string>
+    <string name="stage_deep">Глубокий</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">День</string>
+    <string name="chart_week">Неделя</string>
+    <string name="chart_month">Месяц</string>
+    <string name="chart_year">Год</string>
+    <string name="select_all">Выбрать все</string>
+    <string name="select">Выбрать</string>
+    <string name="delete_selected">Удалить выбранные</string>
+    <string name="section_about">О приложении и конфиденциальность</string>
+    <string name="privacy_tos">Политика конфиденциальности и условия</string>
+    <string name="privacy_title">Политика конфиденциальности</string>
+    <string name="privacy_body" formatted="false">OpenSleep на 100% заботится о твоей конфиденциальности.
+
+• 100% обработка на устройстве: данные датчиков движения телефона и параметры уровня звука с микрофона анализируются полностью локально. Аудиозапись не сохраняется, и никакая личная телеметрия не покидает твоё устройство.
+• Локальная ИИ-модель: ассистент по сну работает на полностью локальной LLM Gemma 4 прямо на устройстве (никаких серверов и внешних API).
+• Открытый исходный код: OpenSleep — полностью прозрачный проект с открытым исходным кодом. Ты можешь посмотреть исходный код в любое время.
+• Синхронизация со здоровьем: сеансы сна хранятся локально и синхронизируются напрямую с Google Health Connect.
+• Поддержка: если у тебя есть вопросы или отзывы, напиши нам на timmy@opensleep.tech.</string>
+    <string name="github_repo">Репозиторий на GitHub</string>
+    <string name="notifications_disabled_title">Уведомления отключены</string>
+    <string name="notifications_disabled_desc">OpenSleep нужно разрешение на уведомления, чтобы отслеживать сон в фоне. Нажми здесь, чтобы включить его в настройках.</string>
+    <string name="health_connect_permissions_title">Включи Health Connect</string>
+    <string name="health_connect_permissions_desc">Разреши чтение и запись данных сна, чтобы OpenSleep мог синхронизировать завершённые сеансы и импортировать существующие записи сна.</string>
+    <string name="enable">Включить</string>
+    <string name="section_ai_settings">Настройки ИИ-чата</string>
+    <string name="setting_use_gpu">Ускорение на GPU</string>
+    <string name="setting_use_gpu_desc">Использовать GPU телефона для более быстрых ответов ИИ. Отключи, чтобы использовать CPU.</string>
+    <string name="guide_title">Как отслеживать сон</string>
+    <string name="guide_sonar_title">Сонар (бесконтактно)</string>
+    <string name="guide_sonar_desc">Положи телефон на устойчивую прикроватную тумбочку рядом с кроватью. Направь его нижний край (динамик/микрофон) к телу/груди.</string>
+    <string name="guide_accel_title">Акселерометр (матрас)</string>
+    <string name="guide_accel_desc">Положи телефон ровно на матрас рядом с подушкой или под простыню, чтобы отслеживать движения тела.</string>
+    <string name="guide_charger_tip">Совет: держи телефон на зарядке, чтобы датчики отслеживания не разряжали батарею.</string>
+    <string name="battery_optimization_title">Включена оптимизация батареи</string>
+    <string name="battery_optimization_desc">Системная экономия заряда может закрывать OpenSleep в фоне. Нажми здесь, чтобы отключить оптимизацию батареи в настройках системы.</string>
+
+    <string name="section_sensor">Датчик отслеживания</string>
+    <string name="sensor_sonar">Сонар (бесконтактно)</string>
+    <string name="sensor_sonar_desc">Положи телефон на тумбочку и направь его к груди. Использует ультразвук.</string>
+    <string name="sensor_accelerometer">Акселерометр (матрас)</string>
+    <string name="sensor_accelerometer_desc">Положи телефон ровно на матрас рядом с подушкой.</string>
+    <string name="section_membership">Премиум</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Персональный анализ сна и советы на основе ИИ-модели Google, работающей прямо на устройстве.</string>
+    <string name="paywall_feature1_title">Персональные советы по сну</string>
+    <string name="paywall_feature1_desc">Анализирует закономерности, фазы и качество твоего сна, чтобы давать индивидуальные советы.</string>
+    <string name="paywall_feature2_title">ИИ от Google на устройстве</string>
+    <string name="paywall_feature2_desc">Работает на продвинутой ИИ-модели Google прямо на устройстве. Полная приватность и работа без интернета.</string>
+    <string name="paywall_feature3_title">Безлимитные сообщения</string>
+    <string name="paywall_feature3_desc">Отправляй сколько угодно сообщений и задавай любые вопросы о сне без ограничений.</string>
+    <string name="paywall_feature4_title">Пожизненный доступ</string>
+    <string name="paywall_feature4_desc">Заплати один раз — пользуйся всегда. Без подписок, регулярных платежей и скрытых расходов.</string>
+    <string name="paywall_lifetime_badge">НАВСЕГДА</string>
+    <string name="paywall_one_time_badge">РАЗОВЫЙ ПЛАТЁЖ</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Заплати один раз и получи ИИ-коуча по сну навсегда. Без регулярных списаний.</string>
+    <string name="paywall_unlock_button">Открыть пожизненный доступ</string>
+    <string name="paywall_unlock_with_price">Открыть пожизненный доступ · %s</string>
+    <string name="paywall_restore_button">Восстановить покупки</string>
+    <string name="paywall_terms_privacy">Оплата будет списана с твоего аккаунта Google Play. Разовая покупка без подписки.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium активен</string>
+    <string name="paywall_lifetime_active_desc">У тебя есть постоянный доступ к ИИ-коучу по сну.</string>
+    <string name="paywall_upgrade_now">Открыть OpenSleep Lifetime Premium</string>
+</resources>

@@ -40,6 +40,7 @@ struct ContentView: View {
         .toolbarBackground(.ultraThinMaterial, for: .tabBar)
         .toolbarBackgroundVisibility(.visible, for: .tabBar)
         .environment(\.locale, Locale(identifier: selectedLanguage))
+        .environment(\.layoutDirection, Locale.Language(identifier: selectedLanguage).characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
         .id(selectedLanguage)
     }
 }

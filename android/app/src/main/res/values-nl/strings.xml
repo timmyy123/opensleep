@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Slaap starten</string>
+    <string name="stop_sleep">Slaap stoppen</string>
+    <string name="saving">Opslaan…</string>
+    <string name="tracking_active">Je slaap wordt gevolgd…</string>
+    <string name="tracking_idle">Klaar om je slaap te volgen</string>
+    <string name="time_asleep">slaaptijd</string>
+    <string name="live_stages">Live-fasen</string>
+    <string name="history_title">Slaapgeschiedenis</string>
+    <string name="no_sessions">Nog geen slaapsessies.\nTik op Slaap starten om te beginnen.</string>
+    <string name="ai_chat_title">Slaapcoach</string>
+    <string name="no_model_loaded">Geen model geladen</string>
+    <string name="choose_model">Kies je AI-model</string>
+    <string name="load_model">Gebruiken</string>
+    <string name="download_model">Downloaden</string>
+    <string name="chat_placeholder">Vraag iets over je slaap…</string>
+    <string name="notification_channel_name">Slaaptracking</string>
+    <string name="notification_channel_desc">Actief terwijl OpenSleep je slaap volgt</string>
+    <string name="notification_tracking_title">Slaap wordt gevolgd</string>
+    <string name="notification_tracking_text">OpenSleep volgt je slaappatronen</string>
+    <string name="notification_syncing_title">Slaapgegevens synchroniseren</string>
+    <string name="notification_syncing_text">OpenSleep slaat je gegevens op en synchroniseert ze…</string>
+    <string name="menu_sleep">Slaap</string>
+    <string name="menu_history">Geschiedenis</string>
+    <string name="menu_chat">AI-chat</string>
+    <string name="menu_settings">Instellingen</string>
+    <string name="section_language">Taal</string>
+    <string name="section_models">AI-modellen</string>
+    <string name="chat_thinking">Denkt na…</string>
+    <string name="no_models_downloaded">Nog geen AI-modellen gedownload. Ga naar Instellingen om een Gemma 4-model te kiezen en te downloaden.</string>
+    <string name="configure_in_settings">Configureer in Instellingen</string>
+    <string name="manage_models_in_settings">Beheer modellen in Instellingen</string>
+    <string name="loading_model">Model wordt in het geheugen geladen…</string>
+    <string name="chat_loading">Laden…</string>
+    <string name="setting_context_size">Grootte contextvenster</string>
+    <string name="active_model">Actief</string>
+    <string name="ready_to_use">Klaar voor gebruik</string>
+    <string name="delete_session_title">Sessie verwijderen?</string>
+    <string name="delete_session_message">Deze slaapsessie en de bijbehorende gezondheidsgegevens worden definitief verwijderd.</string>
+    <string name="delete_confirm">Verwijderen</string>
+    <string name="cancel">Annuleren</string>
+        <string name="bedtime">Bedtijd</string>
+    <string name="wake_up">Wakker worden</string>
+    <string name="duration">Duur</string>
+    <string name="sleep_stages">Slaapfasen</string>
+    <string name="sleep_pattern">Slaappatroon</string>
+    <string name="sleep_pattern_legend">Wakker · REM · Licht · Diep  (boven → onder)</string>
+    <string name="total_sleep">totaal</string>
+    <string name="stage_awake">Wakker</string>
+    <string name="stage_light">Licht</string>
+    <string name="stage_deep">Diep</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Dag</string>
+    <string name="chart_week">Week</string>
+    <string name="chart_month">Maand</string>
+    <string name="chart_year">Jaar</string>
+    <string name="select_all">Alles selecteren</string>
+    <string name="select">Selecteren</string>
+    <string name="delete_selected">Selectie verwijderen</string>
+    <string name="section_about">Over &amp; privacy</string>
+    <string name="privacy_tos">Privacybeleid &amp; voorwaarden</string>
+    <string name="privacy_title">Privacybeleid</string>
+    <string name="privacy_body" formatted="false">OpenSleep zet zich 100% in voor je privacy.
+
+• 100% verwerking op je apparaat: de bewegingssensoren van je telefoon en geluidsniveaukenmerken uit de microfoon worden volledig lokaal geanalyseerd. Ruwe audio wordt niet opgeslagen en er verlaat geen persoonlijke telemetrie je apparaat.
+• Lokaal AI-model: de slaapassistent draait een volledig lokaal Gemma 4-LLM, helemaal op je apparaat (geen servers, geen externe API\'s).
+• Open source: OpenSleep is een volledig transparant opensourceproject. Je kunt de broncode altijd bekijken.
+• Gezondheidssynchronisatie: slaapsessies worden lokaal opgeslagen en direct gesynchroniseerd met Google Health Connect.
+• Support: heb je vragen of feedback? Neem contact met ons op via timmy@opensleep.tech.</string>
+    <string name="github_repo">GitHub-repository</string>
+    <string name="notifications_disabled_title">Meldingen uitgeschakeld</string>
+    <string name="notifications_disabled_desc">OpenSleep heeft toestemming voor meldingen nodig om je slaap op de achtergrond te volgen. Tik hier om dit aan te zetten in Instellingen.</string>
+    <string name="health_connect_permissions_title">Health Connect inschakelen</string>
+    <string name="health_connect_permissions_desc">Geef lees- en schrijftoegang tot slaapgegevens, zodat OpenSleep voltooide sessies kan synchroniseren en bestaande slaapgegevens kan importeren.</string>
+    <string name="enable">Inschakelen</string>
+    <string name="section_ai_settings">AI-chatinstellingen</string>
+    <string name="setting_use_gpu">GPU-versnelling gebruiken</string>
+    <string name="setting_use_gpu_desc">Gebruik de GPU van je telefoon voor snellere AI-antwoorden. Schakel uit om de CPU te gebruiken.</string>
+    <string name="guide_title">Uitleg slaaptracking</string>
+    <string name="guide_sonar_title">Sonar (contactloos)</string>
+    <string name="guide_sonar_desc">Leg je telefoon op een stabiel nachtkastje naast het bed. Richt de onderkant (speaker/microfoon) naar je lichaam/borst.</string>
+    <string name="guide_accel_title">Versnellingsmeter (matras)</string>
+    <string name="guide_accel_desc">Leg je telefoon plat op het matras naast je kussen of onder het laken om je bewegingen te registreren.</string>
+    <string name="guide_charger_tip">Tip: houd je telefoon aan de oplader, zodat de meetsensoren je batterij niet leegtrekken.</string>
+    <string name="battery_optimization_title">Batterijoptimalisatie actief</string>
+    <string name="battery_optimization_desc">OpenSleep kan op de achtergrond worden afgesloten door de batterijbesparing van het systeem. Tik hier om batterijoptimalisatie uit te schakelen in de systeeminstellingen.</string>
+
+    <string name="section_sensor">Meetsensor</string>
+    <string name="sensor_sonar">Sonar (contactloos)</string>
+    <string name="sensor_sonar_desc">Leg je telefoon op je nachtkastje, gericht op je borst. Gebruikt ultrageluid.</string>
+    <string name="sensor_accelerometer">Versnellingsmeter (matras)</string>
+    <string name="sensor_accelerometer_desc">Leg je telefoon plat op het matras naast je kussen.</string>
+    <string name="section_membership">Lidmaatschap</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Persoonlijke slaapanalyse en begeleiding met een AI-model van Google dat op je apparaat draait.</string>
+    <string name="paywall_feature1_title">Persoonlijk slaapadvies</string>
+    <string name="paywall_feature1_desc">Analyseert je slaappatronen, slaapfasen en slaapkwaliteit voor advies op maat.</string>
+    <string name="paywall_feature2_title">Google-AI op je apparaat</string>
+    <string name="paywall_feature2_desc">Aangedreven door een geavanceerd AI-model van Google dat op je apparaat draait. 100% privé en werkt ook offline.</string>
+    <string name="paywall_feature3_title">Onbeperkt berichten</string>
+    <string name="paywall_feature3_desc">Stuur onbeperkt berichten en stel al je vragen over slaap, zonder limieten.</string>
+    <string name="paywall_feature4_title">Levenslange toegang</string>
+    <string name="paywall_feature4_desc">Eén keer betalen, voor altijd gebruiken. Geen abonnementen, terugkerende kosten of verborgen kosten.</string>
+    <string name="paywall_lifetime_badge">LEVENSLANG</string>
+    <string name="paywall_one_time_badge">EENMALIGE BETALING</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Betaal één keer en ontgrendel de AI-slaapcoach voor altijd. Geen terugkerende kosten.</string>
+    <string name="paywall_unlock_button">Ontgrendel levenslange toegang</string>
+    <string name="paywall_unlock_with_price">Ontgrendel levenslange toegang · %s</string>
+    <string name="paywall_restore_button">Aankopen herstellen</string>
+    <string name="paywall_terms_privacy">De betaling wordt in rekening gebracht via je Google Play-account. Eenmalige aankoop, geen abonnement.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium actief</string>
+    <string name="paywall_lifetime_active_desc">Je hebt permanente toegang tot de AI-slaapcoach.</string>
+    <string name="paywall_upgrade_now">Ontgrendel OpenSleep Lifetime Premium</string>
+</resources>

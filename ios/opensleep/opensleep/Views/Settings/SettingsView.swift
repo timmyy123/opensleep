@@ -15,7 +15,23 @@ struct SettingsView: View {
         ("es", "Español"),
         ("de", "Deutsch"),
         ("fr", "Français"),
-        ("it", "Italiano")
+        ("it", "Italiano"),
+        ("nl", "Nederlands"),
+        ("sv", "Svenska"),
+        ("da", "Dansk"),
+        ("nb", "Norsk bokmål"),
+        ("pl", "Polski"),
+        ("tr", "Türkçe"),
+        ("ru", "Русский"),
+        ("uk", "Українська"),
+        ("ar", "العربية"),
+        ("he", "עברית"),
+        ("hi", "हिन्दी"),
+        ("th", "ไทย"),
+        ("id", "Bahasa Indonesia"),
+        ("vi", "Tiếng Việt"),
+        ("ja", "日本語"),
+        ("ko", "한국어")
     ]
 
     var body: some View {

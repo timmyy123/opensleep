@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Uykuyu Başlat</string>
+    <string name="stop_sleep">Uykuyu Durdur</string>
+    <string name="saving">Kaydediliyor…</string>
+    <string name="tracking_active">Uykun takip ediliyor…</string>
+    <string name="tracking_idle">Uykunu takip etmeye hazır</string>
+    <string name="time_asleep">uykuda geçen süre</string>
+    <string name="live_stages">Canlı evreler</string>
+    <string name="history_title">Uyku Geçmişi</string>
+    <string name="no_sessions">Henüz uyku oturumu yok.\nBaşlamak için Uykuyu Başlat\'a dokun.</string>
+    <string name="ai_chat_title">Uyku Koçu</string>
+    <string name="no_model_loaded">Model yüklenmedi</string>
+    <string name="choose_model">Yapay zekâ modelini seç</string>
+    <string name="load_model">Kullan</string>
+    <string name="download_model">İndir</string>
+    <string name="chat_placeholder">Uykun hakkında sor…</string>
+    <string name="notification_channel_name">Uyku Takibi</string>
+    <string name="notification_channel_desc">OpenSleep uykunu takip ederken etkin</string>
+    <string name="notification_tracking_title">Uyku takip ediliyor</string>
+    <string name="notification_tracking_text">OpenSleep uyku düzenini izliyor</string>
+    <string name="notification_syncing_title">Uyku verileri eşitleniyor</string>
+    <string name="notification_syncing_text">OpenSleep verilerini kaydediyor ve eşitliyor…</string>
+    <string name="menu_sleep">Uyku</string>
+    <string name="menu_history">Geçmiş</string>
+    <string name="menu_chat">YZ Sohbet</string>
+    <string name="menu_settings">Ayarlar</string>
+    <string name="section_language">Dil</string>
+    <string name="section_models">Yapay Zekâ Modelleri</string>
+    <string name="chat_thinking">Düşünüyor…</string>
+    <string name="no_models_downloaded">Henüz yapay zekâ modeli indirilmedi. Bir Gemma 4 modeli seçip indirmek için Ayarlar\'a git.</string>
+    <string name="configure_in_settings">Ayarlar\'da Yapılandır</string>
+    <string name="manage_models_in_settings">Modelleri Ayarlar\'da Yönet</string>
+    <string name="loading_model">Model belleğe yükleniyor…</string>
+    <string name="chat_loading">Yükleniyor…</string>
+    <string name="setting_context_size">Bağlam Penceresi Boyutu</string>
+    <string name="active_model">Etkin</string>
+    <string name="ready_to_use">Kullanıma Hazır</string>
+    <string name="delete_session_title">Oturum Silinsin mi?</string>
+    <string name="delete_session_message">Bu uyku oturumu ve sağlık verileri kalıcı olarak silinecek.</string>
+    <string name="delete_confirm">Sil</string>
+    <string name="cancel">İptal</string>
+        <string name="bedtime">Yatma saati</string>
+    <string name="wake_up">Uyanma</string>
+    <string name="duration">Süre</string>
+    <string name="sleep_stages">Uyku Evreleri</string>
+    <string name="sleep_pattern">Uyku Düzeni</string>
+    <string name="sleep_pattern_legend">Uyanık · REM · Hafif · Derin  (yukarıdan → aşağıya)</string>
+    <string name="total_sleep">toplam</string>
+    <string name="stage_awake">Uyanık</string>
+    <string name="stage_light">Hafif</string>
+    <string name="stage_deep">Derin</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Gün</string>
+    <string name="chart_week">Hafta</string>
+    <string name="chart_month">Ay</string>
+    <string name="chart_year">Yıl</string>
+    <string name="select_all">Tümünü Seç</string>
+    <string name="select">Seç</string>
+    <string name="delete_selected">Seçilenleri Sil</string>
+    <string name="section_about">Hakkında ve Gizlilik</string>
+    <string name="privacy_tos">Gizlilik Politikası ve Koşullar</string>
+    <string name="privacy_title">Gizlilik Politikası</string>
+    <string name="privacy_body" formatted="false">OpenSleep gizliliğine %100 bağlıdır.
+
+• %100 Cihaz Üzerinde İşleme: Telefonun hareket sensörleri ve mikrofondan elde edilen ses seviyesi özellikleri tamamen yerel olarak analiz edilir. Ham ses kaydedilmez ve hiçbir kişisel telemetri verisi cihazından çıkmaz.
+• Yerel Yapay Zekâ Modeli: Uyku asistanı, tamamen yerel bir Gemma 4 LLM\'yi baştan sona cihaz üzerinde çalıştırır (sıfır sunucu, harici API yok).
+• Açık Kaynak: OpenSleep tamamen şeffaf, açık kaynaklı bir projedir. Kaynak kodunu istediğin zaman inceleyebilirsin.
+• Sağlık Eşitleme: Uyku oturumları yerel olarak saklanır ve doğrudan Google Health Connect ile eşitlenir.
+• Destek: Soruların veya geri bildirimin varsa timmy@opensleep.tech adresinden bize ulaş.</string>
+    <string name="github_repo">GitHub Deposu</string>
+    <string name="notifications_disabled_title">Bildirimler Kapalı</string>
+    <string name="notifications_disabled_desc">OpenSleep\'in uyku takibini arka planda çalıştırabilmesi için bildirim izni gerekiyor. Ayarlar\'da etkinleştirmek için buraya dokun.</string>
+    <string name="health_connect_permissions_title">Health Connect\'i Etkinleştir</string>
+    <string name="health_connect_permissions_desc">OpenSleep\'in tamamlanan oturumları eşitleyebilmesi ve mevcut uyku kayıtlarını içe aktarabilmesi için uyku verilerine okuma/yazma erişimi ver.</string>
+    <string name="enable">Etkinleştir</string>
+    <string name="section_ai_settings">YZ Sohbet Ayarları</string>
+    <string name="setting_use_gpu">GPU Hızlandırma Kullan</string>
+    <string name="setting_use_gpu_desc">Daha hızlı yapay zekâ yanıtları için telefonun GPU\'sunu kullan. CPU kullanmak için kapat.</string>
+    <string name="guide_title">Uyku Takibi Rehberi</string>
+    <string name="guide_sonar_title">Sonar (Temassız)</string>
+    <string name="guide_sonar_desc">Telefonu yatağın yanındaki sağlam bir komodinin üzerine koy. Alt kısmını (hoparlör/mikrofon) vücuduna/göğsüne doğru çevir.</string>
+    <string name="guide_accel_title">İvmeölçer (Yatak)</string>
+    <string name="guide_accel_desc">Fiziksel hareketleri takip etmek için telefonu yastığının yanında yatağın üzerine düz şekilde ya da çarşafın altına koy.</string>
+    <string name="guide_charger_tip">İpucu: Takip sensörlerinin pili tüketmesini önlemek için telefonu şarjda tut.</string>
+    <string name="battery_optimization_title">Pil Optimizasyonu Etkin</string>
+    <string name="battery_optimization_desc">OpenSleep, sistemin pil tasarrufu özellikleri tarafından arka planda kapatılabilir. Sistem ayarlarında pil optimizasyonunu kapatmak için buraya dokun.</string>
+
+    <string name="section_sensor">Takip Sensörü</string>
+    <string name="sensor_sonar">Sonar (Temassız)</string>
+    <string name="sensor_sonar_desc">Telefonu komodinin üzerine, göğsüne doğru bakacak şekilde koy. Ultrason kullanır.</string>
+    <string name="sensor_accelerometer">İvmeölçer (Yatak)</string>
+    <string name="sensor_accelerometer_desc">Telefonu yastığının yanında yatağın üzerine düz şekilde koy.</string>
+    <string name="section_membership">Üyelik</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Cihaz üzerinde çalışan bir Google yapay zekâ modeliyle kişiselleştirilmiş uyku analizi ve rehberliği.</string>
+    <string name="paywall_feature1_title">Kişiselleştirilmiş Uyku Rehberliği</string>
+    <string name="paywall_feature1_desc">Sana özel tavsiyeler vermek için uyku düzenini, evrelerini ve kaliteni analiz eder.</string>
+    <string name="paywall_feature2_title">Cihaz Üzerinde Google Yapay Zekâsı</string>
+    <string name="paywall_feature2_desc">Google\'ın gelişmiş, cihaz üzerinde çalışan yapay zekâ modeliyle desteklenir. %100 gizli ve çevrimdışı çalışabilir.</string>
+    <string name="paywall_feature3_title">Sınırsız Mesaj</string>
+    <string name="paywall_feature3_desc">Sınırsız mesaj gönder ve uykuyla ilgili her şeyi sınır olmadan sor.</string>
+    <string name="paywall_feature4_title">Ömür Boyu Erişim</string>
+    <string name="paywall_feature4_desc">Bir kez öde, sonsuza dek kullan. Abonelik, yinelenen ücret ya da gizli maliyet yok.</string>
+    <string name="paywall_lifetime_badge">ÖMÜR BOYU</string>
+    <string name="paywall_one_time_badge">TEK SEFERLİK ÖDEME</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Bir kez öde, Yapay Zekâ Uyku Koçu\'nun kilidini sonsuza dek aç. Yinelenen ücret yok.</string>
+    <string name="paywall_unlock_button">Ömür Boyu Erişimi Aç</string>
+    <string name="paywall_unlock_with_price">Ömür Boyu Erişimi Aç · %s</string>
+    <string name="paywall_restore_button">Satın Alımları Geri Yükle</string>
+    <string name="paywall_terms_privacy">Ödeme Google Play hesabından alınacak. Abonelik içermeyen tek seferlik satın alma.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium Etkin</string>
+    <string name="paywall_lifetime_active_desc">Yapay Zekâ Uyku Koçu\'na kalıcı erişimin var.</string>
+    <string name="paywall_upgrade_now">OpenSleep Lifetime Premium\'un Kilidini Aç</string>
+</resources>

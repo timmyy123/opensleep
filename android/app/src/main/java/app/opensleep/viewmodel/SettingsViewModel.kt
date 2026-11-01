@@ -88,7 +88,8 @@ class SettingsViewModel(
     }
 
     private fun getPersistedLanguage(): String {
-        return sharedPrefs.getString("language_tag", null) ?: Locale.getDefault().language
+        // toLanguageTag() normalizes legacy codes (iw -> he, in -> id) so they match the picker tags.
+        return sharedPrefs.getString("language_tag", null) ?: Locale.getDefault().toLanguageTag().substringBefore('-')
     }
 
     private fun applyLocale(languageTag: String) {

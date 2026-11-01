@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">Zacznij sen</string>
+    <string name="stop_sleep">Zakończ sen</string>
+    <string name="saving">Zapisywanie…</string>
+    <string name="tracking_active">Śledzenie snu…</string>
+    <string name="tracking_idle">Gotowe do śledzenia snu</string>
+    <string name="time_asleep">czas snu</string>
+    <string name="live_stages">Fazy na żywo</string>
+    <string name="history_title">Historia snu</string>
+    <string name="no_sessions">Brak sesji snu.\nDotknij Zacznij sen, aby rozpocząć.</string>
+    <string name="ai_chat_title">Trener snu</string>
+    <string name="no_model_loaded">Nie załadowano modelu</string>
+    <string name="choose_model">Wybierz model AI</string>
+    <string name="load_model">Użyj</string>
+    <string name="download_model">Pobierz</string>
+    <string name="chat_placeholder">Zapytaj o swój sen…</string>
+    <string name="notification_channel_name">Śledzenie snu</string>
+    <string name="notification_channel_desc">Aktywne, gdy OpenSleep śledzi Twój sen</string>
+    <string name="notification_tracking_title">Śledzenie snu</string>
+    <string name="notification_tracking_text">OpenSleep monitoruje Twój sen</string>
+    <string name="notification_syncing_title">Synchronizacja danych snu</string>
+    <string name="notification_syncing_text">OpenSleep zapisuje i synchronizuje Twoje dane…</string>
+    <string name="menu_sleep">Sen</string>
+    <string name="menu_history">Historia</string>
+    <string name="menu_chat">Czat AI</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="section_language">Język</string>
+    <string name="section_models">Modele AI</string>
+    <string name="chat_thinking">Myślę…</string>
+    <string name="no_models_downloaded">Nie pobrano jeszcze żadnego modelu AI. Przejdź do Ustawień, aby wybrać i pobrać model Gemma 4.</string>
+    <string name="configure_in_settings">Skonfiguruj w Ustawieniach</string>
+    <string name="manage_models_in_settings">Zarządzaj modelami w Ustawieniach</string>
+    <string name="loading_model">Ładowanie modelu do pamięci…</string>
+    <string name="chat_loading">Ładowanie…</string>
+    <string name="setting_context_size">Rozmiar okna kontekstu</string>
+    <string name="active_model">Aktywny</string>
+    <string name="ready_to_use">Gotowy do użycia</string>
+    <string name="delete_session_title">Usunąć sesję?</string>
+    <string name="delete_session_message">Ta sesja snu i jej dane zdrowotne zostaną trwale usunięte.</string>
+    <string name="delete_confirm">Usuń</string>
+    <string name="cancel">Anuluj</string>
+        <string name="bedtime">Pora snu</string>
+    <string name="wake_up">Pobudka</string>
+    <string name="duration">Czas trwania</string>
+    <string name="sleep_stages">Fazy snu</string>
+    <string name="sleep_pattern">Wzorzec snu</string>
+    <string name="sleep_pattern_legend">Czuwanie · REM · Płytki · Głęboki  (od góry → w dół)</string>
+    <string name="total_sleep">łącznie</string>
+    <string name="stage_awake">Czuwanie</string>
+    <string name="stage_light">Płytki</string>
+    <string name="stage_deep">Głęboki</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">Dzień</string>
+    <string name="chart_week">Tydzień</string>
+    <string name="chart_month">Miesiąc</string>
+    <string name="chart_year">Rok</string>
+    <string name="select_all">Zaznacz wszystko</string>
+    <string name="select">Zaznacz</string>
+    <string name="delete_selected">Usuń zaznaczone</string>
+    <string name="section_about">Informacje i prywatność</string>
+    <string name="privacy_tos">Polityka prywatności i warunki</string>
+    <string name="privacy_title">Polityka prywatności</string>
+    <string name="privacy_body" formatted="false">OpenSleep w 100% dba o Twoją prywatność.
+
+• 100% przetwarzania na urządzeniu: czujniki ruchu telefonu i cechy poziomu dźwięku uzyskane z mikrofonu są analizowane całkowicie lokalnie. Surowy dźwięk nie jest zapisywany, a żadne osobiste dane telemetryczne nie opuszczają Twojego urządzenia.
+• Lokalny model AI: asystent snu uruchamia w pełni lokalny model LLM Gemma 4 wyłącznie na urządzeniu (zero serwerów, żadnych zewnętrznych API).
+• Open source: OpenSleep to w pełni przejrzysty projekt open source. Kod źródłowy możesz przejrzeć w dowolnej chwili.
+• Synchronizacja zdrowia: sesje snu są przechowywane lokalnie i synchronizowane bezpośrednio z Google Health Connect.
+• Pomoc: jeśli masz pytania lub uwagi, napisz do nas na timmy@opensleep.tech.</string>
+    <string name="github_repo">Repozytorium GitHub</string>
+    <string name="notifications_disabled_title">Powiadomienia wyłączone</string>
+    <string name="notifications_disabled_desc">OpenSleep potrzebuje uprawnienia do powiadomień, aby śledzić sen w tle. Dotknij tutaj, aby je włączyć w Ustawieniach.</string>
+    <string name="health_connect_permissions_title">Włącz Health Connect</string>
+    <string name="health_connect_permissions_desc">Zezwól na odczyt i zapis danych snu, aby OpenSleep mógł synchronizować zakończone sesje i importować istniejące zapisy snu.</string>
+    <string name="enable">Włącz</string>
+    <string name="section_ai_settings">Ustawienia czatu AI</string>
+    <string name="setting_use_gpu">Akceleracja GPU</string>
+    <string name="setting_use_gpu_desc">Używaj GPU telefonu, aby AI odpowiadała szybciej. Wyłącz, aby używać CPU.</string>
+    <string name="guide_title">Przewodnik śledzenia snu</string>
+    <string name="guide_sonar_title">Sonar (bezdotykowo)</string>
+    <string name="guide_sonar_desc">Połóż telefon na stabilnej szafce nocnej obok łóżka. Skieruj jego dolną krawędź (głośnik/mikrofon) w stronę ciała/klatki piersiowej.</string>
+    <string name="guide_accel_title">Akcelerometr (materac)</string>
+    <string name="guide_accel_desc">Połóż telefon płasko na materacu obok poduszki lub pod prześcieradłem, aby śledzić ruchy ciała.</string>
+    <string name="guide_charger_tip">Wskazówka: trzymaj telefon podłączony do ładowarki, aby czujniki śledzenia nie rozładowały baterii.</string>
+    <string name="battery_optimization_title">Optymalizacja baterii aktywna</string>
+    <string name="battery_optimization_desc">Systemowe oszczędzanie baterii może zamykać OpenSleep w tle. Dotknij tutaj, aby wyłączyć optymalizację baterii w ustawieniach systemu.</string>
+
+    <string name="section_sensor">Czujnik śledzenia</string>
+    <string name="sensor_sonar">Sonar (bezdotykowo)</string>
+    <string name="sensor_sonar_desc">Połóż telefon na szafce nocnej, skierowany w stronę klatki piersiowej. Wykorzystuje ultradźwięki.</string>
+    <string name="sensor_accelerometer">Akcelerometr (materac)</string>
+    <string name="sensor_accelerometer_desc">Połóż telefon płasko na materacu obok poduszki.</string>
+    <string name="section_membership">Członkostwo</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">Spersonalizowana analiza snu i wskazówki dzięki modelowi AI od Google działającemu na urządzeniu.</string>
+    <string name="paywall_feature1_title">Spersonalizowane wskazówki</string>
+    <string name="paywall_feature1_desc">Analizuje Twoje wzorce snu, fazy i jego jakość, aby dawać dopasowane porady.</string>
+    <string name="paywall_feature2_title">AI od Google na urządzeniu</string>
+    <string name="paywall_feature2_desc">Napędzane zaawansowanym modelem AI od Google działającym na urządzeniu. W 100% prywatne i działa offline.</string>
+    <string name="paywall_feature3_title">Nielimitowane wiadomości</string>
+    <string name="paywall_feature3_desc">Wysyłaj dowolną liczbę wiadomości i pytaj o sen bez ograniczeń.</string>
+    <string name="paywall_feature4_title">Dostęp na zawsze</string>
+    <string name="paywall_feature4_desc">Zapłać raz, korzystaj zawsze. Bez subskrypcji, opłat cyklicznych i ukrytych kosztów.</string>
+    <string name="paywall_lifetime_badge">NA ZAWSZE</string>
+    <string name="paywall_one_time_badge">JEDNORAZOWA PŁATNOŚĆ</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">Zapłać raz i odblokuj Trenera snu AI na zawsze. Bez opłat cyklicznych.</string>
+    <string name="paywall_unlock_button">Odblokuj dostęp na zawsze</string>
+    <string name="paywall_unlock_with_price">Odblokuj dostęp na zawsze · %s</string>
+    <string name="paywall_restore_button">Przywróć zakupy</string>
+    <string name="paywall_terms_privacy">Płatność zostanie pobrana z konta Google Play. Jednorazowy zakup bez subskrypcji.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium aktywne</string>
+    <string name="paywall_lifetime_active_desc">Masz stały dostęp do Trenera snu AI.</string>
+    <string name="paywall_upgrade_now">Odblokuj OpenSleep Lifetime Premium</string>
+</resources>

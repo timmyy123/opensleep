@@ -43,7 +43,23 @@ fun SettingsScreen(
         "es" to "Español",
         "de" to "Deutsch",
         "fr" to "Français",
-        "it" to "Italiano"
+        "it" to "Italiano",
+        "nl" to "Nederlands",
+        "sv" to "Svenska",
+        "da" to "Dansk",
+        "nb" to "Norsk bokmål",
+        "pl" to "Polski",
+        "tr" to "Türkçe",
+        "ru" to "Русский",
+        "uk" to "Українська",
+        "ar" to "العربية",
+        "he" to "עברית",
+        "hi" to "हिन्दी",
+        "th" to "ไทย",
+        "id" to "Bahasa Indonesia",
+        "vi" to "Tiếng Việt",
+        "ja" to "日本語",
+        "ko" to "한국어"
     )
 
     Column(

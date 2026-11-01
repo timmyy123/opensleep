@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">睡眠を開始</string>
+    <string name="stop_sleep">睡眠を終了</string>
+    <string name="saving">保存中…</string>
+    <string name="tracking_active">睡眠を計測中…</string>
+    <string name="tracking_idle">睡眠計測の準備ができました</string>
+    <string name="time_asleep">睡眠時間</string>
+    <string name="live_stages">リアルタイムの睡眠段階</string>
+    <string name="history_title">睡眠履歴</string>
+    <string name="no_sessions">睡眠記録はまだありません。\n「睡眠を開始」をタップして始めましょう。</string>
+    <string name="ai_chat_title">睡眠コーチ</string>
+    <string name="no_model_loaded">モデルが読み込まれていません</string>
+    <string name="choose_model">AIモデルを選択</string>
+    <string name="load_model">使用</string>
+    <string name="download_model">ダウンロード</string>
+    <string name="chat_placeholder">睡眠について質問…</string>
+    <string name="notification_channel_name">睡眠計測</string>
+    <string name="notification_channel_desc">OpenSleepが睡眠を計測している間に表示されます</string>
+    <string name="notification_tracking_title">睡眠を計測中</string>
+    <string name="notification_tracking_text">OpenSleepが睡眠パターンを記録しています</string>
+    <string name="notification_syncing_title">睡眠データを同期中</string>
+    <string name="notification_syncing_text">OpenSleepがデータを保存・同期しています…</string>
+    <string name="menu_sleep">睡眠</string>
+    <string name="menu_history">履歴</string>
+    <string name="menu_chat">AIチャット</string>
+    <string name="menu_settings">設定</string>
+    <string name="section_language">言語</string>
+    <string name="section_models">AIモデル</string>
+    <string name="chat_thinking">考え中…</string>
+    <string name="no_models_downloaded">AIモデルがまだダウンロードされていません。「設定」でGemma 4モデルを選んでダウンロードしてください。</string>
+    <string name="configure_in_settings">設定で構成</string>
+    <string name="manage_models_in_settings">設定でモデルを管理</string>
+    <string name="loading_model">モデルをメモリに読み込み中…</string>
+    <string name="chat_loading">読み込み中…</string>
+    <string name="setting_context_size">コンテキストウィンドウのサイズ</string>
+    <string name="active_model">使用中</string>
+    <string name="ready_to_use">使用可能</string>
+    <string name="delete_session_title">記録を削除しますか？</string>
+    <string name="delete_session_message">この睡眠記録とそのヘルスデータは完全に削除されます。</string>
+    <string name="delete_confirm">削除</string>
+    <string name="cancel">キャンセル</string>
+        <string name="bedtime">就寝</string>
+    <string name="wake_up">起床</string>
+    <string name="duration">時間</string>
+    <string name="sleep_stages">睡眠段階</string>
+    <string name="sleep_pattern">睡眠パターン</string>
+    <string name="sleep_pattern_legend">覚醒 · レム · 浅い · 深い（上 → 下）</string>
+    <string name="total_sleep">合計</string>
+    <string name="stage_awake">覚醒</string>
+    <string name="stage_light">浅い睡眠</string>
+    <string name="stage_deep">深い睡眠</string>
+    <string name="stage_rem">レム睡眠</string>
+    <string name="chart_day">日</string>
+    <string name="chart_week">週</string>
+    <string name="chart_month">月</string>
+    <string name="chart_year">年</string>
+    <string name="select_all">すべて選択</string>
+    <string name="select">選択</string>
+    <string name="delete_selected">選択項目を削除</string>
+    <string name="section_about">情報とプライバシー</string>
+    <string name="privacy_tos">プライバシーポリシーと利用規約</string>
+    <string name="privacy_title">プライバシーポリシー</string>
+    <string name="privacy_body" formatted="false">OpenSleepはあなたのプライバシーを100%大切にしています。
+
+• 100%オンデバイス処理：スマートフォンのモーションセンサーと、マイク音声から抽出した音量特徴量は、完全にデバイス上で解析されます。音声そのものは保存されず、個人のテレメトリデータがデバイスの外に送信されることもありません。
+• ローカルAIモデル：睡眠アシスタントは完全ローカルのGemma 4 LLMをすべてデバイス上で実行します（サーバーなし、外部APIなし）。
+• オープンソース：OpenSleepは完全に透明なオープンソースプロジェクトです。ソースコードはいつでも確認できます。
+• ヘルスデータの同期：睡眠記録はローカルに保存され、Googleヘルスコネクトと直接同期されます。
+• サポート：ご質問やご意見は timmy@opensleep.tech までお寄せください。</string>
+    <string name="github_repo">GitHubリポジトリ</string>
+    <string name="notifications_disabled_title">通知がオフになっています</string>
+    <string name="notifications_disabled_desc">OpenSleepがバックグラウンドで睡眠を計測するには、通知の許可が必要です。ここをタップして「設定」で有効にしてください。</string>
+    <string name="health_connect_permissions_title">ヘルスコネクトを有効にする</string>
+    <string name="health_connect_permissions_desc">睡眠データの読み取り/書き込みを許可すると、OpenSleepが完了した記録を同期し、既存の睡眠データを取り込めるようになります。</string>
+    <string name="enable">有効にする</string>
+    <string name="section_ai_settings">AIチャットの設定</string>
+    <string name="setting_use_gpu">GPUアクセラレーションを使用</string>
+    <string name="setting_use_gpu_desc">スマートフォンのGPUを使ってAIの応答を高速化します。オフにするとCPUを使用します。</string>
+    <string name="guide_title">睡眠計測ガイド</string>
+    <string name="guide_sonar_title">ソナー（非接触）</string>
+    <string name="guide_sonar_desc">スマートフォンをベッド横の安定したナイトテーブルに置き、下部（スピーカー/マイク）を体や胸に向けてください。</string>
+    <string name="guide_accel_title">加速度センサー（マットレス）</string>
+    <string name="guide_accel_desc">体の動きを記録するため、スマートフォンを枕の横のマットレスの上かシーツの下に平らに置いてください。</string>
+    <string name="guide_charger_tip">ヒント：計測センサーによるバッテリー消費を防ぐため、スマートフォンを充電器につないだままにしてください。</string>
+    <string name="battery_optimization_title">バッテリーの最適化が有効です</string>
+    <string name="battery_optimization_desc">システムの省電力機能により、OpenSleepがバックグラウンドで停止される場合があります。ここをタップして、システム設定でバッテリーの最適化をオフにしてください。</string>
+
+    <string name="section_sensor">計測センサー</string>
+    <string name="sensor_sonar">ソナー（非接触）</string>
+    <string name="sensor_sonar_desc">ナイトテーブルに置き、胸の方に向けます。超音波を使用します。</string>
+    <string name="sensor_accelerometer">加速度センサー（マットレス）</string>
+    <string name="sensor_accelerometer_desc">スマートフォンを枕の横のマットレスの上に平らに置きます。</string>
+    <string name="section_membership">メンバーシップ</string>
+    <string name="paywall_title">OpenSleep 買い切りプレミアム</string>
+    <string name="paywall_subtitle">オンデバイスのGoogle AIモデルによる、あなたに合わせた睡眠分析とアドバイス。</string>
+    <string name="paywall_feature1_title">パーソナライズされた睡眠アドバイス</string>
+    <string name="paywall_feature1_desc">睡眠パターン、睡眠段階、睡眠の質を分析して、あなたに合ったアドバイスを提供します。</string>
+    <string name="paywall_feature2_title">オンデバイスのGoogle AI</string>
+    <string name="paywall_feature2_desc">Googleの高度なオンデバイスAIモデルを搭載。完全プライベートで、オフラインでも利用できます。</string>
+    <string name="paywall_feature3_title">メッセージ無制限</string>
+    <string name="paywall_feature3_desc">メッセージは無制限。睡眠に関する質問を何でも気軽にどうぞ。</string>
+    <string name="paywall_feature4_title">買い切り</string>
+    <string name="paywall_feature4_desc">一度の支払いでずっと使えます。サブスクリプション、継続課金、隠れた費用は一切ありません。</string>
+    <string name="paywall_lifetime_badge">買い切り</string>
+    <string name="paywall_one_time_badge">1回払い</string>
+    <string name="paywall_lifetime_heading">OpenSleep 買い切りプレミアム</string>
+    <string name="paywall_no_subscription_note">一度の支払いでAI睡眠コーチをずっと使えます。継続課金はありません。</string>
+    <string name="paywall_unlock_button">買い切りでアンロック</string>
+    <string name="paywall_unlock_with_price">買い切りでアンロック · %s</string>
+    <string name="paywall_restore_button">購入を復元</string>
+    <string name="paywall_terms_privacy">お支払いはGoogle Playアカウントに請求されます。サブスクリプションではない1回限りの購入です。</string>
+    <string name="paywall_premium_active">OpenSleep 買い切りプレミアム有効</string>
+    <string name="paywall_lifetime_active_desc">AI睡眠コーチを永続的にご利用いただけます。</string>
+    <string name="paywall_upgrade_now">OpenSleep 買い切りプレミアムをアンロック</string>
+</resources>

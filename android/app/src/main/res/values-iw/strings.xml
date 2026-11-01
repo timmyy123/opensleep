@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OpenSleep</string>
+    <string name="start_sleep">התחלת שינה</string>
+    <string name="stop_sleep">סיום שינה</string>
+    <string name="saving">שומר…</string>
+    <string name="tracking_active">עוקב אחר השינה שלך…</string>
+    <string name="tracking_idle">מוכן למעקב אחר השינה שלך</string>
+    <string name="time_asleep">זמן שינה</string>
+    <string name="live_stages">שלבים בזמן אמת</string>
+    <string name="history_title">היסטוריית שינה</string>
+    <string name="no_sessions">עדיין אין סשנים של שינה.\nאפשר להקיש על \"התחלת שינה\" כדי להתחיל.</string>
+    <string name="ai_chat_title">מאמן שינה</string>
+    <string name="no_model_loaded">לא נטען מודל</string>
+    <string name="choose_model">בחירת מודל AI</string>
+    <string name="load_model">שימוש</string>
+    <string name="download_model">הורדה</string>
+    <string name="chat_placeholder">אפשר לשאול על השינה שלך…</string>
+    <string name="notification_channel_name">מעקב שינה</string>
+    <string name="notification_channel_desc">פעיל בזמן ש-OpenSleep עוקב אחר השינה שלך</string>
+    <string name="notification_tracking_title">מעקב שינה פעיל</string>
+    <string name="notification_tracking_text">OpenSleep מנטר את דפוסי השינה שלך</string>
+    <string name="notification_syncing_title">מסנכרן נתוני שינה</string>
+    <string name="notification_syncing_text">OpenSleep שומר ומסנכרן את הנתונים שלך…</string>
+    <string name="menu_sleep">שינה</string>
+    <string name="menu_history">היסטוריה</string>
+    <string name="menu_chat">צ׳אט AI</string>
+    <string name="menu_settings">הגדרות</string>
+    <string name="section_language">שפה</string>
+    <string name="section_models">מודלי AI</string>
+    <string name="chat_thinking">חושב…</string>
+    <string name="no_models_downloaded">עדיין לא הורדו מודלי AI. אפשר לעבור להגדרות כדי לבחור ולהוריד מודל Gemma 4.</string>
+    <string name="configure_in_settings">הגדרה בהגדרות</string>
+    <string name="manage_models_in_settings">ניהול מודלים בהגדרות</string>
+    <string name="loading_model">טוען את המודל לזיכרון…</string>
+    <string name="chat_loading">טוען…</string>
+    <string name="setting_context_size">גודל חלון ההקשר</string>
+    <string name="active_model">פעיל</string>
+    <string name="ready_to_use">מוכן לשימוש</string>
+    <string name="delete_session_title">למחוק את הסשן?</string>
+    <string name="delete_session_message">סשן השינה הזה ונתוני הבריאות שלו יימחקו לצמיתות.</string>
+    <string name="delete_confirm">מחיקה</string>
+    <string name="cancel">ביטול</string>
+        <string name="bedtime">שעת שינה</string>
+    <string name="wake_up">השכמה</string>
+    <string name="duration">משך</string>
+    <string name="sleep_stages">שלבי שינה</string>
+    <string name="sleep_pattern">דפוס שינה</string>
+    <string name="sleep_pattern_legend">ער · REM · קלה · עמוקה  (מלמעלה למטה)</string>
+    <string name="total_sleep">סה״כ</string>
+    <string name="stage_awake">ער</string>
+    <string name="stage_light">קלה</string>
+    <string name="stage_deep">עמוקה</string>
+    <string name="stage_rem">REM</string>
+    <string name="chart_day">יום</string>
+    <string name="chart_week">שבוע</string>
+    <string name="chart_month">חודש</string>
+    <string name="chart_year">שנה</string>
+    <string name="select_all">בחירת הכול</string>
+    <string name="select">בחירה</string>
+    <string name="delete_selected">מחיקת הנבחרים</string>
+    <string name="section_about">אודות ופרטיות</string>
+    <string name="privacy_tos">מדיניות פרטיות ותנאים</string>
+    <string name="privacy_title">מדיניות פרטיות</string>
+    <string name="privacy_body" formatted="false">OpenSleep מחויב ב-100% לפרטיות שלך.
+
+• עיבוד 100% במכשיר: חיישני התנועה של הטלפון ומאפייני עוצמת קול שמופקים מהמיקרופון מנותחים באופן מקומי לחלוטין. אודיו גולמי לא נשמר, ושום טלמטריה אישית לא יוצאת מהמכשיר שלך.
+• מודל AI מקומי: עוזר השינה מריץ מודל Gemma 4 LLM מקומי לחלוטין, כולו במכשיר (אפס שרתים, ללא ממשקי API חיצוניים).
+• קוד פתוח: OpenSleep הוא פרויקט קוד פתוח שקוף לחלוטין. אפשר לעיין בקוד המקור בכל עת.
+• סנכרון בריאות: סשני השינה נשמרים באופן מקומי ומסונכרנים ישירות עם Google Health Connect.
+• תמיכה: לשאלות או למשוב, אפשר לפנות אלינו בכתובת timmy@opensleep.tech.</string>
+    <string name="github_repo">מאגר GitHub</string>
+    <string name="notifications_disabled_title">ההתראות מושבתות</string>
+    <string name="notifications_disabled_desc">OpenSleep צריך הרשאה לשליחת התראות כדי להריץ מעקב שינה ברקע. אפשר להקיש כאן כדי להפעיל בהגדרות.</string>
+    <string name="health_connect_permissions_title">הפעלת Health Connect</string>
+    <string name="health_connect_permissions_desc">צריך לאשר גישת קריאה/כתיבה לנתוני שינה כדי ש-OpenSleep יוכל לסנכרן סשנים שהסתיימו ולייבא רשומות שינה קיימות.</string>
+    <string name="enable">הפעלה</string>
+    <string name="section_ai_settings">הגדרות צ׳אט AI</string>
+    <string name="setting_use_gpu">שימוש בהאצת GPU</string>
+    <string name="setting_use_gpu_desc">שימוש ב-GPU של הטלפון לתגובות AI מהירות יותר. אפשר להשבית כדי להשתמש ב-CPU.</string>
+    <string name="guide_title">מדריך למעקב שינה</string>
+    <string name="guide_sonar_title">סונאר (ללא מגע)</string>
+    <string name="guide_sonar_desc">יש להניח את הטלפון על שידה יציבה ליד המיטה, כשהחלק התחתון (רמקול/מיקרופון) מופנה לכיוון הגוף/החזה.</string>
+    <string name="guide_accel_title">מד תאוצה (מזרן)</string>
+    <string name="guide_accel_desc">יש להניח את הטלפון שטוח על המזרן ליד הכרית או מתחת לסדין כדי לעקוב אחר תנועת הגוף.</string>
+    <string name="guide_charger_tip">טיפ: כדאי להשאיר את הטלפון מחובר למטען כדי שחיישני המעקב לא ירוקנו את הסוללה.</string>
+    <string name="battery_optimization_title">אופטימיזציית סוללה פעילה</string>
+    <string name="battery_optimization_desc">חיסכון הסוללה של המערכת עלול לסגור את OpenSleep ברקע. אפשר להקיש כאן כדי להשבית את אופטימיזציית הסוללה בהגדרות המערכת.</string>
+
+    <string name="section_sensor">חיישן מעקב</string>
+    <string name="sensor_sonar">סונאר (ללא מגע)</string>
+    <string name="sensor_sonar_desc">יש להניח את הטלפון על השידה כשהוא מופנה לכיוון החזה. משתמש באולטרסאונד.</string>
+    <string name="sensor_accelerometer">מד תאוצה (מזרן)</string>
+    <string name="sensor_accelerometer_desc">יש להניח את הטלפון שטוח על המזרן ליד הכרית.</string>
+    <string name="section_membership">חברות</string>
+    <string name="paywall_title">OpenSleep Lifetime Premium</string>
+    <string name="paywall_subtitle">ניתוח והכוונת שינה אישיים, מבוססים על מודל AI של Google שפועל במכשיר.</string>
+    <string name="paywall_feature1_title">הכוונת שינה אישית</string>
+    <string name="paywall_feature1_desc">מנתח את דפוסי השינה, השלבים והאיכות שלך כדי לתת עצות מותאמות אישית.</string>
+    <string name="paywall_feature2_title">AI של Google במכשיר</string>
+    <string name="paywall_feature2_desc">מבוסס על מודל AI מתקדם של Google שפועל במכשיר. פרטי ב-100% ועובד גם ללא חיבור לאינטרנט.</string>
+    <string name="paywall_feature3_title">הודעות ללא הגבלה</string>
+    <string name="paywall_feature3_desc">אפשר לשלוח הודעות ללא הגבלה ולשאול כל שאלה על שינה.</string>
+    <string name="paywall_feature4_title">גישה לכל החיים</string>
+    <string name="paywall_feature4_desc">משלמים פעם אחת ומשתמשים לתמיד. בלי מינויים, חיובים חוזרים או עלויות נסתרות.</string>
+    <string name="paywall_lifetime_badge">לכל החיים</string>
+    <string name="paywall_one_time_badge">תשלום חד-פעמי</string>
+    <string name="paywall_lifetime_heading">OpenSleep Lifetime Premium</string>
+    <string name="paywall_no_subscription_note">משלמים פעם אחת ופותחים את מאמן השינה מבוסס ה-AI לתמיד. ללא חיובים חוזרים.</string>
+    <string name="paywall_unlock_button">פתיחת גישה לכל החיים</string>
+    <string name="paywall_unlock_with_price">פתיחת גישה לכל החיים · %s</string>
+    <string name="paywall_restore_button">שחזור רכישות</string>
+    <string name="paywall_terms_privacy">התשלום יחויב בחשבון Google Play שלך. רכישה חד-פעמית ללא מינוי.</string>
+    <string name="paywall_premium_active">OpenSleep Lifetime Premium פעיל</string>
+    <string name="paywall_lifetime_active_desc">יש לך גישה קבועה למאמן השינה מבוסס ה-AI.</string>
+    <string name="paywall_upgrade_now">פתיחת OpenSleep Lifetime Premium</string>
+</resources>
