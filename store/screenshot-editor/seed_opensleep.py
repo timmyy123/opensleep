@@ -6,7 +6,7 @@
 - Writes app-store-screenshots.json: Midnight Glow Pro theme, localized label + headline per slide,
   decks for iPhone, iPad, iPhone Duo (outer, portrait), Android phone / 7" / 10" tablet and the feature graphic.
 
-Usage: seed_opensleep.py <raw_root>   (re-run any time captures change)
+Usage: seed_opensleep.py [raw_root]   (default: ./captures)   (re-run any time captures change)
 """
 import json
 import os
@@ -15,7 +15,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CAPTIONS = HERE.parent / "screenshots" / "captions"
-UI_LANGS = {"en", "es", "de", "fr", "it", "pt"}
+# Store locale prefix -> app language tag where they differ (Play still uses the legacy iw/no codes).
+APP_LANG = {"iw": "he", "no": "nb"}
 APP_STORE = ["en-US", "de-DE", "es-ES", "es-MX", "fr-FR", "fr-CA", "it", "pt-BR", "pt-PT"]
 PLAY = ["en-US", "ar", "cs-CZ", "da-DK", "de-DE", "es-ES", "es-419", "es-US", "fi-FI", "fr-FR", "hi-IN", "hu-HU", "id",
         "it-IT", "iw-IL", "ja-JP", "ko-KR", "nl-NL", "no-NO", "pl-PL", "pt-BR", "ro", "ru-RU", "sk", "sv-SE", "th",
@@ -38,9 +39,11 @@ SLIDE_FOR = {"chat": "chat", "detail": "stages", "history-week": "history", "hom
 LAYOUT = {"chat": "hero", "detail": "device-bottom", "history-week": "device-top", "home": "hero"}
 
 
-def ui_lang(loc):
+def ui_lang(loc, raw, shots):
+    """App UI language for a store locale: its own language when this device was captured in it, else English."""
     lang = loc.split("-")[0]
-    return lang if lang in UI_LANGS else "en"
+    lang = APP_LANG.get(lang, lang)
+    return lang if all((raw / lang / f"{s}.png").exists() for s in shots) else "en"
 
 
 def link(src, dst):
@@ -66,15 +69,16 @@ def text_for(loc, key, field):
 
 
 def main():
-    raw_root = Path(sys.argv[1])
+    raw_root = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "captures"
     public = HERE / "public" / "screenshots"
     decks, report = {}, []
     for deck, (raw_name, sub, shots) in DECKS.items():
         raw = raw_root / raw_name
-        available = [s for s in shots if all((raw / ui_lang(l) / f"{s}.png").exists() for l in LOCALES)]
+        available = [s for s in shots if (raw / "en" / f"{s}.png").exists()]
         for loc in LOCALES:
+            lang = ui_lang(loc, raw, available)
             for i, s in enumerate(available, 1):
-                link(raw / ui_lang(loc) / f"{s}.png", public / sub / loc / f"{i:02d}.png")
+                link(raw / lang / f"{s}.png", public / sub / loc / f"{i:02d}.png")
         slides = []
         for i, s in enumerate(available, 1):
             key = SLIDE_FOR[s]

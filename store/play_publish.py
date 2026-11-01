@@ -3,7 +3,8 @@
 
 Usage: play_publish.py --sa <service-account.json> --aab <app-release.aab> --mapping <mapping.txt>
                        --listings store/listings --shots <final_root>/play [--track production] [--commit]
-Without --commit the edit is validated and then deleted (dry run).
+                       [--locales nl-NL,ja-JP]
+Without --commit the edit is validated and then deleted (dry run). Without --aab only the store listing changes.
 """
 import argparse
 import json
@@ -66,9 +67,10 @@ class Play:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sa", required=True); ap.add_argument("--aab", required=True); ap.add_argument("--mapping")
+    ap.add_argument("--sa", required=True); ap.add_argument("--aab"); ap.add_argument("--mapping")
     ap.add_argument("--listings", required=True); ap.add_argument("--shots", required=True)
     ap.add_argument("--track", default="production"); ap.add_argument("--commit", action="store_true")
+    ap.add_argument("--locales", help="comma-separated Play locales to update (default: all)")
     a = ap.parse_args()
 
     p = Play(a.sa)
@@ -89,6 +91,8 @@ def main():
         for f in sorted(Path(a.listings).glob("*.json")):
             d = json.loads(f.read_text(encoding="utf-8"))
             for lang in d.get("playLocales", []):
+                if a.locales and lang not in a.locales.split(","):
+                    continue
                 pl = d["play"]
                 st, r = p.call("PUT", f"{E}/listings/{lang}", {"language": lang, "title": pl["title"],
                                "shortDescription": pl["shortDescription"], "fullDescription": pl["fullDescription"]})
@@ -108,11 +112,13 @@ def main():
                         img_note.append(f"{t}={len(pngs)}")
                 print(f"listing {lang}: ok {' '.join(img_note)}")
 
-        st, r = p.call("POST", f"{UPLOAD}/edits/{edit}/bundles?uploadType=media", raw=Path(a.aab).read_bytes(),
-                       ctype="application/octet-stream")
-        if st >= 300:
-            fail(f"bundle upload: {st} {r.get('error', r)}")
+        if not a.aab:
+            print("no --aab: store listing only, release unchanged")
+        elif (res := p.call("POST", f"{UPLOAD}/edits/{edit}/bundles?uploadType=media", raw=Path(a.aab).read_bytes(),
+                            ctype="application/octet-stream"))[0] >= 300:
+            fail(f"bundle upload: {res[0]} {res[1].get('error', res[1])}")
         else:
+            r = res[1]
             vc = r["versionCode"]
             print(f"bundle uploaded: versionCode {vc}")
             if a.mapping and Path(a.mapping).exists():

@@ -20,3 +20,6 @@ public/fonts/imported/*
 
 # OpenSleep: device captures are hard-linked in by seed_opensleep.py (46 MB across 34 locales); not tracked.
 public/screenshots/
+
+# Raw device captures (seed_opensleep.py input); not tracked.
+captures/
