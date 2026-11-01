@@ -20,21 +20,32 @@ final class StoreKitManager: ObservableObject {
     @Published var errorMessage: String? = nil
     
     @AppStorage("opensleep_is_premium_lifetime") private var cachedIsPremium: Bool = false
-    
+    @AppStorage("opensleep_first_launch_restore_done") private var firstLaunchRestoreDone: Bool = false
+
     private var transactionListenerTask: Task<Void, Never>? = nil
-    
+
     init() {
         // Fast optimistic initial state from local cache
         self.isPremium = cachedIsPremium
-        
+
         // Start background transaction listener for real-time StoreKit updates
         transactionListenerTask = listenForTransactions()
-        
+
         // Check current entitlements and load product details
         Task {
             await updatePurchasedStatus()
             await loadProduct()
+            await restoreOnFirstLaunch()
         }
+    }
+
+    /// One restore on the first launch of a fresh install: sync the App Store transaction history for this
+    /// Apple ID so an existing lifetime purchase unlocks without a Restore tap.
+    private func restoreOnFirstLaunch() async {
+        guard !firstLaunchRestoreDone, !isPremium else { return }
+        firstLaunchRestoreDone = true
+        try? await AppStore.sync()
+        await updatePurchasedStatus()
     }
     
     deinit {
