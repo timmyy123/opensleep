@@ -1,9 +1,19 @@
 {
   "locale": "sv-SE",
-  "appStoreLocales": [],
+  "appStoreLocales": [
+    "sv"
+  ],
   "playLocales": [
     "sv-SE"
   ],
+  "appStore": {
+    "name": "OpenSleep: Sömnmätare & AI",
+    "subtitle": "Offline AI-coach utan klocka",
+    "keywords": "sömn,sömnfaser,rem,djupsömn,lätt,sömncykel,sonar,kontaktlös,privat,hälsa,natt,vila,läggdags,sova",
+    "promotionalText": "Nu på svenska! Mät dina sömnfaser utan klocka eller ring. AI-sömncoachen körs offline på din iPhone, så din sömndata stannar hos dig.",
+    "description": "OpenSleep mäter dina sömnfaser utan klocka eller ring och förklarar dem med en AI-sömncoach som körs helt på din iPhone.\n\nMÄT SÖMNEN UTAN WEARABLE\nVälj hur din iPhone ska följa natten:\n• Sonar (kontaktlös): Lägg din iPhone på nattduksbordet. OpenSleep använder ljudnivån i rummet för att fånga upp tecken på sömn. Rått ljud spelas aldrig in och sparas aldrig.\n• Madrassläge: Lägg din iPhone platt på madrassen bredvid kudden och låt rörelsesensorn följa dina rörelser.\n\nVARJE FAS AV DIN NATT\n• Vaken, REM, lätt och djup sömn i en ring med sömnfaser och ett diagram över sömnmönstret hela natten\n• Läggdags, uppvakningstid och total sömn för varje session\n• Historik med dags-, vecko-, månads- och årsvy för att upptäcka trender\n\nEN AI-SÖMNCOACH SOM STANNAR I DIN TELEFON\nFråga om din sömn, dina rutiner eller varför du vaknar trött. Coachen är en stor språkmodell som körs på din enhet, så dina frågor och svar skickas aldrig till en server. Ladda ned modellen en gång och chatta sedan även utan uppkoppling.\n\nFUNGERAR MED APPEN HÄLSA\nOpenSleep sparar dina sömnsessioner och sömnfaser i appen Hälsa och kan visa sömn som redan finns registrerad där.\n\nINTEGRITET FRÅN GRUNDEN\n• Inget konto och ingen registrering\n• Sömnanalysen sker på din iPhone\n• Öppen källkod: vem som helst kan läsa koden\n\nFinns på 22 språk, bland annat svenska.\n\nSömnmätningen är gratis. AI-sömncoachen är ett engångsköp utan prenumeration.\n\nOpenSleep är ett verktyg för välmående, inte en medicinteknisk produkt. Prata med en läkare om du är orolig för din sömn eller hälsa.",
+    "whatsNew": "• Nu på svenska och 15 andra nya språk, totalt 22\n• De sista oöversatta skärmarna och etiketterna är nu översatta"
+  },
   "play": {
     "title": "OpenSleep: Sömnmätare & AI",
     "shortDescription": "Mät dina sömnfaser utan klocka. Privat AI-sömncoach som fungerar offline.",

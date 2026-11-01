@@ -1,9 +1,19 @@
 {
   "locale": "tr-TR",
-  "appStoreLocales": [],
+  "appStoreLocales": [
+    "tr"
+  ],
   "playLocales": [
     "tr-TR"
   ],
+  "appStore": {
+    "name": "OpenSleep: Uyku Takibi ve AI",
+    "subtitle": "Offline AI koçu, saat gerekmez",
+    "keywords": "yapay,zeka,çevrimdışı,evre,derin,hafif,rem,döngü,sonar,temassız,gizli,sağlık,gece,dinlenme,analiz",
+    "promotionalText": "Artık Türkçe! Uyku evrelerinizi saat ya da bileklik olmadan takip edin. Yapay zekâ uyku koçu iPhone'unuzda çevrimdışı çalışır, verileriniz sizde kalır.",
+    "description": "OpenSleep, saat veya yüzük olmadan uyku evrelerinizi takip eder ve tamamen iPhone'unuzda çalışan bir yapay zekâ uyku koçuyla bunları size açıklar.\n\nGİYİLEBİLİR CİHAZ OLMADAN UYKU TAKİBİ\niPhone'unuzun geceyi nasıl dinleyeceğini seçin:\n• Sonar (temassız): iPhone'unuzu komodinin üzerine bırakın. OpenSleep, uyku belirtilerini yakalamak için ortamdaki ses seviyelerini kullanır. Ham ses asla kaydedilmez veya saklanmaz.\n• Yatak modu: iPhone'unuzu yastığınızın yanında, yatağın üzerine düz şekilde koyun; hareket sensörü hareketlerinizi takip etsin.\n\nGECENİZİN HER EVRESİ\n• Uyanık, REM, hafif ve derin uyku; evre halkasında ve tüm geceyi gösteren uyku düzeni grafiğinde\n• Her oturum için yatma saati, uyanma saati ve toplam uyku süresi\n• Eğilimleri görmek için gün, hafta, ay ve yıl görünümleriyle geçmiş\n\nTELEFONUNUZDAN ÇIKMAYAN BİR YAPAY ZEKÂ UYKU KOÇU\nUykunuzu, rutininizi ya da neden yorgun uyandığınızı sorun. Koç, cihazınızda çalışan büyük bir dil modelidir; bu yüzden sorularınız ve yanıtlar asla bir sunucuya gönderilmez. Modeli bir kez indirin, ardından internet bağlantısı olmadan da sohbet edin.\n\nSAĞLIK UYGULAMASIYLA ÇALIŞIR\nOpenSleep, uyku oturumlarınızı ve evrelerinizi Apple'ın Sağlık uygulamasına kaydeder ve orada zaten kayıtlı olan uykuyu da gösterebilir.\n\nGİZLİLİK ODAKLI TASARIM\n• Hesap yok, kayıt yok\n• Uyku analizi iPhone'unuzda yapılır\n• Açık kaynak: herkes kodu inceleyebilir\n\nTürkçe dahil 22 dilde kullanılabilir.\n\nUyku takibi ücretsizdir. Yapay Zekâ Uyku Koçu, abonelik gerektirmeyen tek seferlik bir satın alımdır.\n\nOpenSleep bir sağlıklı yaşam (wellness) aracıdır, tıbbi bir cihaz değildir. Uykunuz veya sağlığınızla ilgili her türlü endişe için bir doktora danışın.",
+    "whatsNew": "• Artık Türkçe dahil 16 yeni dilde, toplam 22 dilde kullanılabilir\n• Henüz çevrilmemiş ekranlar ve etiketler de çevrildi"
+  },
   "play": {
     "title": "OpenSleep: Uyku Takibi ve AI",
     "shortDescription": "Saat ya da bileklik olmadan uyku evreleri. Çevrimdışı, gizli AI uyku koçu.",

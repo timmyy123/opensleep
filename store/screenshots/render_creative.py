@@ -24,7 +24,8 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 W, H = 5244, 2950
 SAFE = (1921, 660, 3323, 1622)
 APP_STORE = ["en-US", "de-DE", "es-ES", "es-MX", "fr-FR", "fr-CA", "it", "pt-BR", "pt-PT"]
-UI_LANGS = {"en", "es", "de", "fr", "it", "pt"}
+# Store locale prefix -> app language tag where they differ (Play still uses the legacy iw/no codes).
+APP_LANG = {"iw": "he", "no": "nb"}
 
 # Frame PNG is 1470x3000 with the 1320x2868 screen cutout at (75, 66).
 FRAME_W, FRAME_H, SCR_X, SCR_Y, SCR_W, SCR_H, SCR_R = 1470, 3000, 75, 66, 1320, 2868, 200
@@ -37,9 +38,12 @@ PHONES = [
 ]
 
 
-def ui_lang(locale):
+def ui_lang(locale, raw_root):
+    """App UI language for a locale: its own language when the iPhone was captured in it, else English."""
     lang = locale.split("-")[0]
-    return lang if lang in UI_LANGS else "en"
+    lang = APP_LANG.get(lang, lang)
+    shots = raw_root / "iphone69-farm" / lang
+    return lang if all((shots / f"{name}.png").exists() for name, *_ in PHONES) else "en"
 
 
 def phone_html(src, cx, cy, scale, rot, z):
@@ -52,7 +56,7 @@ def phone_html(src, cx, cy, scale, rot, z):
 
 
 def page(locale, raw_root, tagline):
-    shots = raw_root / "iphone69-farm" / ui_lang(locale)
+    shots = raw_root / "iphone69-farm" / ui_lang(locale, raw_root)
     phones = "".join(phone_html((shots / f"{name}.png").as_uri(), *rest) for name, *rest in PHONES)
     sx0, sy0, sx1, sy1 = SAFE
     lines = "<br>".join(html.escape(l) for l in tagline.split("\n"))
