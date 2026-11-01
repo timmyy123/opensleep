@@ -39,10 +39,25 @@ class ModelDownloadManager: NSObject, ObservableObject, URLSessionDownloadDelega
 
     @MainActor @Published var downloadStates: [ModelVariant: DownloadState] = [:]
 
+    // Holds either a ModelVariant raw value or `appleIntelligenceId`.
     @AppStorage("active_model_variant") private var activeVariantId: String = ""
+    private static let appleIntelligenceId = "apple_intelligence"
+
     var activeVariant: ModelVariant? {
         get { ModelVariant(rawValue: activeVariantId) }
-        set { activeVariantId = newValue?.rawValue ?? "" }
+        set {
+            objectWillChange.send()
+            activeVariantId = newValue?.rawValue ?? ""
+        }
+    }
+
+    /// The sleep coach should use Apple's on-device Foundation Model instead of a downloaded model.
+    var usesAppleIntelligence: Bool {
+        get { activeVariantId == Self.appleIntelligenceId }
+        set {
+            objectWillChange.send()
+            activeVariantId = newValue ? Self.appleIntelligenceId : ""
+        }
     }
 
     @Published var contextWindowSizes: [ModelVariant: Int] = [:]

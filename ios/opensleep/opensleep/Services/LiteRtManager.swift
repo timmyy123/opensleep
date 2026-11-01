@@ -29,19 +29,15 @@ class LiteRtManager: ObservableObject {
         engine = nil
 
         do {
-            ExperimentalFlags.optIntoExperimentalAPIs()
-            if ModelInfo(modelPath: path)?.llm?.hasSpeculativeDecodingSupport() == true {
-                ExperimentalFlags.enableSpeculativeDecoding = true
-            } else {
-                ExperimentalFlags.enableSpeculativeDecoding = false
-            }
+            let supportsSpeculative = ModelInfo(modelPath: path)?.llm?.hasSpeculativeDecodingSupport() == true
 
             let config = try EngineConfig(
                 modelPath: path,
                 backend: .gpu,
                 visionBackend: nil,
                 audioBackend: nil,
-                maxNumTokens: contextSize
+                maxNumTokens: contextSize,
+                speculativeDecodingConfig: SpeculativeDecodingConfig(mode: supportsSpeculative ? .on : .off)
             )
             let e = Engine(engineConfig: config)
             try await e.initialize()

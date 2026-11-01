@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var tracker: SleepTrackerService
     @EnvironmentObject var storeKit: StoreKitManager
+    @EnvironmentObject var appleCoach: AppleIntelligenceCoach
     @ObservedObject var downloadManager: ModelDownloadManager
     @AppStorage("app_language") private var selectedLanguage = "en"
     @State private var showPrivacySheet = false
@@ -134,6 +135,10 @@ struct SettingsView: View {
                             .font(AppTextStyle.titleLarge)
                             .foregroundStyle(Color.indigoLight)
 
+                        if appleCoach.isSupportedDevice {
+                            AppleIntelligenceCard(downloadManager: downloadManager)
+                        }
+
                         ForEach(ModelVariant.allCases) { variant in
                             let state = downloadManager.downloadStates[variant] ?? .idle
                             ModelDownloadCard(
@@ -193,6 +198,7 @@ struct SettingsView: View {
             }
             .scrollIndicators(.hidden)
             .scrollEdgeEffectStyle(.soft, for: .top)
+            .onAppear { appleCoach.refreshAvailability() }
             .sheet(isPresented: $showPrivacySheet) {
                 PrivacySheetView()
             }
@@ -258,6 +264,79 @@ struct SettingsView: View {
                 .frame(maxWidth: fullWidth ? .infinity : nil)
                 .background(Color.indigoAccent)
                 .clipShape(Capsule())
+        }
+    }
+}
+
+struct AppleIntelligenceCard: View {
+    @ObservedObject var downloadManager: ModelDownloadManager
+    @EnvironmentObject var appleCoach: AppleIntelligenceCoach
+
+    var body: some View {
+        GlassCard(padding: 16) {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "apple.intelligence")
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundStyle(Color.indigoLight)
+                            Text(verbatim: "Apple Intelligence")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundStyle(Color.textPrimary)
+                        }
+                        Text("apple_intelligence_desc")
+                            .font(AppTextStyle.bodyMedium)
+                            .foregroundStyle(Color.textSecondary)
+                    }
+                    Spacer()
+
+                    if appleCoach.availability == .available {
+                        if downloadManager.usesAppleIntelligence {
+                            Text("active_model")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundStyle(Color.indigoLight)
+                        } else {
+                            Button {
+                                downloadManager.usesAppleIntelligence = true
+                            } label: {
+                                Text("Select")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(Color.textPrimary)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(Color.indigoAccent)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                            }
+                        }
+                    } else if appleCoach.availability == .modelNotReady {
+                        ProgressView()
+                            .tint(Color.indigoLight)
+                    }
+                }
+
+                switch appleCoach.availability {
+                case .available:
+                    HStack(spacing: 6) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 14))
+                            .foregroundStyle(Color.indigoLight)
+                        Text("ready_to_use")
+                            .font(AppTextStyle.labelSmall)
+                            .foregroundStyle(Color.indigoLight)
+                    }
+                case .notEnabled:
+                    Text("apple_intelligence_not_enabled")
+                        .font(AppTextStyle.labelSmall)
+                        .foregroundStyle(Color.textSecondary)
+                case .modelNotReady:
+                    Text("apple_intelligence_not_ready")
+                        .font(AppTextStyle.labelSmall)
+                        .foregroundStyle(Color.textSecondary)
+                case .unsupported:
+                    EmptyView()
+                }
+            }
         }
     }
 }

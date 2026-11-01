@@ -1,9 +1,15 @@
 import SwiftUI
 import SwiftData
 
+private enum CoachBackend {
+    case appleIntelligence
+    case liteRt(ModelVariant)
+}
+
 struct AIChatView: View {
     @ObservedObject var liteRt: LiteRtManager
     @ObservedObject var downloadManager: ModelDownloadManager
+    @EnvironmentObject var appleCoach: AppleIntelligenceCoach
     @Query(sort: \SleepSession.startDate, order: .reverse) private var sessions: [SleepSession]
     @Query(sort: \ChatMessage.timestamp, order: .forward) private var allMessages: [ChatMessage]
 
@@ -22,6 +28,17 @@ struct AIChatView: View {
 
     private var messages: [ChatMessage] {
         allMessages.filter { $0.sessionId == chatSessionId }
+    }
+
+    /// Apple Intelligence when the user picked it (or has nothing downloaded), otherwise the selected Gemma model.
+    private var backend: CoachBackend? {
+        if downloadManager.usesAppleIntelligence, appleCoach.isAvailable {
+            return .appleIntelligence
+        }
+        if let variant = downloadManager.activeVariant ?? ModelVariant.allCases.first(where: { downloadManager.isDownloaded($0) }) {
+            return .liteRt(variant)
+        }
+        return appleCoach.isAvailable ? .appleIntelligence : nil
     }
 
     var body: some View {
@@ -91,6 +108,7 @@ struct AIChatView: View {
             }
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: liteRt.state)
         }
+        .onAppear { appleCoach.refreshAvailability() }
     }
 
     private var chatHeader: some View {
@@ -109,8 +127,11 @@ struct AIChatView: View {
                     .font(.system(size: 18, weight: .bold))
                     .foregroundStyle(Color.textPrimary)
                 Group {
-                    if liteRt.state == .ready {
-                        Text(downloadManager.downloadStates.first(where: { $0.value == .done })?.key.displayName ?? "")
+                    if case .appleIntelligence = backend {
+                        Text(verbatim: "Apple Intelligence")
+                            .foregroundStyle(Color.cyanAccent)
+                    } else if liteRt.state == .ready, case .liteRt(let variant) = backend {
+                        Text(variant.displayName)
                             .foregroundStyle(Color.cyanAccent)
                     } else {
                         Text("no_model_loaded")
@@ -167,8 +188,7 @@ struct AIChatView: View {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty, !isGenerating else { return }
 
-        let variantToLoad = downloadManager.activeVariant ?? ModelVariant.allCases.first(where: { downloadManager.isDownloaded($0) })
-        guard let variant = variantToLoad else { return }
+        guard let backend else { return }
 
         inputText = ""
 
@@ -180,8 +200,15 @@ struct AIChatView: View {
         streamingText = ""
 
         Task {
-            if liteRt.state != .ready {
-                let contextSize = downloadManager.contextWindowSizes[variant] ?? 4096
+            let contextSize: Int
+            switch backend {
+            case .appleIntelligence:
+                // Free the Gemma engine's memory while Apple's model is in use.
+                if liteRt.state != .unloaded { liteRt.unload() }
+                contextSize = AppleIntelligenceCoach.contextSize
+            case .liteRt(let variant):
+                contextSize = downloadManager.contextWindowSizes[variant] ?? 4096
+                // No-op when this variant is already loaded; reloads after switching models.
                 await liteRt.loadModel(at: downloadManager.modelPath(variant), contextSize: contextSize)
                 if case .error = liteRt.state {
                     isGenerating = false
@@ -192,7 +219,6 @@ struct AIChatView: View {
             let systemPrompt = buildSystemPrompt()
 
             // Build conversation history respecting selected context size & response headroom
-            let contextSize = downloadManager.contextWindowSizes[variant] ?? 4096
             let headroom = max(512, contextSize / 4)
             let maxInputTokens = contextSize - headroom
 
@@ -224,11 +250,13 @@ struct AIChatView: View {
             }
 
             var response = ""
-            let stream = liteRt.sendMessage(
-                history: prunedHistory,
-                newMessage: text,
-                systemPrompt: systemPrompt
-            )
+            let stream: AsyncStream<String>
+            switch backend {
+            case .appleIntelligence:
+                stream = appleCoach.sendMessage(history: prunedHistory, newMessage: text, systemPrompt: systemPrompt)
+            case .liteRt:
+                stream = liteRt.sendMessage(history: prunedHistory, newMessage: text, systemPrompt: systemPrompt)
+            }
             for await chunk in stream {
                 streamingText += chunk
                 response = streamingText
